@@ -27,6 +27,10 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard')->middleware('auth');
 
+Route::get('/galeri', function(){
+    return view('galeri');
+})->name('galeri')->middleware('auth');
+
 Route::get('/tables', function () {
     return view('tables');
 })->name('tables')->middleware('auth');
