@@ -6,5 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class PemerintahDesa extends Model
 {
-    //
+    use HasFactory;
+    protected $table = 'pemerintah_desas'; 
+    protected $fillable = [
+        'nama',
+        'jabatan',
+        'tupoksi',
+        'foto',
+    ];
 }

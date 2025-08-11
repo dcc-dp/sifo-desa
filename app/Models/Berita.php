@@ -6,5 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Berita extends Model
 {
-    //
+    use HasFactory;
+    protected $table = 'beritas'; 
+    protected $fillable = [
+        'id_kategori',
+        'judul',
+        'deskripsi',
+        'gambar',
+    ];
 }
