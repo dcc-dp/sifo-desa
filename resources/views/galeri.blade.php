@@ -155,7 +155,7 @@
                                             <div class="col-sm-3 mt-auto">
                                                 <h4 class="text-dark font-weight-bolder">#6</h4>
                                                 <p class="text-dark opacity-6 text-xs font-weight-bolder mb-0">Name</p>
-                                                <h5 class="text-dark font-weight-bolder">Rompro</h5>
+                                                <h5 class="text-dark font-weight-bolder">Romprot</h5>
                                             </div>
                                             <div class="col-sm-3 ms-auto mt-auto">
                                                 <p class="text-dark opacity-6 text-xs font-weight-bolder mb-0">Category
