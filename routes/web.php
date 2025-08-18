@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\PemerintahController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
@@ -26,6 +27,11 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard')->middleware('auth');
+
+Route::get('/pemerintah-index', [PemerintahController::class, 'index'])
+    ->middleware('auth')
+    ->name('pemerintah-index');
+
 
 Route::get('/tables', function () {
     return view('tables');
