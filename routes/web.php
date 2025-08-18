@@ -28,8 +28,12 @@ Route::get('/dashboard', function () {
 })->name('dashboard')->middleware('auth');
 
 Route::get('/galeri', function(){
-    return view('galeri');
+    return view('admin.galeri.galeri');
 })->name('galeri')->middleware('auth');
+
+Route::get('/sejarah', function(){
+    return view('admin.sejarahDesa.sejarah');
+})->name('sejarah_desa')->middleware('auth');
 
 Route::get('/tables', function () {
     return view('tables');
