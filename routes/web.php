@@ -24,11 +24,17 @@ Route::get('/', function () {
     return redirect('/dashboard');
 })->middleware('auth');
 
+Route::middleware('auth')->group(function () {
+    Route::prefix('admin')->group(function () {
+        Route::get('/pemerintah-index', [PemerintahController::class, 'index'])->name('pemerintah-index');
+    });
+});
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard')->middleware('auth');
 
-Route::get('/pemerintah-index', [PemerintahController::class, 'index'])
+Route::get('/pemerintah-index', [PemerintahController::class, 'indexx'])
     ->middleware('auth')
     ->name('pemerintah-index');
 
