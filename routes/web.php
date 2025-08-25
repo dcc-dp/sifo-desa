@@ -35,6 +35,14 @@ Route::get('/sejarah', function(){
     return view('admin.sejarahDesa.sejarah');
 })->name('sejarah_desa')->middleware('auth');
 
+Route::get('/sejarah/tambah', function(){
+    return view('admin.sejarahDesa.tambah');
+})->name('tambah')->middleware('auth');
+
+Route::get('/sejarah/detail', function(){
+    return view('admin.sejarahDesa.sejarahDetail');
+})->name('sejarah_detail')->middleware('auth');
+
 Route::get('/tables', function () {
     return view('tables');
 })->name('tables')->middleware('auth');

@@ -48,7 +48,7 @@
                 <div class="d-md-flex align-items-center mb-4">
                         <button type="button"
                             class="btn btn-sm btn-dark btn-icon d-flex align-items-center mb-0 ms-md-auto"
-                            onclick="location.href='/tambah'">
+                            onclick="location.href='/sejarah/tambah'">
                             <span class="btn-inner--text">Tambah</span>
                         </button>
                     </div>
