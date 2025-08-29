@@ -27,16 +27,25 @@ Route::get('/', function () {
 Route::middleware('auth')->group(function () {
     Route::prefix('admin')->group(function () {
         Route::get('/pemerintah-index', [PemerintahController::class, 'index'])->name('pemerintah-index');
+        Route::get('/pemerintah-create', [PemerintahController::class, 'create'])->name('pemerintah-create');
+        Route::post('/pemerintah-store', [PemerintahController::class, 'store'])->name('pemerintah-store');
+        Route::get('/pemerintah-edit/{id}', [PemerintahController::class, 'edit'])->name('pemerintah-edit');
+        Route::put('/pemerintah-update/{id}', [PemerintahController::class, 'update'])->name('pemerintah-update');
+        Route::delete('/pemerintah-destroy/{id}', [PemerintahController::class, 'destroy'])->name('pemerintah-destroy');
     });
 });
+
+// Route::get('/tes', function () {
+//     return view('admin.pemerintah.tes');
+// })->name('tes');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard')->middleware('auth');
 
-Route::get('/pemerintah-index', [PemerintahController::class, 'indexx'])
-    ->middleware('auth')
-    ->name('pemerintah-index');
+// Route::get('/pemerintah-index', [PemerintahController::class, 'indexx'])
+//     ->middleware('auth')
+//     ->name('pemerintah-index');
 
 
 Route::get('/tables', function () {

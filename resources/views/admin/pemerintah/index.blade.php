@@ -24,7 +24,7 @@
                                                     d="M6.25 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM3.25 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM19.75 7.5a.75.75 0 00-1.5 0v2.25H16a.75.75 0 000 1.5h2.25v2.25a.75.75 0 001.5 0v-2.25H22a.75.75 0 000-1.5h-2.25V7.5z" />
                                             </svg>
                                         </span>
-                                        <span class="btn-inner--text">Tambah Pemerintah</span>
+                                        <a href="{{ route('pemerintah-create') }}" class="btn-primary"> Tambah Pemerintah</a>
                                     </button>
                                 </div>
                             </div>
@@ -62,40 +62,34 @@
                                             <th class="text-secondary small fw-semibold opacity-75">Nama</th>
                                             <th class="text-secondary small fw-semibold opacity-75">Jabatan</th>
                                             <th class="text-secondary small fw-semibold opacity-75">Foto</th>
-                                            <th class="text-secondary small fw-semibold opacity-75">Aksi</th>
-                                            <th class="text-secondary small fw-semibold opacity-75">Tugas Pokok</th>
+                                            <th class="text-secondary small fw-semibold opacity-75">Tugas Pokok Aksi</th>
                                             <th class="text-secondary small fw-semibold opacity-75">Action</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Said Sudirman</td>
-                                                <td>Kepala Desa</td>
-                                                <td>
-                                                    <img src="../assets/img/foto pdh (1).jpg" alt="Foto" class="rounded" width="60">
-                                                </td>
-                                                <td>Mengatur dan mengawasi seluruh kegiatan desa</td>
-                                                <td>Foya-foya bossssssss</td>
-                                                <td>
-                                                    <button class="btn btn-sm btn-primary">Edit</button>
-                                                    <button class="btn btn-sm btn-danger">Delete</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>Alfina Syarif</td>
-                                                <td>Presiden</td>
-                                                <td>
-                                                    <img src="../assets/img/team-2.jpg" alt="Foto" class="rounded" width="60">
-                                                </td>
-                                                <td>Pimpin Negara!!!</td>
-                                                <td>Makan Yupi Ajaaaa</td>
-                                                <td>
-                                                    <button class="btn btn-sm btn-primary">Edit</button>
-                                                    <button class="btn btn-sm btn-danger">Delete</button>
-                                                </td>
-                                            </tr>
+                                            @foreach ($pemerintahs as $pemerintah )
+                                                <tr>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $pemerintah->nama }}</td>
+                                                    <td>{{ $pemerintah->jabatan }}</td>
+                                                    <td>
+                                                        @if ($pemerintah->foto && file_exists(public_path($pemerintah->foto)))
+                                                            <img src="{{ asset( $pemerintah->foto) }}" alt="Foto" class="rounded" width="60">
+                                                        @else
+                                                            <span class="text-muted">Tidak Ada Foto Pemerintah</span>
+                                                        @endif
+                                                    </td>
+                                                    <td>{{ $pemerintah->tupoksi }}</td>
+                                                    <td>
+                                                        <form action="{{ route('pemerintah-destroy', $pemerintah->id) }}" method="POST">
+                                                            <a href="{{ route('pemerintah-edit', $pemerintah->id) }}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i>Edit</a>
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Konfirmasi untuk Hapus pemerintah')" title="Hapus Data"><i class="fa fa-trash"></i>Delete</button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                 </table>
                             </div>
