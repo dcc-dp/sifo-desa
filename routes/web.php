@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AgendaController;
 use App\Http\Controllers\Admin\PemerintahController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -32,6 +33,13 @@ Route::middleware('auth')->group(function () {
         Route::get('/pemerintah-edit/{id}', [PemerintahController::class, 'edit'])->name('pemerintah-edit');
         Route::put('/pemerintah-update/{id}', [PemerintahController::class, 'update'])->name('pemerintah-update');
         Route::get('/pemerintah-destroy/{id}', [PemerintahController::class, 'destroy'])->name('pemerintah-destroy');
+
+        Route::get('/agenda-index', [AgendaController::class, 'index'])->name('agenda-index');
+        Route::get('/agenda-create', [AgendaController::class, 'create'])->name('agenda-create');
+        Route::post('/agenda-store', [AgendaController::class, 'store'])->name('agenda-store');
+        Route::get('/agenda-edit/{id}', [AgendaController::class, 'edit'])->name('agenda-edit');
+        Route::put('/agenda-update/{id}', [AgendaController::class, 'update'])->name('agenda-update');
+        Route::get('/agenda-destroy/{id}', [AgendaController::class, 'destroy'])->name('agenda-destroy');
     });
 });
 
