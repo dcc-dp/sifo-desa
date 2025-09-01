@@ -4,13 +4,12 @@
             style="background-image: url('../../../assets/img/header-blue-purple.jpg'); background-position: bottom;">
         </div>
         <x-app.navbar />
-        <div class="container-fluid px-5 py-4">
-            <form action="{{ route('pemerintah-update', $pemerintahs->id) }}" method="POST" enctype="multipart/form-data">
+        <div class="px-5 py-4 container-fluid ">
+            <form action="{{ route('pemerintah-update', $pemerintahs->id) }}" method="POST">
                 @csrf
                 @method('PUT')
-
-                <div class="row justify-content-center mb-4">
-                    <div class="col-lg-9 col-12">
+                <div class="row">
+                    <div class="col-12">
                         @if (session('error'))
                             <div class="alert alert-danger" role="alert" id="alert">
                                 {{ session('error') }}
@@ -24,72 +23,55 @@
                     </div>
                 </div>
 
-                <div class="row justify-content-center mb-5">
-                    <div class="col-lg-9 col-12">
-                        <div class="card shadow-sm">
-                            <div class="card-header bg-gradient-primary text-white">
-                                <h5 class="mb-0">Edit Data Pemerintah</h5>
+                <div class="mb-5 row">
+                    <div class="col-12 px-4">
+                        <div class="card" id="basic-info">
+                            <div class="card-header">
+                                <h3>Edit Data Pemerintah</h3>
                             </div>
-                            <div class="card-body pt-3">
-                                <div class="row mb-3">
-                                    <div class="col-6">
-                                        <label for="nama" class="form-label">Nama</label>
-                                        <input type="text" name="nama" id="nama"
-                                            class="form-control @error('nama') is-invalid @enderror"
-                                            value="{{ old('nama', $pemerintahs->nama) }}" required>
-                                        @error('nama')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
+                            <div class="pt-0 card-body">
+
+                                <div class="row">
+                                    <div class="col-6 mb-3">
+                                        <label for="nama">Nama</label>
+                                        <input type="text" name="nama" id="nama" value="{{ old('nama', $pemerintahs->nama) }}" class="form-control">
+                                        @error('nama') <span class="text-danger text-sm">{{ $message }}</span> @enderror
                                     </div>
-                                    <div class="col-6">
-                                        <label for="jabatan" class="form-label">Jabatan</label>
-                                        <input type="text" name="jabatan" id="jabatan"
-                                            class="form-control @error('jabatan') is-invalid @enderror"
-                                            value="{{ old('jabatan', $pemerintahs->jabatan) }}" required>
-                                        @error('jabatan')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
+                                    <div class="col-6 mb-3">
+                                        <label for="jabatan">Jabatan</label>
+                                        <input type="text" name="jabatan" id="jabatan" value="{{ old('jabatan', $pemerintahs->jabatan) }}" class="form-control">
+                                        @error('jabatan') <span class="text-danger text-sm">{{ $message }}</span> @enderror
                                     </div>
                                 </div>
-
                                 <div class="mb-3">
-                                    <label for="foto" class="form-label">Foto Pemerintah 
-                                        <small class="text-muted">(kosongkan jika tidak ingin mengubah)</small>
-                                    </label>
-                                    <input type="file" name="foto" id="foto"
-                                        class="form-control @error('foto') is-invalid @enderror"
-                                        accept="image/*">
-                                    @error('foto')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
+                                    <label for="foto" class="form-label">Foto Pemerintah (kosongkan jika tidak ingin mengubah)</label>
+                                    <input type="file" name="foto" id="foto" class="form-control">
 
-                                    @if ($pemerintahs->foto)
-                                        <small class="d-block mt-2">Foto saat ini:</small>
-                                        <img src="{{ asset('storage/' . $pemerintahs->foto) }}" alt="Foto Pemerintah"
-                                            class="img-thumbnail mt-2" width="150">
-                                    @endif
+                                    <div class="mt-2">
+                                        <label>Foto saat ini:</label><br>
+                                        @if($pemerintahs->foto && file_exists(public_path($pemerintahs->foto)))
+                                            <img src="{{ asset($pemerintahs->foto) }}" alt="{{ $pemerintahs->nama }}" width="150" class="img-thumbnail">
+                                        @else
+                                            <span class="text-muted">Belum ada foto</span>
+                                        @endif
+                                    </div>
                                 </div>
 
+
                                 <div class="mb-3">
-                                    <label for="tupoksi" class="form-label">Tugas Pokok Aksi</label>
-                                    <input type="text" name="tupoksi" id="tupoksi"
-                                        class="form-control @error('tupoksi') is-invalid @enderror"
-                                        value="{{ old('tupoksi', $pemerintahs->tupoksi) }}" required>
-                                    @error('tupoksi')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
+                                    <label for="tupoksi">Tugas Pokok Aksi</label>
+                                    <textarea name="tupoksi" id="tupoksi" rows="3" class="form-control">{{ old('tupoksi', $pemerintahs->tupoksi) }}</textarea>
+                                    @error('tupoksi') <span class="text-danger text-sm">{{ $message }}</span> @enderror
                                 </div>
 
-                                <button type="submit" class="btn btn-primary float-end">
-                                    Simpan Perubahan
-                                </button>
+                                <button type="submit" class="mt-4 btn btn-primary float-end">Update Data</button>
+                                <a href="{{ route('pemerintah-index') }}" class="mt-4 btn btn-secondary float-end me-2">Batal</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </form>
         </div>
-
         <x-app.footer />
     </main>
 </x-app-layout>

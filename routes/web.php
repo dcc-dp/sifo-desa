@@ -31,7 +31,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/pemerintah-store', [PemerintahController::class, 'store'])->name('pemerintah-store');
         Route::get('/pemerintah-edit/{id}', [PemerintahController::class, 'edit'])->name('pemerintah-edit');
         Route::put('/pemerintah-update/{id}', [PemerintahController::class, 'update'])->name('pemerintah-update');
-        Route::delete('/pemerintah-destroy/{id}', [PemerintahController::class, 'destroy'])->name('pemerintah-destroy');
+        Route::get('/pemerintah-destroy/{id}', [PemerintahController::class, 'destroy'])->name('pemerintah-destroy');
     });
 });
 
