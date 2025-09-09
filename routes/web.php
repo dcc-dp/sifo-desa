@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\GaleriController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
@@ -27,9 +28,13 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard')->middleware('auth');
 
-Route::get('/galeri', function(){
-    return view('admin.galeri.galeri');
-})->name('galeri')->middleware('auth');
+// Route::get('/galeri', function(){
+//     return view('admin.galeri.galeri');
+// })->name('galeri')->middleware('auth');
+
+Route::get('/galeri',[GaleriController::class,'index'])->name('galeri')->middleware('auth');
+
+Route::get('/tambah',[GaleriController::class,'tambah'])->name('tambahGambar')->middleware('auth');
 
 Route::get('/sejarah', function(){
     return view('admin.sejarahDesa.sejarah');
