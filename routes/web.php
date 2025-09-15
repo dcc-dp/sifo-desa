@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\AgendaController;
+use App\Http\Controllers\Admin\BeritaController;
+use App\Http\Controllers\Admin\KategoriController;
 use App\Http\Controllers\Admin\PemerintahController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -40,6 +42,20 @@ Route::middleware('auth')->group(function () {
         Route::get('/agenda-edit/{id}', [AgendaController::class, 'edit'])->name('agenda-edit');
         Route::put('/agenda-update/{id}', [AgendaController::class, 'update'])->name('agenda-update');
         Route::get('/agenda-destroy/{id}', [AgendaController::class, 'destroy'])->name('agenda-destroy');
+
+        Route::get('/kategori-index', [KategoriController::class, 'index'])->name('kategori-index');
+        Route::get('/kategori-create', [KategoriController::class, 'create'])->name('kategori-create');
+        Route::post('/kategori-store', [KategoriController::class, 'store'])->name('kategori-store');
+        Route::get('/kategori-edit/{id}', [KategoriController::class, 'edit'])->name('kategori-edit');
+        Route::put('/kategori-update/{id}', [KategoriController::class, 'update'])->name('kategori-update');
+        Route::get('/kategori-destroy/{id}', [KategoriController::class, 'destroy'])->name('kategori-destroy');
+
+        Route::get('/berita-index', [BeritaController::class, 'index'])->name('berita-index');
+        Route::get('/berita-create', [BeritaController::class, 'create'])->name('berita-create');
+        Route::post('/berita-store', [BeritaController::class, 'store'])->name('berita-store');
+        Route::get('/berita-edit/{id}', [BeritaController::class, 'edit'])->name('berita-edit');
+        Route::put('/berita-update/{id}', [BeritaController::class, 'update'])->name('berita-update');
+        Route::get('/berita-destroy/{id}', [BeritaController::class, 'destroy'])->name('berita-destroy');
     });
 });
 
