@@ -13,5 +13,11 @@ class Galeri extends Model
         'id_batch',
         'gambar',
     ];
+
+    public function batch()
+    {
+        return $this->belongsTo(BatchGaleri::class, 'id_batch');
+    }
+
         
 }

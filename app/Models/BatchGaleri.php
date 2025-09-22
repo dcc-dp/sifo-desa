@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class BatchGaleri extends Model
@@ -11,4 +12,12 @@ class BatchGaleri extends Model
     protected $fillable = [
         'nama',
     ];
+
+    public function galeris()
+    {
+        return $this->hasMany(Galeri::class, 'id_batch');
+    }
+
 }
+
+
