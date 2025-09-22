@@ -31,7 +31,7 @@
                             <div class="pt-0 card-body">
                                 <div class="row">
                                     <div class="col-6 mb-3">
-                                        <label for="id_kategori">Kategori</label>
+                                        <label for="id_kategori">Kategori Berita</label>
                                         <select name="id_kategori" id="id_kategori" class="form-control">
                                             <option value="">-- Pilih Kategori --</option>
                                             @foreach($kategoris as $kategori)
@@ -46,7 +46,7 @@
                                     </div>
 
                                     <div class="col-6 mb-3">
-                                        <label for="judul">Judul</label>
+                                        <label for="judul">Judul Berita</label>
                                         <input type="text" name="judul" id="judul" value="{{ old('judul') }}"
                                             class="form-control">
                                         @error('judul')
@@ -66,7 +66,7 @@
 
                                 <div class="row">
                                     <div class="table-responsive px-3">
-                                        <label for="deskripsi">deskripsi</label>
+                                        <label for="deskripsi">Deskripsi Berita</label>
                                         <textarea name="deskripsi" id="deskripsi" rows="5"
                                             class="form-control">{{ old('deskripsi', auth()->user()->deskripsi) }}</textarea>
                                         @error('deskripsi')

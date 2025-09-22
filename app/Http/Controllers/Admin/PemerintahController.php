@@ -49,14 +49,14 @@ class PemerintahController extends Controller
         return redirect()->route('pemerintah-index')->with('success', 'Pemerintah berhasil ditambahkan.');
     }
 
-    public function edit(string $id)
+    public function edit($id)
     {
         $pemerintahs = PemerintahDesa::findOrFail($id);
         return view('admin.pemerintah.edit', compact('pemerintahs'));
     }
 
     
-    public function update(Request $request, string $id)
+    public function update(Request $request,$id)
     {
         $pemerintahs = PemerintahDesa::findOrFail($id);
 
@@ -85,7 +85,7 @@ class PemerintahController extends Controller
         return redirect()->route('pemerintah-index')->with('success', 'Pemerintah berhasil diupdate.');
     }
 
-    public function destroy(string $id)
+    public function destroy($id)
     {
         $pemerintahs = PemerintahDesa::findOrFail($id);
 

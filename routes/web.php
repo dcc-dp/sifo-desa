@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AgendaController;
 use App\Http\Controllers\Admin\BeritaController;
 use App\Http\Controllers\Admin\KategoriController;
 use App\Http\Controllers\Admin\PemerintahController;
+use App\Http\Controllers\admin\PengaduanController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
@@ -56,6 +57,13 @@ Route::middleware('auth')->group(function () {
         Route::get('/berita-edit/{id}', [BeritaController::class, 'edit'])->name('berita-edit');
         Route::put('/berita-update/{id}', [BeritaController::class, 'update'])->name('berita-update');
         Route::get('/berita-destroy/{id}', [BeritaController::class, 'destroy'])->name('berita-destroy');
+
+        Route::get('/pengaduan-index', [PengaduanController::class, 'index'])->name('pengaduan-index');
+        Route::get('/pengaduan-create', [PengaduanController::class, 'create'])->name('pengaduan-create');
+        Route::post('/pengaduan-store', [PengaduanController::class, 'store'])->name('pengaduan-store');
+        Route::get('/pengaduan-edit/{id}', [PengaduanController::class, 'edit'])->name('pengaduan-edit');
+        Route::put('/pengaduan-update/{id}', [PengaduanController::class, 'update'])->name('pengaduan-update');
+        Route::get('/pengaduan-destroy/{id}', [PengaduanController::class, 'destroy'])->name('pengaduan-destroy');
     });
 });
 

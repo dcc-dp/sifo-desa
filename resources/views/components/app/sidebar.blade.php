@@ -271,7 +271,7 @@
             </li>
             <li class="nav-item border-start my-0 pt-2">
                 <a class="nav-link  {{ is_current_route('dashboard') ? 'active' : '' }}"
-                    href="{{ route('dashboard') }}">
+                    href="{{ route('pengaduan-index') }}">
                     <div
                         class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white"

@@ -61,7 +61,7 @@ class BeritaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
         //
     }
@@ -69,7 +69,7 @@ class BeritaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
         $beritas = Berita::findOrFail($id);
         $kategoris = Kategori::all();
@@ -79,7 +79,7 @@ class BeritaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request,$id)
     {
         $beritas = Berita::findOrFail($id);
 
@@ -111,7 +111,7 @@ class BeritaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
         $beritas = Berita::findOrFail($id);
         if ($beritas->gambar && file_exists(public_path($beritas->gambar))) {

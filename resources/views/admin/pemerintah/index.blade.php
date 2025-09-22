@@ -21,7 +21,7 @@
                         <hr style="height: 2px; color:black;">
                     <div class="card border shadow-xs mb-4">
                         <div class="card-body px-0 py-0 ">
-                            <div class="border-bo[ttom py-3 px-3 d-sm-flex align-items-center">
+                            <div class="border-bottom py-3 px-3 d-sm-flex align-items-center">
                                  <div class="ms-auto d-flex">
                                     <button type="button"
                                         class="btn btn-sm btn-dark btn-icon d-flex align-items-center me-2">

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('gambar');
             $table->string('deskripsi');
             $table->string('file');
-            $table->enum('status', ['1', '2', '3'])->comment('1=Proses, 2=Tolak, 3=Selesai');
+            $table->enum('status', ['1', '2', '3'])->default('1')->comment('1=proses, 2=tolak, 3=selesai');
             $table->boolean('anonymous');
             $table->timestamps();
         });
