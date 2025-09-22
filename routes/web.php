@@ -11,6 +11,7 @@ use App\Http\Controllers\admin\DatapendudukController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\GaleriController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
@@ -72,6 +73,26 @@ Route::get('/dashboard', function () {
 })->name('dashboard')->middleware('auth');
 
 
+// Route::get('/galeri', function(){
+//     return view('admin.galeri.galeri');
+// })->name('galeri')->middleware('auth');
+
+Route::get('/galeri',[GaleriController::class,'index'])->name('galeri')->middleware('auth');
+
+Route::get('/tambah',[GaleriController::class,'tambah'])->name('tambahGambar')->middleware('auth');
+
+Route::get('/sejarah', function(){
+    return view('admin.sejarahDesa.sejarah');
+})->name('sejarah_desa')->middleware('auth');
+
+Route::get('/sejarah/tambah', function(){
+    return view('admin.sejarahDesa.tambah');
+})->name('tambah')->middleware('auth');
+
+Route::get('/sejarah/detail', function(){
+    return view('admin.sejarahDesa.sejarahDetail');
+})->name('sejarah_detail')->middleware('auth');
+
 // Route::get('/pemerintah-index', [PemerintahController::class, 'indexx'])
 //     ->middleware('auth')
 //     ->name('pemerintah-index');
@@ -88,7 +109,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/data.penduduk-destroy/{id}', [DatapendudukController::class, 'destroy'])->name('data.penduduk-destroy');
     });
 });
-
 
 Route::get('/tables', function () {
     return view('tables');
