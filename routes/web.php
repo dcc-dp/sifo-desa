@@ -1,10 +1,12 @@
 <?php
 
+
 use App\Http\Controllers\Admin\AgendaController;
 use App\Http\Controllers\Admin\BeritaController;
 use App\Http\Controllers\Admin\KategoriController;
 use App\Http\Controllers\Admin\PemerintahController;
 use App\Http\Controllers\admin\PengaduanController;
+use App\Http\Controllers\admin\DatapendudukController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
@@ -75,9 +77,23 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard')->middleware('auth');
 
+
 // Route::get('/pemerintah-index', [PemerintahController::class, 'indexx'])
 //     ->middleware('auth')
 //     ->name('pemerintah-index');
+
+
+Route::middleware('auth')->group(function () {
+    Route::prefix('admin')->group(function () {
+        Route::get('/data.penduduk-index', [DatapendudukController::class, 'index'])->name('data.penduduk-index');
+        Route::get('/data.penduduk-create', [DatapendudukController::class, 'create'])->name('data.penduduk-create');
+        Route::post('/data.penduduk-store', [DatapendudukController::class, 'store'])->name('data.penduduk-store');
+        Route::get('/data.penduduk-show/{id}', [DatapendudukController::class, 'show'])->name('data.penduduk-show');
+        Route::get('/data.penduduk-edit/{id}', [DatapendudukController::class, 'edit'])->name('data.penduduk-edit');
+        Route::put('/data.penduduk-update/{id}', [DatapendudukController::class, 'update'])->name('data.penduduk-update');
+        Route::get('/data.penduduk-destroy/{id}', [DatapendudukController::class, 'destroy'])->name('data.penduduk-destroy');
+    });
+});
 
 
 Route::get('/tables', function () {
