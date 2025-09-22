@@ -11,10 +11,14 @@ class DatabaseSeeder extends Seeder
 {
     public function run()
     {
+
         $this->call(PemerintahSeeder::class);
         $this->call(AgendaSeeder::class);
         $this->call(KategoriSeeder::class);
         $this->call(BeritaSeeder::class);
+
+
+        $this->call(DataSeeder::class);
 
         User::factory()->create([
             'nik_id' => '1234567890',
