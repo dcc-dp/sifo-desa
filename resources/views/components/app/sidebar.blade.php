@@ -74,8 +74,8 @@
                 </a>
             </li>
             <li class="nav-item border-start my-0 pt-2">
-                <a class="nav-link  {{ is_current_route('dashboard') ? 'active' : '' }}"
-                    href="{{ route('dashboard') }}">
+                <a class="nav-link  {{ is_current_route('berita-index') ? 'active' : '' }}"
+                    href="{{ route('berita-index') }}">
                     <div
                         class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white"
@@ -91,12 +91,12 @@
 
 
                     </div>
-                    <span class="nav-link-text ms-1">Sejarah Desa</span>
+                    <span class="nav-link-text ms-1">Berita Desa</span>
                 </a>
             </li>
             <li class="nav-item border-start my-0 pt-2">
                 <a class="nav-link  {{ is_current_route('dashboard') ? 'active' : '' }}"
-                    href="{{ route('dashboard') }}">
+                    href="{{ url('/admin/pemerintah-index') }}">
                     <div
                         class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white"
@@ -124,8 +124,8 @@
                 </div>
             </li>
             <li class="nav-item border-start my-0 pt-2">
-                <a class="nav-link  {{ is_current_route('dashboard') ? 'active' : '' }}"
-                    href="{{ route('dashboard') }}">
+                <a class="nav-link  {{ is_current_route('kategori-index') ? 'active' : '' }}"
+                    href="{{ route('kategori-index') }}">
                     <div
                         class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white"
@@ -143,7 +143,7 @@
             </li>
             <li class="nav-item border-start my-0 pt-2">
                 <a class="nav-link  {{ is_current_route('dashboard') ? 'active' : '' }}"
-                    href="{{ route('dashboard') }}">
+                    href="{{ route('agenda-index') }}">
                     <div
                         class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white"
