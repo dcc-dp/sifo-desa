@@ -88,9 +88,9 @@
                                                 <td>
                                                     @php
                                                         $statusLabel = match ($pengaduan->status) {
-                                                        1 => ['Proses', 'bg-warning-subtle text-dark'],
-                                                        2 => ['Ditolak', 'bg-success-subtle text-dark'],
-                                                        3 => ['Diterima', 'bg-danger-subtle text-dark'],
+                                                        1 => ['PROSES', 'bg-warning-subtle text-dark'],
+                                                        2 => ['TOLAK', 'bg-success-subtle text-dark'],
+                                                        3 => ['SELESAI', 'bg-danger-subtle text-dark'],
                                                         default => ['Proses', 'bg-warning-subtle text-dark'],
                                                                                                     };
                                                     @endphp
