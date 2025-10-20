@@ -141,4 +141,16 @@ class DatapendudukController extends Controller
 
         return view('admin.data-penduduk.show', compact('data'));
     }
+
+    public function search(Request $request)
+{
+    $keyword = $request->keyword;
+
+    $data = dataPenduduk::where('nama', 'LIKE', "%{$keyword}%")
+        ->orWhere('nik', 'LIKE', "%{$keyword}%")
+        ->orWhere('alamat', 'LIKE', "%{$keyword}%")
+        ->get();
+    return response()->json($data);
+}
+
 }

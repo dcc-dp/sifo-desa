@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class SuratIzin extends Model
@@ -15,4 +16,8 @@ class SuratIzin extends Model
         'tempat',
         'jenis_acara',
     ];
+
+    public function surat(){
+        return $this->hasOne(Surat::class, 'id','surat_id');
+    }
 }
