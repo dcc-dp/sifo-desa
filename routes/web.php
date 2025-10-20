@@ -3,6 +3,7 @@
 
 use App\Http\Controllers\Admin\AgendaController;
 use App\Http\Controllers\Admin\BeritaController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\KategoriController;
 use App\Http\Controllers\Admin\PemerintahController;
 use App\Http\Controllers\admin\PengaduanController;
@@ -26,9 +27,13 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 |
 */
 
-Route::get('/', function () {
-    return redirect('/dashboard');
-})->middleware('auth');
+// Route::get('/', function () {
+//     return redirect('/dashboard');
+// })->middleware('auth');
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+});
+
 
 Route::middleware('auth')->group(function () {
     Route::prefix('admin')->group(function () {
@@ -73,9 +78,9 @@ Route::middleware('auth')->group(function () {
 //     return view('admin.pemerintah.tes');
 // })->name('tes');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard')->middleware('auth');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->name('dashboard')->middleware('auth');
 
 
 // Route::get('/pemerintah-index', [PemerintahController::class, 'indexx'])
