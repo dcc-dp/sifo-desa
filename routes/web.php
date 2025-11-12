@@ -34,6 +34,24 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });
 
+Route::get('/', function () {
+    return view('pages.home', [
+        'title' => 'Beranda Desa'
+    ]);
+})->name('home');
+
+Route::get('/galeri', function () {
+    return view('pages.profildesa.galeri');
+})->name('galeri');
+
+Route::get('/sejarah', function () {
+    return view('pages.profildesa.sejarah');
+})->name('sejarah');
+
+Route::get('/pemerintah', function () {
+    return view('pages.profildesa.pemerintah');
+})->name('pemerintah');
+
 
 Route::middleware('auth')->group(function () {
     Route::prefix('admin')->group(function () {
