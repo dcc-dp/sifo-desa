@@ -3,11 +3,11 @@
 
 use App\Http\Controllers\Admin\AgendaController;
 use App\Http\Controllers\Admin\BeritaController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\KategoriController;
 use App\Http\Controllers\Admin\PemerintahController;
-
+use App\Http\Controllers\admin\PengaduanController;
 use App\Http\Controllers\admin\DatapendudukController;
-
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
@@ -28,9 +28,31 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 |
 */
 
+// Route::get('/', function () {
+//     return redirect('/dashboard');
+// })->middleware('auth');
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+});
+
 Route::get('/', function () {
-    return redirect('/dashboard');
-})->middleware('auth');
+    return view('pages.home', [
+        'title' => 'Beranda Desa'
+    ]);
+})->name('home');
+
+Route::get('/galeri', function () {
+    return view('pages.profildesa.galeri');
+})->name('galeri');
+
+Route::get('/sejarah', function () {
+    return view('pages.profildesa.sejarah');
+})->name('sejarah');
+
+Route::get('/pemerintah', function () {
+    return view('pages.profildesa.pemerintah');
+})->name('pemerintah');
+
 
 Route::middleware('auth')->group(function () {
     Route::prefix('admin')->group(function () {
@@ -61,6 +83,13 @@ Route::middleware('auth')->group(function () {
         Route::get('/berita-edit/{id}', [BeritaController::class, 'edit'])->name('berita-edit');
         Route::put('/berita-update/{id}', [BeritaController::class, 'update'])->name('berita-update');
         Route::get('/berita-destroy/{id}', [BeritaController::class, 'destroy'])->name('berita-destroy');
+
+        Route::get('/pengaduan-index', [PengaduanController::class, 'index'])->name('pengaduan-index');
+        Route::get('/pengaduan-create', [PengaduanController::class, 'create'])->name('pengaduan-create');
+        Route::post('/pengaduan-store', [PengaduanController::class, 'store'])->name('pengaduan-store');
+        Route::get('/pengaduan-edit/{id}', [PengaduanController::class, 'edit'])->name('pengaduan-edit');
+        Route::put('/pengaduan-update/{id}', [PengaduanController::class, 'update'])->name('pengaduan-update');
+        Route::get('/pengaduan-destroy/{id}', [PengaduanController::class, 'destroy'])->name('pengaduan-destroy');
     });
 });
 
@@ -68,9 +97,9 @@ Route::middleware('auth')->group(function () {
 //     return view('admin.pemerintah.tes');
 // })->name('tes');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard')->middleware('auth');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->name('dashboard')->middleware('auth');
 
 
 // Route::get('/galeri', function(){

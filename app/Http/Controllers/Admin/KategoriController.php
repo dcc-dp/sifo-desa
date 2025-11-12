@@ -44,7 +44,7 @@ class KategoriController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
         $kategori = Kategori::findOrFail($id);
         return view('admin.kategori.show', compact('kategori'));
@@ -53,7 +53,7 @@ class KategoriController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
         $kategori = Kategori::findOrFail($id);
         return view('admin.kategori.edit', compact('kategori'));
@@ -62,7 +62,7 @@ class KategoriController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request,$id)
     {
         $kategori = Kategori::findOrFail($id);
 
@@ -79,7 +79,7 @@ class KategoriController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
         $kategori = Kategori::findOrFail($id);
         $kategori->delete();

@@ -22,8 +22,8 @@ class BeritaSeeder extends Seeder
             ],
             [
                 'id_kategori' => 2,
-                'judul'       => 'Kampanye Kesehatan Masyarakat',
-                'deskripsi'   => 'Kami mengadakan kampanye kesehatan untuk meningkatkan kesadaran masyarakat tentang pentingnya pola hidup sehat dan pencegahan penyakit.',
+                'judul'       => 'Gisi Kepada Masyarakat',
+                'deskripsi'   => 'Kami mengadakan pemberian gizi ke pada para masyarakat desa untuk meningkatkan imun masyarakat tentang pentingnya pola hidup sehat dan pencegahan penyakit.',
                 'gambar'      => 'upload/berita/berita2.jpg',
             ],
             [

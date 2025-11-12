@@ -17,19 +17,19 @@ class PemerintahSeeder extends Seeder
                 'nama'    => 'Said Sudirman',
                 'jabatan' => 'Kepala Desa',
                 'tupoksi' => 'Memimpin penyelenggaraan pemerintahan desa',
-                'foto'    => 'upload/pemerintah/cai.jpg',
+                'foto'    => 'upload/pemerintah/said.png',
             ],
             [
                 'nama'    => 'Alfina Syarif',
                 'jabatan' => 'Sekretaris Desa',
                 'tupoksi' => 'Membantu kepala desa dalam bidang administrasi pemerintahan',
-                'foto'    => 'upload/pemerintah/cai.jpg',
+                'foto'    => 'upload/pemerintah/said.png',
             ],
             [
                 'nama'    => 'Hasniawati',
                 'jabatan' => 'Bendahara Desa',
                 'tupoksi' => 'Mengelola keuangan desa dengan transparan',
-                'foto'    => 'upload/pemerintah/cai.jpg',
+                'foto'    => 'upload/pemerintah/said.png',
             ],
         ];
 
