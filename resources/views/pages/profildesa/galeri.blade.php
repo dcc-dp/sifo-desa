@@ -4,34 +4,123 @@
 
 @section('content')
 
-    <section>
-        <div class="container">
-            <h2><i class="fas fa-images"></i> Galeri Foto Desa</h2>
-
-            <div id="album-list" class="album-grid">
-                <div class="card album-card" onclick="navigate('gallery-detail', {album: 'pembangunan'})">
-                    <img src="https://picsum.photos/400/200?random=9" alt="Album Thumbnail">
-                    <div class="album-name">Pembangunan Infrastruktur</div>
+<section>
+    <div>
+        <div class="position-relative overflow-hidden">
+          <div class="swiper mySwiper mt-4 mb-2">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <div>
+                  <div class="card card-background shadow-none border-radius-xl card-background-after-none align-items-start mb-0">
+                    <div class="full-background bg-cover" style="background-image: url('../../assets/img/img-2.jpg')"></div>
+                    <div class="card-body text-start px-3 py-0 w-100">
+                      <div class="row mt-12">
+                        <div class="col-sm-3 mt-auto">
+                          <h4 class="text-dark font-weight-bolder">#1</h4>
+                          <p class="text-dark opacity-6 text-xs font-weight-bolder mb-0">Name</p>
+                          <h5 class="text-dark font-weight-bolder">Secured</h5>
+                        </div>
+                        <div class="col-sm-3 ms-auto mt-auto">
+                          <p class="text-dark opacity-6 text-xs font-weight-bolder mb-0">Category</p>
+                          <h5 class="text-dark font-weight-bolder">Banking</h5>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div class="card album-card" onclick="navigate('gallery-detail', {album: 'budaya'})">
-                    <img src="https://picsum.photos/400/200?random=10" alt="Album Thumbnail">
-                    <div class="album-name">Acara Adat & Budaya</div>
+              </div>
+              <div class="swiper-slide">
+                <div class="card card-background shadow-none border-radius-xl card-background-after-none align-items-start mb-0">
+                  <div class="full-background bg-cover" style="background-image: url('../../assets/img/img-1.jpg')"></div>
+                  <div class="card-body text-start px-3 py-0 w-100">
+                    <div class="row mt-12">
+                      <div class="col-sm-3 mt-auto">
+                        <h4 class="text-dark font-weight-bolder">#2</h4>
+                        <p class="text-dark opacity-6 text-xs font-weight-bolder mb-0">Name</p>
+                        <h5 class="text-dark font-weight-bolder">Cyber</h5>
+                      </div>
+                      <div class="col-sm-3 ms-auto mt-auto">
+                        <p class="text-dark opacity-6 text-xs font-weight-bolder mb-0">Category</p>
+                        <h5 class="text-dark font-weight-bolder">Security</h5>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div class="card album-card" onclick="navigate('gallery-detail', {album: 'gotongroyong'})">
-                    <img src="https://picsum.photos/400/200?random=11" alt="Album Thumbnail">
-                    <div class="album-name">Kegiatan Gotong Royong</div>
+              </div>
+              <div class="swiper-slide">
+                <div class="card card-background shadow-none border-radius-xl card-background-after-none align-items-start mb-0">
+                  <div class="full-background bg-cover" style="background-image: url('../../assets/img/img-3.jpg')"></div>
+                  <div class="card-body text-start px-3 py-0 w-100">
+                    <div class="row mt-12">
+                      <div class="col-sm-3 mt-auto">
+                        <h4 class="text-dark font-weight-bolder">#3</h4>
+                        <p class="text-dark opacity-6 text-xs font-weight-bolder mb-0">Name</p>
+                        <h5 class="text-dark font-weight-bolder">Alpha</h5>
+                      </div>
+                      <div class="col-sm-3 ms-auto mt-auto">
+                        <p class="text-dark opacity-6 text-xs font-weight-bolder mb-0">Category</p>
+                        <h5 class="text-dark font-weight-bolder">Blockchain</h5>
+                      </div>
+                    </div>
+                  </div>
                 </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="card card-background shadow-none border-radius-xl card-background-after-none align-items-start mb-0">
+                  <div class="full-background bg-cover" style="background-image: url('../../assets/img/img-4.jpg')"></div>
+                  <div class="card-body text-start px-3 py-0 w-100">
+                    <div class="row mt-12">
+                      <div class="col-sm-3 mt-auto">
+                        <h4 class="text-dark font-weight-bolder">#4</h4>
+                        <p class="text-dark opacity-6 text-xs font-weight-bolder mb-0">Name</p>
+                        <h5 class="text-dark font-weight-bolder">Beta</h5>
+                      </div>
+                      <div class="col-sm-3 ms-auto mt-auto">
+                        <p class="text-dark opacity-6 text-xs font-weight-bolder mb-0">Category</p>
+                        <h5 class="text-dark font-weight-bolder">Web3</h5>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="card card-background shadow-none border-radius-xl card-background-after-none align-items-start mb-0">
+                  <div class="full-background bg-cover" style="background-image: url('../../assets/img/img-5.jpg')"></div>
+                  <div class="card-body text-start px-3 py-0 w-100">
+                    <div class="row mt-12">
+                      <div class="col-sm-3 mt-auto">
+                        <h4 class="text-dark font-weight-bolder">#5</h4>
+                        <p class="text-dark opacity-6 text-xs font-weight-bolder mb-0">Name</p>
+                        <h5 class="text-dark font-weight-bolder">Gama</h5>
+                      </div>
+                      <div class="col-sm-3 ms-auto mt-auto">
+                        <p class="text-dark opacity-6 text-xs font-weight-bolder mb-0">Category</p>
+                        <h5 class="text-dark font-weight-bolder">Design</h5>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="card card-background shadow-none border-radius-xl card-background-after-none align-items-start mb-0">
+                  <div class="full-background bg-cover" style="background-image: url('../../assets/img/img-1.jpg')"></div>
+                  <div class="card-body text-start px-3 py-0 w-100">
+                    <div class="row mt-12">
+                      <div class="col-sm-3 mt-auto">
+                        <h4 class="text-dark font-weight-bolder">#6</h4>
+                        <p class="text-dark opacity-6 text-xs font-weight-bolder mb-0">Name</p>
+                        <h5 class="text-dark font-weight-bolder">Rompro</h5>
+                      </div>
+                      <div class="col-sm-3 ms-auto mt-auto">
+                        <p class="text-dark opacity-6 text-xs font-weight-bolder mb-0">Category</p>
+                        <h5 class="text-dark font-weight-bolder">Security</h5>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-
-            <div id="gallery-detail-container" style="display: none;">
-                <button onclick="navigate('gallery')" class="btn btn-secondary" style="margin-bottom: 20px;"><i
-                        class="fas fa-arrow-left"></i> Back to Albums</button>
-                <h2 id="gallery-detail-title">Album: Pembangunan Infrastruktur</h2>
-                <div id="photo-gallery-grid" class="photo-gallery">
-                </div>
-            </div>
-
-        </div>
-    </section>
+          </div>
+</section>
 
 @endsection

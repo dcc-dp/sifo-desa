@@ -33,7 +33,7 @@
                 </div>
             </div>
             <hr class="my-0">
-            <!-- <div class="row">
+            <div class="row">
                 <div class="position-relative overflow-hidden">
                     <div class="swiper mySwiper mt-4 mb-2">
                         <div class="swiper-wrapper">
@@ -171,8 +171,8 @@
                     <div class="swiper-button-prev"></div>
                     <div class="swiper-button-next"></div>
                 </div>
-            </div> -->
-            <!-- <div class="row my-4">
+            </div>
+            <div class="row my-4">
                 <div class="col-lg-4 col-md-6 mb-md-0 mb-4">
                     <div class="card shadow-xs border h-100">
                         <div class="card-header pb-0">
@@ -447,7 +447,7 @@
                         </div>
                     </div>
                 </div>
-            </div> -->
+            </div>
             <div class="row">
                 <div class="col-xl-3 col-sm-6 mb-xl-0">
                     <div class="card border shadow-xs mb-4">
@@ -569,7 +569,7 @@
                     </div>
                 </div>
             </div>
-            <!-- <div class="row">
+            <div class="row">
                 <div class="col-lg-12">
                     <div class="card shadow-xs border">
                         <div class="card-header pb-0">
@@ -605,7 +605,7 @@
                         </div>
                     </div>
                 </div>
-            </div> -->
+            </div>
             <x-app.footer />
         </div>
     </main>

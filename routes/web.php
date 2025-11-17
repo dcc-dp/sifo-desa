@@ -52,6 +52,30 @@ Route::get('/pemerintah', function () {
     return view('pages.profildesa.pemerintah');
 })->name('pemerintah');
 
+Route::get('/penduduk', function () {
+    return view('pages.datastatik.penduduk');
+})->name('penduduk');
+
+Route::get('/pendidikan', function () {
+    return view('pages.datastatik.pendidikan');
+})->name('pendidikan');
+
+Route::get('/pekerjaan', function () {
+    return view('pages.datastatik.pekerjaan');
+})->name('pekerjaan');
+
+Route::get('/agama', function () {
+    return view('pages.datastatik.agama');
+})->name('agama');
+
+Route::get('/pengaduan', function () {
+    return view('pages.layananonline.pengaduan');
+})->name('pengaduan');
+
+Route::get('/pengajuan', function () {
+    return view('pages.layananonline.pengajuan');
+})->name('pengajuan');
+
 
 Route::middleware('auth')->group(function () {
     Route::prefix('admin')->group(function () {
