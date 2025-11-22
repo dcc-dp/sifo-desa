@@ -76,6 +76,18 @@ Route::get('/pengajuan', function () {
     return view('pages.layananonline.pengajuan');
 })->name('pengajuan');
 
+Route::get('/beritas', function () {
+    return view('pages.pengaduandanberita.beritas');
+})->name('beritas');
+
+Route::get('/agenda', function () {
+    return view('pages.pengaduandanberita.agenda');
+})->name('agenda');
+
+Route::get('/berita', function () {
+    return view('pages.pengaduandanberita.berita');
+})->name('berita');
+
 
 Route::middleware('auth')->group(function () {
     Route::prefix('admin')->group(function () {

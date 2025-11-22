@@ -5,14 +5,17 @@
 @section('content')
 
 <section>
-    <div>
-        <div class="position-relative overflow-hidden">
+        <div class="row">
+
+        
+        <div class="position-relative">
+
           <div class="swiper mySwiper mt-4 mb-2">
             <div class="swiper-wrapper">
               <div class="swiper-slide">
                 <div>
                   <div class="card card-background shadow-none border-radius-xl card-background-after-none align-items-start mb-0">
-                    <div class="full-background bg-cover" style="background-image: url('../../assets/img/img-2.jpg')"></div>
+                    <div class="full-background bg-cover" style="background-image: url('../assets/img/img-2.jpg')"></div>
                     <div class="card-body text-start px-3 py-0 w-100">
                       <div class="row mt-12">
                         <div class="col-sm-3 mt-auto">
@@ -31,7 +34,7 @@
               </div>
               <div class="swiper-slide">
                 <div class="card card-background shadow-none border-radius-xl card-background-after-none align-items-start mb-0">
-                  <div class="full-background bg-cover" style="background-image: url('../../assets/img/img-1.jpg')"></div>
+                  <div class="full-background bg-cover" style="background-image: url('../assets/img/img-1.jpg')"></div>
                   <div class="card-body text-start px-3 py-0 w-100">
                     <div class="row mt-12">
                       <div class="col-sm-3 mt-auto">
@@ -49,7 +52,7 @@
               </div>
               <div class="swiper-slide">
                 <div class="card card-background shadow-none border-radius-xl card-background-after-none align-items-start mb-0">
-                  <div class="full-background bg-cover" style="background-image: url('../../assets/img/img-3.jpg')"></div>
+                  <div class="full-background bg-cover" style="background-image: url('../assets/img/img-3.jpg')"></div>
                   <div class="card-body text-start px-3 py-0 w-100">
                     <div class="row mt-12">
                       <div class="col-sm-3 mt-auto">
@@ -67,7 +70,7 @@
               </div>
               <div class="swiper-slide">
                 <div class="card card-background shadow-none border-radius-xl card-background-after-none align-items-start mb-0">
-                  <div class="full-background bg-cover" style="background-image: url('../../assets/img/img-4.jpg')"></div>
+                  <div class="full-background bg-cover" style="background-image: url('../assets/img/img-4.jpg')"></div>
                   <div class="card-body text-start px-3 py-0 w-100">
                     <div class="row mt-12">
                       <div class="col-sm-3 mt-auto">
@@ -85,7 +88,7 @@
               </div>
               <div class="swiper-slide">
                 <div class="card card-background shadow-none border-radius-xl card-background-after-none align-items-start mb-0">
-                  <div class="full-background bg-cover" style="background-image: url('../../assets/img/img-5.jpg')"></div>
+                  <div class="full-background bg-cover" style="background-image: url('../assets/img/img-5.jpg')"></div>
                   <div class="card-body text-start px-3 py-0 w-100">
                     <div class="row mt-12">
                       <div class="col-sm-3 mt-auto">
@@ -103,7 +106,7 @@
               </div>
               <div class="swiper-slide">
                 <div class="card card-background shadow-none border-radius-xl card-background-after-none align-items-start mb-0">
-                  <div class="full-background bg-cover" style="background-image: url('../../assets/img/img-1.jpg')"></div>
+                  <div class="full-background bg-cover" style="background-image: url('../assets/img/img-1.jpg')"></div>
                   <div class="card-body text-start px-3 py-0 w-100">
                     <div class="row mt-12">
                       <div class="col-sm-3 mt-auto">
@@ -119,8 +122,14 @@
                   </div>
                 </div>
               </div>
-            </div>
+              </div>
           </div>
+
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
+
+        </div>
+      </div>
 </section>
 
 @endsection

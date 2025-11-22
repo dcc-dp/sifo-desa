@@ -24,8 +24,8 @@
                         <i class="fas fa-newspaper" style="margin-right:5px;"></i> Berita dan Agenda
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#"><i class="fas fa-list" style="margin-right:8px;"></i> Kategori Berita</a></li>
-                        <li><a href="#"><i class="fas fa-calendar-alt" style="margin-right:8px;"></i> Agenda
+                        <li><a href="{{ route('beritas') }}"><i class="fas fa-list" style="margin-right:8px;"></i> Kategori Berita</a></li>
+                        <li><a href="{{ (route('agenda')) }}"><i class="fas fa-calendar-alt" style="margin-right:8px;"></i> Agenda
                                 Kegiatan</a></li>
                     </ul>
                 </li>
