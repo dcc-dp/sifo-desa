@@ -48,9 +48,13 @@ Route::get('/sejarah', function () {
     return view('pages.profildesa.sejarah');
 })->name('sejarah');
 
-Route::get('/pemerintah', function () {
-    return view('pages.profildesa.pemerintah');
-})->name('pemerintah');
+Route::get('/pemerintah', [UserController::class, 'pemerintah'])->name('pemerintah');
+
+Route::get('/berita', [UserController::class, 'berita'])->name('berita');
+
+Route::get('/kategori', [UserController::class, 'kategori'])->name('kategori');
+
+Route::get('/agenda', [UserController::class, 'agenda'])->name('agenda');
 
 Route::get('/penduduk', function () {
     return view('pages.datastatik.penduduk');
@@ -76,17 +80,8 @@ Route::get('/pengajuan', function () {
     return view('pages.layananonline.pengajuan');
 })->name('pengajuan');
 
-Route::get('/beritas', function () {
-    return view('pages.pengaduandanberita.beritas');
-})->name('beritas');
 
-Route::get('/agenda', function () {
-    return view('pages.pengaduandanberita.agenda');
-})->name('agenda');
 
-Route::get('/berita', function () {
-    return view('pages.pengaduandanberita.berita');
-})->name('berita');
 
 
 Route::middleware('auth')->group(function () {
