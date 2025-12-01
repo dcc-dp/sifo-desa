@@ -31,9 +31,6 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 // Route::get('/', function () {
 //     return redirect('/dashboard');
 // })->middleware('auth');
-Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-});
 
 Route::get('/', function () {
     return view('pages.home', [
@@ -49,12 +46,44 @@ Route::get('/sejarah', function () {
     return view('pages.profildesa.sejarah');
 })->name('sejarah');
 
-Route::get('/pemerintah', function () {
-    return view('pages.profildesa.pemerintah');
-})->name('pemerintah');
+Route::get('/pemerintah', [UserController::class, 'pemerintah'])->name('pemerintah');
+
+Route::get('/berita', [UserController::class, 'berita'])->name('berita');
+
+Route::get('/kategori', [UserController::class, 'kategori'])->name('kategori');
+
+Route::get('/agenda', [UserController::class, 'agenda'])->name('agenda');
+
+Route::get('/penduduk', function () {
+    return view('pages.datastatik.penduduk');
+})->name('penduduk');
+
+Route::get('/pendidikan', function () {
+    return view('pages.datastatik.pendidikan');
+})->name('pendidikan');
+
+Route::get('/pekerjaan', function () {
+    return view('pages.datastatik.pekerjaan');
+})->name('pekerjaan');
+
+Route::get('/agama', function () {
+    return view('pages.datastatik.agama');
+})->name('agama');
+
+Route::get('/pengaduan', function () {
+    return view('pages.layananonline.pengaduan');
+})->name('pengaduan');
+
+Route::get('/pengajuan', function () {
+    return view('pages.layananonline.pengajuan');
+})->name('pengajuan');
+
+
+
 
 
 Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::prefix('admin')->group(function () {
         Route::get('/pemerintah-index', [PemerintahController::class, 'index'])->name('pemerintah-index');
         Route::get('/pemerintah-create', [PemerintahController::class, 'create'])->name('pemerintah-create');

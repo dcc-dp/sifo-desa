@@ -18,7 +18,7 @@
                         <h3><i class="fas fa-newspaper"></i> Latest News</h3>
                         <div class="news-list">
                             <div class="article" onclick="navigate('news-detail', {id: 1})">
-                                <img src="https://picsum.photos/60/60?random=2" alt="News Image">
+                                <img src="/upload/berita/berita1.jpg" alt="News Image">
                                 <div>
                                     <h4>Pembangunan Jalan Baru Desa Berjalan Lancar</h4>
                                     <span><i class="fas fa-calendar-alt"></i> 25 Okt 2025</span>

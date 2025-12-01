@@ -8,33 +8,18 @@
         <div class="container">
             <h2><i class="fas fa-users"></i> Struktur Pemerintahan Desa</h2>
             <div class="gov-grid">
+                @foreach ($pemerintahs as $pemerintah)
                 <div class="card official-card">
-                    <img src="{{URL::asset('/upload/pemerintah/said.png')}}" alt="Official Photo">
-                    <h4>Said Sudirman</h4>
-                    <p class="position">Kepala Desa</p>
-                    <p class="duties">Bertanggung jawab atas penyelenggaraan pemerintahan, pembangunan, dan pelayanan
-                        masyarakat desa.</p>
+                    @if($pemerintah->foto)
+                        <img src="{{ asset($pemerintah->foto) }}" class="img-fluid w-100" alt="{{ $pemerintah->nama }}">
+                    @else
+                        <img src="{{ asset('/upload/pemerintah/default.jpg') }}" class="img-fluid w-100" alt="Default pemerintah" style="height: px; object-fit: cover;">
+                    @endif
+                    <h4>{{ $pemerintah->nama }}</h4>
+                    <p class="position">{{ $pemerintah->jabatan }}</p>
+                    <p class="duties">{{ $pemerintah->tupoksi }}</p>
                 </div>
-                <div class="card official-card">
-                    <img src="{{URL::asset('/upload/pemerintah/said.png')}}" alt="Official Photo">
-                    <h4>Al-Fina Syarif</h4>
-                    <p class="position">Sekretaris Desa</p>
-                    <p class="duties">Membantu Kepala Desa dalam bidang administrasi dan memberikan pelayanan teknis
-                        administrasi.</p>
-                </div>
-                <div class="card official-card">
-                    <img src="{{URL::asset('/upload/pemerintah/said.png')}}" alt="Official Photo">
-                    <h4>Hasniawati</h4>
-                    <p class="position">Kepala Urusan Keuangan</p>
-                    <p class="duties">Melaksanakan pengelolaan administrasi keuangan desa, termasuk penerimaan dan
-                        pengeluaran.</p>
-                </div>
-                <div class="card official-card">
-                    <img src="{{URL::asset('/upload/pemerintah/said.png')}}" alt="Official Photo">
-                    <h4>Dewi Lestari</h4>
-                    <p class="position">Kepala Seksi Pemerintahan</p>
-                    <p class="duties">Membantu Kades dalam pelaksanaan urusan tata praja, pertanahan, dan kependudukan.</p>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>

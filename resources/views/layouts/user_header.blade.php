@@ -15,7 +15,7 @@
                     <ul class="dropdown-menu">
                         <li><a href="{{ route('galeri') }}"><i class="fas fa-images" style="margin-right:8px;"></i> Galeri Desa</a></li>
                         <li><a href="{{ route('sejarah') }}"><i class="fas fa-history" style="margin-right:8px;"></i> Sejarah Desa</a></li>
-                        <li><a href="{{ route('pemerintah') }}"><i class="fas fa-users" style="margin-right:8px;"></i> Pemerintah Desa</a></li>
+                        <li><a href="{{ url('/pemerintah') }}"><i class="fas fa-users" style="margin-right:8px;"></i> Pemerintah Desa</a></li>
                     </ul>
                 </li>
 
@@ -24,8 +24,8 @@
                         <i class="fas fa-newspaper" style="margin-right:5px;"></i> Berita dan Agenda
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#"><i class="fas fa-list" style="margin-right:8px;"></i> Kategori Berita</a></li>
-                        <li><a href="#"><i class="fas fa-calendar-alt" style="margin-right:8px;"></i> Agenda
+                        <li><a href="{{ url('/kategori') }}"><i class="fas fa-list" style="margin-right:8px;"></i> Kategori Berita</a></li>
+                        <li><a href="{{ url('/agenda')}}"><i class="fas fa-calendar-alt" style="margin-right:8px;"></i> Agenda
                                 Kegiatan</a></li>
                     </ul>
                 </li>
@@ -35,12 +35,13 @@
                         <i class="fas fa-chart-bar" style="margin-right:5px;"></i> Data Statistik
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#"><i class="fas fa-users" style="margin-right:8px;"></i> Jumlah Penduduk</a></li>
-                        <li><a href="#"><i class="fas fa-graduation-cap" style="margin-right:8px;"></i> Data
-                                Pendidikan</a></li>
-                        <li><a href="#"><i class="fas fa-briefcase" style="margin-right:8px;"></i> Data Pekerjaan</a>
+                        <li><a href="{{ ('penduduk') }}"><i class="fas fa-users" style="margin-right:8px;"></i> Jumlah Penduduk</a>
                         </li>
-                        <li><a href="#"><i class="fas fa-place-of-worship" style="margin-right:8px;"></i> Data Agama</a>
+                        <li><a href="{{ ('pendidikan') }}"><i class="fas fa-graduation-cap" style="margin-right:8px;"></i> Data Pendidikan</a>
+                        </li>
+                        <li><a href="{{ ('pekerjaan') }}"><i class="fas fa-briefcase" style="margin-right:8px;"></i> Data Pekerjaan</a>
+                        </li>
+                        <li><a href="{{ ('agama') }}"><i class="fas fa-place-of-worship" style="margin-right:8px;"></i> Data Agama</a>
                         </li>
                     </ul>
                 </li>
@@ -50,15 +51,15 @@
                         <i class="fas fa-laptop" style="margin-right:5px;"></i> Layanan Online
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#"><i class="fas fa-envelope-open-text" style="margin-right:8px;"></i> Pengajuan
+                        <li><a href="{{ ('pengajuan') }}"><i class="fas fa-envelope-open-text" style="margin-right:8px;"></i> Pengajuan
                                 Surat</a></li>
-                        <li><a href="#"><i class="fas fa-file-signature" style="margin-right:8px;"></i> Pengaduan</a>
+                        <li><a href="{{ ('pengaduan') }}"><i class="fas fa-file-signature" style="margin-right:8px;"></i> Pengaduan</a>
                         </li>
                     </ul>
                 </li>
 
                 <li class="nav-item">
-                    <a href="" class="btn-login"  style="margin-right:6px;">
+                    <a href="{{ ('sign-in') }}" class="btn-login"  style="margin-right:6px;">
                     Login
                     </a>
                 </li>
