@@ -30,9 +30,6 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 // Route::get('/', function () {
 //     return redirect('/dashboard');
 // })->middleware('auth');
-Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-});
 
 Route::get('/', function () {
     return view('pages.home', [
@@ -85,6 +82,7 @@ Route::get('/pengajuan', function () {
 
 
 Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::prefix('admin')->group(function () {
         Route::get('/pemerintah-index', [PemerintahController::class, 'index'])->name('pemerintah-index');
         Route::get('/pemerintah-create', [PemerintahController::class, 'create'])->name('pemerintah-create');
