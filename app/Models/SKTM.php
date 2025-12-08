@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -14,4 +15,8 @@ class SKTM extends Model
         'pekerjaan',
         'penghasilan',
     ];
+
+    public function surat(){
+        return $this->hasOne(Surat::class, 'id','surat_id');
+    }
 }
