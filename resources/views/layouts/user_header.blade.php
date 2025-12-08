@@ -51,7 +51,7 @@
                         <i class="fas fa-laptop" style="margin-right:5px;"></i> Layanan Online
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="{{ ('pengajuan') }}"><i class="fas fa-envelope-open-text" style="margin-right:8px;"></i> Pengajuan
+                        <li><a href="{{ url('/pengajuan') }}"><i class="fas fa-envelope-open-text" style="margin-right:8px;"></i> Pengajuan
                                 Surat</a></li>
                         <li><a href="{{url('/signin') }}"><i class="fas fa-file-signature" style="margin-right:8px;"></i> Pengaduan</a>
                         </li>
