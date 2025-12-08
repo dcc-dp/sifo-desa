@@ -3,94 +3,76 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Kategori;
 use App\Models\Pengaduan;
-use GuzzleHttp\Promise\Create;
+
 use Illuminate\Http\Request;
 
 class PengaduanController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
-        $pengaduans = Pengaduan::with('kategori')->get();
+        $pengaduans = Pengaduan::with('kategori', 'user')->latest()->get();
         return view('admin.pengaduan.index', compact('pengaduans'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
     public function create()
     {
         $kategoris = Kategori::all();
-        return view('admin.pengaduan.create', compact('kategoris'));
+        return view('pages.layananonline.pengaduan', compact('kategoris'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
+        $validated = $request->validate([
             'kategori_id' => 'required|exists:kategoris,id',
-            'user_id' => 'required|exists:users,id',
-            'judul' => 'required|string',
+            'judul' => 'required|string|max:255',
             'deskripsi' => 'required|string',
-            'gambar' => 'nullable|image',
-            'file' => 'nullable|file|mimes:pdf',
-            'status' => 'required|in:1,2,3',
-            'anonymous' => 'required|boolean',
+            'gambar' => 'nullable|image|mimes:jpg,png,jpeg',
+            'file' => 'nullable|mimes:pdf',
+            'anonymous' => 'nullable|boolean',
         ]);
 
-        Pengaduan::create([
-            'kategori_id' => $validatedData['kategori_id'],
-            'user_id' => $validatedData['user_id'],
-            'judul' => $validatedData['judul'],
-            'deskripsi' => $validatedData['deskripsi'],
-            'status' => $validatedData['status'],
-            'anonymous' => $validatedData['anonymous'],
-        ]);
+        $validated['anonymous'] = $request->anonymous ? 1 : 0;
+        $validated['user_id'] = Auth::id();
+
+        $validated['status'] = 1;
 
         if ($request->hasFile('gambar')) {
-            $gambar = $request->file('gambar');
-            $filename = date('Ymd_His') . '_' . uniqid() . '.' . $gambar->getClientOriginalExtension();
-            $gambar->move(public_path('upload/pengaduan'), $filename);
-            $data['gambar'] = 'upload/pengaduan/' . $filename;
+            $fileName = time() . '_img.' . $request->gambar->extension();
+            $request->gambar->move(public_path('upload/pengaduan'), $fileName);
+            $validated['gambar'] = 'upload/pengaduan/' . $fileName;
         }
 
         if ($request->hasFile('file')) {
-            $file = $request->file('file');
-            $filename = date('Ymd_His') . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('upload/file'), $filename);
-            $data['file'] = 'upload/file/' . $filename;
+            $fileName = time() . '_file.' . $request->file->extension();
+            $request->file->move(public_path('upload/file'), $fileName);
+            $validated['file'] = 'upload/file/' . $fileName;
         }
 
-        return redirect()->route('pengaduan-index')->with('success', 'Pengaduan berhasil ditambahkan.');
+        Pengaduan::create($validated);
+
+        return redirect()->back()->with('success', 'Pengaduan berhasil dikirim.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show($id)
+    public function detailpengaduan($id)
     {
-        //
+        $pengaduan = Pengaduan::with('kategori', 'user')->findOrFail($id);
+        return view('pages.layananonline.detailpengaduan', compact('pengaduan'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit($id)
     {
-        $pengaduan = Pengaduan::findOrFail($id);
+        $pengaduan = Pengaduan::with('kategori')->findOrFail($id);
         $kategoris = Kategori::all();
         return view('admin.pengaduan.edit', compact('pengaduan', 'kategoris'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update(Request $request, $id)
     {
         $pengaduan = Pengaduan::findOrFail($id);
@@ -99,15 +81,13 @@ class PengaduanController extends Controller
             'status' => 'required|in:1,2,3',
         ]);
 
-        $data = $request->only(['status']);
+        $pengaduan->update([
+            'status' => $request->status
+        ]);
 
-        $pengaduan->update($data);
-
-        return redirect()->route('pengaduan-index')->with('success', 'Pengaduan berhasil diperbarui.');
+        return redirect()->route('pengaduan-index')->with('success', 'Status pengaduan berhasil diperbarui.');
     }
 
-
-    /**
-     * Remove the specified resource from storage.
-     */
+    
 }
+

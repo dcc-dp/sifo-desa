@@ -19,6 +19,7 @@ class User extends Authenticatable
      */
      protected $fillable = [
         'nik_id',
+        'name',
         'email',
         'password',
     ];
@@ -44,4 +45,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function penduduk()
+    {
+        return $this->belongsTo(dataPenduduk::class, 'nik_id', 'nik');
+    }
+
 }

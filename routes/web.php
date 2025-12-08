@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\KategoriController;
 use App\Http\Controllers\Admin\PemerintahController;
 use App\Http\Controllers\admin\PengaduanController;
 use App\Http\Controllers\admin\DatapendudukController;
+use App\Http\Controllers\CekNikController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
@@ -15,6 +16,8 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\CekNikController as ControllersCekNikController;
+use App\Http\Controllers\UserLoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -69,14 +72,14 @@ Route::get('/agama', function () {
     return view('pages.datastatik.agama');
 })->name('agama');
 
-Route::get('/pengaduan', function () {
-    return view('pages.layananonline.pengaduan');
-})->name('pengaduan');
+Route::post('/pengaduan/storeLanding', [PengaduanController::class, 'storeLanding'])->name('pengaduan.storeLanding');
+Route::post('/pengaduan/store', [PengaduanController::class, 'store'])->name('pengaduan-store');
+
+Route::get('/pengaduan', [PengaduanController::class, 'create'])->name('pengaduan');
 
 Route::get('/pengajuan', function () {
     return view('pages.layananonline.pengajuan');
 })->name('pengajuan');
-
 
 
 
@@ -167,6 +170,13 @@ Route::get('/profile', function () {
 Route::get('/signin', function () {
     return view('account-pages.signin');
 })->name('signin');
+
+Route::get('/ceknik', [CekNikController::class, 'index'])->name('ceknik');
+Route::post('/ceknik', [CekNikController::class, 'store'])->name('ceknik.store');
+
+Route::get('/user/login', [UserLoginController::class, 'userindex'])->name('userlogin');
+Route::post('/user/login', [UserLoginController::class, 'userlogin'])->name('userlogin.post');
+Route::post('/user/logout', [UserLoginController::class, 'userlogout'])->name('userlogout');
 
 Route::get('/signup', function () {
     return view('account-pages.signup');
