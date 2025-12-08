@@ -3,11 +3,11 @@
 
 use App\Http\Controllers\Admin\AgendaController;
 use App\Http\Controllers\Admin\BeritaController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\KategoriController;
 use App\Http\Controllers\Admin\PemerintahController;
-
+use App\Http\Controllers\admin\PengaduanController;
 use App\Http\Controllers\admin\DatapendudukController;
-
 use App\Http\Controllers\Admin\SuratController;
 use App\Http\Controllers\Admin\SuratDomisiliController;
 use App\Http\Controllers\Admin\SuratPengantarController;
@@ -33,11 +33,62 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 |
 */
 
+// Route::get('/', function () {
+//     return redirect('/dashboard');
+// })->middleware('auth');
+
 Route::get('/', function () {
-    return redirect('/dashboard');
-})->middleware('auth');
+    return view('pages.home', [
+        'title' => 'Beranda Desa'
+    ]);
+})->name('home');
+
+Route::get('/galeri', function () {
+    return view('pages.profildesa.galeri');
+})->name('galeri');
+
+Route::get('/sejarah', function () {
+    return view('pages.profildesa.sejarah');
+})->name('sejarah');
+
+Route::get('/pemerintah', [UserController::class, 'pemerintah'])->name('pemerintah');
+
+Route::get('/berita', [UserController::class, 'berita'])->name('berita');
+
+Route::get('/kategori', [UserController::class, 'kategori'])->name('kategori');
+
+Route::get('/agenda', [UserController::class, 'agenda'])->name('agenda');
+
+Route::get('/penduduk', function () {
+    return view('pages.datastatik.penduduk');
+})->name('penduduk');
+
+Route::get('/pendidikan', function () {
+    return view('pages.datastatik.pendidikan');
+})->name('pendidikan');
+
+Route::get('/pekerjaan', function () {
+    return view('pages.datastatik.pekerjaan');
+})->name('pekerjaan');
+
+Route::get('/agama', function () {
+    return view('pages.datastatik.agama');
+})->name('agama');
+
+Route::get('/pengaduan', function () {
+    return view('pages.layananonline.pengaduan');
+})->name('pengaduan');
+
+Route::get('/pengajuan', function () {
+    return view('pages.layananonline.pengajuan');
+})->name('pengajuan');
+
+
+
+
 
 Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::prefix('admin')->group(function () {
         Route::get('/pemerintah-index', [PemerintahController::class, 'index'])->name('pemerintah-index');
         Route::get('/pemerintah-create', [PemerintahController::class, 'create'])->name('pemerintah-create');
@@ -66,6 +117,13 @@ Route::middleware('auth')->group(function () {
         Route::get('/berita-edit/{id}', [BeritaController::class, 'edit'])->name('berita-edit');
         Route::put('/berita-update/{id}', [BeritaController::class, 'update'])->name('berita-update');
         Route::get('/berita-destroy/{id}', [BeritaController::class, 'destroy'])->name('berita-destroy');
+
+        Route::get('/pengaduan-index', [PengaduanController::class, 'index'])->name('pengaduan-index');
+        Route::get('/pengaduan-create', [PengaduanController::class, 'create'])->name('pengaduan-create');
+        Route::post('/pengaduan-store', [PengaduanController::class, 'store'])->name('pengaduan-store');
+        Route::get('/pengaduan-edit/{id}', [PengaduanController::class, 'edit'])->name('pengaduan-edit');
+        Route::put('/pengaduan-update/{id}', [PengaduanController::class, 'update'])->name('pengaduan-update');
+        Route::get('/pengaduan-destroy/{id}', [PengaduanController::class, 'destroy'])->name('pengaduan-destroy');
     });
 });
 
@@ -73,9 +131,9 @@ Route::middleware('auth')->group(function () {
 //     return view('admin.pemerintah.tes');
 // })->name('tes');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard')->middleware('auth');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->name('dashboard')->middleware('auth');
 
 
 // Route::get('/galeri', function(){

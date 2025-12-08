@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Pengaduan extends Model
 {
@@ -18,4 +19,14 @@ class Pengaduan extends Model
         'status',
         'anonymous',
     ];
+
+    protected $casts = [
+        'anonymous' => 'boolean',
+        'status' => 'integer',
+    ];
+
+    public function kategori()
+    {
+        return $this->belongsTo(Kategori::class, 'kategori_id');
+    }
 }

@@ -496,7 +496,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="w-100">
-                                        <p class="text-sm text-secondary mb-1">Transactions</p>
+                                        <p class="text-sm text-secondary mb-1">{{$pendudukCount }}</p>
                                         <h4 class="mb-2 font-weight-bold">376</h4>
                                         <div class="d-flex align-items-center">
                                             <span class="text-sm text-success font-weight-bolder">

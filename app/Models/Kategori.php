@@ -17,4 +17,9 @@ class Kategori extends Model
     {
         return $this->hasMany(Berita::class, 'id_kategori');
     }
+
+    public function Pengaduans()
+    {
+        return $this->hasMany(Berita::class, 'kategori_id');
+    }
 }
