@@ -7,15 +7,12 @@
     <section>
         <div class="container">
             <h2><i class="fas fa-comment-dots"></i> Sistem Pengaduan Masyarakat</h2>
-                <li class="nav-item">
-                    <form action="{{ route('userlogout') }}" method="POST">
-                        @csrf
-                        <button type="submit" class="btn-login" style="margin-right:6px; border:none; background:none;">
-                            Logout
-                        </button>
-                    </form>
-                </li>
-
+            <form action="{{ route('userlogout') }}" method="POST" style="display:inline;">
+                @csrf
+                <button type="submit" class="btn btn-danger">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </form>
 
             <form action="{{ route('pengaduan-store') }}" method="POST" enctype="multipart/form-data">
                 @csrf

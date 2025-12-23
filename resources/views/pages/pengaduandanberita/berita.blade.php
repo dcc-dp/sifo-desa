@@ -7,20 +7,8 @@
     <section>
             <div class="container">
                 <h2><i class="fas fa-bullhorn"></i> Berita Desa Terbaru</h2>
-                
-                <div class="filter-bar">
-                    <div class="search-bar">
-                        <input type="text" placeholder="judul berita...">
-                    </div>
-                    <!-- <div class="filter-category">
-                        <select>
-                            <option value="">All Categories</option>
-                            <option value="pembangunan">Pembangunan</option>
-                            <option value="sosial">Sosial & Budaya</option>
-                            <option value="ekonomi">Ekonomi</option>
-                        </select>
-                    </div> -->
-                </div>
+
+                <h3>Berita Kategori: {{ $kategori->nama_kategori }}</h3>
 
                 <div class="news-grid">
                     @foreach ($beritas as $berita)

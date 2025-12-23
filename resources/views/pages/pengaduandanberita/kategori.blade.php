@@ -22,13 +22,13 @@
                                             <div class="full-background bg-cover"
                                                 style="background-image: url('../assets/img/img-2.jpg')"></div>
                                             <div class="card-body text-start px-3 py-0 w-100">
-                                                <div class="row mt-12">
+                                                <div class="row mt-12"> 
                                                     <div class="col-sm-3 mt-auto">
-                                                        <a href="{{ url('/berita') }}">
+                                                        <a href="{{ route('show-kategori', $kategori->slug) }}">
                                                             <h2 class="text-dark font-weight-bolder">#{{ $kategori->nama_kategori}}</h2>
                                                         </a>
-                                                        <a href="{{ url('/berita') }}">
-                                                            <h4 class="text-dark font-weight-bolder">{{ $beritaCount}} Berita</h4>
+                                                        <a href="{{ route('show-kategori', $kategori->slug) }}">
+                                                            <h4 class="text-dark font-weight-bolder">{{ $kategori->beritas_count }} Berita</h4>
                                                         </a>
                                                     </div>
                                                 </div>

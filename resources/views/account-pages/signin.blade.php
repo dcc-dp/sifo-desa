@@ -11,7 +11,7 @@
 
         <h2>Login to Account</h2>
 
-        {{-- Tampilkan Error Login --}}
+        
         @if(session('error'))
             <div style="color: red; margin-bottom: 10px;">
                 {{ session('error') }}
