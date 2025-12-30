@@ -11,7 +11,12 @@ class Galeri extends Model
     protected $table = 'galeris'; 
     protected $fillable = [
         'id_batch',
+        'judul',
         'gambar',
     ];
         
+    public function batchGaleri()
+    {
+        return $this->belongsTo(BatchGaleri::class, 'id_batch');
+    }
 }

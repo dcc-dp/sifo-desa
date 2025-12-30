@@ -9,6 +9,8 @@
 
     {{-- File CSS kamu --}}
     <link rel="stylesheet" href="{{ asset('assets/css/user/style.css') }}">
+
+    @stack('styles')
 </head>
 <body>
     
@@ -163,5 +165,7 @@
         var agamaChart = new ApexCharts(document.querySelector("#agamaChart"), agamaOptions);
         agamaChart.render();
     </script>
+
+    @stack('scripts')
 </body>
 </html>

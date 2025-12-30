@@ -6,8 +6,8 @@ use App\Http\Controllers\Admin\BeritaController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\KategoriController;
 use App\Http\Controllers\Admin\PemerintahController;
-use App\Http\Controllers\admin\PengaduanController;
-use App\Http\Controllers\admin\DatapendudukController;
+use App\Http\Controllers\Admin\PengaduanController;
+use App\Http\Controllers\Admin\DatapendudukController;
 use App\Http\Controllers\Admin\SuratController;
 use App\Http\Controllers\Admin\SuratDomisiliController;
 use App\Http\Controllers\Admin\SuratPengantarController;
@@ -16,11 +16,13 @@ use App\Http\Controllers\Admin\SuratIzinController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\GaleriController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Admin\BatchGaleriController;
+use App\Http\Controllers\StatistikController;
+use App\Http\Controllers\UserGaleriController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,13 +45,9 @@ Route::get('/', function () {
     ]);
 })->name('home');
 
-Route::get('/galeri', function () {
-    return view('pages.profildesa.galeri');
-})->name('galeri');
+Route::get('/galeri', [UserGaleriController::class, 'index'])->name('user.galeri');
+Route::get('/galeri/{batch}', [UserGaleriController::class, 'show'])->name('user.galeri.show');
 
-Route::get('/sejarah', function () {
-    return view('pages.profildesa.sejarah');
-})->name('sejarah');
 
 Route::get('/pemerintah', [UserController::class, 'pemerintah'])->name('pemerintah');
 
@@ -59,9 +57,8 @@ Route::get('/kategori', [UserController::class, 'kategori'])->name('kategori');
 
 Route::get('/agenda', [UserController::class, 'agenda'])->name('agenda');
 
-Route::get('/penduduk', function () {
-    return view('pages.datastatik.penduduk');
-})->name('penduduk');
+Route::get('/statistik-penduduk', [StatistikController::class, 'statistikPenduduk'])->name('user.statistik.penduduk');
+
 
 Route::get('/pendidikan', function () {
     return view('pages.datastatik.pendidikan');
@@ -124,45 +121,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/pengaduan-edit/{id}', [PengaduanController::class, 'edit'])->name('pengaduan-edit');
         Route::put('/pengaduan-update/{id}', [PengaduanController::class, 'update'])->name('pengaduan-update');
         Route::get('/pengaduan-destroy/{id}', [PengaduanController::class, 'destroy'])->name('pengaduan-destroy');
-    });
-});
 
-// Route::get('/tes', function () {
-//     return view('admin.pemerintah.tes');
-// })->name('tes');
-
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->name('dashboard')->middleware('auth');
-
-
-// Route::get('/galeri', function(){
-//     return view('admin.galeri.galeri');
-// })->name('galeri')->middleware('auth');
-
-Route::get('/galeri',[GaleriController::class,'index'])->name('galeri')->middleware('auth');
-
-Route::get('/tambah',[GaleriController::class,'tambah'])->name('tambahGambar')->middleware('auth');
-
-Route::get('/sejarah', function(){
-    return view('admin.sejarahDesa.sejarah');
-})->name('sejarah_desa')->middleware('auth');
-
-Route::get('/sejarah/tambah', function(){
-    return view('admin.sejarahDesa.tambah');
-})->name('tambah')->middleware('auth');
-
-Route::get('/sejarah/detail', function(){
-    return view('admin.sejarahDesa.sejarahDetail');
-})->name('sejarah_detail')->middleware('auth');
-
-// Route::get('/pemerintah-index', [PemerintahController::class, 'indexx'])
-//     ->middleware('auth')
-//     ->name('pemerintah-index');
-
-
-Route::middleware('auth')->group(function () {
-    Route::prefix('admin')->group(function () {
         Route::get('/data.penduduk-index', [DatapendudukController::class, 'index'])->name('data.penduduk-index');
         Route::get('/data.penduduk-create', [DatapendudukController::class, 'create'])->name('data.penduduk-create');
         Route::post('/data.penduduk-store', [DatapendudukController::class, 'store'])->name('data.penduduk-store');
@@ -189,7 +148,15 @@ Route::middleware('auth')->group(function () {
         Route::put('/suratdomisili-update/{id}', [SuratDomisiliController::class, 'update'])->name('suratdomisili.update');
         Route::get('/suratdomisili-destroy/{id}', [SuratDomisiliController::class, 'destroy'])->name('suratdomisili.destroy');
         Route::get('/search', [SuratDomisiliController::class, 'search'])->name('surat.search');
-   
+
+        Route::get('/batchgaleri', [BatchGaleriController::class, 'index'])->name('batchgaleri.index');
+        Route::get('/batchgaleri/create', [BatchGaleriController::class, 'create'])->name('batchgaleri.create');
+        Route::post('/batchgaleri/store', [BatchGaleriController::class, 'store'])->name('batchgaleri.store');
+
+        Route::get('/batchgaleri/{id}/edit', [BatchGaleriController::class, 'edit'])->name('batchgaleri.edit');
+        Route::put('/batchgaleri/{id}', [BatchGaleriController::class, 'update'])->name('batchgaleri.update');
+        Route::get('/batchgaleri/{id}', [BatchGaleriController::class, 'show'])->name('batchgaleri.show');
+        Route::delete('/batchgaleri/{id}', [BatchGaleriController::class, 'destroy'])->name('batchgaleri.destroy');
 
         Route::get('/suratpengantar-index', [SuratPengantarController::class, 'index'])->name('suratpengantar.index');
         Route::get('/suratpengantar-create', [SuratPengantarController::class, 'create'])->name('suratpengantar.create');
@@ -217,8 +184,40 @@ Route::middleware('auth')->group(function () {
         Route::put('/suratizin/{id}', [SuratIzinController::class, 'update'])->name('suratizin.update');
         Route::delete('/suratizin/{id}', [SuratIzinController::class, 'destroy'])->name('suratizin.destroy');
         Route::get('/suratizin-search', [SuratIzinController::class, 'search'])->name('suratizin.search');
-            });
- });
+    });
+});
+
+// Route::get('/tes', function () {
+//     return view('admin.pemerintah.tes');
+// })->name('tes');
+
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->name('dashboard')->middleware('auth');
+
+
+// Route::get('/galeri', function(){
+//     return view('admin.galeri.galeri');
+// })->name('galeri')->middleware('auth');
+
+
+
+Route::get('/sejarah', function () {
+    return view('admin.sejarahDesa.sejarah');
+})->name('sejarah_desa')->middleware('auth');
+
+Route::get('/sejarah/tambah', function () {
+    return view('admin.sejarahDesa.tambah');
+})->name('tambah')->middleware('auth');
+
+Route::get('/sejarah/detail', function () {
+    return view('admin.sejarahDesa.sejarahDetail');
+})->name('sejarah_detail')->middleware('auth');
+
+// Route::get('/pemerintah-index', [PemerintahController::class, 'indexx'])
+//     ->middleware('auth')
+//     ->name('pemerintah-index');
+
 Route::get('/tables', function () {
     return view('tables');
 })->name('tables')->middleware('auth');

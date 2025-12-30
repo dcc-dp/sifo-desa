@@ -28,6 +28,10 @@
                                     <td>{{ $data->tanggal_lahir }}</td>
                                 </tr>
                                 <tr>
+                                    <th>Jenis Kelamin</th>
+                                    <td>{{ $data->jenis_kelamin }}</td>
+                                </tr>
+                                <tr>
                                     <th>Alamat</th>
                                     <td>{{ $data->alamat }}</td>
                                 </tr>

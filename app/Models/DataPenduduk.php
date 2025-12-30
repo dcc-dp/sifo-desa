@@ -14,6 +14,7 @@ class dataPenduduk extends Model
         'nama',
         'tempat_lahir',
         'tanggal_lahir',
+        'jenis_kelamin',
         'alamat',
         'rt',
         'rw',
