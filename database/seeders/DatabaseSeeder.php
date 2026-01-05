@@ -17,8 +17,6 @@ class DatabaseSeeder extends Seeder
         $this->call(KategoriSeeder::class);
         $this->call(BeritaSeeder::class);
         $this->call(PengaduanSeeder::class);
-        $this->call(UserSeeder::class);
-        
         $this->call(DataSeeder::class);
         User::factory()->create([
             'nik_id' => '1234567890',
