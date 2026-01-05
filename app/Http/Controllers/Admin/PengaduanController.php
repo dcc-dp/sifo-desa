@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+
 use Illuminate\Support\Facades\Auth;
 use App\Models\Kategori;
 use App\Models\Pengaduan;
@@ -11,7 +12,6 @@ use Illuminate\Http\Request;
 
 class PengaduanController extends Controller
 {
-
     public function index()
     {
         $pengaduans = Pengaduan::with('kategori', 'user')->latest()->get();
@@ -68,10 +68,10 @@ class PengaduanController extends Controller
     public function edit($id)
     {
         $pengaduan = Pengaduan::with('kategori')->findOrFail($id);
+
         $kategoris = Kategori::all();
         return view('admin.pengaduan.edit', compact('pengaduan', 'kategoris'));
     }
-
 
     public function update(Request $request, $id)
     {
@@ -80,7 +80,6 @@ class PengaduanController extends Controller
         $request->validate([
             'status' => 'required|in:1,2,3',
         ]);
-
         $pengaduan->update([
             'status' => $request->status
         ]);
@@ -90,4 +89,3 @@ class PengaduanController extends Controller
 
     
 }
-

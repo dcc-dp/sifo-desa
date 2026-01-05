@@ -31,6 +31,7 @@ class UserController extends Controller
         return view('pages/profildesa/pemerintah', compact('pemerintahs'));
     }
 
+
    public function kategori()
     {
         $kategoris = Kategori::withCount('beritas')

@@ -644,8 +644,6 @@
             align-items: center;
             min-height: 90vh;
         }
-
-
         .auth-container .logo {
             justify-content: center;
             margin-bottom: 30px;
@@ -654,7 +652,6 @@
         .auth-container h2 {
             margin-bottom: 25px;
         }
-        
 
         /* Footer */
         .footer {
