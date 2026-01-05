@@ -7,7 +7,7 @@
     <section>
         <div class="container">
             <h2><i class="fas fa-comment-dots"></i> Sistem Pengaduan Masyarakat</h2>
-            <form action="{{ route('userlogout') }}" method="POST" style="display:inline;">
+            <form action="{{ url('/login') }}" method="GET" style="display:inline;">
                 @csrf
                 <button type="submit" class="btn btn-danger">
                     <i class="fas fa-sign-out-alt"></i> Logout

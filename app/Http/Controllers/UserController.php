@@ -39,6 +39,14 @@ class UserController extends Controller
 
         return view('pages/pengaduandanberita/kategori', compact('kategoris'));
     }
+    public function detailBerita($slug)
+    {
+        $berita = Berita::with('kategori')
+            ->where('slug', $slug)
+            ->firstOrFail();
+
+        return view('pages.pengaduandanberita.detailberita', compact('berita'));
+    }
     public function showKategori($slug)
     {
         $kategori = Kategori::where('slug', $slug)->firstOrFail();

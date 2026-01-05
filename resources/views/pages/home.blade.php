@@ -8,7 +8,7 @@
         <div class="hero">
             <h1>Selamat Datang di Portal Desa Kami</h1>
             <p>Mewujudkan pelayanan publik yang transparan dan akuntabel.</p>
-            <a href="{{ url('/signin') }}" data-page="complaints" class="btn btn-primary" style="background-color: var(--color-primary-dark);">Sampaikan Pengaduan <i class="fas fa-arrow-right"></i></a>
+            <!-- <a href="{{ url('/signin') }}" data-page="complaints" class="btn btn-primary" style="background-color: var(--color-primary-dark);">Sampaikan Pengaduan <i class="fas fa-arrow-right"></i></a> -->
         </div>
 
         <div class="container">

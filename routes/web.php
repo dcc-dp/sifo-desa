@@ -52,11 +52,11 @@ Route::get('/', [UserController::class, 'home'])->name('home');
 
 Route::get('/pemerintah', [UserController::class, 'pemerintah'])->name('pemerintah');
 
-Route::get('/berita', [UserController::class, 'berita'])->name('berita');
+// Route::get('/berita', [UserController::class, 'berita'])->name('berita');
 
 Route::get('/kategori', [UserController::class, 'kategori'])->name('kategori');
 Route::get('/kategori/{slug}', [UserController::class, 'showKategori'])->name('show-kategori');
-
+Route::get('/berita/{slug}', [UserController::class, 'detailBerita'])->name('detail-berita');
 
 Route::get('/agenda', [UserController::class, 'agenda'])->name('agenda');
 
@@ -181,9 +181,9 @@ Route::post('/ceknik', [CekNikController::class, 'store'])->name('ceknik.store')
 Route::middleware('guest')->group(function () {
     Route::get('/user/login', [UserLoginController::class, 'userindex'])->name('userlogin');
     Route::post('/user/login', [UserLoginController::class, 'userlogin'])->name('userlogin.post');
-    Route::post('/user/logout', [UserLoginController::class, 'userlogout'])->name('userlogout');
+   
 });
-
+ Route::post('/user/logout', [UserLoginController::class, 'userlogout'])->name('userlogout');
 
 Route::get('/signup', function () {
     return view('account-pages.signup');

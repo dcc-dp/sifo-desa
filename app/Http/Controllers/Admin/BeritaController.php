@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Str;
 use App\Models\Berita;
 use App\Models\Kategori;
 use Illuminate\Http\Request;
@@ -43,6 +44,7 @@ class BeritaController extends Controller
         $data = [
             'id_kategori' => $request->id_kategori,
             'judul' => $request->judul,
+            'slug' => Str::slug($request->judul) . '-' . time(),
             'deskripsi' => $request->deskripsi,
         ];
 
@@ -91,6 +93,8 @@ class BeritaController extends Controller
         ]);
 
         $data = $request->only(['id_kategori', 'judul', 'deskripsi']);
+        $data['slug'] = Str::slug($request->judul) . '-' . time();
+
 
         if ($request->hasFile('gambar')) {
             if ($beritas->gambar && file_exists(public_path($beritas->gambar))) {
@@ -99,7 +103,7 @@ class BeritaController extends Controller
 
             $gambar = $request->file('gambar');
             $filename = date('Ymd_His') . '_' . uniqid() . '.' . $gambar->getClientOriginalExtension();
-            $gambar->move(public_path('upload/berita'), $filename);
+            $gambar->move(public_path('upwebload/berita'), $filename);
             $data['gambar'] = 'upload/berita/' . $filename;
         }
 
