@@ -30,7 +30,11 @@ class UserController extends Controller
         $pemerintahs = PemerintahDesa::all();
         return view('pages/profildesa/pemerintah', compact('pemerintahs'));
     }
-
+    public function show($id)
+    {
+        $pemerintah = PemerintahDesa::findOrFail($id);
+        return view('pages/profildesa/detailpemerintah', compact('pemerintah'));
+    }
 
    public function kategori()
     {

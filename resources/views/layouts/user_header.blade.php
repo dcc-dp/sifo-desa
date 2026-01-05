@@ -13,8 +13,8 @@
                         <i class="fas fa-landmark" style="margin-right:5px;"></i> Profil Desa
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="{{ route('galeri') }}"><i class="fas fa-images" style="margin-right:8px;"></i> Galeri Desa</a></li>
-                        <li><a href="{{ route('sejarah') }}"><i class="fas fa-history" style="margin-right:8px;"></i> Sejarah Desa</a></li>
+                        <li><a href="{{ url('/galeri-user') }}"><i class="fas fa-images" style="margin-right:8px;"></i> Galeri Desa</a></li>
+                        <li><a href="{{ url('/sejarah-user') }}"><i class="fas fa-history" style="margin-right:8px;"></i> Sejarah Desa</a></li>
                         <li><a href="{{ url('/pemerintah') }}"><i class="fas fa-users" style="margin-right:8px;"></i> Pemerintah Desa</a></li>
                     </ul>
                 </li>
