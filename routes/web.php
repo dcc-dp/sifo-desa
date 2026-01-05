@@ -8,14 +8,12 @@ use App\Http\Controllers\Admin\KategoriController;
 use App\Http\Controllers\Admin\PemerintahController;
 use App\Http\Controllers\admin\PengaduanController;
 use App\Http\Controllers\admin\DatapendudukController;
-
 use App\Http\Controllers\CekNikController;
 use App\Http\Controllers\Admin\SuratController;
 use App\Http\Controllers\Admin\SuratDomisiliController;
 use App\Http\Controllers\Admin\SuratPengantarController;
 use App\Http\Controllers\Admin\SuratKetusController;
 use App\Http\Controllers\Admin\SuratIzinController;
-
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
@@ -48,19 +46,18 @@ use App\Http\Controllers\UserLoginController;
 //     ]);
 // })->name('home');
 
-
-Route::get('/galeri', function () {
+Route::get('/galeri-user', function () {
     return view('pages.profildesa.galeri');
 })->name('galeri');
 
-Route::get('/sejarah', function () {
+Route::get('/sejarah-user', function () {
     return view('pages.profildesa.sejarah');
 })->name('sejarah');
-
 
 Route::get('/', [UserController::class, 'home'])->name('home');
 
 Route::get('/pemerintah', [UserController::class, 'pemerintah'])->name('pemerintah');
+Route::get('/pemerintah/{id}', [UserController::class, 'show'])->name('pemerintah-detail');
 
 // Route::get('/berita', [UserController::class, 'berita'])->name('berita');
 
@@ -86,16 +83,16 @@ Route::get('/agama', function () {
     return view('pages.datastatik.agama');
 })->name('agama');
 
-
 Route::post('/pengaduan/storeLanding', [PengaduanController::class, 'storeLanding'])->name('pengaduan.storeLanding');
 Route::post('/pengaduan/store', [PengaduanController::class, 'store'])->name('pengaduan-store');
 
 Route::get('/pengaduan', [PengaduanController::class, 'create'])->name('pengaduan');
 
-
 Route::get('/pengajuan', function () {
     return view('pages.layananonline.pengajuan');
 })->name('pengajuan');
+
+
 
 
 Route::middleware('auth')->group(function () {
@@ -147,9 +144,6 @@ Route::middleware('auth')->group(function () {
 // })->name('dashboard')->middleware('auth');
 
 
-// Route::get('/galeri', function(){
-//     return view('admin.galeri.galeri');
-// })->name('galeri')->middleware('auth');
 
 Route::get('/galeri',[GaleriController::class,'index'])->name('galeri')->middleware('auth');
 
