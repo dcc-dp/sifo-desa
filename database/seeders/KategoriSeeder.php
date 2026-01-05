@@ -13,10 +13,18 @@ class KategoriSeeder extends Seeder
     public function run(): void
     {
         $data = [
-            [ 'nama_kategori' => 'Pendidikan' ],
-            [ 'nama_kategori' => 'Kesehatan' ],
-            [ 'nama_kategori' => 'Infrastruktur' ],
-            [ 'nama_kategori' => 'Pertanian' ],
+            [   'nama_kategori' => 'Pendidikan',
+                'slug' => 'pendidikan'
+            ],
+            [   'nama_kategori' => 'Kesehatan',
+                'slug' => 'Kesehatan'
+            ],
+            [   'nama_kategori' => 'Infrastruktur',
+                'slug' => 'Infrastruktur'
+            ],
+            [   'nama_kategori' => 'Pertanian',
+                'slug' => 'Pertanian'
+            ],
         ];
 
         // masukkan data ke tabel kategori

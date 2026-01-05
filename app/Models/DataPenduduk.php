@@ -24,4 +24,19 @@ class dataPenduduk extends Model
         'pekerjaan',
         'kewarganegaraan',
     ];
+
+    public function user()
+    {
+        return $this->hasOne(User::class, 'nik_id', 'nik');
+    }
+    public function surats()
+    {
+        return $this->hasMany(Surat::class, 'penduduk_id');
+    }
+
 }
+
+
+    
+
+

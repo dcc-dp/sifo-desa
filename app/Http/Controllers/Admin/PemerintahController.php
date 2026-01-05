@@ -14,6 +14,7 @@ class PemerintahController extends Controller
         $pemerintahs = PemerintahDesa::all();
         return view('admin.pemerintah.index', compact('pemerintahs'));
     }
+    
 
 
     public function create()

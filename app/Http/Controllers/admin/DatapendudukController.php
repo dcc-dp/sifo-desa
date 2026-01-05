@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\dataPenduduk;
+use App\Models\SKTM;
 use Illuminate\Http\Request;
 
 class DatapendudukController extends Controller
@@ -131,7 +132,7 @@ class DatapendudukController extends Controller
         $penduduk = dataPenduduk::findOrFail($id);
         $penduduk->delete();
 
-        return redirect()->route('admin.data.penduduk-index')->with('success', 'Data Penduduk berhasil dihapus');
+        return redirect()->route('data.penduduk-index')->with('success', 'Data Penduduk berhasil dihapus');
     }
 
     public function show(string $id)
@@ -140,4 +141,16 @@ class DatapendudukController extends Controller
 
         return view('admin.data-penduduk.show', compact('data'));
     }
+
+    public function search(Request $request)
+{
+    $keyword = $request->keyword;
+
+    $data = dataPenduduk::where('nama', 'LIKE', "%{$keyword}%")
+        ->orWhere('nik', 'LIKE', "%{$keyword}%")
+        ->orWhere('alamat', 'LIKE', "%{$keyword}%")
+        ->get();
+    return response()->json($data);
+}
+
 }

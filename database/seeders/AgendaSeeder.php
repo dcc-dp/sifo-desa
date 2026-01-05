@@ -26,6 +26,18 @@ class AgendaSeeder extends Seeder
                 'nama_kegiatan' => 'Peringatan Hari Kemerdekaan',
                 'waktu_pelaksanaan' => '2025-08-17 08:00:00',
             ],
+            [
+                'nama_kegiatan' => 'jalan santai',
+                'waktu_pelaksanaan' => '2025-09-15 10:00:00',
+            ],
+            [
+                'nama_kegiatan' => 'Pelatihan Komputer',
+                'waktu_pelaksanaan' => '2025-09-20 09:00:00',
+            ],
+            [
+                'nama_kegiatan' => 'Peringatan Hari pancasila',
+                'waktu_pelaksanaan' => '2025-08-17 08:00:00',
+            ],
         ];
 
         DB::table('agendas')->insert($data);

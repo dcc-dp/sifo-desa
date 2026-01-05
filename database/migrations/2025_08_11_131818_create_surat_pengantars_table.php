@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('surat_pengantars', function (Blueprint $table) {
             $table->id();
-            $table->string('surat_id');
+            $table->unsignedBigInteger('surat_id')->unique();
+            $table->foreign('surat_id')->references('id')->on('surats');
             $table->string('keperluan');
             $table->timestamps();
         });

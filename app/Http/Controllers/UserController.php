@@ -17,17 +17,46 @@ class UserController extends Controller
         return view('laravel-examples.users-management', compact('users'));
     }
 
+    public function home()
+    {
+        $berita = Berita::orderBy('created_at', 'desc')->whereNotNull('gambar')->take(3)->get();
+        $pemerintah =  PemerintahDesa::take(1)->get(); 
+        $agenda = Agenda::take(6)->get();
+        return view('pages.home', compact('berita','pemerintah', 'agenda'));
+    }
+
     public function pemerintah()
     {
         $pemerintahs = PemerintahDesa::all();
         return view('pages/profildesa/pemerintah', compact('pemerintahs'));
     }
 
-    public function kategori(){
-        $kategoris = Kategori::all();
-        $beritaCount = Berita::count();
-        return view('pages/pengaduandanberita/beritas', compact('kategoris', 'beritaCount'));
+
+   public function kategori()
+    {
+        $kategoris = Kategori::withCount('beritas')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('pages/pengaduandanberita/kategori', compact('kategoris'));
     }
+    public function detailBerita($slug)
+    {
+        $berita = Berita::with('kategori')
+            ->where('slug', $slug)
+            ->firstOrFail();
+
+        return view('pages.pengaduandanberita.detailberita', compact('berita'));
+    }
+    public function showKategori($slug)
+    {
+        $kategori = Kategori::where('slug', $slug)->firstOrFail();
+
+        $beritas = Berita::where('id_kategori', $kategori->id)->orderBy('created_at', 'desc')->get();
+
+        return view('pages/pengaduandanberita/berita', compact('kategori', 'beritas'));
+    }
+
 
     public function berita()
     {
