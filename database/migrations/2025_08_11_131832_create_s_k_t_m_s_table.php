@@ -13,9 +13,11 @@ return new class extends Migration
     {
         Schema::create('s_k_t_m_s', function (Blueprint $table) {
             $table->id();
-            $table->string('surat_id');
+            // $table->string('surat_id');
+            $table->unsignedBigInteger('surat_id')->unique();
             $table->string('pekerjaan');
             $table->integer('penghasilan');
+            $table->foreign('surat_id')->references('id')->on('surats');
             $table->timestamps();
         });
     }
