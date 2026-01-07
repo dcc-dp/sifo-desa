@@ -62,7 +62,9 @@
                     @endif
                     <h4>{{ $p->nama }}</h4>
                     <p class="position">{{ $p->jabatan }}</p>
-                    <p class="duties">{{ $p->tupoksi }}</p>
+                    <p class="duties">
+                                {{ \Illuminate\Support\Str::limit(strip_tags($p->tupoksi), 120, '...') }}
+                            </p>
                     <p style="font-size: 0.9rem; margin-top: 10px; color: var(--color-text-light);">"Melayani warga dengan sepenuh hati."</p>
                     <a href="{{ url('/pemerintah') }}" class="btn btn-secondary" style="margin-top: 15px;">
                         View All

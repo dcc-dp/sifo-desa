@@ -37,9 +37,7 @@
 
                         <div class="mb-0">
                             <strong class="fw-semibold text-dark">Tupoksi</strong>
-                            <p class="fs-6 text-muted mb-0">
-                                {{ $pemerintah->tupoksi }}
-                            </p>
+                            <p>{!! nl2br(e($pemerintah->tupoksi)) !!}</p>
                         </div>
                         <a href="{{ url('/pemerintah') }}" class="btn btn-success w-100">
                             <i class="fas fa-arrow-left me-2"></i>Kembali
