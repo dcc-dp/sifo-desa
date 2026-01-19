@@ -19,20 +19,22 @@ return new class extends Migration
             $table->date('tanggal_lahir');
             $table->string('jenis_kelamin');
             $table->string('alamat');
-            $table->string('rt');
-            $table->string('rw');
+            $table->foreignId('rw_id')
+                ->constrained('rws')
+                ->onDelete('cascade');
+            $table->foreignId('rt_id')
+                ->constrained('rts')
+                ->onDelete('cascade');
             $table->string('keldesa');
             $table->string('kecamatan');
             $table->string('agama');
             $table->string('status_perkawinan');
             $table->string('pekerjaan');
             $table->string('kewarganegaraan');
-            
+
 
 
             $table->timestamps();
-
-
         });
     }
 

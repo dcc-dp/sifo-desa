@@ -4,6 +4,8 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\dataPenduduk;
+use App\Models\Rw;
+use App\Models\Rt;
 use App\Models\SKTM;
 use Illuminate\Http\Request;
 
@@ -14,7 +16,7 @@ class DatapendudukController extends Controller
      */
     public function index()
     {
-        $data = dataPenduduk::all();
+        $data = DataPenduduk::with(['rw', 'rt'])->get();
         return view('admin.data-penduduk.index', compact('data'));
     }
 
@@ -23,9 +25,12 @@ class DatapendudukController extends Controller
      */
     public function create()
     {
-        return view('admin.data-penduduk.create');
+        $rws = Rw::all();
+        $rts = Rt::all();
+
+        return view('admin.data-penduduk.create', compact('rws', 'rts'));
     }
-    
+
 
     /**
      * Store a newly created resource in storage.
@@ -39,15 +44,16 @@ class DatapendudukController extends Controller
             'tanggal_lahir' => 'required|date',
             'jenis_kelamin' => 'required|in:L,P',
             'alamat' => 'required',
-            'rt' => 'required',
-            'rw' => 'required',
-            'keldesa' => 'required',          
-            'kecamatan' => 'required',        
+            'rw_id' => 'required|exists:rws,id',
+            'rt_id' => 'required|exists:rts,id',
+            'keldesa' => 'required',
+            'kecamatan' => 'required',
             'agama' => 'required',
             'status_perkawinan' => 'required',
             'pekerjaan' => 'required',
             'kewarganegaraan' => 'required',
         ]);
+
 
         $data = [
             'nik' => $request->nik,
@@ -56,10 +62,10 @@ class DatapendudukController extends Controller
             'tanggal_lahir' => $request->tanggal_lahir,
             'jenis_kelamin' => $request->jenis_kelamin,
             'alamat' => $request->alamat,
-            'rt' => $request->rt,
-            'rw' => $request->rw,
-            'keldesa' => $request->keldesa,      
-            'kecamatan' => $request->kecamatan,  
+            'rw_id' => $request->rw_id,
+            'rt_id' => $request->rt_id,
+            'keldesa' => $request->keldesa,
+            'kecamatan' => $request->kecamatan,
             'agama' => $request->agama,
             'status_perkawinan' => $request->status_perkawinan,
             'pekerjaan' => $request->pekerjaan,
@@ -94,10 +100,10 @@ class DatapendudukController extends Controller
             'tanggal_lahir' => 'required|date',
             'jenis_kelamin' => 'required|in:L,P',
             'alamat' => 'required',
-            'rt' => 'required',
-            'rw' => 'required',
-            'keldesa' => 'required',         
-            'kecamatan' => 'required',       
+            'rw_id' => 'required|exists:rws,id',
+            'rt_id' => 'required|exists:rts,id',
+            'keldesa' => 'required',
+            'kecamatan' => 'required',
             'agama' => 'required',
             'status_perkawinan' => 'required',
             'pekerjaan' => 'required',
@@ -111,10 +117,10 @@ class DatapendudukController extends Controller
             'tanggal_lahir' => $request->tanggal_lahir,
             'jenis_kelamin' => $request->jenis_kelamin,
             'alamat' => $request->alamat,
-            'rt' => $request->rt,
-            'rw' => $request->rw,
-            'keldesa' => $request->keldesa,      
-            'kecamatan' => $request->kecamatan,   
+            'rw_id' => $request->rw_id,
+            'rt_id' => $request->rt_id,
+            'keldesa' => $request->keldesa,
+            'kecamatan' => $request->kecamatan,
             'agama' => $request->agama,
             'status_perkawinan' => $request->status_perkawinan,
             'pekerjaan' => $request->pekerjaan,
@@ -137,20 +143,18 @@ class DatapendudukController extends Controller
 
     public function show(string $id)
     {
-        $data = dataPenduduk::findOrFail($id);
-
+        $data = DataPenduduk::with(['rw', 'rt'])->findOrFail($id);
         return view('admin.data-penduduk.show', compact('data'));
     }
 
     public function search(Request $request)
-{
-    $keyword = $request->keyword;
+    {
+        $keyword = $request->keyword;
 
-    $data = dataPenduduk::where('nama', 'LIKE', "%{$keyword}%")
-        ->orWhere('nik', 'LIKE', "%{$keyword}%")
-        ->orWhere('alamat', 'LIKE', "%{$keyword}%")
-        ->get();
-    return response()->json($data);
-}
-
+        $data = dataPenduduk::where('nama', 'LIKE', "%{$keyword}%")
+            ->orWhere('nik', 'LIKE', "%{$keyword}%")
+            ->orWhere('alamat', 'LIKE', "%{$keyword}%")
+            ->get();
+        return response()->json($data);
+    }
 }

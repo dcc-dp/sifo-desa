@@ -13,28 +13,29 @@
 
             <div class="stat-card">
                 <p class="stat-title">Tidak Sekolah</p>
-                <p class="stat-value">40</p>
+                <p class="stat-value">{{ $tidakSekolah }}</p>
             </div>
-
+            
             <div class="stat-card">
                 <p class="stat-title">SD / Sederajat</p>
-                <p class="stat-value">180</p>
+                <p class="stat-value">{{ $sd }}</p>
             </div>
-
+            
             <div class="stat-card">
                 <p class="stat-title">SMP / Sederajat</p>
-                <p class="stat-value">150</p>
+                <p class="stat-value">{{ $smp }}</p>
             </div>
-
+            
             <div class="stat-card">
                 <p class="stat-title">SMA / Sederajat</p>
-                <p class="stat-value">210</p>
+                <p class="stat-value">{{ $sma }}</p>
             </div>
-
+            
             <div class="stat-card">
                 <p class="stat-title">Diploma / Sarjana</p>
-                <p class="stat-value">95</p>
+                <p class="stat-value">{{ $diploma }}</p>
             </div>
+            
 
         </div>
 
@@ -43,22 +44,56 @@
 
             <!-- bar chart -->
             <div class="chart-card">
-                <h6 style="margin-bottom: 15px;">Grafik Tingkat Pendidikan</h6>
-                <div id="pendidikanChart" style="height: 360px;"></div>
+                <h6 class="mb-3 text-center">
+                    Grafik Jumlah Pekerjaan
+                    @if($rw) RW {{ $rw }} @endif
+                    @if($rt) RT {{ $rt }} @endif
+                </h6>
+            
+                <div 
+                    id="pendidikanChart"
+                    data-tidak="{{ $tidakSekolah }}"
+                    data-sd="{{ $sd }}"
+                    data-smp="{{ $smp }}"
+                    data-sma="{{ $sma }}"
+                    data-diploma="{{ $diploma }}"
+                    style="height: 360px;">
+                </div>
             </div>
+            
 
-            <div class="filter-card">
-                <h6 style="margin-bottom: 15px;">Filter Dusun</h6>
-
-                <label class="form-label">Pilih Dusun:</label>
-                <select class="form-select mb-3">
-                    <option>Semua Dusun</option>
-                    <option>Dusun A</option>
-                    <option>Dusun B</option>
-                    <option>Dusun C</option>
-                </select>
-
-                <button class="btn btn-success w-100">Terapkan</button>
+            <div class="col-md-4 col-lg-3">
+                <div class="card shadow-sm border-0 h-100">
+                    <div class="card-body px-4 py-4">
+                        <h6 class="fw-semibold mb-4 text-center">Filter Wilayah</h6>
+            
+                        <form method="GET">
+                            <div class="mb-4">
+                                <label class="form-label fw-medium mb-1">RW</label>
+                                <select name="rw" class="form-select form-select-sm">
+                                    <option value="">-- Pilih RW --</option>
+                                    <option value="1" {{ request('rw')=='1' ? 'selected' : '' }}>RW 01</option>
+                                    <option value="2" {{ request('rw')=='2' ? 'selected' : '' }}>RW 02</option>
+                                </select>
+                            </div>
+            
+                            <div class="mb-4">
+                                <label class="form-label fw-medium mb-1">RT</label>
+                                <select name="rt" class="form-select form-select-sm">
+                                    <option value="">-- Semua RT --</option>
+                                    <option value="1" {{ request('rt')=='1' ? 'selected' : '' }}>RT 01</option>
+                                    <option value="2" {{ request('rt')=='2' ? 'selected' : '' }}>RT 02</option>
+                                </select>
+                            </div>
+            
+                            <div class="d-grid mt-3">
+                                <button class="btn btn-success btn-sm fw-semibold">
+                                    Terapkan Filter
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
 
         </div>

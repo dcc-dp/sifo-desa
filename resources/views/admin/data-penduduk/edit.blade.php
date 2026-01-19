@@ -82,16 +82,34 @@
 
                                 <div class="row">
                                     <div class="col-6 mb-3">
-                                        <label for="rt">RT</label>
-                                        <input type="text" name="rt" id="rt" value="{{ old('rt', $data->rt) }}" class="form-control">
-                                        @error('rt') <span class="text-danger text-sm">{{ $message }}</span> @enderror
+                                        <label for="rw_id">RW</label>
+                                        <select name="rw_id" id="rw_id" class="form-control">
+                                            <option value="">-- Pilih RW --</option>
+                                            @foreach ($rws as $rw)
+                                                <option value="{{ $rw->id }}"
+                                                    {{ old('rw_id', $data->rw_id) == $rw->id ? 'selected' : '' }}>
+                                                    RW {{ $rw->nomor_rw }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('rw_id') <span class="text-danger text-sm">{{ $message }}</span> @enderror
                                     </div>
+                                
                                     <div class="col-6 mb-3">
-                                        <label for="rw">RW</label>
-                                        <input type="text" name="rw" id="rw" value="{{ old('rw', $data->rw) }}" class="form-control">
-                                        @error('rw') <span class="text-danger text-sm">{{ $message }}</span> @enderror
+                                        <label for="rt_id">RT</label>
+                                        <select name="rt_id" id="rt_id" class="form-control">
+                                            <option value="">-- Pilih RT --</option>
+                                            @foreach ($rts as $rt)
+                                                <option value="{{ $rt->id }}"
+                                                    {{ old('rt_id', $data->rt_id) == $rt->id ? 'selected' : '' }}>
+                                                    RT {{ $rt->nomor_rt }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('rt_id') <span class="text-danger text-sm">{{ $message }}</span> @enderror
                                     </div>
                                 </div>
+                                
 
                                 <div class="row">
                                     <div class="col-6 mb-3">

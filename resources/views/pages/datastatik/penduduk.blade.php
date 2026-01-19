@@ -47,6 +47,7 @@
                         id="pendudukChart"
                         data-laki="{{ $laki }}"
                         data-perempuan="{{ $perempuan }}"
+                        data-kepala="{{ $totalPenduduk }}"
                         {{-- data-kepala="{{ $kepalaKeluarga }}" --}}
                         style="height: 360px;">
                     </div>

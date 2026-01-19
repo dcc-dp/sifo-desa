@@ -37,7 +37,11 @@
                                 </tr>
                                 <tr>
                                     <th>RT / RW</th>
-                                    <td>{{ $data->rt }} / {{ $data->rw }}</td>
+                                    <td>
+                                        RT {{ $data->rt->nomor_rt ?? '-' }} /
+                                        RW {{ $data->rw->nomor_rw ?? '-' }}
+                                    </td>
+                                    
                                 </tr>
                                 <tr>
                                     <th>Kel/Desa</th>

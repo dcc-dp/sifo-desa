@@ -16,8 +16,8 @@ class dataPenduduk extends Model
         'tanggal_lahir',
         'jenis_kelamin',
         'alamat',
-        'rt',
-        'rw',
+        'rw_id',
+        'rt_id',
         'keldesa',
         'kecamatan',
         'agama',
@@ -26,6 +26,17 @@ class dataPenduduk extends Model
         'kewarganegaraan',
     ];
 
+
+    public function rw()
+    {
+        return $this->belongsTo(Rw::class);
+    }
+
+    public function rt()
+    {
+        return $this->belongsTo(Rt::class);
+    }
+    
     public function surats()
     {
         return $this->hasMany(Surat::class, 'penduduk_id');

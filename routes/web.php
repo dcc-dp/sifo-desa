@@ -1,28 +1,30 @@
 <?php
 
 
-use App\Http\Controllers\Admin\AgendaController;
-use App\Http\Controllers\Admin\BeritaController;
-use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\KategoriController;
-use App\Http\Controllers\Admin\PemerintahController;
-use App\Http\Controllers\Admin\PengaduanController;
-use App\Http\Controllers\Admin\DatapendudukController;
-use App\Http\Controllers\Admin\SuratController;
-use App\Http\Controllers\Admin\SuratDomisiliController;
-use App\Http\Controllers\Admin\SuratPengantarController;
-use App\Http\Controllers\Admin\SuratKetusController;
-use App\Http\Controllers\Admin\SuratIzinController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Auth\ResetPasswordController;
-use App\Http\Controllers\Auth\ForgotPasswordController;
-use App\Http\Controllers\Admin\BatchGaleriController;
+use App\Http\Controllers\Admin\RtController;
+use App\Http\Controllers\Admin\RwController;
 use App\Http\Controllers\StatistikController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\UserGaleriController;
+use App\Http\Controllers\Admin\SuratController;
+use App\Http\Controllers\Admin\AgendaController;
+use App\Http\Controllers\Admin\BeritaController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Admin\KategoriController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\PengaduanController;
+use App\Http\Controllers\Admin\SuratIzinController;
+use App\Http\Controllers\Admin\PemerintahController;
+use App\Http\Controllers\Admin\SuratKetusController;
+use App\Http\Controllers\Admin\BatchGaleriController;
+use App\Http\Controllers\Admin\DatapendudukController;
+use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\Admin\SuratDomisiliController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Admin\SuratPengantarController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,19 +60,22 @@ Route::get('/kategori', [UserController::class, 'kategori'])->name('kategori');
 Route::get('/agenda', [UserController::class, 'agenda'])->name('agenda');
 
 Route::get('/statistik-penduduk', [StatistikController::class, 'statistikPenduduk'])->name('user.statistik.penduduk');
+Route::get('/statistik-agama', [StatistikController::class, 'statistikAgama'])->name('user.statistik.agama');
+Route::get('/statistik-pekerjaan', [StatistikController::class, 'statistikPekerjaan'])->name('user.statistik.pekerjaan');
+Route::get('/statistik-pendidikan', [StatistikController::class, 'statistikPendidikan'])->name('user.statistik.pendidikan');
 
 
-Route::get('/pendidikan', function () {
-    return view('pages.datastatik.pendidikan');
-})->name('pendidikan');
+// Route::get('/pendidikan', function () {
+//     return view('pages.datastatik.pendidikan');
+// })->name('pendidikan');
 
-Route::get('/pekerjaan', function () {
-    return view('pages.datastatik.pekerjaan');
-})->name('pekerjaan');
+// Route::get('/pekerjaan', function () {
+//     return view('pages.datastatik.pekerjaan');
+// })->name('pekerjaan');
 
-Route::get('/agama', function () {
-    return view('pages.datastatik.agama');
-})->name('agama');
+// Route::get('/agama', function () {
+//     return view('pages.datastatik.agama');
+// })->name('agama');
 
 Route::get('/pengaduan', function () {
     return view('pages.layananonline.pengaduan');
@@ -184,6 +189,21 @@ Route::middleware('auth')->group(function () {
         Route::put('/suratizin/{id}', [SuratIzinController::class, 'update'])->name('suratizin.update');
         Route::delete('/suratizin/{id}', [SuratIzinController::class, 'destroy'])->name('suratizin.destroy');
         Route::get('/suratizin-search', [SuratIzinController::class, 'search'])->name('suratizin.search');
+
+
+        Route::get('/rw-index', [RwController::class, 'index'])->name('rw-index');
+        Route::get('/rw-create', [RwController::class, 'create'])->name('rw-create');
+        Route::post('/rw-store', [RwController::class, 'store'])->name('rw-store');
+        Route::get('/rw-edit/{id}', [RwController::class, 'edit'])->name('rw-edit');
+        Route::put('/rw-update/{id}', [RwController::class, 'update'])->name('rw-update');
+        Route::get('/rw-destroy/{id}', [RwController::class, 'destroy'])->name('rw-destroy');
+
+        Route::get('/rt-index', [RtController::class, 'index'])->name('rt-index');
+        Route::get('/rt-create', [RtController::class, 'create'])->name('rt-create');
+        Route::post('/rt-store', [RtController::class, 'store'])->name('rt-store');
+        Route::get('/rt-edit/{id}', [RtController::class, 'edit'])->name('rt-edit');
+        Route::put('/rt-update/{id}', [RtController::class, 'update'])->name('rt-update');
+        Route::get('/rt-destroy/{id}', [RtController::class, 'destroy'])->name('rt-destroy');
     });
 });
 
