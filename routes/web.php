@@ -294,3 +294,13 @@ Route::post('/reset-password', [ResetPasswordController::class, 'store'])
 Route::get('/laravel-examples/user-profile', [ProfileController::class, 'index'])->name('users.profile')->middleware('auth');
 Route::put('/laravel-examples/user-profile/update', [ProfileController::class, 'update'])->name('users.update')->middleware('auth');
 Route::get('/laravel-examples/users-management', [UserController::class, 'index'])->name('users-management')->middleware('auth');
+
+// LOGIN PENGADUAN
+Route::get('/login-pengaduan', [PengaduanAuthController::class, 'login'])
+    ->name('pengaduan.login');
+
+Route::post('/login-pengaduan', [PengaduanAuthController::class, 'authenticate'])
+    ->name('pengaduan.authenticate');
+
+Route::post('/logout-pengaduan', [PengaduanAuthController::class, 'logout'])
+    ->name('pengaduan.logout');

@@ -53,7 +53,7 @@
                     <ul class="dropdown-menu">
                         <li><a href="{{ url('/pengajuan') }}"><i class="fas fa-envelope-open-text" style="margin-right:8px;"></i> Pengajuan
                                 Surat</a></li>
-                        <li><a href="{{url('/user/login') }}"><i class="fas fa-file-signature" style="margin-right:8px;"></i> Pengaduan</a>
+                        <li><a href="{{url('/pengaduan') }}"><i class="fas fa-file-signature" style="margin-right:8px;"></i> Pengaduan</a>
                         </li>
                     </ul>
                 </li>
