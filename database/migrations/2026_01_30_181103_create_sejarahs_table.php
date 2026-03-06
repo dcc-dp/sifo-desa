@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('sejarahs', function (Blueprint $table) {
             $table->id();
-            $table->string('slug')->unique();
             $table->string('judul');
             $table->text('deskripsi')->nullable();
             $table->string('gambar')->nullable();

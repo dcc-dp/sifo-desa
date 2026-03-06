@@ -13,7 +13,6 @@ class Sejarah extends Model
 
     protected $fillable = [
         'judul',
-        'slug',
         'deskripsi',
         'gambar',
     ];

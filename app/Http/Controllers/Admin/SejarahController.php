@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Sejarah;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 class SejarahController extends Controller
 {
@@ -28,15 +27,8 @@ class SejarahController extends Controller
             'gambar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        $slug = Str::slug($request->judul);
-        $count = Sejarah::where('slug', 'like', $slug . '%')->count();
-        if ($count > 0) {
-            $slug = $slug . '-' . ($count + 1);
-        }
-
         $data = [
             'judul' => $request->judul,
-            'slug' => $slug,
             'deskripsi' => $request->deskripsi,
         ];
 
@@ -68,17 +60,8 @@ class SejarahController extends Controller
             'gambar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        $slug = Str::slug($request->judul);
-        $count = Sejarah::where('slug', 'like', $slug . '%')
-            ->where('id', '!=', $id)
-            ->count();
-        if ($count > 0) {
-            $slug = $slug . '-' . ($count + 1);
-        }
-
         $updateData = [
             'judul' => $request->judul,
-            'slug' => $slug,
             'deskripsi' => $request->deskripsi,
         ];
 
