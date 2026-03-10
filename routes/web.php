@@ -14,6 +14,9 @@ use App\Http\Controllers\Admin\SuratDomisiliController;
 use App\Http\Controllers\Admin\SuratPengantarController;
 use App\Http\Controllers\Admin\SuratKetusController;
 use App\Http\Controllers\Admin\SuratIzinController;
+use App\Http\Controllers\PengaduanAuth;
+use App\Http\Controllers\PengajuanSuratAuth;
+use App\Http\Controllers\PengajuanSuratController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
@@ -86,11 +89,24 @@ Route::get('/agama', function () {
 Route::post('/pengaduan/storeLanding', [PengaduanController::class, 'storeLanding'])->name('pengaduan.storeLanding');
 Route::post('/pengaduan/store', [PengaduanController::class, 'store'])->name('pengaduan-store');
 
-Route::get('/pengaduan', [PengaduanController::class, 'create'])->name('pengaduan');
+// Pengaduan authentication routes
+Route::get('/pengaduan-login', [PengaduanAuth::class, 'showLoginForm'])->name('pengaduan.login-form');
+Route::post('/pengaduan-login', [PengaduanAuth::class, 'login'])->name('pengaduan.login');
 
+// Protected pengaduan route
+Route::get('/pengaduan', [PengaduanController::class, 'create'])->middleware('pengaduan.auth')->name('pengaduan');
+Route::get('/pengaduan-logout', [PengaduanAuth::class, 'logout'])->name('pengaduan.logout');
+
+// Pengajuan Surat authentication routes
+Route::get('/pengajuan-login', [PengajuanSuratAuth::class, 'showLoginForm'])->name('pengajuan.login-form');
+Route::post('/pengajuan-login', [PengajuanSuratAuth::class, 'login'])->name('pengajuan.login');
+
+// Protected pengajuan route
 Route::get('/pengajuan', function () {
     return view('pages.layananonline.pengajuan');
-})->name('pengajuan');
+})->middleware('pengajuan.auth')->name('pengajuan');
+Route::post('/pengajuan/store', [PengajuanSuratController::class, 'store'])->middleware('pengajuan.auth')->name('pengajuan.store');
+Route::get('/pengajuan-logout', [PengajuanSuratAuth::class, 'logout'])->name('pengajuan.logout');
 
 
 
@@ -294,13 +310,3 @@ Route::post('/reset-password', [ResetPasswordController::class, 'store'])
 Route::get('/laravel-examples/user-profile', [ProfileController::class, 'index'])->name('users.profile')->middleware('auth');
 Route::put('/laravel-examples/user-profile/update', [ProfileController::class, 'update'])->name('users.update')->middleware('auth');
 Route::get('/laravel-examples/users-management', [UserController::class, 'index'])->name('users-management')->middleware('auth');
-
-// LOGIN PENGADUAN
-Route::get('/login-pengaduan', [PengaduanAuthController::class, 'login'])
-    ->name('pengaduan.login');
-
-Route::post('/login-pengaduan', [PengaduanAuthController::class, 'authenticate'])
-    ->name('pengaduan.authenticate');
-
-Route::post('/logout-pengaduan', [PengaduanAuthController::class, 'logout'])
-    ->name('pengaduan.logout');

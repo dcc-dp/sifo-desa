@@ -7,12 +7,22 @@
     <section>
         <div class="container">
             <h2><i class="fas fa-comment-dots"></i> Sistem Pengaduan Masyarakat</h2>
-            <form action="{{ url('/login') }}" method="GET" style="display:inline;">
-                @csrf
-                <button type="submit" class="btn btn-danger">
-                    <i class="fas fa-sign-out-alt"></i> Logout
-                </button>
-            </form>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <div>
+                    <p style="margin: 0; color: #666;">
+                        <strong>Nama:</strong> {{ session('pengaduan_penduduk_name') }}
+                    </p>
+                    <p style="margin: 5px 0 0 0; color: #666;">
+                        <strong>NIK:</strong> {{ session('pengaduan_nik') }}
+                    </p>
+                </div>
+                <form action="{{ route('pengaduan.logout') }}" method="GET" style="display:inline;">
+                    @csrf
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </form>
+            </div>
 
             <form action="{{ route('pengaduan-store') }}" method="POST" enctype="multipart/form-data">
                 @csrf

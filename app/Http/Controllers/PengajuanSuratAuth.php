@@ -7,14 +7,14 @@ use Illuminate\Http\Request;
 use App\Models\DataPenduduk;
 use Illuminate\Support\Facades\Session;
 
-class PengaduanAuth extends Controller
+class PengajuanSuratAuth extends Controller
 {
     /**
      * Show login form with NIK
      */
     public function showLoginForm()
     {
-        return view('pages.auth.pengaduan-login');
+        return view('pages.auth.pengajuan-login');
     }
 
     /**
@@ -33,20 +33,20 @@ class PengaduanAuth extends Controller
         // Get penduduk by NIK
         $penduduk = DataPenduduk::where('nik', $request->nik)->firstOrFail();
 
-        // Store session for pengaduan
-        Session::put('pengaduan_nik', $request->nik);
-        Session::put('pengaduan_penduduk_id', $penduduk->id);
-        Session::put('pengaduan_penduduk_name', $penduduk->nama);
+        // Store session for pengajuan surat
+        Session::put('pengajuan_nik', $request->nik);
+        Session::put('pengajuan_penduduk_id', $penduduk->id);
+        Session::put('pengajuan_penduduk_name', $penduduk->nama);
 
-        return redirect()->route('pengaduan')->with('success', 'Silakan lanjutkan pengaduan Anda');
+        return redirect()->route('pengajuan')->with('success', 'Silakan lanjutkan pengajuan surat Anda');
     }
 
     /**
-     * Logout from pengaduan
+     * Logout from pengajuan surat
      */
     public function logout()
     {
-        Session::forget(['pengaduan_nik', 'pengaduan_penduduk_id', 'pengaduan_penduduk_name']);
+        Session::forget(['pengajuan_nik', 'pengajuan_penduduk_id', 'pengajuan_penduduk_name']);
         return redirect('/')->with('success', 'Logout berhasil');
     }
 }
