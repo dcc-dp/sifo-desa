@@ -21,6 +21,7 @@ use App\Http\Controllers\Admin\PemerintahController;
 use App\Http\Controllers\Admin\SuratKetusController;
 use App\Http\Controllers\Admin\BatchGaleriController;
 use App\Http\Controllers\Admin\DatapendudukController;
+use App\Http\Controllers\Admin\GaleriController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Admin\SuratDomisiliController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
@@ -153,6 +154,10 @@ Route::middleware('auth')->group(function () {
         Route::put('/suratdomisili-update/{id}', [SuratDomisiliController::class, 'update'])->name('suratdomisili.update');
         Route::get('/suratdomisili-destroy/{id}', [SuratDomisiliController::class, 'destroy'])->name('suratdomisili.destroy');
         Route::get('/search', [SuratDomisiliController::class, 'search'])->name('surat.search');
+
+        Route::get('/galeri/{id}/create', [GaleriController::class, 'create'])->name('galeri.create');
+        Route::post('/galeri/{id}/store',  [GaleriController::class, 'store'])->name('galeri.store');
+        Route::delete('/galeri/{id}',      [GaleriController::class, 'destroy'])->name('galeri.destroy');
 
         Route::get('/batchgaleri', [BatchGaleriController::class, 'index'])->name('batchgaleri.index');
         Route::get('/batchgaleri/create', [BatchGaleriController::class, 'create'])->name('batchgaleri.create');

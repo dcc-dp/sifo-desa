@@ -34,26 +34,39 @@
                                 <div class="row">
                                     <div class="col-6 mb-3">
                                         <label for="nik">NIK</label>
-                                        <input type="text" name="nik" id="nik" value="{{ old('nik', $data->nik) }}" class="form-control">
-                                        @error('nik') <span class="text-danger text-sm">{{ $message }}</span> @enderror
+                                        <input type="text" name="nik" id="nik"
+                                            value="{{ old('nik', $data->nik) }}" class="form-control">
+                                        @error('nik')
+                                            <span class="text-danger text-sm">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                     <div class="col-6 mb-3">
                                         <label for="nama">Nama</label>
-                                        <input type="text" name="nama" id="nama" value="{{ old('nama', $data->nama) }}" class="form-control">
-                                        @error('nama') <span class="text-danger text-sm">{{ $message }}</span> @enderror
+                                        <input type="text" name="nama" id="nama"
+                                            value="{{ old('nama', $data->nama) }}" class="form-control">
+                                        @error('nama')
+                                            <span class="text-danger text-sm">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="col-6 mb-3">
                                         <label for="tempat_lahir">Tempat Lahir</label>
-                                        <input type="text" name="tempat_lahir" id="tempat_lahir" value="{{ old('tempat_lahir', $data->tempat_lahir) }}" class="form-control">
-                                        @error('tempat_lahir') <span class="text-danger text-sm">{{ $message }}</span> @enderror
+                                        <input type="text" name="tempat_lahir" id="tempat_lahir"
+                                            value="{{ old('tempat_lahir', $data->tempat_lahir) }}" class="form-control">
+                                        @error('tempat_lahir')
+                                            <span class="text-danger text-sm">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                     <div class="col-6 mb-3">
                                         <label for="tanggal_lahir">Tanggal Lahir</label>
-                                        <input type="date" name="tanggal_lahir" id="tanggal_lahir" value="{{ old('tanggal_lahir', $data->tanggal_lahir) }}" class="form-control">
-                                        @error('tanggal_lahir') <span class="text-danger text-sm">{{ $message }}</span> @enderror
+                                        <input type="date" name="tanggal_lahir" id="tanggal_lahir"
+                                            value="{{ old('tanggal_lahir', $data->tanggal_lahir) }}"
+                                            class="form-control">
+                                        @error('tanggal_lahir')
+                                            <span class="text-danger text-sm">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                 </div>
 
@@ -62,22 +75,52 @@
                                         <label for="jenis_kelamin">Jenis Kelamin</label>
                                         <select name="jenis_kelamin" id="jenis_kelamin" class="form-control">
                                             <option value="">-- Pilih --</option>
-                                            <option value="L" {{ old('jenis_kelamin', $data->jenis_kelamin) == 'L' ? 'selected' : '' }}>Laki-laki</option>
-                                            <option value="P" {{ old('jenis_kelamin', $data->jenis_kelamin) == 'P' ? 'selected' : '' }}>Perempuan</option>
+                                            <option value="L"
+                                                {{ old('jenis_kelamin', $data->jenis_kelamin) == 'L' ? 'selected' : '' }}>
+                                                Laki-laki</option>
+                                            <option value="P"
+                                                {{ old('jenis_kelamin', $data->jenis_kelamin) == 'P' ? 'selected' : '' }}>
+                                                Perempuan</option>
                                         </select>
-                                        @error('jenis_kelamin') <span class="text-danger text-sm">{{ $message }}</span> @enderror
+                                        @error('jenis_kelamin')
+                                            <span class="text-danger text-sm">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                     <div class="col-6 mb-3">
                                         <label for="agama">Agama</label>
-                                        <input type="text" name="agama" id="agama" value="{{ old('agama', $data->agama) }}" class="form-control">
-                                        @error('agama') <span class="text-danger text-sm">{{ $message }}</span> @enderror
+                                        <select name="agama" id="agama" class="form-control">
+                                            <option value="">-- Pilih Agama --</option>
+                                            <option value="Islam"
+                                                {{ old('agama', $data->agama) == 'Islam' ? 'selected' : '' }}>Islam
+                                            </option>
+                                            <option value="Kristen"
+                                                {{ old('agama', $data->agama) == 'Kristen' ? 'selected' : '' }}>Kristen
+                                            </option>
+                                            <option value="Katolik"
+                                                {{ old('agama', $data->agama) == 'Katolik' ? 'selected' : '' }}>Katolik
+                                            </option>
+                                            <option value="Hindu"
+                                                {{ old('agama', $data->agama) == 'Hindu' ? 'selected' : '' }}>Hindu
+                                            </option>
+                                            <option value="Budha"
+                                                {{ old('agama', $data->agama) == 'Budha' ? 'selected' : '' }}>Budha
+                                            </option>
+                                            <option value="Konghucu"
+                                                {{ old('agama', $data->agama) == 'Konghucu' ? 'selected' : '' }}>
+                                                Konghucu</option>
+                                        </select>
+                                        @error('agama')
+                                            <span class="text-danger text-sm">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="alamat">Alamat</label>
                                     <textarea name="alamat" id="alamat" rows="3" class="form-control">{{ old('alamat', $data->alamat) }}</textarea>
-                                    @error('alamat') <span class="text-danger text-sm">{{ $message }}</span> @enderror
+                                    @error('alamat')
+                                        <span class="text-danger text-sm">{{ $message }}</span>
+                                    @enderror
                                 </div>
 
                                 <div class="row">
@@ -92,9 +135,11 @@
                                                 </option>
                                             @endforeach
                                         </select>
-                                        @error('rw_id') <span class="text-danger text-sm">{{ $message }}</span> @enderror
+                                        @error('rw_id')
+                                            <span class="text-danger text-sm">{{ $message }}</span>
+                                        @enderror
                                     </div>
-                                
+
                                     <div class="col-6 mb-3">
                                         <label for="rt_id">RT</label>
                                         <select name="rt_id" id="rt_id" class="form-control">
@@ -106,23 +151,29 @@
                                                 </option>
                                             @endforeach
                                         </select>
-                                        @error('rt_id') <span class="text-danger text-sm">{{ $message }}</span> @enderror
+                                        @error('rt_id')
+                                            <span class="text-danger text-sm">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                 </div>
-                                
+
 
                                 <div class="row">
                                     <div class="col-6 mb-3">
                                         <label for="keldesa">Kelurahan/Desa</label>
-                                        <input type="text" name="keldesa" id="keldesa" value="{{ old('keldesa', $data->keldesa) }}"
-                                            class="form-control">
-                                        @error('keldesa') <span class="text-danger text-sm">{{ $message }}</span> @enderror
+                                        <input type="text" name="keldesa" id="keldesa"
+                                            value="{{ old('keldesa', $data->keldesa) }}" class="form-control">
+                                        @error('keldesa')
+                                            <span class="text-danger text-sm">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                     <div class="col-6 mb-3">
                                         <label for="kecamatan">Kecamatan</label>
-                                        <input type="text" name="kecamatan" id="kecamatan" value="{{ old('kecamatan', $data->kecamatan) }}"
-                                            class="form-control">
-                                        @error('kecamatan') <span class="text-danger text-sm">{{ $message }}</span> @enderror
+                                        <input type="text" name="kecamatan" id="kecamatan"
+                                            value="{{ old('kecamatan', $data->kecamatan) }}" class="form-control">
+                                        @error('kecamatan')
+                                            <span class="text-danger text-sm">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                 </div>
 
@@ -130,24 +181,87 @@
                                 <div class="row">
                                     <div class="col-6 mb-3">
                                         <label for="status_perkawinan">Status Perkawinan</label>
-                                        <input type="text" name="status_perkawinan" id="status_perkawinan" value="{{ old('status_perkawinan', $data->status_perkawinan) }}" class="form-control">
-                                        @error('status_perkawinan') <span class="text-danger text-sm">{{ $message }}</span> @enderror
+                                        <input type="text" name="status_perkawinan" id="status_perkawinan"
+                                            value="{{ old('status_perkawinan', $data->status_perkawinan) }}"
+                                            class="form-control">
+                                        @error('status_perkawinan')
+                                            <span class="text-danger text-sm">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                     <div class="col-6 mb-3">
                                         <label for="pekerjaan">Pekerjaan</label>
-                                        <input type="text" name="pekerjaan" id="pekerjaan" value="{{ old('pekerjaan', $data->pekerjaan) }}" class="form-control">
-                                        @error('pekerjaan') <span class="text-danger text-sm">{{ $message }}</span> @enderror
+                                        <select name="pekerjaan" id="pekerjaan" class="form-control">
+                                            <option value="">-- Pilih Pekerjaan --</option>
+                                            <option value="Petani"
+                                                {{ old('pekerjaan', $data->pekerjaan) == 'Petani' ? 'selected' : '' }}>
+                                                Petani</option>
+                                            <option value="Buruh"
+                                                {{ old('pekerjaan', $data->pekerjaan) == 'Buruh' ? 'selected' : '' }}>
+                                                Buruh</option>
+                                            <option value="Wiraswasta"
+                                                {{ old('pekerjaan', $data->pekerjaan) == 'Wiraswasta' ? 'selected' : '' }}>
+                                                Wiraswasta</option>
+                                            <option value="PNS"
+                                                {{ old('pekerjaan', $data->pekerjaan) == 'PNS' ? 'selected' : '' }}>PNS
+                                            </option>
+                                            <option value="TNI/Polri"
+                                                {{ old('pekerjaan', $data->pekerjaan) == 'TNI/Polri' ? 'selected' : '' }}>
+                                                TNI/Polri</option>
+                                            <option value="Pelajar/Mahasiswa"
+                                                {{ old('pekerjaan', $data->pekerjaan) == 'Pelajar/Mahasiswa' ? 'selected' : '' }}>
+                                                Pelajar/Mahasiswa</option>
+                                            <option value="Tidak Bekerja"
+                                                {{ old('pekerjaan', $data->pekerjaan) == 'Tidak Bekerja' ? 'selected' : '' }}>
+                                                Tidak Bekerja</option>
+                                        </select>
+                                        @error('pekerjaan')
+                                            <span class="text-danger text-sm">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                 </div>
 
-                                <div class="mb-3">
-                                    <label for="kewarganegaraan">Kewarganegaraan</label>
-                                    <input type="text" name="kewarganegaraan" id="kewarganegaraan" value="{{ old('kewarganegaraan', $data->kewarganegaraan) }}" class="form-control">
-                                    @error('kewarganegaraan') <span class="text-danger text-sm">{{ $message }}</span> @enderror
+                                <div class="row">
+                                    <div class="mb-3">
+                                        <label for="kewarganegaraan">Kewarganegaraan</label>
+                                        <input type="text" name="kewarganegaraan" id="kewarganegaraan"
+                                            value="{{ old('kewarganegaraan', $data->kewarganegaraan) }}"
+                                            class="form-control">
+                                        @error('kewarganegaraan')
+                                            <span class="text-danger text-sm">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-6 mb-3">
+                                        <label for="pendidikan">Pendidikan</label>
+                                        <select name="pendidikan" id="pendidikan" class="form-control">
+                                            <option value="">-- Pilih Pendidikan --</option>
+                                            <option value="Tidak Sekolah"
+                                                {{ old('pendidikan', $data->pendidikan) == 'Tidak Sekolah' ? 'selected' : '' }}>
+                                                Tidak Sekolah</option>
+                                            <option value="SD"
+                                                {{ old('pendidikan', $data->pendidikan) == 'SD' ? 'selected' : '' }}>SD
+                                                / Sederajat</option>
+                                            <option value="SMP"
+                                                {{ old('pendidikan', $data->pendidikan) == 'SMP' ? 'selected' : '' }}>
+                                                SMP / Sederajat</option>
+                                            <option value="SMA"
+                                                {{ old('pendidikan', $data->pendidikan) == 'SMA' ? 'selected' : '' }}>
+                                                SMA / Sederajat</option>
+                                            <option value="D3"
+                                                {{ old('pendidikan', $data->pendidikan) == 'D3' ? 'selected' : '' }}>
+                                                Diploma (D3)</option>
+                                            <option value="S1"
+                                                {{ old('pendidikan', $data->pendidikan) == 'S1' ? 'selected' : '' }}>
+                                                Sarjana (S1)</option>
+                                        </select>
+                                        @error('pendidikan')
+                                            <span class="text-danger text-sm">{{ $message }}</span>
+                                        @enderror
+                                    </div>
                                 </div>
 
                                 <button type="submit" class="mt-4 btn btn-primary float-end">Update Data</button>
-                                <a href="{{ route('data.penduduk-index') }}" class="mt-4 btn btn-secondary float-end me-2">Batal</a>
+                                <a href="{{ route('data.penduduk-index') }}"
+                                    class="mt-4 btn btn-secondary float-end me-2">Batal</a>
                             </div>
                         </div>
                     </div>

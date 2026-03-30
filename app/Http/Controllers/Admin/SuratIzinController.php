@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\dataPenduduk;
 use Illuminate\Http\Request;
 use App\Models\Surat;
 use App\Models\SuratIzin;
@@ -33,7 +34,7 @@ class SuratIzinController extends Controller
 
     public function create()
     {
-        $penduduk = Penduduk::all();
+        $penduduk = dataPenduduk::all();
         return view('admin.suratizin.create', compact('penduduk'));
     }
 
@@ -54,10 +55,9 @@ class SuratIzinController extends Controller
         return redirect()->route('suratizin.index')->with('success', 'Data berhasil ditambahkan.');
     }
 
-    public function edit($id)
-    {
+    public function edit($id)       {
         $data = SuratIzin::findOrFail($id);
-        $penduduk = Penduduk::all();
+        $penduduk = dataPenduduk::all();
         return view('admin.suratizin.edit', compact('data', 'penduduk'));
     }
 
@@ -74,3 +74,4 @@ class SuratIzinController extends Controller
         return redirect()->route('suratizin.index')->with('success', 'Data berhasil dihapus.');
     }
 }
+ 

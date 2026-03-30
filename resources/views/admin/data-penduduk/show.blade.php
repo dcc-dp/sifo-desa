@@ -67,6 +67,10 @@
                                     <th>Kewarganegaraan</th>
                                     <td>{{ $data->kewarganegaraan }}</td>
                                 </tr>
+                                <tr>
+                                    <th>Pendidikan</th>
+                                    <td>{{ $data->pendidikan ?? '-' }}</td>
+                                </tr>
                             </table>
 
                             <a href="{{ url()->previous() }}" class="btn btn-secondary mt-3">Kembali</a>

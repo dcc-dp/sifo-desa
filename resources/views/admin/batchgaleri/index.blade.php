@@ -14,18 +14,15 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 <h6 class="mb-0">Batch Galeri</h6>
 
-
-                                <button type="button"
-                                    class="btn btn-sm btn-dark btn-icon d-flex align-items-center me-2">
-                                    <span class="btn-inner--icon">
-                                        <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 24 24" fill="currentColor" class="d-block me-2">
-                                            <path
-                                                d="M6.25 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM3.25 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM19.75 7.5a.75.75 0 00-1.5 0v2.25H16a.75.75 0 000 1.5h2.25v2.25a.75.75 0 001.5 0v-2.25H22a.75.75 0 000-1.5h-2.25V7.5z" />
-                                        </svg>
-                                    </span>
-                                    <a href="{{ route('batchgaleri.create') }}" class="btn-primary">Tambah Batch Galeri</a>
-                                </button>
+                                <a href="{{ route('batchgaleri.create') }}"
+                                    class="btn btn-sm btn-dark d-flex align-items-center">
+                                    <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 24 24" fill="currentColor" class="d-block me-2">
+                                        <path
+                                            d="M6.25 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM3.25 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM19.75 7.5a.75.75 0 00-1.5 0v2.25H16a.75.75 0 000 1.5h2.25v2.25a.75.75 0 001.5 0v-2.25H22a.75.75 0 000-1.5h-2.25V7.5z" />
+                                    </svg>
+                                    Tambah Batch Galeri
+                                </a>
                             </div>
 
                         </div>
@@ -44,17 +41,11 @@
                                     <thead class="table-light">
                                         <tr>
                                             <th class="small fw-semibold opacity-75 text-white"
-                                                style="background-color: #313d52ff;">
-                                                No
-                                            </th>
+                                                style="background-color: #313d52ff;">No</th>
                                             <th class="small fw-semibold opacity-75 text-white"
-                                                style="background-color: #313d52ff;">
-                                                Nama Batch
-                                            </th>
+                                                style="background-color: #313d52ff;">Nama Batch</th>
                                             <th class="small fw-semibold opacity-75 text-white"
-                                                style="background-color: #313d52ff;">
-                                                Action
-                                            </th>
+                                                style="background-color: #313d52ff;">Action</th>
                                         </tr>
                                     </thead>
 
@@ -62,13 +53,12 @@
                                         @foreach ($batches as $y)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-
                                                 <td>{{ $y->nama }}</td>
-
-
                                                 <td class="align-middle">
+
+                                                    {{-- Tombol Edit --}}
                                                     <a href="{{ route('batchgaleri.edit', $y->id) }}"
-                                                        class="text-secondary font-weight-bold text-xs"
+                                                        class="text-secondary font-weight-bold text-xs me-2"
                                                         data-bs-toggle="tooltip" data-bs-title="Edit Batch">
                                                         <svg width="14" height="14" viewBox="0 0 15 16"
                                                             fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -77,9 +67,11 @@
                                                                 fill="#64748B" />
                                                         </svg>
                                                     </a>
+
+                                                    {{-- Tombol Lihat --}}
                                                     <a href="{{ route('batchgaleri.show', $y->id) }}"
-                                                        class="text-secondary font-weight-bold text-xs"
-                                                        data-bs-toggle="tooltip" data-bs-title="Edit user">
+                                                        class="text-secondary font-weight-bold text-xs me-2"
+                                                        data-bs-toggle="tooltip" data-bs-title="Lihat Batch">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16"
                                                             height="16" fill="currentColor" class="bi bi-eye"
                                                             viewBox="0 0 16 16">
@@ -89,28 +81,25 @@
                                                                 d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0" />
                                                         </svg>
                                                     </a>
-                                                    <a href="{{ route('batchgaleri.destroy', $y->id) }}"
-                                                        class="text-secondary font-weight-bold text-xs"
-                                                        data-bs-toggle="tooltip" data-bs-title="Hapus Batch">
-                                                        <form action="" method="POST" class="d-inline">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit"
-                                                                class="btn btn-link text-danger font-weight-bold text-xs p-0 m-0"
-                                                                data-bs-toggle="tooltip" data-bs-title="Hapus"
-                                                                onclick="return confirm('Yakin ingin menghapus data ini?')">
-                                                                <i class="fas fa-trash-alt"></i>
-                                                            </button>
-                                                        </form>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                                                            height="16" fill="currentColor" class="bi bi-trash3"
-                                                            viewBox="0 0 16 16">
-                                                            <path
-                                                                d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5" />
-                                                        </svg>
-                                                    </a>
-    
-    
+
+                                                    {{-- Tombol Hapus --}}
+                                                    <form action="{{ route('batchgaleri.destroy', $y->id) }}"
+                                                        method="POST" class="d-inline"
+                                                        onsubmit="return confirm('Yakin ingin menghapus batch ini beserta semua gambarnya?')">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit"
+                                                            class="btn p-0 m-0"
+                                                            data-bs-toggle="tooltip" data-bs-title="Hapus Batch">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                                height="16" fill="currentColor"
+                                                                class="bi bi-trash3" viewBox="0 0 16 16">
+                                                                <path
+                                                                    d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5" />
+                                                            </svg>
+                                                        </button>
+                                                    </form>
+
                                                 </td>
                                             </tr>
                                         @endforeach

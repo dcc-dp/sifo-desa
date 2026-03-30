@@ -62,26 +62,30 @@
                             <form method="GET">
                                 <div class="mb-4">
                                     <label class="form-label fw-medium mb-1">RW</label>
-                                    <select name="rw" class="form-select form-select-sm">
+                                    <select name="rw" class="form-select form-select-sm" onchange="this.form.submit()">
                                         <option value="">-- Pilih RW --</option>
-                                        <option value="1" {{ request('rw')=='1' ? 'selected' : '' }}>RW 01</option>
-                                        <option value="2" {{ request('rw')=='2' ? 'selected' : '' }}>RW 02</option>
+                                        @foreach($rwList as $item)
+                                            <option value="{{ $item->id }}" {{ request('rw') == $item->id ? 'selected' : '' }}>
+                                                RW {{ $item->nomor_rw }}
+                                            </option>
+                                        @endforeach
                                     </select>
                                 </div>
-                
+                            
                                 <div class="mb-4">
                                     <label class="form-label fw-medium mb-1">RT</label>
                                     <select name="rt" class="form-select form-select-sm">
                                         <option value="">-- Semua RT --</option>
-                                        <option value="1" {{ request('rt')=='1' ? 'selected' : '' }}>RT 01</option>
-                                        <option value="2" {{ request('rt')=='2' ? 'selected' : '' }}>RT 02</option>
+                                        @foreach($rtList as $item)
+                                            <option value="{{ $item->id }}" {{ request('rt') == $item->id ? 'selected' : '' }}>
+                                                RT {{ $item->nomor_rt }}
+                                            </option>
+                                        @endforeach
                                     </select>
                                 </div>
-                
+                            
                                 <div class="d-grid mt-3">
-                                    <button class="btn btn-success btn-sm fw-semibold">
-                                        Terapkan Filter
-                                    </button>
+                                    <button class="btn btn-success btn-sm fw-semibold">Terapkan Filter</button>
                                 </div>
                             </form>
                         </div>

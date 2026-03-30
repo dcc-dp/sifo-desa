@@ -47,6 +47,7 @@ class DataSeeder extends Seeder
             'status_perkawinan' => 'Belum Kawin',
             'pekerjaan' => 'Mahasiswa',
             'kewarganegaraan' => 'WNI',
+            'pendidikan' => 'SMP',
         ]);
 
         DataPenduduk::create([
@@ -64,6 +65,7 @@ class DataSeeder extends Seeder
             'status_perkawinan' => 'Kawin',
             'pekerjaan' => 'Ibu Rumah Tangga',
             'kewarganegaraan' => 'WNI',
+            'pendidikan' => 'SMA',
         ]);
     }
 }

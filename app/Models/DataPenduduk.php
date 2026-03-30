@@ -24,6 +24,7 @@ class dataPenduduk extends Model
         'status_perkawinan',
         'pekerjaan',
         'kewarganegaraan',
+        'pendidikan',
     ];
 
 

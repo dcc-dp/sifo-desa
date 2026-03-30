@@ -31,6 +31,7 @@ return new class extends Migration
             $table->string('status_perkawinan');
             $table->string('pekerjaan');
             $table->string('kewarganegaraan');
+            $table->string('pendidikan');
 
 
 

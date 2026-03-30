@@ -52,6 +52,7 @@ class DatapendudukController extends Controller
             'status_perkawinan' => 'required',
             'pekerjaan' => 'required',
             'kewarganegaraan' => 'required',
+            'pendidikan' => 'required',
         ]);
 
 
@@ -70,6 +71,7 @@ class DatapendudukController extends Controller
             'status_perkawinan' => $request->status_perkawinan,
             'pekerjaan' => $request->pekerjaan,
             'kewarganegaraan' => $request->kewarganegaraan,
+            'pendidikan' => $request->pendidikan,
         ];
 
         dataPenduduk::create($data);
