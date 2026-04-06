@@ -6,6 +6,7 @@ use App\Models\Agenda;
 use App\Models\Berita;
 use App\Models\Kategori;
 use App\Models\PemerintahDesa;
+use App\Models\Sejarah;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -29,6 +30,11 @@ class UserController extends Controller
     {
         $pemerintahs = PemerintahDesa::all();
         return view('pages/profildesa/pemerintah', compact('pemerintahs'));
+    }
+    public function sejarah()
+    {
+        $sejarahs = Sejarah::all();
+        return view('pages/profildesa/sejarah', compact('sejarahs'));
     }
     public function show($id)
     {

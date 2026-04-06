@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pemerintah_desas', function (Blueprint $table) {
+        Schema::create('sejarahs', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
-            $table->string('jabatan');
-            $table->text('tupoksi');
-            $table->string('foto');
+            $table->string('judul');
+            $table->text('deskripsi')->nullable();
+            $table->string('gambar')->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pemerintah_desas');
+        Schema::dropIfExists('sejarahs');
     }
 };

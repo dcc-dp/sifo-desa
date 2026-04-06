@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\KategoriController;
 use App\Http\Controllers\Admin\PemerintahController;
 use App\Http\Controllers\admin\PengaduanController;
 use App\Http\Controllers\admin\DatapendudukController;
+use App\Http\Controllers\Admin\SejarahController as AdminSejarahController;
 use App\Http\Controllers\CekNikController;
 use App\Http\Controllers\Admin\SuratController;
 use App\Http\Controllers\Admin\SuratDomisiliController;
@@ -26,6 +27,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\CekNikController as ControllersCekNikController;
+use App\Http\Controllers\Admin\SejarahController;
 use App\Http\Controllers\UserLoginController;
 
 /*
@@ -53,9 +55,7 @@ Route::get('/galeri-user', function () {
     return view('pages.profildesa.galeri');
 })->name('galeri');
 
-Route::get('/sejarah-user', function () {
-    return view('pages.profildesa.sejarah');
-})->name('sejarah');
+
 
 Route::get('/', [UserController::class, 'home'])->name('home');
 
@@ -63,6 +63,8 @@ Route::get('/pemerintah', [UserController::class, 'pemerintah'])->name('pemerint
 Route::get('/pemerintah/{id}', [UserController::class, 'show'])->name('pemerintah-detail');
 
 // Route::get('/berita', [UserController::class, 'berita'])->name('berita');
+
+Route::get('/sejarah', [UserController::class, 'sejarah'])->name('sejarah');
 
 Route::get('/kategori', [UserController::class, 'kategori'])->name('kategori');
 Route::get('/kategori/{slug}', [UserController::class, 'showKategori'])->name('show-kategori');
@@ -121,6 +123,13 @@ Route::middleware('auth')->group(function () {
         Route::put('/pemerintah-update/{id}', [PemerintahController::class, 'update'])->name('pemerintah-update');
         Route::get('/pemerintah-destroy/{id}', [PemerintahController::class, 'destroy'])->name('pemerintah-destroy');
 
+        Route::get('/sejarah-index', [SejarahController::class, 'index'])->name('sejarah-index');
+        Route::get('/sejarah-create', [SejarahController::class, 'create'])->name('sejarah-create');
+        Route::post('/sejarah-store', [SejarahController::class, 'store'])->name('sejarah-store');
+        Route::get('/sejarah-edit/{id}', [SejarahController::class, 'edit'])->name('sejarah-edit');
+        Route::put('/sejarah-update/{id}', [SejarahController::class, 'update'])->name('sejarah-update');
+        Route::get('/sejarah-destroy/{id}', [SejarahController::class, 'destroy'])->name('sejarah-destroy');
+
         Route::get('/agenda-index', [AgendaController::class, 'index'])->name('agenda-index');
         Route::get('/agenda-create', [AgendaController::class, 'create'])->name('agenda-create');
         Route::post('/agenda-store', [AgendaController::class, 'store'])->name('agenda-store');
@@ -165,17 +174,7 @@ Route::get('/galeri',[GaleriController::class,'index'])->name('galeri')->middlew
 
 Route::get('/tambah',[GaleriController::class,'tambah'])->name('tambahGambar')->middleware('auth');
 
-Route::get('/sejarah', function(){
-    return view('admin.sejarahDesa.sejarah');
-})->name('sejarah_desa')->middleware('auth');
 
-Route::get('/sejarah/tambah', function(){
-    return view('admin.sejarahDesa.tambah');
-})->name('tambah')->middleware('auth');
-
-Route::get('/sejarah/detail', function(){
-    return view('admin.sejarahDesa.sejarahDetail');
-})->name('sejarah_detail')->middleware('auth');
 
 // Route::get('/pemerintah-index', [PemerintahController::class, 'indexx'])
 //     ->middleware('auth')

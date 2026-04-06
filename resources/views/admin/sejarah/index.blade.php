@@ -4,25 +4,25 @@
         <div class="container-fluid py-4 px-5">
             <div class="row">
                 <div class="col-12">
-                    <div class="d-flex justify-content-between align-items-center" >
-                        <h2 class="mb-4">Data Pemerintah Desa</h2>
-                            <div class="input-group w-sm-25 ms-auto">
-                                    <span class="input-group-text text-body">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px"
-                                            fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z">
-                                            </path>
-                                        </svg>
-                                    </span>
-                                    <input type="text" class="form-control" placeholder="Search">
-                            </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h2 class="mb-4">sejarah</h2>
+                        <div class="input-group w-sm-25 ms-auto">
+                            <span class="input-group-text text-body">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" fill="none"
+                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z">
+                                    </path>
+                                </svg>
+                            </span>
+                            <input type="text" class="form-control" placeholder="Search">
                         </div>
-                        <hr style="height: 2px; color:black;">
+                    </div>
+                    <hr style="height: 2px; color:black;">
                     <div class="card border shadow-xs mb-4">
                         <div class="card-body px-0 py-0 ">
                             <div class="border-bottom py-3 px-3 d-sm-flex align-items-center">
-                                 <div class="ms-auto d-flex">
+                                <div class="ms-auto d-flex">
                                     <button type="button"
                                         class="btn btn-sm btn-dark btn-icon d-flex align-items-center me-2">
                                         <span class="btn-inner--icon">
@@ -32,40 +32,42 @@
                                                     d="M6.25 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM3.25 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM19.75 7.5a.75.75 0 00-1.5 0v2.25H16a.75.75 0 000 1.5h2.25v2.25a.75.75 0 001.5 0v-2.25H22a.75.75 0 000-1.5h-2.25V7.5z" />
                                             </svg>
                                         </span>
-                                        <a href="{{ route('pemerintah-create') }}" class="btn-primary">Tambah Data Pemerintah</a>
+                                        <a href="{{ route('sejarah-create') }}" class="btn-primary">Tambah sejarah</a>
                                     </button>
                                 </div>
-                          
+
                             </div>
                             <div class="table-responsive px-3">
                                 <table class="table table-bordered text-center align-middle mt-2">
                                     <thead class="table-light">
                                         <tr>
-                                            <th class=" small fw-semibold opacity-75 text-white"  style="background-color: #313d52ff;">No</th>
-                                            <th class=" small fw-semibold opacity-75 text-white"  style="background-color: #313d52ff;">Nama</th>
-                                            <th class=" small fw-semibold opacity-75 text-white"  style="background-color: #313d52ff;">Jabatan</th>
-                                            <th class=" small fw-semibold opacity-75 text-white"  style="background-color: #313d52ff;">foto</th>
-                                            <th class=" small fw-semibold opacity-75 text-white"  style="background-color: #313d52ff;">Tugas Pokok Aksi</th>
-                                            <th class=" small fw-semibold opacity-75 text-white"  style="background-color: #313d52ff;">Aksi</th>
+                                            <th class=" small fw-semibold opacity-75 text-white"
+                                                style="background-color: #313d52ff;">No</th>
+                                            <th class=" small fw-semibold opacity-75 text-white"
+                                                style="background-color: #313d52ff;">Judul</th>
+                                            <th class=" small fw-semibold opacity-75 text-white"
+                                                style="background-color: #313d52ff;">Deskripsi</th>
+                                            <th class=" small fw-semibold opacity-75 text-white"
+                                                style="background-color: #313d52ff;">Gambar</th>
+                                            <th class=" small fw-semibold opacity-75 text-white"
+                                                style="background-color: #313d52ff;">Aksi</th>
                                         </tr>
-                                        </thead>
-                                        <tbody>
-                                             @foreach ($pemerintahs as $pemerintah)
-                                                <tr>
-                                                    <td>{{ $loop->iteration }}</td>
-                                                    <td>{{ $pemerintah->nama }}</td>
-                                                    <td>{{ $pemerintah->jabatan }}</td>
-                                                    <td>
-                                                        @if ($pemerintah->foto && file_exists(public_path($pemerintah->foto)))
-                                                            <img src="{{ asset( $pemerintah->foto) }}" alt="Foto" class="rounded" width="60">
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($datas as $sejarah)
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $sejarah->judul }}</td>
+                                                <td>{{ $sejarah->deskripsi }}</td>
+                                                <td>
+                                                        @if ($sejarah->gambar && file_exists(public_path($sejarah->gambar)))
+                                                            <img src="{{ asset( $sejarah->gambar) }}" alt="gambar" class="rounded" width="100">
                                                         @else
-                                                            <span class="text-muted">Tidak Ada Foto Pemerintah</span>
+                                                            <span class="text-muted">Tidak Ada gambar sejarah</span>
                                                         @endif
                                                     </td>
-                                                    <td>{{ \Illuminate\Support\Str::limit(strip_tags($pemerintah->tupoksi), 120, '...') }}
-                                                    </p></td>
-                                                    <td class="align-middle">
-                                                        <a href="{{ route('pemerintah-edit', $pemerintah->id) }}" class="text-secondary font-weight-bold text-xs"
+                                                <td class="align-middle">
+                                                        <a href="{{ route('sejarah-edit', $sejarah->id) }}" class="text-secondary font-weight-bold text-xs"
                                                             data-bs-toggle="tooltip" data-bs-title="Edit Data">
                                                             <svg width="14" height="14" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                 <path
@@ -74,7 +76,7 @@
                                                             </svg>
                                                         </a>
 
-                                                        <a href="{{ route('pemerintah-destroy', $pemerintah->id) }}" class="text-secondary font-weight-bold text-xs"
+                                                        <a href="{{ route('sejarah-destroy', $sejarah->id) }}" class="text-secondary font-weight-bold text-xs"
                                                             data-bs-toggle="tooltip" data-bs-title="Hapus Data">
                                                             <form action="" method="POST" class="d-inline">
                                                             @csrf
@@ -89,9 +91,9 @@
 
 
                                                     </td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
                                 </table>
                             </div>
                             <div class="border-top py-3 px-3 d-flex align-items-center">
