@@ -13,8 +13,8 @@
                         <i class="fas fa-landmark" style="margin-right:5px;"></i> Profil Desa
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="{{ url('/galeri-user') }}"><i class="fas fa-images" style="margin-right:8px;"></i> Galeri Desa</a></li>
-                        <li><a href="{{ url('/sejarah') }}"><i class="fas fa-history" style="margin-right:8px;"></i> Sejarah Desa</a></li>
+                        <li><a href="{{ route('user.galeri') }}"><i class="fas fa-images" style="margin-right:8px;"></i> Galeri Desa</a></li>
+                        <li><a href=""><i class="fas fa-history" style="margin-right:8px;"></i> Sejarah Desa</a></li>
                         <li><a href="{{ url('/pemerintah') }}"><i class="fas fa-users" style="margin-right:8px;"></i> Pemerintah Desa</a></li>
                     </ul>
                 </li>
@@ -35,13 +35,13 @@
                         <i class="fas fa-chart-bar" style="margin-right:5px;"></i> Data Statistik
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="{{ ('penduduk') }}"><i class="fas fa-users" style="margin-right:8px;"></i> Jumlah Penduduk</a>
+                        <li><a href="{{ ('statistik-penduduk') }}"><i class="fas fa-users" style="margin-right:8px;"></i> Jumlah Penduduk</a>
                         </li>
-                        <li><a href="{{ ('pendidikan') }}"><i class="fas fa-graduation-cap" style="margin-right:8px;"></i> Data Pendidikan</a>
+                        <li><a href="{{ ('statistik-pendidikan') }}"><i class="fas fa-graduation-cap" style="margin-right:8px;"></i> Data Pendidikan</a>
                         </li>
-                        <li><a href="{{ ('pekerjaan') }}"><i class="fas fa-briefcase" style="margin-right:8px;"></i> Data Pekerjaan</a>
+                        <li><a href="{{ ('statistik-pekerjaan') }}"><i class="fas fa-briefcase" style="margin-right:8px;"></i> Data Pekerjaan</a>
                         </li>
-                        <li><a href="{{ ('agama') }}"><i class="fas fa-place-of-worship" style="margin-right:8px;"></i> Data Agama</a>
+                        <li><a href="{{ ('statistik-agama') }}"><i class="fas fa-place-of-worship" style="margin-right:8px;"></i> Data Agama</a>
                         </li>
                     </ul>
                 </li>

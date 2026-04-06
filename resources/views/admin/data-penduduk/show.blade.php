@@ -28,12 +28,20 @@
                                     <td>{{ $data->tanggal_lahir }}</td>
                                 </tr>
                                 <tr>
+                                    <th>Jenis Kelamin</th>
+                                    <td>{{ $data->jenis_kelamin }}</td>
+                                </tr>
+                                <tr>
                                     <th>Alamat</th>
                                     <td>{{ $data->alamat }}</td>
                                 </tr>
                                 <tr>
                                     <th>RT / RW</th>
-                                    <td>{{ $data->rt }} / {{ $data->rw }}</td>
+                                    <td>
+                                        RT {{ $data->rt->nomor_rt ?? '-' }} /
+                                        RW {{ $data->rw->nomor_rw ?? '-' }}
+                                    </td>
+                                    
                                 </tr>
                                 <tr>
                                     <th>Kel/Desa</th>
@@ -58,6 +66,10 @@
                                 <tr>
                                     <th>Kewarganegaraan</th>
                                     <td>{{ $data->kewarganegaraan }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Pendidikan</th>
+                                    <td>{{ $data->pendidikan ?? '-' }}</td>
                                 </tr>
                             </table>
 

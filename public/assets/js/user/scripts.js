@@ -272,3 +272,34 @@
         function showComplaintDetail(id) {
              navigate('complaint-detail', {id: id});
         }
+
+
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const chartEl = document.querySelector("#pendudukChart");
+            if (!chartEl) return;
+        
+            const laki = parseInt(chartEl.dataset.laki) || 0;
+            const perempuan = parseInt(chartEl.dataset.perempuan) || 0;
+            const kepala = parseInt(chartEl.dataset.kepala) || 0;
+        
+            var options = {
+                chart: {
+                    type: 'donut',
+                    height: 360
+                },
+                labels: ['Laki-laki', 'Perempuan', 'Kepala Keluarga'],
+                series: [laki, perempuan, kepala],
+                legend: {
+                    position: 'bottom'
+                },
+                colors: ['#0d6efd', '#dc3545', '#198754']
+            };
+        
+            var chart = new ApexCharts(chartEl, options);
+            chart.render();
+        
+        });
+        
+        

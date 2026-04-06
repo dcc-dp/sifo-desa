@@ -5,11 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Layanandesa extends Model
+
+class Rt extends Model
 {
     use HasFactory;
-    protected $table = 'layanandesas'; 
+
+    protected $table = 'rts';
     protected $fillable = [
-        'user_id',
+        'rw_id',
+        'nomor_rt',
     ];
+
+    public function rws()
+    {
+        return $this->belongsTo(Rw::class);
+    }
 }

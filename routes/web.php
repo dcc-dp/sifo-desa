@@ -21,11 +21,28 @@ use App\Http\Controllers\PengajuanSuratController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\GaleriController;
+use App\Http\Controllers\Admin\RtController;
+use App\Http\Controllers\Admin\RwController;
+use App\Http\Controllers\StatistikController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\UserGaleriController;
+use App\Http\Controllers\Admin\SuratController;
+use App\Http\Controllers\Admin\AgendaController;
+use App\Http\Controllers\Admin\BeritaController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Admin\KategoriController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\PengaduanController;
+use App\Http\Controllers\Admin\SuratIzinController;
+use App\Http\Controllers\Admin\PemerintahController;
+use App\Http\Controllers\Admin\SuratKetusController;
+use App\Http\Controllers\Admin\BatchGaleriController;
+use App\Http\Controllers\Admin\DatapendudukController;
+use App\Http\Controllers\Admin\GaleriController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\Admin\SuratDomisiliController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Admin\SuratPengantarController;
 use App\Http\Controllers\CekNikController as ControllersCekNikController;
 use App\Http\Controllers\Admin\SejarahController;
 use App\Http\Controllers\UserLoginController;
@@ -51,6 +68,9 @@ use App\Http\Controllers\UserLoginController;
 //     ]);
 // })->name('home');
 
+Route::get('/galeri', [UserGaleriController::class, 'index'])->name('user.galeri');
+Route::get('/galeri/{batch}', [UserGaleriController::class, 'show'])->name('user.galeri.show');
+
 Route::get('/galeri-user', function () {
     return view('pages.profildesa.galeri');
 })->name('galeri');
@@ -72,21 +92,23 @@ Route::get('/berita/{slug}', [UserController::class, 'detailBerita'])->name('det
 
 Route::get('/agenda', [UserController::class, 'agenda'])->name('agenda');
 
-Route::get('/penduduk', function () {
-    return view('pages.datastatik.penduduk');
-})->name('penduduk');
+Route::get('/statistik-penduduk', [StatistikController::class, 'statistikPenduduk'])->name('user.statistik.penduduk');
+Route::get('/statistik-agama', [StatistikController::class, 'statistikAgama'])->name('user.statistik.agama');
+Route::get('/statistik-pekerjaan', [StatistikController::class, 'statistikPekerjaan'])->name('user.statistik.pekerjaan');
+Route::get('/statistik-pendidikan', [StatistikController::class, 'statistikPendidikan'])->name('user.statistik.pendidikan');
 
-Route::get('/pendidikan', function () {
-    return view('pages.datastatik.pendidikan');
-})->name('pendidikan');
 
-Route::get('/pekerjaan', function () {
-    return view('pages.datastatik.pekerjaan');
-})->name('pekerjaan');
+// Route::get('/pendidikan', function () {
+//     return view('pages.datastatik.pendidikan');
+// })->name('pendidikan');
 
-Route::get('/agama', function () {
-    return view('pages.datastatik.agama');
-})->name('agama');
+// Route::get('/pekerjaan', function () {
+//     return view('pages.datastatik.pekerjaan');
+// })->name('pekerjaan');
+
+// Route::get('/agama', function () {
+//     return view('pages.datastatik.agama');
+// })->name('agama');
 
 Route::post('/pengaduan/storeLanding', [PengaduanController::class, 'storeLanding'])->name('pengaduan.storeLanding');
 Route::post('/pengaduan/store', [PengaduanController::class, 'store'])->name('pengaduan-store');
@@ -157,32 +179,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/pengaduan-edit/{id}', [PengaduanController::class, 'edit'])->name('pengaduan-edit');
         Route::put('/pengaduan-update/{id}', [PengaduanController::class, 'update'])->name('pengaduan-update');
         Route::get('/pengaduan-destroy/{id}', [PengaduanController::class, 'destroy'])->name('pengaduan-destroy');
-    });
-});
 
-// Route::get('/tes', function () {
-//     return view('admin.pemerintah.tes');
-// })->name('tes');
-
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->name('dashboard')->middleware('auth');
-
-
-
-Route::get('/galeri',[GaleriController::class,'index'])->name('galeri')->middleware('auth');
-
-Route::get('/tambah',[GaleriController::class,'tambah'])->name('tambahGambar')->middleware('auth');
-
-
-
-// Route::get('/pemerintah-index', [PemerintahController::class, 'indexx'])
-//     ->middleware('auth')
-//     ->name('pemerintah-index');
-
-
-Route::middleware('auth')->group(function () {
-    Route::prefix('admin')->group(function () {
         Route::get('/data.penduduk-index', [DatapendudukController::class, 'index'])->name('data.penduduk-index');
         Route::get('/data.penduduk-create', [DatapendudukController::class, 'create'])->name('data.penduduk-create');
         Route::post('/data.penduduk-store', [DatapendudukController::class, 'store'])->name('data.penduduk-store');
@@ -209,7 +206,19 @@ Route::middleware('auth')->group(function () {
         Route::put('/suratdomisili-update/{id}', [SuratDomisiliController::class, 'update'])->name('suratdomisili.update');
         Route::get('/suratdomisili-destroy/{id}', [SuratDomisiliController::class, 'destroy'])->name('suratdomisili.destroy');
         Route::get('/search', [SuratDomisiliController::class, 'search'])->name('surat.search');
-   
+
+        Route::get('/galeri/{id}/create', [GaleriController::class, 'create'])->name('galeri.create');
+        Route::post('/galeri/{id}/store',  [GaleriController::class, 'store'])->name('galeri.store');
+        Route::delete('/galeri/{id}',      [GaleriController::class, 'destroy'])->name('galeri.destroy');
+
+        Route::get('/batchgaleri', [BatchGaleriController::class, 'index'])->name('batchgaleri.index');
+        Route::get('/batchgaleri/create', [BatchGaleriController::class, 'create'])->name('batchgaleri.create');
+        Route::post('/batchgaleri/store', [BatchGaleriController::class, 'store'])->name('batchgaleri.store');
+
+        Route::get('/batchgaleri/{id}/edit', [BatchGaleriController::class, 'edit'])->name('batchgaleri.edit');
+        Route::put('/batchgaleri/{id}', [BatchGaleriController::class, 'update'])->name('batchgaleri.update');
+        Route::get('/batchgaleri/{id}', [BatchGaleriController::class, 'show'])->name('batchgaleri.show');
+        Route::delete('/batchgaleri/{id}', [BatchGaleriController::class, 'destroy'])->name('batchgaleri.destroy');
 
         Route::get('/suratpengantar-index', [SuratPengantarController::class, 'index'])->name('suratpengantar.index');
         Route::get('/suratpengantar-create', [SuratPengantarController::class, 'create'])->name('suratpengantar.create');
@@ -237,8 +246,55 @@ Route::middleware('auth')->group(function () {
         Route::put('/suratizin/{id}', [SuratIzinController::class, 'update'])->name('suratizin.update');
         Route::delete('/suratizin/{id}', [SuratIzinController::class, 'destroy'])->name('suratizin.destroy');
         Route::get('/suratizin-search', [SuratIzinController::class, 'search'])->name('suratizin.search');
-            });
- });
+
+
+        Route::get('/rw-index', [RwController::class, 'index'])->name('rw-index');
+        Route::get('/rw-create', [RwController::class, 'create'])->name('rw-create');
+        Route::post('/rw-store', [RwController::class, 'store'])->name('rw-store');
+        Route::get('/rw-edit/{id}', [RwController::class, 'edit'])->name('rw-edit');
+        Route::put('/rw-update/{id}', [RwController::class, 'update'])->name('rw-update');
+        Route::get('/rw-destroy/{id}', [RwController::class, 'destroy'])->name('rw-destroy');
+
+        Route::get('/rt-index', [RtController::class, 'index'])->name('rt-index');
+        Route::get('/rt-create', [RtController::class, 'create'])->name('rt-create');
+        Route::post('/rt-store', [RtController::class, 'store'])->name('rt-store');
+        Route::get('/rt-edit/{id}', [RtController::class, 'edit'])->name('rt-edit');
+        Route::put('/rt-update/{id}', [RtController::class, 'update'])->name('rt-update');
+        Route::get('/rt-destroy/{id}', [RtController::class, 'destroy'])->name('rt-destroy');
+    });
+});
+
+// Route::get('/tes', function () {
+//     return view('admin.pemerintah.tes');
+// })->name('tes');
+
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->name('dashboard')->middleware('auth');
+
+
+// Route::get('/galeri', function(){
+//     return view('admin.galeri.galeri');
+// })->name('galeri')->middleware('auth');
+
+
+
+Route::get('/sejarah', function () {
+    return view('admin.sejarahDesa.sejarah');
+})->name('sejarah_desa')->middleware('auth');
+
+Route::get('/sejarah/tambah', function () {
+    return view('admin.sejarahDesa.tambah');
+})->name('tambah')->middleware('auth');
+
+Route::get('/sejarah/detail', function () {
+    return view('admin.sejarahDesa.sejarahDetail');
+})->name('sejarah_detail')->middleware('auth');
+
+// Route::get('/pemerintah-index', [PemerintahController::class, 'indexx'])
+//     ->middleware('auth')
+//     ->name('pemerintah-index');
+
 Route::get('/tables', function () {
     return view('tables');
 })->name('tables')->middleware('auth');

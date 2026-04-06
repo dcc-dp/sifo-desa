@@ -7,7 +7,7 @@
     <section>
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title"><i class="fas fa-landmark"></i> Sejarah Desa</h2>
+                <h2 class="section-title">KATEGORI BERITA</h2>
             </div>
             <div class="row">
                 <div class="position-relative">

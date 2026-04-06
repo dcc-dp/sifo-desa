@@ -14,17 +14,30 @@ class dataPenduduk extends Model
         'nama',
         'tempat_lahir',
         'tanggal_lahir',
+        'jenis_kelamin',
         'alamat',
-        'rt',
-        'rw',
+        'rw_id',
+        'rt_id',
         'keldesa',
         'kecamatan',
         'agama',
         'status_perkawinan',
         'pekerjaan',
         'kewarganegaraan',
+        'pendidikan',
     ];
 
+
+    public function rw()
+    {
+        return $this->belongsTo(Rw::class);
+    }
+
+    public function rt()
+    {
+        return $this->belongsTo(Rt::class);
+    }
+    
     public function user()
     {
         return $this->hasOne(User::class, 'nik_id', 'nik');

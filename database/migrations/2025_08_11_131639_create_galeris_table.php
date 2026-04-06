@@ -13,10 +13,13 @@ return new class extends Migration
     {
         Schema::create('galeris', function (Blueprint $table) {
             $table->id();
-            $table->string('id_batch');
+            $table->foreignId('id_batch')->constrained('batch_galeris')->onDelete('cascade');
+            $table->string('judul');
             $table->string('gambar');
             $table->timestamps();
         });
+        
+        
     }
 
     /**

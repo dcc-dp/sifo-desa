@@ -7,50 +7,83 @@
 <section>
 
     <div class="dashboard-container">
-
         <div class="stats-grid">
 
             <div class="stat-card">
                 <p class="stat-title">Petani</p>
-                <p class="stat-value">210</p>
+                <p class="stat-value">{{ $petani }}</p>
             </div>
-
+            
             <div class="stat-card">
                 <p class="stat-title">Buruh</p>
-                <p class="stat-value">140</p>
+                <p class="stat-value">{{ $buruh }}</p>
             </div>
-
+            
             <div class="stat-card">
                 <p class="stat-title">Wiraswasta</p>
-                <p class="stat-value">175</p>
+                <p class="stat-value">{{ $wiraswasta }}</p>
             </div>
-
+            
             <div class="stat-card">
                 <p class="stat-title">PNS</p>
-                <p class="stat-value">38</p>
+                <p class="stat-value">{{ $pns }}</p>
             </div>
-
         </div>
 
+        
         <div class="chart-layout">
 
             <!-- bar chart -->
             <div class="chart-card">
-                <h6 style="margin-bottom: 15px;">Grafik Statistik Pekerjaan</h6>
-                <div id="pekerjaanChart" style="height: 360px;"></div>
+                <h6 class="mb-3 text-center">
+                    Grafik Jumlah Pekerjaan
+                    @if($rw) RW {{ $rw }} @endif
+                    @if($rt) RT {{ $rt }} @endif
+                </h6>
+            
+                <div 
+                    id="pekerjaanChart"
+                    data-petani="{{ $petani ?? 0 }}"
+                    data-buruh="{{ $buruh ?? 0 }}"
+                    data-wiraswasta="{{ $wiraswasta ?? 0 }}"
+                    data-pns="{{ $pns ?? 0 }}"
+                    style="height: 360px;">
+                </div>
             </div>
+            
 
-            <div class="filter-card">
-                <h6 style="margin-bottom: 15px;">Filter Dusun</h6>
-
-                <label class="form-label">Pilih Dusun:</label>
-                <select class="form-select mb-3">
-                    <option>Dusun A</option>
-                    <option>Dusun B</option>
-                    <option>Dusun C</option>
-                </select>
-
-                <button class="btn btn-success w-100">Terapkan</button>
+            <div class="col-md-4 col-lg-3">
+                <div class="card shadow-sm border-0 h-100">
+                    <div class="card-body px-4 py-4">
+                        <h6 class="fw-semibold mb-4 text-center">Filter Wilayah</h6>
+            
+                        <form method="GET">
+                            <div class="mb-4">
+                                <label class="form-label fw-medium mb-1">RW</label>
+                                <select name="rw" class="form-select form-select-sm">
+                                    <option value="">-- Pilih RW --</option>
+                                    <option value="1" {{ request('rw')=='1' ? 'selected' : '' }}>RW 01</option>
+                                    <option value="2" {{ request('rw')=='2' ? 'selected' : '' }}>RW 02</option>
+                                </select>
+                            </div>
+            
+                            <div class="mb-4">
+                                <label class="form-label fw-medium mb-1">RT</label>
+                                <select name="rt" class="form-select form-select-sm">
+                                    <option value="">-- Semua RT --</option>
+                                    <option value="1" {{ request('rt')=='1' ? 'selected' : '' }}>RT 01</option>
+                                    <option value="2" {{ request('rt')=='2' ? 'selected' : '' }}>RT 02</option>
+                                </select>
+                            </div>
+            
+                            <div class="d-grid mt-3">
+                                <button class="btn btn-success btn-sm fw-semibold">
+                                    Terapkan Filter
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
 
         </div>
