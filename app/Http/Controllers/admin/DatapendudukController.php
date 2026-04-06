@@ -16,7 +16,7 @@ class DatapendudukController extends Controller
      */
     public function index()
     {
-        $data = DataPenduduk::with(['rw', 'rt'])->get();
+        $data = dataPenduduk::with(['rw', 'rt'])->get();
         return view('admin.data-penduduk.index', compact('data'));
     }
 
@@ -85,7 +85,10 @@ class DatapendudukController extends Controller
     public function edit(string $id)
     {
         $data = dataPenduduk::findOrFail($id);
-        return view('admin.data-penduduk.edit', compact('data'));
+        $rws = Rw::all();
+        $rts = Rt::all();
+
+        return view('admin.data-penduduk.edit', compact('data', 'rws', 'rts'));
     }
 
     /**
@@ -110,6 +113,7 @@ class DatapendudukController extends Controller
             'status_perkawinan' => 'required',
             'pekerjaan' => 'required',
             'kewarganegaraan' => 'required',
+            'pendidikan' => 'required',
         ]);
 
         $penduduk->update([
@@ -127,6 +131,7 @@ class DatapendudukController extends Controller
             'status_perkawinan' => $request->status_perkawinan,
             'pekerjaan' => $request->pekerjaan,
             'kewarganegaraan' => $request->kewarganegaraan,
+            'pendidikan' => $request->pendidikan,
         ]);
 
         return redirect()->route('data.penduduk-index')->with('success', 'Data Penduduk berhasil diperbaharui');
@@ -145,7 +150,7 @@ class DatapendudukController extends Controller
 
     public function show(string $id)
     {
-        $data = DataPenduduk::with(['rw', 'rt'])->findOrFail($id);
+        $data = dataPenduduk::with(['rw', 'rt'])->findOrFail($id);
         return view('admin.data-penduduk.show', compact('data'));
     }
 

@@ -1,20 +1,8 @@
 <?php
 
 
-use App\Http\Controllers\Admin\AgendaController;
-use App\Http\Controllers\Admin\BeritaController;
-use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\KategoriController;
-use App\Http\Controllers\Admin\PemerintahController;
-use App\Http\Controllers\admin\PengaduanController;
-use App\Http\Controllers\admin\DatapendudukController;
 use App\Http\Controllers\Admin\SejarahController as AdminSejarahController;
 use App\Http\Controllers\CekNikController;
-use App\Http\Controllers\Admin\SuratController;
-use App\Http\Controllers\Admin\SuratDomisiliController;
-use App\Http\Controllers\Admin\SuratPengantarController;
-use App\Http\Controllers\Admin\SuratKetusController;
-use App\Http\Controllers\Admin\SuratIzinController;
 use App\Http\Controllers\PengaduanAuth;
 use App\Http\Controllers\PengajuanSuratAuth;
 use App\Http\Controllers\PengajuanSuratController;

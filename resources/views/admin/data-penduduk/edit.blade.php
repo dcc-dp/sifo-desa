@@ -221,7 +221,7 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="mb-3">
+                                    <div class="col-6 mb-3">
                                         <label for="kewarganegaraan">Kewarganegaraan</label>
                                         <input type="text" name="kewarganegaraan" id="kewarganegaraan"
                                             value="{{ old('kewarganegaraan', $data->kewarganegaraan) }}"
