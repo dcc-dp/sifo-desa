@@ -38,8 +38,18 @@ class dataPenduduk extends Model
         return $this->belongsTo(Rt::class);
     }
     
+    public function user()
+    {
+        return $this->hasOne(User::class, 'nik_id', 'nik');
+    }
     public function surats()
     {
         return $this->hasMany(Surat::class, 'penduduk_id');
     }
+
 }
+
+
+    
+
+

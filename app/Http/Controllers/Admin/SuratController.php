@@ -13,14 +13,13 @@ class SuratController extends Controller
     public function index()
     {
         $data = Surat::with('penduduk')->latest()->paginate(10);
-        $tes = SKTM::all();
-        return view('admin.persuratan.SKTM.surat-index', compact('data', 'tes'));
+        return view('admin.persuratan.surat-index', compact('data'));
     }
 
     public function edit($id)
     {
         $tes = Surat::findOrFail($id);
-        return view('admin.persuratan.SKTM.surat-edit', compact('tes', 'id'));
+        return view('admin.persuratan.surat-edit', compact('tes', 'id'));
     }
 
 

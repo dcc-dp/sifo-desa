@@ -7,48 +7,72 @@
     <section>
         <div class="container">
             <h2><i class="fas fa-comment-dots"></i> Sistem Pengaduan Masyarakat</h2>
-
-            <div class="card" style="padding: 30px;">
-                <h3>Submit New Complaint</h3>
-                <form id="complaint-form">
-                    <div class="form-group">
-                        <label for="comp-nama">nama</label>
-                        <input type="text" id="comp-nama" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="comp-title">Title</label>
-                        <input type="text" id="comp-title" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="comp-category">Category</label>
-                        <select id="comp-category" required>
-                            <option value="">Select Category</option>
-                            <option value="pelayanan">Service</option>
-                            <option value="infrastruktur">Infrastucture</option>
-                            <option value="apbdes">APBDes</option>
-                            <option value="lainnya">Other</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="comp-desc">Description</label>
-                        <textarea id="comp-desc" rows="5" required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="comp-image">Upload Image (Optional)</label>
-                        <input type="file" id="comp-image" accept="image/*">
-                    </div>
-                    <div class="form-group">
-                        <label for="comp-file">Upload File (Optional)</label>
-                        <input type="file" id="comp-file">
-                    </div>
-                    <div class="form-group checkbox-group">
-                        <input type="checkbox" id="comp-anon">
-                        <label for="comp-anon" style="margin-bottom: 0;">Submit as Anonymous</label>
-                    </div>
-                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 15px;">Submit
-                        Complaint</button>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <div>
+                    <p style="margin: 0; color: #666;">
+                        <strong>Nama:</strong> {{ session('pengaduan_penduduk_name') }}
+                    </p>
+                    <p style="margin: 5px 0 0 0; color: #666;">
+                        <strong>NIK:</strong> {{ session('pengaduan_nik') }}
+                    </p>
+                </div>
+                <form action="{{ route('pengaduan.logout') }}" method="GET" style="display:inline;">
+                    @csrf
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
                 </form>
             </div>
+
+            <form action="{{ route('pengaduan-store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+
+
+                <input type="hidden" name="user_id" value="{{ auth()->id() }}">
+
+                <div class="form-group">
+                    <label for="judul">Judul</label>
+                    <input type="text" class="form-control" id="judul" name="judul" value="{{ old('judul') }}" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="kategori_id">Kategori</label>
+                    <select id="kategori_id" name="kategori_id" class="form-control" required>
+                        <option value="">Select Kategori</option>
+                        @foreach ($kategoris as $kategori)
+                            <option value="{{ $kategori->id }}">{{ $kategori->nama_kategori }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="deskripsi">Deskripsi</label>
+                    <textarea class="form-control" id="deskripsi" name="deskripsi" rows="5"
+                        required>{{ old('deskripsi') }}</textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="gambar">Upload Image (Optional)</label>
+                    <input type="file" class="form-control" name="gambar" accept="image/*">
+                </div>
+
+                <div class="form-group mt-3">
+                    <label for="file">Upload PDF (Optional)</label>
+                    <input type="file" class="form-control" name="file" accept="application/pdf">
+                </div>
+
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="anonymous" name="anonymous" value="1">
+                    <label for="anonymous">Submit as Anonymous</label>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 15px;">
+                    Submit Complaint
+                </button>
+
+            </form>
+
+
 
             <h3 style="margin-top: 40px;">Your Previous Complaints</h3>
             <div class="complaint-history">

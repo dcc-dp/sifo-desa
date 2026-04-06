@@ -1,6 +1,23 @@
 <?php
 
 
+use App\Http\Controllers\Admin\AgendaController;
+use App\Http\Controllers\Admin\BeritaController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\KategoriController;
+use App\Http\Controllers\Admin\PemerintahController;
+use App\Http\Controllers\admin\PengaduanController;
+use App\Http\Controllers\admin\DatapendudukController;
+use App\Http\Controllers\Admin\SejarahController as AdminSejarahController;
+use App\Http\Controllers\CekNikController;
+use App\Http\Controllers\Admin\SuratController;
+use App\Http\Controllers\Admin\SuratDomisiliController;
+use App\Http\Controllers\Admin\SuratPengantarController;
+use App\Http\Controllers\Admin\SuratKetusController;
+use App\Http\Controllers\Admin\SuratIzinController;
+use App\Http\Controllers\PengaduanAuth;
+use App\Http\Controllers\PengajuanSuratAuth;
+use App\Http\Controllers\PengajuanSuratController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
@@ -26,6 +43,9 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Admin\SuratDomisiliController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Admin\SuratPengantarController;
+use App\Http\Controllers\CekNikController as ControllersCekNikController;
+use App\Http\Controllers\Admin\SejarahController;
+use App\Http\Controllers\UserLoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,21 +62,33 @@ use App\Http\Controllers\Admin\SuratPengantarController;
 //     return redirect('/dashboard');
 // })->middleware('auth');
 
-Route::get('/', function () {
-    return view('pages.home', [
-        'title' => 'Beranda Desa'
-    ]);
-})->name('home');
+// Route::get('/', function () {
+//     return view('pages.home', [
+//         'title' => 'Beranda Desa'
+//     ]);
+// })->name('home');
 
 Route::get('/galeri', [UserGaleriController::class, 'index'])->name('user.galeri');
 Route::get('/galeri/{batch}', [UserGaleriController::class, 'show'])->name('user.galeri.show');
 
+Route::get('/galeri-user', function () {
+    return view('pages.profildesa.galeri');
+})->name('galeri');
+
+
+
+Route::get('/', [UserController::class, 'home'])->name('home');
 
 Route::get('/pemerintah', [UserController::class, 'pemerintah'])->name('pemerintah');
+Route::get('/pemerintah/{id}', [UserController::class, 'show'])->name('pemerintah-detail');
 
-Route::get('/berita', [UserController::class, 'berita'])->name('berita');
+// Route::get('/berita', [UserController::class, 'berita'])->name('berita');
+
+Route::get('/sejarah', [UserController::class, 'sejarah'])->name('sejarah');
 
 Route::get('/kategori', [UserController::class, 'kategori'])->name('kategori');
+Route::get('/kategori/{slug}', [UserController::class, 'showKategori'])->name('show-kategori');
+Route::get('/berita/{slug}', [UserController::class, 'detailBerita'])->name('detail-berita');
 
 Route::get('/agenda', [UserController::class, 'agenda'])->name('agenda');
 
@@ -78,14 +110,27 @@ Route::get('/statistik-pendidikan', [StatistikController::class, 'statistikPendi
 //     return view('pages.datastatik.agama');
 // })->name('agama');
 
-Route::get('/pengaduan', function () {
-    return view('pages.layananonline.pengaduan');
-})->name('pengaduan');
+Route::post('/pengaduan/storeLanding', [PengaduanController::class, 'storeLanding'])->name('pengaduan.storeLanding');
+Route::post('/pengaduan/store', [PengaduanController::class, 'store'])->name('pengaduan-store');
 
+// Pengaduan authentication routes
+Route::get('/pengaduan-login', [PengaduanAuth::class, 'showLoginForm'])->name('pengaduan.login-form');
+Route::post('/pengaduan-login', [PengaduanAuth::class, 'login'])->name('pengaduan.login');
+
+// Protected pengaduan route
+Route::get('/pengaduan', [PengaduanController::class, 'create'])->middleware('pengaduan.auth')->name('pengaduan');
+Route::get('/pengaduan-logout', [PengaduanAuth::class, 'logout'])->name('pengaduan.logout');
+
+// Pengajuan Surat authentication routes
+Route::get('/pengajuan-login', [PengajuanSuratAuth::class, 'showLoginForm'])->name('pengajuan.login-form');
+Route::post('/pengajuan-login', [PengajuanSuratAuth::class, 'login'])->name('pengajuan.login');
+
+// Protected pengajuan route
 Route::get('/pengajuan', function () {
     return view('pages.layananonline.pengajuan');
-})->name('pengajuan');
-
+})->middleware('pengajuan.auth')->name('pengajuan');
+Route::post('/pengajuan/store', [PengajuanSuratController::class, 'store'])->middleware('pengajuan.auth')->name('pengajuan.store');
+Route::get('/pengajuan-logout', [PengajuanSuratAuth::class, 'logout'])->name('pengajuan.logout');
 
 
 
@@ -99,6 +144,13 @@ Route::middleware('auth')->group(function () {
         Route::get('/pemerintah-edit/{id}', [PemerintahController::class, 'edit'])->name('pemerintah-edit');
         Route::put('/pemerintah-update/{id}', [PemerintahController::class, 'update'])->name('pemerintah-update');
         Route::get('/pemerintah-destroy/{id}', [PemerintahController::class, 'destroy'])->name('pemerintah-destroy');
+
+        Route::get('/sejarah-index', [SejarahController::class, 'index'])->name('sejarah-index');
+        Route::get('/sejarah-create', [SejarahController::class, 'create'])->name('sejarah-create');
+        Route::post('/sejarah-store', [SejarahController::class, 'store'])->name('sejarah-store');
+        Route::get('/sejarah-edit/{id}', [SejarahController::class, 'edit'])->name('sejarah-edit');
+        Route::put('/sejarah-update/{id}', [SejarahController::class, 'update'])->name('sejarah-update');
+        Route::get('/sejarah-destroy/{id}', [SejarahController::class, 'destroy'])->name('sejarah-destroy');
 
         Route::get('/agenda-index', [AgendaController::class, 'index'])->name('agenda-index');
         Route::get('/agenda-create', [AgendaController::class, 'create'])->name('agenda-create');
@@ -259,9 +311,19 @@ Route::get('/profile', function () {
     return view('account-pages.profile');
 })->name('profile')->middleware('auth');
 
-Route::get('/signin', function () {
-    return view('account-pages.signin');
-})->name('signin');
+// Route::get('/signin', function () {
+//     return view('account-pages.signin');
+// })->name('signin');
+
+Route::get('/ceknik', [CekNikController::class, 'index'])->name('ceknik');
+Route::post('/ceknik', [CekNikController::class, 'store'])->name('ceknik.store');
+
+Route::middleware('guest')->group(function () {
+    Route::get('/user/login', [UserLoginController::class, 'userindex'])->name('userlogin');
+    Route::post('/user/login', [UserLoginController::class, 'userlogin'])->name('userlogin.post');
+   
+});
+ Route::post('/user/logout', [UserLoginController::class, 'userlogout'])->name('userlogout');
 
 Route::get('/signup', function () {
     return view('account-pages.signup');

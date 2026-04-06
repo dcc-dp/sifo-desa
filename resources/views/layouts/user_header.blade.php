@@ -51,15 +51,16 @@
                         <i class="fas fa-laptop" style="margin-right:5px;"></i> Layanan Online
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="{{ ('pengajuan') }}"><i class="fas fa-envelope-open-text" style="margin-right:8px;"></i> Pengajuan
+                        <li><a href="{{ route('pengajuan.login-form') }}"><i class="fas fa-envelope-open-text" style="margin-right:8px;"></i> Pengajuan
                                 Surat</a></li>
-                        <li><a href="{{ ('pengaduan') }}"><i class="fas fa-file-signature" style="margin-right:8px;"></i> Pengaduan</a>
+                        <li><a href="{{route('pengaduan.login-form') }}"><i class="fas fa-file-signature" style="margin-right:8px;"></i> Pengaduan</a>
                         </li>
                     </ul>
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ ('sign-in') }}" class="btn-login"  style="margin-right:6px;">
+                    <a href="{{ url('/sign-in') }}" class="btn-login"  style="margin-right:6px;">
+
                     Login
                     </a>
                 </li>

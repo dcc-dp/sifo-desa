@@ -638,6 +638,12 @@
             text-align: center;
         }
 
+        .auth-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 90vh;
+        }
         .auth-container .logo {
             justify-content: center;
             margin-bottom: 30px;

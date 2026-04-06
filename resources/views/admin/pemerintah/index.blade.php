@@ -62,7 +62,8 @@
                                                             <span class="text-muted">Tidak Ada Foto Pemerintah</span>
                                                         @endif
                                                     </td>
-                                                    <td>{{ $pemerintah->tupoksi }}</td>
+                                                    <td>{{ \Illuminate\Support\Str::limit(strip_tags($pemerintah->tupoksi), 120, '...') }}
+                                                    </p></td>
                                                     <td class="align-middle">
                                                         <a href="{{ route('pemerintah-edit', $pemerintah->id) }}" class="text-secondary font-weight-bold text-xs"
                                                             data-bs-toggle="tooltip" data-bs-title="Edit Data">

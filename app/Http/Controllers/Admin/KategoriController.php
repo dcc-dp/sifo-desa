@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Kategori;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class KategoriController extends Controller
@@ -35,7 +36,10 @@ class KategoriController extends Controller
             'nama_kategori' => 'required|string|max:255',
         ]);
 
-        Kategori::create($request->only('nama_kategori'));
+        Kategori::create([
+            'nama_kategori' => $request->nama_kategori,
+            'slug' => Str::slug($request->nama_kategori)
+        ]);
 
         return redirect()->route('kategori-index')
             ->with('success', 'Kategori berhasil ditambahkan.');
@@ -70,10 +74,12 @@ class KategoriController extends Controller
             'nama_kategori' => 'required|string|max:255',
         ]);
 
-        $kategori->update($request->only('nama_kategori'));
+        $kategori->update([
+            'nama_kategori' => $request->nama_kategori,
+            'slug' => Str::slug($request->nama_kategori)
+        ]);
 
-        return redirect()->route('kategori-index')
-            ->with('success', 'Kategori berhasil diperbarui.');
+        return redirect()->route('kategori-index')->with('success', 'Kategori berhasil diperbarui.');
     }
 
     /**

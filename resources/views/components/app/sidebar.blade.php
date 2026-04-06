@@ -126,7 +126,7 @@
             </li>
             <li class="nav-item border-start my-0 pt-2">
                 <a class="nav-link  {{ is_current_route('sejarah_desa') ? 'active' : '' }}"
-                    href="{{ route('sejarah_desa') }}">
+                    href="{{ route('sejarah-index') }}">
                     <div
                         class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white"
@@ -517,7 +517,7 @@
             </li>
             <li class="nav-item border-start my-0 pt-2">
                 <a class="nav-link position-relative ms-0 ps-2 py-2 {{ is_current_route('signin') ? 'active' : '' }}"
-                    href="{{ route('signin') }}">
+                    href="{{ route('userlogin') }}">
                     <span class="nav-link-text ms-1">Sign In</span>
                 </a>
             </li>
