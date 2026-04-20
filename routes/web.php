@@ -33,6 +33,7 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Admin\SuratPengantarController;
 use App\Http\Controllers\CekNikController as ControllersCekNikController;
 use App\Http\Controllers\Admin\SejarahController;
+use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\UserLoginController;
 
 /*
@@ -132,6 +133,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/pemerintah-edit/{id}', [PemerintahController::class, 'edit'])->name('pemerintah-edit');
         Route::put('/pemerintah-update/{id}', [PemerintahController::class, 'update'])->name('pemerintah-update');
         Route::get('/pemerintah-destroy/{id}', [PemerintahController::class, 'destroy'])->name('pemerintah-destroy');
+
+        Route::get('setting', [SettingController ::class, 'edit'])->name('admin.setting.edit');
+        Route::put('setting', [SettingController::class, 'update'])->name('admin.setting.update');
 
         Route::get('/sejarah-index', [SejarahController::class, 'index'])->name('sejarah-index');
         Route::get('/sejarah-create', [SejarahController::class, 'create'])->name('sejarah-create');
@@ -241,14 +245,14 @@ Route::middleware('auth')->group(function () {
         Route::post('/rw-store', [RwController::class, 'store'])->name('rw-store');
         Route::get('/rw-edit/{id}', [RwController::class, 'edit'])->name('rw-edit');
         Route::put('/rw-update/{id}', [RwController::class, 'update'])->name('rw-update');
-        Route::get('/rw-destroy/{id}', [RwController::class, 'destroy'])->name('rw-destroy');
+        Route::delete('/rw-destroy/{id}', [RwController::class, 'destroy'])->name('rw-destroy');
 
         Route::get('/rt-index', [RtController::class, 'index'])->name('rt-index');
         Route::get('/rt-create', [RtController::class, 'create'])->name('rt-create');
         Route::post('/rt-store', [RtController::class, 'store'])->name('rt-store');
         Route::get('/rt-edit/{id}', [RtController::class, 'edit'])->name('rt-edit');
         Route::put('/rt-update/{id}', [RtController::class, 'update'])->name('rt-update');
-        Route::get('/rt-destroy/{id}', [RtController::class, 'destroy'])->name('rt-destroy');
+        Route::delete('/rt-destroy/{id}', [RtController::class, 'destroy'])->name('rt-destroy');
     });
 });
 
