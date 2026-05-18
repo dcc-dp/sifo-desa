@@ -328,45 +328,9 @@
                 }
             }
         }
-                </div>`;
-                messageDiv.style.display = 'block';
-            } finally {
-                if (submitBtn) {
-                    submitBtn.disabled = false;
-                    submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Kirim Pengajuan';
-                }
-            }
-        }
 
-        function loadHistory() {
-            // Reload halaman untuk update riwayat
-            location.reload();
-        }
     </script>
 
-    <style>
-        .form-group {
-            margin-bottom: 20px;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: var(--color-text);
-        }
-        .form-group input[type="text"],
-        .form-group input[type="date"],
-        .form-group textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 14px;
-        }
-        .form-group textarea {
-            resize: vertical;
-            font-family: Arial, sans-serif;
-        }
-    </style>
+
 
 @endsection
