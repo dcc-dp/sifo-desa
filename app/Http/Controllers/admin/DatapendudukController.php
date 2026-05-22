@@ -84,8 +84,10 @@ class DatapendudukController extends Controller
      */
     public function edit(string $id)
     {
+        $rws = Rw::all();
+        $rts = Rt::all();
         $data = dataPenduduk::findOrFail($id);
-        return view('admin.data-penduduk.edit', compact('data'));
+        return view('admin.data-penduduk.edit', compact('data', 'rws', 'rts'));
     }
 
     /**

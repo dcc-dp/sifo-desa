@@ -55,6 +55,29 @@ class StatistikController extends Controller
         ));
     }
 
+    public function statistikkawin (Request $request)
+    {
+        $rw = $request->get('rw');
+        $rt = $request->get('rt');
+
+        $query = DataPenduduk::query();
+        if ($rw) $query->where('rw_id', $rw);
+        if ($rt) $query->where('rt_id', $rt);
+
+        $Belum_Kawin    = (clone $query)->where('status_perkawinan', 'Belum Kawin')->count();
+        $Kawin  = (clone $query)->where('status_perkawinan', 'Kawin')->count();
+        $Cerai_Hidup  = (clone $query)->where('status_perkawinan', 'Cerai Hidup')->count();
+        $Cerai_Mati    = (clone $query)->where('status_perkawinan', 'Cerai Mati')->count();
+
+        $rwList = Rw::all();
+        $rtList = $rw ? Rt::where('rw_id', $rw)->get() : collect();
+
+        return view('pages.datastatik.kawin', compact(
+            'Belum_Kawin', 'Kawin', 'Cerai_Hidup', 'Cerai_Mati',
+            'rw', 'rt', 'rwList', 'rtList'
+        ));
+    }
+
     public function statistikPekerjaan(Request $request)
     {
         $rw = $request->get('rw');

@@ -108,7 +108,7 @@
             $('#search').on('keyup', function() {
                 let keyword = $(this).val();
                 $.ajax({
-                    url: '{{ route('suratpengantar.search') }}',
+                    url: '{{ route("suratpengantar.search") }}',
                     method: 'GET',
                     data: {
                         keyword: keyword

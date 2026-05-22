@@ -82,6 +82,7 @@ Route::get('/agenda', [UserController::class, 'agenda'])->name('agenda');
 
 Route::get('/statistik-penduduk', [StatistikController::class, 'statistikPenduduk'])->name('user.statistik.penduduk');
 Route::get('/statistik-agama', [StatistikController::class, 'statistikAgama'])->name('user.statistik.agama');
+Route::get('/statistik-kawin', [StatistikController::class, 'statistikkawin'])->name('user.statistik.kawin');
 Route::get('/statistik-pekerjaan', [StatistikController::class, 'statistikPekerjaan'])->name('user.statistik.pekerjaan');
 Route::get('/statistik-pendidikan', [StatistikController::class, 'statistikPendidikan'])->name('user.statistik.pendidikan');
 
@@ -104,6 +105,14 @@ Route::post('/pengaduan/store', [PengaduanController::class, 'store'])->name('pe
 // Pengaduan authentication routes
 Route::get('/pengaduan-login', [PengaduanAuth::class, 'showLoginForm'])->name('pengaduan.login-form');
 Route::post('/pengaduan-login', [PengaduanAuth::class, 'login'])->name('pengaduan.login');
+
+Route::get('/detail-pengaduan/{id}',
+    [PengaduanController::class, 'detailpengaduan']
+)->name('detail.pengaduan');
+
+Route::get('/riwayat-pengaduan', [PengaduanController::class, 'riwayat'])
+    ->middleware('auth')
+    ->name('riwayat.pengaduan');
 
 // Protected pengaduan route
 Route::get('/pengaduan', [PengaduanController::class, 'create'])->middleware('pengaduan.auth')->name('pengaduan');
