@@ -21,7 +21,6 @@ return new class extends Migration
                     ->constrained('kategoris')
                     ->cascadeOnDelete();
 
-                // Relasi user (nullable untuk anonymous)
                 $table->foreignId('user_id')
                     ->nullable()
                     ->constrained('users')

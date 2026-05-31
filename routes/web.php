@@ -26,23 +26,11 @@ use App\Http\Controllers\Admin\RwController;
 use App\Http\Controllers\StatistikController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\UserGaleriController;
-use App\Http\Controllers\Admin\SuratController;
-use App\Http\Controllers\Admin\AgendaController;
-use App\Http\Controllers\Admin\BeritaController;
 use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Admin\KategoriController;
-use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\PengaduanController;
-use App\Http\Controllers\Admin\SuratIzinController;
-use App\Http\Controllers\Admin\PemerintahController;
-use App\Http\Controllers\Admin\SuratKetusController;
 use App\Http\Controllers\Admin\BatchGaleriController;
-use App\Http\Controllers\Admin\DatapendudukController;
 use App\Http\Controllers\Admin\GaleriController;
 use App\Http\Controllers\Auth\ResetPasswordController;
-use App\Http\Controllers\Admin\SuratDomisiliController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
-use App\Http\Controllers\Admin\SuratPengantarController;
 use App\Http\Controllers\CekNikController as ControllersCekNikController;
 use App\Http\Controllers\Admin\SejarahController;
 use App\Http\Controllers\UserLoginController;
@@ -84,7 +72,7 @@ Route::get('/pemerintah/{id}', [UserController::class, 'show'])->name('pemerinta
 
 // Route::get('/berita', [UserController::class, 'berita'])->name('berita');
 
-Route::get('/sejarah', [UserController::class, 'sejarah'])->name('sejarah');
+Route::get('/sejarah', [UserController::class, 'sejarah'])->name('sejarah.user');
 
 Route::get('/kategori', [UserController::class, 'kategori'])->name('kategori');
 Route::get('/kategori/{slug}', [UserController::class, 'showKategori'])->name('show-kategori');
@@ -94,6 +82,7 @@ Route::get('/agenda', [UserController::class, 'agenda'])->name('agenda');
 
 Route::get('/statistik-penduduk', [StatistikController::class, 'statistikPenduduk'])->name('user.statistik.penduduk');
 Route::get('/statistik-agama', [StatistikController::class, 'statistikAgama'])->name('user.statistik.agama');
+Route::get('/statistik-kawin', [StatistikController::class, 'statistikkawin'])->name('user.statistik.kawin');
 Route::get('/statistik-pekerjaan', [StatistikController::class, 'statistikPekerjaan'])->name('user.statistik.pekerjaan');
 Route::get('/statistik-pendidikan', [StatistikController::class, 'statistikPendidikan'])->name('user.statistik.pendidikan');
 
@@ -116,6 +105,14 @@ Route::post('/pengaduan/store', [PengaduanController::class, 'store'])->name('pe
 // Pengaduan authentication routes
 Route::get('/pengaduan-login', [PengaduanAuth::class, 'showLoginForm'])->name('pengaduan.login-form');
 Route::post('/pengaduan-login', [PengaduanAuth::class, 'login'])->name('pengaduan.login');
+
+Route::get('/detail-pengaduan/{id}',
+    [PengaduanController::class, 'detailpengaduan']
+)->name('detail.pengaduan');
+
+Route::get('/riwayat-pengaduan', [PengaduanController::class, 'riwayat'])
+    ->middleware('auth')
+    ->name('riwayat.pengaduan');
 
 // Protected pengaduan route
 Route::get('/pengaduan', [PengaduanController::class, 'create'])->middleware('pengaduan.auth')->name('pengaduan');
@@ -279,17 +276,17 @@ Route::middleware('auth')->group(function () {
 
 
 
-Route::get('/sejarah', function () {
-    return view('admin.sejarahDesa.sejarah');
-})->name('sejarah_desa')->middleware('auth');
+// Route::get('/sejarah', function () {
+//     return view('admin.sejarahDesa.sejarah');
+// })->name('sejarah_desa')->middleware('auth');
 
-Route::get('/sejarah/tambah', function () {
-    return view('admin.sejarahDesa.tambah');
-})->name('tambah')->middleware('auth');
+// Route::get('/sejarah/tambah', function () {
+//     return view('admin.sejarahDesa.tambah');
+// })->name('tambah')->middleware('auth');
 
-Route::get('/sejarah/detail', function () {
-    return view('admin.sejarahDesa.sejarahDetail');
-})->name('sejarah_detail')->middleware('auth');
+// Route::get('/sejarah/detail', function () {
+//     return view('admin.sejarahDesa.sejarahDetail');
+// })->name('sejarah_detail')->middleware('auth');
 
 // Route::get('/pemerintah-index', [PemerintahController::class, 'indexx'])
 //     ->middleware('auth')

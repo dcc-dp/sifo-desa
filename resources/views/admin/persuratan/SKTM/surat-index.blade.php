@@ -133,7 +133,7 @@
                 let keyword = $(this).val();
 
                 $.ajax({
-                    url: '{{ route('surat.search') }}',
+                    url: '{{ route("surat.search") }}',
                     method: 'GET',
                     data: {
                         keyword: keyword

@@ -21,8 +21,11 @@ class PengaduanController extends Controller
 
     public function create()
     {
+        $pengaduans = Pengaduan::where('user_id', Auth::id())
+        ->latest()
+        ->get();
         $kategoris = Kategori::all();
-        return view('pages.layananonline.pengaduan', compact('kategoris'));
+        return view('pages.layananonline.pengaduan', compact('kategoris', 'pengaduans'));
     }
 
     
@@ -63,6 +66,15 @@ class PengaduanController extends Controller
     {
         $pengaduan = Pengaduan::with('kategori', 'user')->findOrFail($id);
         return view('pages.layananonline.detailpengaduan', compact('pengaduan'));
+    }
+
+    public function riwayat()
+    {
+        $pengaduans = Pengaduan::where('user_id', Auth::id())
+            ->latest()
+            ->get();
+
+        return view('pages.layananonline.pengaduan', compact('pengaduans'));
     }
 
     public function edit($id)

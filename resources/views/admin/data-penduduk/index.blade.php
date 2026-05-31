@@ -84,7 +84,7 @@
                                                     </a>
                                                     <a href="{{ route('data.penduduk-show', $y->id) }}"
                                                         class="text-secondary font-weight-bold text-xs"
-                                                        data-bs-toggle="tooltip" data-bs-title="Edit user">
+                                                        data-bs-toggle="tooltip" data-bs-title="View user">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16"
                                                             height="16" fill="currentColor" class="bi bi-eye"
                                                             viewBox="0 0 16 16">
@@ -96,7 +96,7 @@
                                                     </a>
                                                     <a href="{{ route('data.penduduk-destroy', $y->id) }}"
                                                         class="text-secondary font-weight-bold text-xs"
-                                                        data-bs-toggle="tooltip" data-bs-title="Edit user">
+                                                        data-bs-toggle="tooltip" data-bs-title="Hapus user">
                                                         <form action="" method="POST" class="d-inline">
                                                             @csrf
                                                             @method('DELETE')
@@ -146,7 +146,7 @@
                 let keyword = $(this).val();
 
                 $.ajax({
-                    url: '{{ route('data.penduduk-search') }}',
+                    url: '{{ route("data.penduduk-search") }}',
                     method: 'GET',
                     data: {
                         keyword: keyword

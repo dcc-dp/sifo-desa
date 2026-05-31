@@ -181,9 +181,21 @@
                                 <div class="row">
                                     <div class="col-6 mb-3">
                                         <label for="status_perkawinan">Status Perkawinan</label>
-                                        <input type="text" name="status_perkawinan" id="status_perkawinan"
-                                            value="{{ old('status_perkawinan', $data->status_perkawinan) }}"
-                                            class="form-control">
+                                        <select name="status_perkawinan" id="status_perkawinan" class="form-control">
+                                            <option value="">-- Pilih status_perkawinan --</option>
+                                            <option value="Belum Kawin"
+                                                {{ old('status_perkawinan', $data->status_perkawinan) == 'Belum Kawin' ? 'selected' : '' }}>Belum Kawin
+                                            </option>
+                                            <option value="Kawin"
+                                                {{ old('status_perkawinan', $data->status_perkawinan) == 'Kawin' ? 'selected' : '' }}>Kawin
+                                            </option>
+                                            <option value="Cerai Hidup"
+                                                {{ old('status_perkawinan', $data->status_perkawinan) == 'Cerai Hidup' ? 'selected' : '' }}>Cerai Hidup
+                                            </option>
+                                            <option value="Cerai Mati"
+                                                {{ old('status_perkawinan', $data->status_perkawinan) == 'Cerai Mati' ? 'selected' : '' }}>Cerai Mati
+                                            </option>
+                                        </select>
                                         @error('status_perkawinan')
                                             <span class="text-danger text-sm">{{ $message }}</span>
                                         @enderror
