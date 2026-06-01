@@ -5,12 +5,9 @@
 @push('styles')
     <style>
         .gallery-section {
-            min-height: calc(100vh - 180px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 96px 0;
+            padding: 40px 0 80px;
             background: var(--color-bg-light);
+            min-height: auto;
         }
 
         .gallery-swiper {
@@ -79,7 +76,11 @@
             content: "";
             position: absolute;
             inset: 0;
-            background: linear-gradient(180deg, rgba(15, 23, 42, 0.05), rgba(15, 23, 42, 0.58));
+
+            background: linear-gradient(to top,
+                    rgba(0, 0, 0, .80),
+                    rgba(0, 0, 0, .20),
+                    transparent);
         }
 
         .gallery-card__content {
@@ -93,26 +94,44 @@
             color: #fff;
         }
 
-        .gallery-card__count {
-            margin: 0;
-            font-size: 2rem;
-            font-weight: 700;
-            line-height: 1;
-        }
+        .gallery-card__content {
+            position: relative;
+            z-index: 1;
 
-        .gallery-card__label {
-            margin: 4px 0 8px;
-            font-size: 0.78rem;
-            font-weight: 600;
-            opacity: 0.78;
-            text-transform: uppercase;
+            height: 100%;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+
+            padding: 24px;
+
+            color: #fff;
         }
 
         .gallery-card__title {
             margin: 0;
-            font-size: 1.25rem;
+
+            font-size: 1.75rem;
             font-weight: 700;
-            line-height: 1.25;
+
+            color: #fff;
+
+            line-height: 1.2;
+        }
+
+        .gallery-card__meta {
+            margin-top: 10px;
+            margin-bottom: 0;
+
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            font-size: 1rem;
+            font-weight: 500;
+
+            color: rgba(255, 255, 255, .9);
         }
 
         .gallery-swiper .swiper-button-next,
@@ -174,6 +193,7 @@
 @endpush
 
 @section('content')
+
     <section class="gallery-section">
         <div class="container">
             <div class="swiper gallery-swiper">
@@ -185,15 +205,15 @@
                                     style="background-image: url('{{ asset(optional($batch->galeris->first())->gambar ?? 'assets/img/default.jpg') }}')">
                                 </div>
                                 <div class="gallery-card__content">
-                                    <p class="gallery-card__count">
-                                        {{ $batch->galeris->count() }}
-                                    </p>
-                                    <p class="gallery-card__label">
-                                        Folder
-                                    </p>
+
                                     <h2 class="gallery-card__title">
                                         {{ $batch->nama }}
                                     </h2>
+
+                                    <p class="gallery-card__meta">
+                                        📸 {{ $batch->galeris->count() }} Foto
+                                    </p>
+
                                 </div>
                             </div>
                         </a>

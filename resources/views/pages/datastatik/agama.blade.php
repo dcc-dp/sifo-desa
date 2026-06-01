@@ -8,158 +8,254 @@
 
     <div class="dashboard-container">
 
+        <div class="dashboard-header mb-4">
+
+            
+            <h2>Statistik Agama</h2>
+          
+        
+            <div class="header-right">
+                <a href="{{ route('home') }}">Dashboard</a>
+                <span>/</span>
+                <span>Statistik Agama</span>
+            </div>
+       
+        
+        </div>
+
         <div class="stats-grid">
-            <div class="stat-card">
-                <p class="stat-title">Islam</p>
-                <p class="stat-value">{{ $islam ?? 0 }}</p>
+
+            <div class="stat-card islam-card">
+        
+                <div class="stat-icon">
+                    ☪️
+                </div>
+        
+                <div class="stat-content">
+                    <p class="stat-title">Islam</p>
+                    <p class="stat-value">{{ $islam ?? 0 }}</p>
+                </div>
+        
             </div>
         
-            <div class="stat-card">
-                <p class="stat-title">Kristen</p>
-                <p class="stat-value">{{ $kristen ?? 0 }}</p>
+            <div class="stat-card kristen-card">
+        
+                <div class="stat-icon">
+                    ✝️
+                </div>
+        
+                <div class="stat-content">
+                    <p class="stat-title">Kristen</p>
+                    <p class="stat-value">{{ $kristen ?? 0 }}</p>
+                </div>
+        
             </div>
         
-            <div class="stat-card">
-                <p class="stat-title">Hindu</p>
-                <p class="stat-value">{{ $hindu ?? 0 }}</p>
+            <div class="stat-card hindu-card">
+        
+                <div class="stat-icon">
+                    🕉️
+                </div>
+        
+                <div class="stat-content">
+                    <p class="stat-title">Hindu</p>
+                    <p class="stat-value">{{ $hindu ?? 0 }}</p>
+                </div>
+        
             </div>
         
-            <div class="stat-card">
-                <p class="stat-title">Budha</p>
-                <p class="stat-value">{{ $budha ?? 0 }}</p>
+            <div class="stat-card budha-card">
+        
+                <div class="stat-icon">
+                    ☸️
+                </div>
+        
+                <div class="stat-content">
+                    <p class="stat-title">Budha</p>
+                    <p class="stat-value">{{ $budha ?? 0 }}</p>
+                </div>
+        
             </div>
         
-            {{-- @if(($katolik ?? 0) > 0) --}}
-            <div class="stat-card">
-                <p class="stat-title">Katolik</p>
-                <p class="stat-value">{{ $katolik }}</p>
-            </div>
-            {{-- @endif --}}
+            <div class="stat-card katolik-card">
         
-            {{-- @if(($konghucu ?? 0) > 0) --}}
-            <div class="stat-card">
-                <p class="stat-title">Konghucu</p>
-                <p class="stat-value">{{ $konghucu }}</p>
+                <div class="stat-icon">
+                    ⛪
+                </div>
+        
+                <div class="stat-content">
+                    <p class="stat-title">Katolik</p>
+                    <p class="stat-value">{{ $katolik ?? 0 }}</p>
+                </div>
+        
             </div>
-            {{-- @endif --}}
+        
+            <div class="stat-card konghucu-card">
+        
+                <div class="stat-icon">
+                    ☯️
+                </div>
+        
+                <div class="stat-content">
+                    <p class="stat-title">Konghucu</p>
+                    <p class="stat-value">{{ $konghucu ?? 0 }}</p>
+                </div>
+        
+            </div>
+        
         </div>
 
-        <div class="chart-layout">
+        <div class="row g-4 align-items-stretch">
 
-            <!-- donuts chart -->
-            <div class="chart-card">
-                <h6 class="mb-3 text-center">
-                    Grafik Jumlah Agama
-                    @if($rw) RW {{ $rw }} @endif
-                    @if($rt) RT {{ $rt }} @endif
-                </h6>
-            
-                <div 
-                    id="agamaChart" 
-                    data-islam="{{ $islam ?? 0 }}"
-                    data-kristen="{{ $kristen ?? 0 }}"
-                    data-hindu="{{ $hindu ?? 0 }}"
-                    data-budha="{{ $budha ?? 0 }}"
-                    data-katolik="{{ $katolik ?? 0 }}"
-                    data-konghucu="{{ $konghucu ?? 0 }}"
-                    style="height: 360px;">
-                </div>
-            </div>
-            
-
-            <div class="col-md-4 col-lg-3">
+            <!-- Chart -->
+            <div class="col-lg-8">
+        
                 <div class="card shadow-sm border-0 h-100">
-                    <div class="card-body px-4 py-4">
-                        <h6 class="fw-semibold mb-4 text-center">Filter Wilayah</h6>
-            
-                        <form method="GET">
-                            <div class="mb-4">
-                                <label class="form-label fw-medium mb-1">RW</label>
-                                <select name="rw" class="form-select form-select-sm">
-                                    <option value="">-- Pilih RW --</option>
-                                    <option value="1" {{ request('rw')=='1' ? 'selected' : '' }}>RW 01</option>
-                                    <option value="2" {{ request('rw')=='2' ? 'selected' : '' }}>RW 02</option>
-                                </select>
+        
+                    <div class="card-body">
+        
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+        
+                            <h5 class="fw-bold mb-0">
+                                Grafik Jumlah Agama
+                            </h5>
+        
+                            <span class="total-badge">
+                                📊 Statistik Agama
+                            </span>
+        
+                        </div>
+        
+                        <div
+                            id="agamaChart"
+                            data-islam="{{ $islam ?? 0 }}"
+                            data-kristen="{{ $kristen ?? 0 }}"
+                            data-hindu="{{ $hindu ?? 0 }}"
+                            data-budha="{{ $budha ?? 0 }}"
+                            data-katolik="{{ $katolik ?? 0 }}"
+                            data-konghucu="{{ $konghucu ?? 0 }}"
+                            style="height:420px;">
+                        </div>
+        
+                        <!-- Ringkasan Statistik -->
+                        <div class="row mt-4">
+        
+                            <div class="col-md-4">
+                                <div class="summary-card">
+                                    <h6 class="mb-2 text-success">
+                                        Islam
+                                    </h6>
+        
+                                    <h4>{{ $islam ?? 0 }}</h4>
+                                </div>
                             </div>
-            
-                            <div class="mb-4">
-                                <label class="form-label fw-medium mb-1">RT</label>
-                                <select name="rt" class="form-select form-select-sm">
-                                    <option value="">-- Semua RT --</option>
-                                    <option value="1" {{ request('rt')=='1' ? 'selected' : '' }}>RT 01</option>
-                                    <option value="2" {{ request('rt')=='2' ? 'selected' : '' }}>RT 02</option>
-                                </select>
+        
+                            <div class="col-md-4">
+                                <div class="summary-card">
+                                    <h6 class="mb-2 text-primary">
+                                        Kristen
+                                    </h6>
+        
+                                    <h4>{{ $kristen ?? 0 }}</h4>
+                                </div>
                             </div>
-            
-                            <div class="d-grid mt-3">
-                                <button class="btn btn-success btn-sm fw-semibold">
-                                    Terapkan Filter
-                                </button>
+        
+                            <div class="col-md-4">
+                                <div class="summary-card">
+                                    <h6 class="mb-2 text-warning">
+                                        Hindu
+                                    </h6>
+        
+                                    <h4>{{ $hindu ?? 0 }}</h4>
+                                </div>
                             </div>
-                        </form>
+        
+                        </div>
+        
                     </div>
+        
                 </div>
+        
             </div>
-             
-            
-
-        </div>
-
-
-
-
-        <div class="table-card">
-            <h5 class="table-title">Tabel Data Agama Penduduk</h5>
-
-            <div class="table-responsive">
-                <table class="table-penduduk">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Agama</th>
-                            <th>Jumlah</th>
-                            <th>Dusun</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Islam</td>
-                            <td>680</td>
-                            <td>Dusun A</td>
-                        </tr>
-
-                        <tr>
-                            <td>2</td>
-                            <td>Kristen</td>
-                            <td>120</td>
-                            <td>Dusun B</td>
-                        </tr>
-
-                        <tr>
-                            <td>3</td>
-                            <td>Hindu</td>
-                            <td>45</td>
-                            <td>Dusun C</td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>Budha</td>
-                            <td>28</td>
-                            <td>Dusun A</td>
-                        </tr>
-
-                        </tr>
-                            <tr class="fw-bold table-light">
-                            <td colspan="2" style="text-align: center;">Total :</td>
-                            <td>873</td>
-                        </tr>
-                    </tbody>
-                </table>
+        
+            <!-- Filter -->
+            <div class="col-lg-4">
+        
+                <div class="card shadow-sm border-0 h-100">
+        
+                    <div class="card-body">
+        
+                        <h5 class="fw-bold mb-4">
+                            Filter Wilayah
+                        </h5>
+        
+                        <form method="GET">
+        
+                            <div class="mb-4">
+        
+                                <label class="form-label">
+                                    RW
+                                </label>
+        
+                                <select name="rw" class="form-select">
+        
+                                    <option value="">
+                                        -- Pilih RW --
+                                    </option>
+        
+                                    <option value="1" {{ request('rw')=='1' ? 'selected' : '' }}>
+                                        RW 01
+                                    </option>
+        
+                                    <option value="2" {{ request('rw')=='2' ? 'selected' : '' }}>
+                                        RW 02
+                                    </option>
+        
+                                </select>
+        
+                            </div>
+        
+                            <div class="mb-4">
+        
+                                <label class="form-label">
+                                    RT
+                                </label>
+        
+                                <select name="rt" class="form-select">
+        
+                                    <option value="">
+                                        -- Semua RT --
+                                    </option>
+        
+                                    <option value="1" {{ request('rt')=='1' ? 'selected' : '' }}>
+                                        RT 01
+                                    </option>
+        
+                                    <option value="2" {{ request('rt')=='2' ? 'selected' : '' }}>
+                                        RT 02
+                                    </option>
+        
+                                </select>
+        
+                            </div>
+        
+                            <button class="btn btn-success w-100">
+                                Terapkan Filter
+                            </button>
+        
+                        </form>
+        
+                        <div class="alert alert-success mt-4 mb-0">
+                            Pilih RW dan RT untuk melihat data sesuai wilayah.
+                        </div>
+        
+                    </div>
+        
+                </div>
+        
             </div>
+        
         </div>
-
     </div>
 
 </section>

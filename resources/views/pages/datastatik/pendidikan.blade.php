@@ -4,157 +4,229 @@
 
 @section('content')
 
-<section>
+    <section>
 
-    <div class="dashboard-container">
+        <div class="dashboard-container">
+            <div class="dashboard-header mb-4">
 
+                <h2>Statistik Pendidikan</h2>
 
-        <div class="stats-grid">
-
-            <div class="stat-card">
-                <p class="stat-title">Tidak Sekolah</p>
-                <p class="stat-value">{{ $tidakSekolah }}</p>
-            </div>
-            
-            <div class="stat-card">
-                <p class="stat-title">SD / Sederajat</p>
-                <p class="stat-value">{{ $sd }}</p>
-            </div>
-            
-            <div class="stat-card">
-                <p class="stat-title">SMP / Sederajat</p>
-                <p class="stat-value">{{ $smp }}</p>
-            </div>
-            
-            <div class="stat-card">
-                <p class="stat-title">SMA / Sederajat</p>
-                <p class="stat-value">{{ $sma }}</p>
-            </div>
-            
-            <div class="stat-card">
-                <p class="stat-title">Diploma / Sarjana</p>
-                <p class="stat-value">{{ $diploma }}</p>
-            </div>
-            
-
-        </div>
-
-    
-        <div class="chart-layout">
-
-            <!-- bar chart -->
-            <div class="chart-card">
-                <h6 class="mb-3 text-center">
-                    Grafik Jumlah Pekerjaan
-                    @if($rw) RW {{ $rw }} @endif
-                    @if($rt) RT {{ $rt }} @endif
-                </h6>
-            
-                <div 
-                    id="pendidikanChart"
-                    data-tidak="{{ $tidakSekolah }}"
-                    data-sd="{{ $sd }}"
-                    data-smp="{{ $smp }}"
-                    data-sma="{{ $sma }}"
-                    data-diploma="{{ $diploma }}"
-                    style="height: 360px;">
+                <div class="header-right">
+                    <a href="{{ route('home') }}">Dashboard</a>
+                    <span>/</span>
+                    <span>Statistik Pendidikan</span>
                 </div>
-            </div>
-            
 
-            <div class="col-md-4 col-lg-3">
-                <div class="card shadow-sm border-0 h-100">
-                    <div class="card-body px-4 py-4">
-                        <h6 class="fw-semibold mb-4 text-center">Filter Wilayah</h6>
-            
-                        <form method="GET">
-                            <div class="mb-4">
-                                <label class="form-label fw-medium mb-1">RW</label>
-                                <select name="rw" class="form-select form-select-sm">
-                                    <option value="">-- Pilih RW --</option>
-                                    <option value="1" {{ request('rw')=='1' ? 'selected' : '' }}>RW 01</option>
-                                    <option value="2" {{ request('rw')=='2' ? 'selected' : '' }}>RW 02</option>
-                                </select>
+            </div>
+
+
+            <div class="stats-grid">
+
+                <div class="stat-card tidak-sekolah-card">
+
+                    <div class="stat-icon">
+                        📕
+                    </div>
+
+                    <div class="stat-content">
+                        <p class="stat-title">Tidak Sekolah</p>
+                        <p class="stat-value">{{ $tidakSekolah ?? 0 }}</p>
+                    </div>
+
+                </div>
+
+                <div class="stat-card sd-card">
+
+                    <div class="stat-icon">
+                        🎒
+                    </div>
+
+                    <div class="stat-content">
+                        <p class="stat-title">SD / Sederajat</p>
+                        <p class="stat-value">{{ $sd ?? 0 }}</p>
+                    </div>
+
+                </div>
+
+                <div class="stat-card smp-card">
+
+                    <div class="stat-icon">
+                        📚
+                    </div>
+
+                    <div class="stat-content">
+                        <p class="stat-title">SMP / Sederajat</p>
+                        <p class="stat-value">{{ $smp ?? 0 }}</p>
+                    </div>
+
+                </div>
+
+                <div class="stat-card sma-card">
+
+                    <div class="stat-icon">
+                        🎓
+                    </div>
+
+                    <div class="stat-content">
+                        <p class="stat-title">SMA / Sederajat</p>
+                        <p class="stat-value">{{ $sma ?? 0 }}</p>
+                    </div>
+
+                </div>
+
+                <div class="stat-card diploma-card">
+
+                    <div class="stat-icon">
+                        👨‍🎓
+                    </div>
+
+                    <div class="stat-content">
+                        <p class="stat-title">Diploma / Sarjana</p>
+                        <p class="stat-value">{{ $diploma ?? 0 }}</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="row g-4 align-items-stretch">
+
+                <!-- Chart -->
+                <div class="col-lg-8">
+
+                    <div class="card shadow-sm border-0 h-100">
+
+                        <div class="card-body">
+
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+
+                                <h5 class="fw-bold mb-0">
+                                    Grafik Jumlah Pendidikan
+                                </h5>
+
+                                <span class="total-badge">
+                                    🎓 Statistik Pendidikan
+                                </span>
+
                             </div>
-            
-                            <div class="mb-4">
-                                <label class="form-label fw-medium mb-1">RT</label>
-                                <select name="rt" class="form-select form-select-sm">
-                                    <option value="">-- Semua RT --</option>
-                                    <option value="1" {{ request('rt')=='1' ? 'selected' : '' }}>RT 01</option>
-                                    <option value="2" {{ request('rt')=='2' ? 'selected' : '' }}>RT 02</option>
-                                </select>
+
+                            <div id="pendidikanChart" data-tidak="{{ $tidakSekolah }}" data-sd="{{ $sd }}"
+                                data-smp="{{ $smp }}" data-sma="{{ $sma }}"
+                                data-diploma="{{ $diploma }}" style="height:420px;">
                             </div>
-            
-                            <div class="d-grid mt-3">
-                                <button class="btn btn-success btn-sm fw-semibold">
+
+                            <div class="row mt-4">
+
+                                <div class="col-md-4">
+                                    <div class="summary-card">
+                                        <h6 class="text-danger">Tidak Sekolah</h6>
+                                        <h4>{{ $tidakSekolah }}</h4>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="summary-card">
+                                        <h6 class="text-success">SD</h6>
+                                        <h4>{{ $sd }}</h4>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="summary-card">
+                                        <h6 class="text-primary">SMP</h6>
+                                        <h4>{{ $smp }}</h4>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Filter -->
+                <div class="col-lg-4">
+
+                    <div class="card shadow-sm border-0 h-100">
+
+                        <div class="card-body">
+
+                            <h5 class="fw-bold mb-4">
+                                Filter Wilayah
+                            </h5>
+
+                            <form method="GET">
+
+                                <div class="mb-4">
+
+                                    <label class="form-label">
+                                        RW
+                                    </label>
+
+                                    <select name="rw" class="form-select">
+
+                                        <option value="">
+                                            -- Pilih RW --
+                                        </option>
+
+                                        <option value="1" {{ request('rw') == '1' ? 'selected' : '' }}>
+                                            RW 01
+                                        </option>
+
+                                        <option value="2" {{ request('rw') == '2' ? 'selected' : '' }}>
+                                            RW 02
+                                        </option>
+
+                                    </select>
+
+                                </div>
+
+                                <div class="mb-4">
+
+                                    <label class="form-label">
+                                        RT
+                                    </label>
+
+                                    <select name="rt" class="form-select">
+
+                                        <option value="">
+                                            -- Semua RT --
+                                        </option>
+
+                                        <option value="1" {{ request('rt') == '1' ? 'selected' : '' }}>
+                                            RT 01
+                                        </option>
+
+                                        <option value="2" {{ request('rt') == '2' ? 'selected' : '' }}>
+                                            RT 02
+                                        </option>
+
+                                    </select>
+
+                                </div>
+
+                                <button class="btn btn-success w-100">
                                     Terapkan Filter
                                 </button>
+
+                            </form>
+
+                            <div class="alert alert-success mt-4 mb-0">
+                                Pilih RW dan RT untuk melihat data pendidikan berdasarkan wilayah.
                             </div>
-                        </form>
+
+                        </div>
+
                     </div>
+
                 </div>
+ 
             </div>
 
         </div>
 
-
-        <div class="table-card">
-            <h5 class="table-title">Tabel Data Pendidikan</h5>
-
-            <div class="table-responsive">
-                <table class="table-penduduk">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Kategori Pendidikan</th>
-                            <th>Jumlah</th>
-                            <th>Dusun</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Tidak Sekolah</td>
-                            <td>40</td>
-                            <td>Dusun A</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>SD / Sederajat</td>
-                            <td>180</td>
-                            <td>Dusun B</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>SMP / Sederajat</td>
-                            <td>150</td>
-                            <td>Dusun C</td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>SMA / Sederajat</td>
-                            <td>210</td>
-                            <td>Dusun A</td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>Diploma / Sarjana</td>
-                            <td>95</td>
-                            <td>Dusun B</td>
-                        </tr>
-                            <tr class="fw-bold table-light">
-                            <td colspan="2" style="text-align: center;">Total :</td>
-                            <td>0</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-    </div>
-
-</section>
+    </section>
 
 @endsection
