@@ -510,8 +510,8 @@
                 </div>
             </li>
             <li class="nav-item border-start my-0 pt-2">
-                <a class="nav-link position-relative ms-0 ps-2 py-2 {{ is_current_route('profile') ? 'active' : '' }}"
-                    href="{{ route('profile') }}">
+                <a class="nav-link position-relative ms-0 ps-2 py-2 {{ is_current_route('admin.setting.edit') ? 'active' : '' }}"
+                    href="{{ route('admin.setting.edit') }}">
                     <span class="nav-link-text ms-1">Profile</span>
                 </a>
             </li>

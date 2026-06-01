@@ -35,13 +35,13 @@
                         <i class="fas fa-chart-bar" style="margin-right:5px;"></i> Data Statistik
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="{{ ('statistik-penduduk') }}"><i class="fas fa-users" style="margin-right:8px;"></i> Jumlah Penduduk</a>
+                        <li><a href="{{ route('user.statistik.penduduk') }}"><i class="fas fa-users" style="margin-right:8px;"></i> Jumlah Penduduk</a>
                         </li>
-                        <li><a href="{{ ('statistik-pendidikan') }}"><i class="fas fa-graduation-cap" style="margin-right:8px;"></i> Data Pendidikan</a>
+                        <li><a href="{{ route('user.statistik.pendidikan') }}"><i class="fas fa-graduation-cap" style="margin-right:8px;"></i> Data Pendidikan</a>
                         </li>
-                        <li><a href="{{ ('statistik-pekerjaan') }}"><i class="fas fa-briefcase" style="margin-right:8px;"></i> Data Pekerjaan</a>
+                        <li><a href="{{ route('user.statistik.pekerjaan') }}"><i class="fas fa-briefcase" style="margin-right:8px;"></i> Data Pekerjaan</a>
                         </li>
-                        <li><a href="{{ ('statistik-agama') }}"><i class="fas fa-place-of-worship" style="margin-right:8px;"></i> Data Agama</a>
+                        <li><a href="{{ route('user.statistik.agama') }}"><i class="fas fa-place-of-worship" style="margin-right:8px;"></i> Data Agama</a>
                         </li>
                     </ul>
                 </li>
