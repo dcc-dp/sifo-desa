@@ -100,24 +100,29 @@ Route::get('/statistik-pendidikan', [StatistikController::class, 'statistikPendi
 // })->name('agama');
 
 Route::post('/pengaduan/storeLanding', [PengaduanController::class, 'storeLanding'])->name('pengaduan.storeLanding');
-Route::post('/pengaduan/store', [PengaduanController::class, 'store'])->name('pengaduan-store');
 
-// Pengaduan authentication routes
-Route::get('/pengaduan-login', [PengaduanAuth::class, 'showLoginForm'])->name('pengaduan.login-form');
-Route::post('/pengaduan-login', [PengaduanAuth::class, 'login'])->name('pengaduan.login');
 
-Route::get('/detail-pengaduan/{id}',
-    [PengaduanController::class, 'detailpengaduan']
-)->name('detail.pengaduan');
+Route::middleware('web')->group(function () {
 
-Route::get('/riwayat-pengaduan', [PengaduanController::class, 'riwayat'])
-    ->middleware('auth')
-    ->name('riwayat.pengaduan');
+    Route::get('/pengaduan-login', [PengaduanAuth::class, 'showLoginForm'])
+        ->name('pengaduan.login-form');
 
-// Protected pengaduan route
-Route::get('/pengaduan', [PengaduanController::class, 'create'])->middleware('pengaduan.auth')->name('pengaduan');
-Route::get('/pengaduan-logout', [PengaduanAuth::class, 'logout'])->name('pengaduan.logout');
+    Route::post('/pengaduan-login', [PengaduanAuth::class, 'login'])
+        ->name('pengaduan.login');
 
+    Route::get('/pengaduan', [PengaduanController::class, 'create'])
+        ->name('pengaduan');
+
+    Route::post('/pengaduan/store', [PengaduanController::class, 'store'])
+        ->name('pengaduan-store');
+
+    Route::get('/riwayat-pengaduan', [PengaduanController::class, 'riwayat'])
+        ->name('riwayat.pengaduan');
+
+    Route::get('/pengaduan-logout', [PengaduanAuth::class, 'logout'])
+        ->name('pengaduan.logout');
+
+});
 // Pengajuan Surat authentication routes
 Route::get('/pengajuan-login', [PengajuanSuratAuth::class, 'showLoginForm'])->name('pengajuan.login-form');
 Route::post('/pengajuan-login', [PengajuanSuratAuth::class, 'login'])->name('pengajuan.login');

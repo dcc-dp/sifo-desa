@@ -27,9 +27,6 @@
             <form action="{{ route('pengaduan-store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
-
-                <input type="hidden" name="user_id" value="{{ auth()->id() }}">
-
                 <div class="form-group">
                     <label for="judul">Judul</label>
                     <input type="text" class="form-control" id="judul" name="judul" value="{{ old('judul') }}" required>

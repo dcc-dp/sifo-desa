@@ -1,88 +1,140 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 use App\Models\Kategori;
 use App\Models\Pengaduan;
-
-use Illuminate\Http\Request;
 
 class PengaduanController extends Controller
 {
     public function index()
     {
-        $pengaduans = Pengaduan::with('kategori', 'user')->latest()->get();
+        $pengaduans = Pengaduan::with('kategori', 'user')
+            ->latest()
+            ->get();
+
         return view('admin.pengaduan.index', compact('pengaduans'));
     }
 
-
     public function create()
     {
-        $pengaduans = Pengaduan::where('user_id', Auth::id())
-        ->latest()
-        ->get();
+        if (!session()->has('pengaduan_penduduk_id')) {
+
+            return redirect()
+                ->route('pengaduan.login-form');
+        }
+
         $kategoris = Kategori::all();
-        return view('pages.layananonline.pengaduan', compact('kategoris', 'pengaduans'));
+
+        $pengaduans = Pengaduan::where(
+            'user_id',
+            session('pengaduan_penduduk_id')
+        )->latest()->get();
+
+        return view(
+            'pages.layananonline.pengaduan',
+            compact('kategoris', 'pengaduans')
+        );
     }
 
-    
     public function store(Request $request)
     {
+        if (!session()->has('pengaduan_penduduk_id')) {
+
+            return redirect()
+                ->route('pengaduan.login-form');
+        }
+
         $validated = $request->validate([
             'kategori_id' => 'required|exists:kategoris,id',
             'judul' => 'required|string|max:255',
             'deskripsi' => 'required|string',
-            'gambar' => 'nullable|image|mimes:jpg,png,jpeg',
+            'gambar' => 'nullable|image|mimes:jpg,jpeg,png',
             'file' => 'nullable|mimes:pdf',
-            'anonymous' => 'nullable|boolean',
         ]);
 
-        $validated['anonymous'] = $request->anonymous ? 1 : 0;
-        $validated['user_id'] = Auth::id();
+        $validated['user_id'] = session('pengaduan_penduduk_id');
+
+        $validated['anonymous'] = $request->has('anonymous') ? 1 : 0;
 
         $validated['status'] = 1;
 
         if ($request->hasFile('gambar')) {
-            $fileName = time() . '_img.' . $request->gambar->extension();
-            $request->gambar->move(public_path('upload/pengaduan'), $fileName);
-            $validated['gambar'] = 'upload/pengaduan/' . $fileName;
+
+            $gambar = time() . '_gambar.' . $request->gambar->extension();
+
+            $request->gambar->move(
+                public_path('upload/pengaduan'),
+                $gambar
+            );
+
+            $validated['gambar'] = 'upload/pengaduan/' . $gambar;
         }
 
         if ($request->hasFile('file')) {
-            $fileName = time() . '_file.' . $request->file->extension();
-            $request->file->move(public_path('upload/file'), $fileName);
-            $validated['file'] = 'upload/file/' . $fileName;
+
+            $file = time() . '_file.' . $request->file->extension();
+
+            $request->file->move(
+                public_path('upload/file'),
+                $file
+            );
+
+            $validated['file'] = 'upload/file/' . $file;
         }
 
         Pengaduan::create($validated);
 
-        return redirect()->back()->with('success', 'Pengaduan berhasil dikirim.');
+        return redirect()
+            ->route('pengaduan')
+            ->with('success', 'Pengaduan berhasil dikirim');
     }
 
     public function detailpengaduan($id)
     {
-        $pengaduan = Pengaduan::with('kategori', 'user')->findOrFail($id);
-        return view('pages.layananonline.detailpengaduan', compact('pengaduan'));
+        $pengaduan = Pengaduan::with('kategori', 'user')
+            ->findOrFail($id);
+
+        return view(
+            'pages.layananonline.detailpengaduan',
+            compact('pengaduan')
+        );
     }
 
     public function riwayat()
     {
-        $pengaduans = Pengaduan::where('user_id', Auth::id())
-            ->latest()
-            ->get();
+        if (!session()->has('pengaduan_penduduk_id')) {
 
-        return view('pages.layananonline.pengaduan', compact('pengaduans'));
+            return redirect()
+                ->route('pengaduan.login-form');
+        }
+
+        $pengaduans = Pengaduan::where(
+            'user_id',
+            session('pengaduan_penduduk_id')
+        )->latest()->get();
+
+        $kategoris = Kategori::all();
+
+        return view(
+            'pages.layananonline.pengaduan',
+            compact('pengaduans', 'kategoris')
+        );
     }
 
     public function edit($id)
     {
-        $pengaduan = Pengaduan::with('kategori')->findOrFail($id);
+        $pengaduan = Pengaduan::with('kategori')
+            ->findOrFail($id);
 
         $kategoris = Kategori::all();
-        return view('admin.pengaduan.edit', compact('pengaduan', 'kategoris'));
+
+        return view(
+            'admin.pengaduan.edit',
+            compact('pengaduan', 'kategoris')
+        );
     }
 
     public function update(Request $request, $id)
@@ -90,14 +142,15 @@ class PengaduanController extends Controller
         $pengaduan = Pengaduan::findOrFail($id);
 
         $request->validate([
-            'status' => 'required|in:1,2,3',
+            'status' => 'required|in:1,2,3'
         ]);
+
         $pengaduan->update([
             'status' => $request->status
         ]);
 
-        return redirect()->route('pengaduan-index')->with('success', 'Status pengaduan berhasil diperbarui.');
+        return redirect()
+            ->route('pengaduan-index')
+            ->with('success', 'Status pengaduan berhasil diperbarui');
     }
-
-    
 }
