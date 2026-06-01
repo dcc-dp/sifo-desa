@@ -27,7 +27,7 @@
                                 @method('PUT')
 
                                 <div class="row g-4">
-\
+
                                     <div class="col-md-6">
                                         <div class="card border-0 shadow-sm h-100">
                                             <div class="card-header bg-white fw-semibold py-3">
