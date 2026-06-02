@@ -19,8 +19,10 @@ class Surat extends Model
     ];
 
     public function penduduk()
-    {
-        return $this->hasOne(dataPenduduk::class, 'id','penduduk_id');
-    }
-        
+{
+    return $this->belongsTo(
+        dataPenduduk::class,
+        'penduduk_id'
+    );
+}
 }

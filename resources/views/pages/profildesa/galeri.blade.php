@@ -196,41 +196,100 @@
 
     <section class="gallery-section">
         <div class="container">
-            <div class="swiper gallery-swiper">
-                <div class="swiper-wrapper">
-                    @forelse ($batches as $batch)
-                        <a class="swiper-slide" href="{{ route('user.galeri.show', $batch) }}">
-                            <div class="gallery-card">
-                                <div class="gallery-card__image"
-                                    style="background-image: url('{{ asset(optional($batch->galeris->first())->gambar ?? 'assets/img/default.jpg') }}')">
-                                </div>
-                                <div class="gallery-card__content">
+            <div class="dashboard-header mb-4">
 
-                                    <h2 class="gallery-card__title">
-                                        {{ $batch->nama }}
-                                    </h2>
-
-                                    <p class="gallery-card__meta">
-                                        📸 {{ $batch->galeris->count() }} Foto
-                                    </p>
-
-                                </div>
-                            </div>
-                        </a>
-                    @empty
-                        <div class="swiper-slide">
-                            <div class="gallery-card">
-                                <div class="gallery-card__content">
-                                    <p class="gallery-card__count">0</p>
-                                    <p class="gallery-card__label">Folder</p>
-                                    <h2 class="gallery-card__title">Belum ada galeri</h2>
-                                </div>
-                            </div>
-                        </div>
-                    @endforelse
+                <div>
+                    <h2>Galeri Desa</h2>
                 </div>
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
+            
+            </div>
+            
+            <div class="header-right mb-4">
+                <a href="{{ route('home') }}">Dashboard</a>
+                <span>/</span>
+                <span>Galeri</span>
+            </div>
+            
+            <div class="gallery-wrapper">
+            
+                <div class="gallery-wrapper-header">
+            
+                    <h3>
+                        <i class="fa-regular fa-images"></i>
+                        Galeri Kegiatan Desa
+                    </h3>
+            
+                    <span class="gallery-badge">
+                        <i class="fa-regular fa-folder-open"></i>
+                        {{ $batches->count() }} Album
+                    </span>
+            
+                </div>
+            
+                <div class="swiper gallery-swiper">
+            
+                    <div class="swiper-wrapper">
+            
+                        @forelse ($batches as $batch)
+            
+                            <a class="swiper-slide"
+                                href="{{ route('user.galeri.show', $batch) }}">
+            
+                                <div class="gallery-card">
+            
+                                    <div class="gallery-card__image"
+                                        style="background-image:url('{{ asset(optional($batch->galeris->first())->gambar ?? 'assets/img/default.jpg') }}')">
+                                    </div>
+            
+                                    <div class="gallery-card__content">
+            
+                                        <h2 class="gallery-card__title">
+                                            {{ $batch->nama }}
+                                        </h2>
+            
+                                        <p class="gallery-card__meta">
+                                            <i class="fa-regular fa-image"></i>
+                                            {{ $batch->galeris->count() }} Foto
+                                        </p>
+            
+                                    </div>
+            
+                                </div>
+            
+                            </a>
+            
+                        @empty
+            
+                            <div class="swiper-slide">
+            
+                                <div class="gallery-card">
+            
+                                    <div class="gallery-card__content">
+            
+                                        <h2 class="gallery-card__title">
+                                            Belum Ada Galeri
+                                        </h2>
+            
+                                        <p class="gallery-card__meta">
+                                            <i class="fa-regular fa-image"></i>
+                                            0 Foto
+                                        </p>
+            
+                                    </div>
+            
+                                </div>
+            
+                            </div>
+            
+                        @endforelse
+            
+                    </div>
+            
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+            
+                </div>
+            
             </div>
         </div>
     </section>

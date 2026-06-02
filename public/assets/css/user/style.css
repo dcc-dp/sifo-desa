@@ -1711,3 +1711,243 @@ tampilan card statistik */
 .diploma-card .stat-icon{
     background:#ede9fe;
 }
+
+
+/* ikon gambar */
+
+.gallery-card__meta i{
+    color:#a1a7a4;
+    font-size:18px;
+}
+
+/* =========================
+   HEADER GALERI
+========================= */
+
+.gallery-header{
+    margin-bottom:35px;
+}
+
+.gallery-breadcrumb{
+    margin-bottom:15px;
+    color:#64748b;
+}
+
+.gallery-breadcrumb a{
+    color:#16a34a;
+    text-decoration:none;
+}
+
+.gallery-page-title{
+    margin:0;
+    font-size:48px;
+    font-weight:700;
+    color:#0f172a;
+}
+
+.gallery-page-title i{
+    color:#16a34a;
+    margin-right:10px;
+}
+
+.gallery-page-desc{
+    margin-top:10px;
+    color:#64748b;
+    font-size:18px;
+}
+
+/* =========================
+   WRAPPER
+========================= */
+
+.gallery-wrapper{
+    background:#fff;
+    border-radius:24px;
+    padding:35px;
+    box-shadow:0 10px 30px rgba(0,0,0,.06);
+}
+
+.gallery-wrapper-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:30px;
+}
+
+.gallery-wrapper-header h3{
+    margin:0;
+    font-size:28px;
+    font-weight:700;
+}
+
+.gallery-badge{
+    background:#ecfdf5;
+    color:#16a34a;
+
+    padding:10px 18px;
+
+    border-radius:12px;
+
+    font-size:14px;
+    font-weight:600;
+}
+
+/* ICON FOTO */
+
+.gallery-card__meta i{
+    color:#b7bdb9;
+}
+/* 
+PENGAJUAN SURAT */
+.dashboard-header h2{
+    font-size:42px;
+    font-weight:700;
+    color:#15803d;
+}
+
+.page-desc{
+    color:#64748b;
+    margin-top:8px;
+}
+
+.breadcrumb-custom{
+    color:#64748b;
+}
+
+.breadcrumb-custom a{
+    color:#16a34a;
+    text-decoration:none;
+}
+
+.user-card{
+    background:#fff;
+    border-radius:20px;
+    padding:25px;
+
+    display:flex;
+    align-items:center;
+
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+
+    margin-bottom:25px;
+}
+
+.user-avatar{
+    width:70px;
+    height:70px;
+
+    border-radius:50%;
+
+    background:#dcfce7;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    font-size:28px;
+
+    color:#15803d;
+
+    margin-right:20px;
+}
+
+.user-info h4{
+    margin:0;
+    font-size:24px;
+    font-weight:700;
+}
+
+.user-info p{
+    margin-top:5px;
+    color:#64748b;
+}
+
+.info-alert{
+    background:#ecfdf5;
+    border:1px solid #bbf7d0;
+
+    padding:15px 20px;
+
+    border-radius:12px;
+
+    color:#15803d;
+
+    margin-bottom:30px;
+}
+
+.section-title{
+    font-size:28px;
+    font-weight:700;
+    margin-bottom:25px;
+}
+
+.service-card{
+    background:#fff;
+
+    border-radius:20px;
+
+    padding:30px 20px;
+
+    text-align:center;
+
+    height:100%;
+
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+
+    transition:.3s;
+    cursor:pointer;
+}
+
+.service-card:hover{
+    transform:translateY(-6px);
+}
+
+.service-card i{
+    font-size:40px;
+    color:#2f8f46;
+    margin-bottom:15px;
+}
+
+.service-card h5{
+    font-weight:700;
+    margin-bottom:10px;
+}
+
+.service-card p{
+    color:#64748b;
+    margin:0;
+}
+
+.history-wrapper{
+    background:#fff;
+    border-radius:20px;
+    padding:40px;
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+}
+
+.empty-history{
+    text-align:center;
+}
+
+.empty-history i{
+    font-size:50px;
+    color:#16a34a;
+    margin-bottom:15px;
+}
+
+.empty-history h5{
+    font-weight:700;
+}
+
+.empty-history p{
+    color:#64748b;
+} 
+
+
+.header-right{
+    margin-bottom:25px;
+}
+
+.user-card{
+    margin-bottom:25px;
+}
