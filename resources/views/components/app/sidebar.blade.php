@@ -304,7 +304,7 @@
                     <span class="nav-link-text ms-1">Riwayat Pengaduan</span>
                 </a>
             </li>
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a class="nav-link  {{ is_current_route('dashboard') ? 'active' : '' }}"
                     href="{{ route('dashboard') }}">
                     <div
@@ -429,7 +429,7 @@
                     href="{{ route('users-management') }}">
                     <span class="nav-link-text ms-1">User Management</span>
                 </a>
-            </li>
+            </li> --}}
             <li class="nav-item mt-2">
                 <div class="d-flex align-items-center nav-link">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="ms-2"
@@ -461,7 +461,7 @@
             </li>
         </ul>
     </div>
-    <div class="sidenav-footer mx-4 ">
+    {{-- <div class="sidenav-footer mx-4 ">
         <a class="btn bg-gradient-primary inline-block px-5 py-3 mx-auto text-xs align-middle transition-all ease-in border-0 rounded-lg select-none"
             href="https://www.creative-tim.com/product/corporate-ui-dashboard-pro-laravel" target="_blank">
             UPGRADE TO PRO
@@ -488,5 +488,5 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 </aside>

@@ -280,6 +280,20 @@
                                         </span>
                                     @endif
 
+                                    @if ($surat->status == 'ditolak')
+                                        <div class="mt-2">
+
+                                            <strong>   
+                                                Alasan Penolakan:
+                                            </strong>
+
+                                            <br>
+
+                                            {{ $surat->alasan_tolak }}
+
+                                        </div>
+                                    @endif
+
                                     <br>
 
                                     @if ($surat->file_pdf)

@@ -17,6 +17,7 @@ class Surat extends Model
         'status',
         'keterangan',
         'file_pdf',
+        'alasan_tolak'
     ];
 
     public function penduduk()

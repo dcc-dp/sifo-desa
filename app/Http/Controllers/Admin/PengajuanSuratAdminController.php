@@ -7,6 +7,7 @@ use App\Models\Surat;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Setting;
 use App\Models\PemerintahDesa;
+use Illuminate\Http\Request;
 
 class PengajuanSuratAdminController extends Controller
 {
@@ -113,17 +114,22 @@ class PengajuanSuratAdminController extends Controller
     );
 }
 
-    public function tolak($id)
-    {
-        $surat = Surat::findOrFail($id);
+public function tolak(Request $request, $id)
+{
+    $request->validate([
+        'alasan_tolak' => 'required'
+    ]);
 
-        $surat->update([
-            'status' => 'ditolak'
-        ]);
+    $surat = Surat::findOrFail($id);
 
-        return back()->with(
-            'success',
-            'Surat berhasil ditolak'
-        );
-    }
+    $surat->update([
+        'status' => 'ditolak',
+        'alasan_tolak' => $request->alasan_tolak
+    ]);
+
+    return back()->with(
+        'success',
+        'Surat berhasil ditolak'
+    );
+}
 }

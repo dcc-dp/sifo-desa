@@ -204,22 +204,12 @@
                                         </button>
 
                                     </form>
+                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                        data-bs-target="#modalTolak">
 
-                                    <form action="{{ route('admin.pengajuan-surat.tolak', $surat->id) }}"
-                                        method="POST" style="display:inline">
+                                        Tolak
 
-                                        @csrf
-                                        @method('PATCH')
-
-                                        <button type="submit" class="btn btn-danger"
-                                            onclick="return confirm('Yakin menolak surat ini?')">
-
-                                            <i class="fas fa-times"></i>
-                                            Tolak
-
-                                        </button>
-
-                                    </form>
+                                    </button>
                                 @endif
 
                                 {{-- @if ($surat->status == 'diterima')
@@ -252,5 +242,70 @@
         </div>
 
     </main>
+    <div class="modal fade" id="modalTolak" tabindex="-1">
+
+        <div class="modal-dialog">
+    
+            <div class="modal-content">
+    
+                <div class="modal-header">
+    
+                    <h5 class="modal-title">
+                        Alasan Penolakan
+                    </h5>
+    
+                    <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal">
+                    </button>
+    
+                </div>
+    
+                <form action="{{ route('admin.pengajuan-surat.tolak', $surat->id) }}"
+                    method="POST">
+    
+                    @csrf
+                    @method('PATCH')
+    
+                    <div class="modal-body">
+    
+                        <textarea
+                            name="alasan_tolak"
+                            class="form-control"
+                            rows="4"
+                            placeholder="Masukkan alasan penolakan..."
+                            required></textarea>
+    
+                    </div>
+    
+                    <div class="modal-footer">
+    
+                        <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-bs-dismiss="modal">
+    
+                            Batal
+    
+                        </button>
+    
+                        <button
+                            type="submit"
+                            class="btn btn-danger">
+    
+                            Tolak Surat
+    
+                        </button>
+    
+                    </div>
+    
+                </form>
+    
+            </div>
+    
+        </div>
+    
+    </div>
 
 </x-app-layout>
