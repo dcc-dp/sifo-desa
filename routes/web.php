@@ -27,6 +27,7 @@ use App\Http\Controllers\Admin\SuratKetusController;
 use App\Http\Controllers\Admin\BatchGaleriController;
 use App\Http\Controllers\Admin\DatapendudukController;
 use App\Http\Controllers\Admin\GaleriController;
+use App\Http\Controllers\Admin\PengajuanSuratAdminController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Admin\SuratDomisiliController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
@@ -115,11 +116,17 @@ Route::get('/pengajuan-login', [PengajuanSuratAuth::class, 'showLoginForm'])->na
 Route::post('/pengajuan-login', [PengajuanSuratAuth::class, 'login'])->name('pengajuan.login');
 
 // Protected pengajuan route
-Route::get('/pengajuan', function () {
-    return view('pages.layananonline.pengajuan');
-})->middleware('pengajuan.auth')->name('pengajuan');
+Route::get('/pengajuan', [PengajuanSuratController::class, 'index'])
+    ->middleware('pengajuan.auth')
+    ->name('pengajuan');
 Route::post('/pengajuan/store', [PengajuanSuratController::class, 'store'])->middleware('pengajuan.auth')->name('pengajuan.store');
 Route::get('/pengajuan-logout', [PengajuanSuratAuth::class, 'logout'])->name('pengajuan.logout');
+
+
+Route::get(
+    '/surat/download/{id}',
+    [SuratController::class, 'download']
+)->name('surat.download');
 
 
 
@@ -190,14 +197,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/surat-destroy/{id}', [SuratController::class, 'destroy'])->name('surat.destroy');
         Route::get('/search', [SuratController::class, 'search'])->name('surat.search');
 
-        Route::get('/suratdomisili-index', [SuratDomisiliController::class, 'index'])->name('suratdomisili.index');
-        Route::get('/suratdomisili-create', [SuratDomisiliController::class, 'create'])->name('suratdomisili.create');
-        Route::post('/suratdomisili-store', [SuratDomisiliController::class, 'store'])->name('suratdomisili.store');
-        Route::get('/suratdomisili-show/{id}', [SuratDomisiliController::class, 'show'])->name('suratdomisili.show');
-        Route::get('/suratdomisili-edit/{id}', [SuratDomisiliController::class, 'edit'])->name('suratdomisili.edit');
-        Route::put('/suratdomisili-update/{id}', [SuratDomisiliController::class, 'update'])->name('suratdomisili.update');
-        Route::get('/suratdomisili-destroy/{id}', [SuratDomisiliController::class, 'destroy'])->name('suratdomisili.destroy');
-        Route::get('/search', [SuratDomisiliController::class, 'search'])->name('surat.search');
 
         Route::get('/galeri/{id}/create', [GaleriController::class, 'create'])->name('galeri.create');
         Route::post('/galeri/{id}/store',  [GaleriController::class, 'store'])->name('galeri.store');
@@ -211,35 +210,7 @@ Route::middleware('auth')->group(function () {
         Route::put('/batchgaleri/{id}', [BatchGaleriController::class, 'update'])->name('batchgaleri.update');
         Route::get('/batchgaleri/{id}', [BatchGaleriController::class, 'show'])->name('batchgaleri.show');
         Route::delete('/batchgaleri/{id}', [BatchGaleriController::class, 'destroy'])->name('batchgaleri.destroy');
-
-        Route::get('/suratpengantar-index', [SuratPengantarController::class, 'index'])->name('suratpengantar.index');
-        Route::get('/suratpengantar-create', [SuratPengantarController::class, 'create'])->name('suratpengantar.create');
-        Route::post('/suratpengantar-store', [SuratPengantarController::class, 'store'])->name('suratpengantar.store');
-        Route::get('/suratpengantar-show/{id}', [SuratPengantarController::class, 'show'])->name('suratpengantar.show');
-        Route::get('/suratpengantar-edit/{id}', [SuratPengantarController::class, 'edit'])->name('suratpengantar.edit');
-        Route::put('/suratpengantar-update/{id}', [SuratPengantarController::class, 'update'])->name('suratpengantar.update');
-        Route::get('/suratpengantar-destroy/{id}', [SuratPengantarController::class, 'destroy'])->name('suratpengantar.destroy');
-        Route::get('/suratpengantar-search', [SuratPengantarController::class, 'search'])->name('suratpengantar.search');
-
-        Route::get('/surat-keterangan-usaha', [SuratKetusController::class, 'index'])->name('suratketus.index');
-        Route::get('/surat-keterangan-usaha/create', [SuratKetusController::class, 'create'])->name('suratketus.create');
-        Route::post('/surat-keterangan-usaha/store', [SuratKetusController::class, 'store'])->name('suratketus.store');
-        Route::get('/surat-keterangan-usaha/{id}', [SuratKetusController::class, 'show'])->name('suratketus.show');
-        Route::get('/surat-keterangan-usaha/{id}/edit', [SuratKetusController::class, 'edit'])->name('suratketus.edit');
-        Route::put('/surat-keterangan-usaha/{id}', [SuratKetusController::class, 'update'])->name('suratketus.update');
-        Route::delete('/surat-keterangan-usaha/{id}', [SuratKetusController::class, 'destroy'])->name('suratketus.destroy');
-        Route::get('/surat-keterangan-usaha-search', [SuratKetusController::class, 'search'])->name('suratketus.search');
-
-        Route::get('/suratizin', [SuratIzinController::class, 'index'])->name('suratizin.index');
-        Route::get('/suratizin/create', [SuratIzinController::class, 'create'])->name('suratizin.create');
-        Route::post('/suratizin', [SuratIzinController::class, 'store'])->name('suratizin.store');
-        Route::get('/suratizin/{id}', [SuratIzinController::class, 'show'])->name('suratizin.show');
-        Route::get('/suratizin/{id}/edit', [SuratIzinController::class, 'edit'])->name('suratizin.edit');
-        Route::put('/suratizin/{id}', [SuratIzinController::class, 'update'])->name('suratizin.update');
-        Route::delete('/suratizin/{id}', [SuratIzinController::class, 'destroy'])->name('suratizin.destroy');
-        Route::get('/suratizin-search', [SuratIzinController::class, 'search'])->name('suratizin.search');
-
-
+  
         Route::get('/rw-index', [RwController::class, 'index'])->name('rw-index');
         Route::get('/rw-create', [RwController::class, 'create'])->name('rw-create');
         Route::post('/rw-store', [RwController::class, 'store'])->name('rw-store');
@@ -253,6 +224,26 @@ Route::middleware('auth')->group(function () {
         Route::get('/rt-edit/{id}', [RtController::class, 'edit'])->name('rt-edit');
         Route::put('/rt-update/{id}', [RtController::class, 'update'])->name('rt-update');
         Route::delete('/rt-destroy/{id}', [RtController::class, 'destroy'])->name('rt-destroy');
+
+        Route::get(
+            '/pengajuan-surat',
+            [PengajuanSuratAdminController::class, 'index']
+        )->name('admin.pengajuan-surat.index');
+    
+        Route::get(
+            '/pengajuan-surat/{id}',
+            [PengajuanSuratAdminController::class, 'show']
+        )->name('admin.pengajuan-surat.show');
+    
+        Route::patch(
+            '/pengajuan-surat/{id}/terima',
+            [PengajuanSuratAdminController::class, 'terima']
+        )->name('admin.pengajuan-surat.terima');
+    
+        Route::patch(
+            '/pengajuan-surat/{id}/tolak',
+            [PengajuanSuratAdminController::class, 'tolak']
+        )->name('admin.pengajuan-surat.tolak');
     });
 });
 

@@ -14,7 +14,11 @@ class SuratPengantar extends Model
         'keperluan',
     ];
 
-      public function surat(){
-        return $this->hasOne(Surat::class, 'id','surat_id');
+        public function surat()
+        {
+            return $this->belongsTo(
+                Surat::class,
+                'surat_id'
+            );
     }
 }

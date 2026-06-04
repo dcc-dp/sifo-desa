@@ -19,6 +19,7 @@ return new class extends Migration
             $table->date('tanggal');
             $table->string('tempat');
             $table->string('jenis_acara');
+            $table->integer('jumlah_peserta');
             $table->timestamps();
         });
     }

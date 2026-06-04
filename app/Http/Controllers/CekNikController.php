@@ -12,7 +12,7 @@ class CekNikController extends Controller
     {
         return view('account-pages.ceknik');
     }
-
+ 
     public function store(Request $request)
     {
         $request->validate([

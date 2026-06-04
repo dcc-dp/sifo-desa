@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('surat_domisilis', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('surat_id')->unique();
-            $table->foreign('surat_id')->references('id')->on('surats');
-            $table->text('keperluan');
-            $table->timestamps();
+        Schema::table('surats', function (Blueprint $table) {
+            Schema::table('surats', function (Blueprint $table) {
+                $table->string('file_pdf')->nullable()->after('keterangan');
+            });
         });
     }
 
@@ -25,6 +23,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('surat_domisilis');
+        Schema::table('surats', function (Blueprint $table) {
+            $table->dropColumn('file_pdf');
+        });
     }
 };

@@ -11,6 +11,11 @@ class SettingController extends Controller
     public function edit()
     {
         $setting = Setting::first();
+
+        if (!$setting) {
+            $setting = new Setting();
+        }
+
         return view('admin.setting.edit', compact('setting'));
     }
 
@@ -28,9 +33,15 @@ class SettingController extends Controller
             'twitter'    => 'nullable|url',
         ]);
 
-        Setting::first()->update($request->all());
+        $setting = Setting::first();
+
+        if (!$setting) {
+            $setting = Setting::create($request->all());
+        } else {
+            $setting->update($request->all());
+        }
 
         return redirect()->route('admin.setting.edit')
-                         ->with('success', 'Pengaturan berhasil disimpan!');
+            ->with('success', 'Pengaturan berhasil disimpan!');
     }
 }

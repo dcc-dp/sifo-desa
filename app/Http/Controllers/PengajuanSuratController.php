@@ -3,27 +3,43 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Surat;
+use App\Models\SKTM;
 use App\Models\Suraketus;
+use App\Models\Surat;
 use App\Models\SuratDomisili;
 use App\Models\SuratIzin;
 use App\Models\SuratPengantar;
-use App\Models\SKTM;
-use Illuminate\Support\Facades\Session;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Log;
 
 class PengajuanSuratController extends Controller
 {
     /**
      * Store pengajuan surat
      */
+
+     public function index()
+        {
+            $penduduk_id = Session::get('pengajuan_penduduk_id');
+
+            $surats = Surat::where(
+                'penduduk_id',
+                $penduduk_id
+            )->latest()->get();
+
+            return view(
+                'pages.layananonline.pengajuan',
+                compact('surats')
+            );
+        }
     public function store(Request $request)
     {
         try {
             $tipe_surat = $request->input('tipe_surat');
-            \Log::info('Pengajuan received - tipe_surat: ' . $tipe_surat);
-            \Log::info('Request data: ' . json_encode($request->all()));
+            Log::info('Pengajuan received - tipe_surat: ' . $tipe_surat);
+            Log::info('Request data: ' . json_encode($request->all()));
             
             // Validasi NIK session
             if (!Session::has('pengajuan_nik')) {
@@ -52,7 +68,7 @@ class PengajuanSuratController extends Controller
             }
 
             $errorMsg = 'Tipe surat tidak valid. Nilai tipe_surat: ' . $tipe_surat;
-            \Log::error($errorMsg);
+            Log::error($errorMsg);
             if ($request->wantsJson() || $request->header('X-Requested-With') === 'XMLHttpRequest') {
                 return response()->json([
                     'success' => false,
@@ -61,7 +77,7 @@ class PengajuanSuratController extends Controller
             }
             return redirect()->back()->with('error', $errorMsg);
         } catch (\Exception $e) {
-            \Log::error('Error storing pengajuan surat: ' . $e->getMessage());
+            Log::error('Error storing pengajuan surat: ' . $e->getMessage());
             if ($request->wantsJson() || $request->header('X-Requested-With') === 'XMLHttpRequest') {
                 return response()->json([
                     'success' => false,
@@ -120,7 +136,7 @@ class PengajuanSuratController extends Controller
 
             return redirect()->route('pengajuan')->with('success', 'Pengajuan surat berhasil dikirim! Nomor surat: ' . $surat->nomor_surat);
         } catch (\Exception $e) {
-            \Log::error('Error storing surat usaha: ' . $e->getMessage());
+             Log::error('Error storing surat usaha: ' . $e->getMessage());
             if ($request->wantsJson() || $request->header('X-Requested-With') === 'XMLHttpRequest') {
                 return response()->json([
                     'success' => false,
@@ -137,6 +153,9 @@ class PengajuanSuratController extends Controller
     private function storeSuratDomisili($request, $penduduk_id)
     {
         try {
+            $request->validate([
+                'keperluan' => 'required|string|max:255',
+            ]);
             // Create Surat
             $surat = Surat::create([
                 'penduduk_id' => $penduduk_id,
@@ -149,16 +168,25 @@ class PengajuanSuratController extends Controller
             // Create Surat Domisili
             SuratDomisili::create([
                 'surat_id' => $surat->id,
+                'keperluan' => $request->keperluan,
             ]);
 
-            return redirect()->route('pengajuan')->with('success', 'Pengajuan surat berhasil dikirim! Nomor surat: ' . $surat->nomor_surat);
+            if ($request->wantsJson() || $request->ajax()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Pengajuan surat berhasil dikirim! Nomor surat: ' . $surat->nomor_surat
+                ]);
+            }
+            
+            return redirect()->route('pengajuan')
+                ->with('success', 'Pengajuan surat berhasil dikirim! Nomor surat: ' . $surat->nomor_surat);
         } catch (\Exception $e) {
-            \Log::error('Error storing surat domisili: ' . $e->getMessage());
+            Log::error('Error storing surat domisili: ' . $e->getMessage());
             throw $e;
         }
     }
 
-    /**
+    /** 
      * Store Surat Izin Acara
      */
     private function storeSuratIzin($request, $penduduk_id)
@@ -169,6 +197,7 @@ class PengajuanSuratController extends Controller
                 'tanggal' => 'required|date',
                 'tempat' => 'required|string|max:255',
                 'jenis_acara' => 'required|string|max:255',
+                'jumlah_peserta' => 'required|integer|min:1',
             ]);
 
             // Create Surat
@@ -187,11 +216,20 @@ class PengajuanSuratController extends Controller
                 'tanggal' => $request->tanggal,
                 'tempat' => $request->tempat,
                 'jenis_acara' => $request->jenis_acara,
+                'jumlah_peserta' => $request->jumlah_peserta, 
             ]);
 
-            return redirect()->route('pengajuan')->with('success', 'Pengajuan surat berhasil dikirim! Nomor surat: ' . $surat->nomor_surat);
+            if ($request->wantsJson() || $request->ajax()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Pengajuan surat berhasil dikirim! Nomor surat: ' . $surat->nomor_surat
+                ]);
+            }
+            
+            return redirect()->route('pengajuan')
+                ->with('success', 'Pengajuan surat berhasil dikirim! Nomor surat: ' . $surat->nomor_surat);
         } catch (\Exception $e) {
-            \Log::error('Error storing surat izin: ' . $e->getMessage());
+            Log::error('Error storing surat izin: ' . $e->getMessage());
             throw $e;
         }
     }
@@ -203,7 +241,7 @@ class PengajuanSuratController extends Controller
     {
         try {
             $request->validate([
-                'keterangan_pengantar' => 'nullable|string',
+                'keterangan_pengantar' => 'required|string|max:255',
             ]);
 
             // Create Surat
@@ -218,11 +256,20 @@ class PengajuanSuratController extends Controller
             // Create Surat Pengantar
             SuratPengantar::create([
                 'surat_id' => $surat->id,
+                'keperluan' => $request->keterangan_pengantar,
             ]);
 
-            return redirect()->route('pengajuan')->with('success', 'Pengajuan surat berhasil dikirim! Nomor surat: ' . $surat->nomor_surat);
+            if ($request->wantsJson() || $request->ajax()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Pengajuan surat berhasil dikirim! Nomor surat: ' . $surat->nomor_surat
+                ]);
+            }
+            
+            return redirect()->route('pengajuan')
+                ->with('success', 'Pengajuan surat berhasil dikirim! Nomor surat: ' . $surat->nomor_surat); 
         } catch (\Exception $e) {
-            \Log::error('Error storing surat pengantar: ' . $e->getMessage());
+            Log::error('Error storing surat pengantar: ' . $e->getMessage());
             throw $e;
         }
     }
@@ -232,27 +279,44 @@ class PengajuanSuratController extends Controller
      */
     private function storeSKTM($request, $penduduk_id)
     {
-        try {
-            // Create Surat
-            $surat = Surat::create([
-                'penduduk_id' => $penduduk_id,
-                'nomor_surat' => $this->generateNomorSurat('SKTM'),
-                'tanggal_dibuat' => Carbon::now()->format('Y-m-d'),
-                'status' => 'menunggu',
-                'keterangan' => 'SKTM (Surat Keterangan Tidak Mampu)',
-            ]);
+       
+    try {
 
-            // Create SKTM
-            SKTM::create([
-                'surat_id' => $surat->id,
-            ]);
+        $request->validate([
+            'pekerjaan' => 'required|string|max:255',
+            'penghasilan' => 'required|numeric|min:0',
+        ]);
 
-            return redirect()->route('pengajuan')->with('success', 'Pengajuan surat berhasil dikirim! Nomor surat: ' . $surat->nomor_surat);
-        } catch (\Exception $e) {
-            \Log::error('Error storing SKTM: ' . $e->getMessage());
-            throw $e;
+        $surat = Surat::create([
+            'penduduk_id' => $penduduk_id,
+            'nomor_surat' => $this->generateNomorSurat('SKTM'),
+            'tanggal_dibuat' => Carbon::now()->format('Y-m-d'),
+            'status' => 'menunggu',
+            'keterangan' => 'SKTM (Surat Keterangan Tidak Mampu)',
+        ]);
+
+        SKTM::create([
+            'surat_id' => $surat->id,
+            'pekerjaan' => $request->pekerjaan,
+            'penghasilan' => $request->penghasilan,
+        ]);
+
+        if ($request->wantsJson() || $request->ajax()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Pengajuan surat berhasil dikirim! Nomor surat: ' . $surat->nomor_surat
+            ]);
         }
+        
+        return redirect()->route('pengajuan')
+            ->with('success', 'Pengajuan surat berhasil dikirim! Nomor surat: ' . $surat->nomor_surat);    
+
+    } catch (\Exception $e) {
+        Log::error('Error storing SKTM: ' . $e->getMessage());
+        throw $e;
     }
+}
+    
 
     /**
      * Generate nomor surat

@@ -3,55 +3,63 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\SKTM;
 use App\Models\Surat;
-use App\Models\dataPenduduk;
-use Illuminate\Http\Request;
+use App\Models\Setting;
+use App\Models\PemerintahDesa;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class SuratController extends Controller
 {
-    public function index()
-    {
-        $data = Surat::with('penduduk')->latest()->paginate(10);
-        return view('admin.persuratan.surat-index', compact('data'));
-    }
+      
+    public function download($id)
+        {
+            $surat = Surat::with([
+                'penduduk',
+                'usaha',
+                'domisili',
+                'izin',
+                'pengantar',
+                'sktm'
+            ])->findOrFail($id);
 
-    public function edit($id)
-    {
-        $tes = Surat::findOrFail($id);
-        return view('admin.persuratan.surat-edit', compact('tes', 'id'));
-    }
+            $setting = Setting::first();
 
+            $kepalaDesa = PemerintahDesa::where(
+                'jabatan',
+                'Kepala Desa'
+            )->first();
 
-    public function update(Request $request, $id)
-{
+            if ($surat->usaha) {
+                $view = 'pdf.sku';
+            } elseif ($surat->domisili) {
+                $view = 'pdf.domisili';
+            } elseif ($surat->sktm) {
+                $view = 'pdf.sktm';
+            } elseif ($surat->pengantar) {
+                $view = 'pdf.pengantar';
+            } elseif ($surat->izin) {
+                $view = 'pdf.izin';
+            } else {
+                abort(404);
+            }
 
-    $request->validate([
-        'status' => 'required|in:diterima,tolak,proses',
-    ]);
+            \Carbon\Carbon::setLocale('id');
 
-    $surat = Surat::findOrFail($id);
+            $pdf = Pdf::loadView(
+                $view,
+                compact(
+                    'surat',
+                    'setting',
+                    'kepalaDesa'
+                )
+            );
 
-    $surat->status = $request->status;
-    $surat->save();
+            $filename = str_replace(
+                '/',
+                '-',
+                $surat->nomor_surat
+            ) . '.pdf';
 
-    return redirect()->route('surat.index')->with('success', 'Status surat berhasil diperbarui.');
-}
-
-    public function search(Request $request)
-    {
-        $keyword = $request->get('keyword');
-
-        $data = Surat::with('penduduk')
-            ->whereHas('penduduk', function($q) use ($keyword) {
-                $q->where('nama', 'like', "%{$keyword}%")
-                  ->orWhere('nik', 'like', "%{$keyword}%");
-            })
-            ->orWhere('nomor_surat','like', "%{$keyword}%")
-            ->orWhere('status','like', "%{$keyword}%")
-            ->orWhere('keterangan','like', "%{$keyword}%")
-            ->get();
-
-        return response()->json($data);
-    }
+            return $pdf->download($filename);
+        }
 }

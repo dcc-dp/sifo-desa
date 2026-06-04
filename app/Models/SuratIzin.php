@@ -15,9 +15,14 @@ class SuratIzin extends Model
         'tanggal',
         'tempat',
         'jenis_acara',
+        'jumlah_peserta',
     ];
 
-    public function surat(){
-        return $this->hasOne(Surat::class, 'id','surat_id');
+        public function surat()
+    {
+        return $this->belongsTo(
+            Surat::class,
+            'surat_id'
+        );
     }
 }

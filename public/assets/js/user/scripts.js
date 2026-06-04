@@ -139,74 +139,74 @@
         }
         
         // Service Form Logic
-        const serviceForms = {
-            usaha: { title: "Surat Keterangan Usaha (SKU)", fields: [
-                { id: 'bisnis-name', label: 'Business Name', type: 'text' },
-                { id: 'bisnis-type', label: 'Business Type', type: 'text' },
-                { id: 'bisnis-address', label: 'Business Address', type: 'textarea' },
-            ]},
-            domisili: { title: "Surat Keterangan Domisili", fields: [
-                { id: 'old-address', label: 'Old Address', type: 'textarea' },
-                { id: 'move-date', label: 'Move Date', type: 'date' },
-                { id: 'family-members', label: 'Number of Family Members', type: 'number' },
-            ]},
-            izin_acara: { title: "Surat Izin Acara/Keramaian", fields: [
-                { id: 'event-name', label: 'Event Name', type: 'text' },
-                { id: 'event-date', label: 'Date and Time', type: 'datetime-local' },
-                { id: 'event-location', label: 'Location', type: 'textarea' },
-            ]},
-            pengantar: { title: "Surat Pengantar Umum", fields: [
-                { id: 'purpose', label: 'Purpose of Letter', type: 'textarea' },
-                { id: 'destination', label: 'Destination Institution', type: 'text' },
-            ]},
-            sktm: { title: "SKTM (Surat Keterangan Tidak Mampu)", fields: [
-                { id: 'income', label: 'Monthly Household Income', type: 'number' },
-                { id: 'family-size', label: 'Number of Dependents', type: 'number' },
-                { id: 'asset-desc', label: 'Assets Description', type: 'textarea' },
-            ]}
-        };
+        // const serviceForms = {
+        //     usaha: { title: "Surat Keterangan Usaha (SKU)", fields: [
+        //         { id: 'bisnis-name', label: 'Business Name', type: 'text' },
+        //         { id: 'bisnis-type', label: 'Business Type', type: 'text' },
+        //         { id: 'bisnis-address', label: 'Business Address', type: 'textarea' },
+        //     ]},
+        //     domisili: { title: "Surat Keterangan Domisili", fields: [
+        //         { id: 'old-address', label: 'Old Address', type: 'textarea' },
+        //         { id: 'move-date', label: 'Move Date', type: 'date' },
+        //         { id: 'family-members', label: 'Number of Family Members', type: 'number' },
+        //     ]},
+        //     izin_acara: { title: "Surat Izin Acara/Keramaian", fields: [
+        //         { id: 'event-name', label: 'Event Name', type: 'text' },
+        //         { id: 'event-date', label: 'Date and Time', type: 'datetime-local' },
+        //         { id: 'event-location', label: 'Location', type: 'textarea' },
+        //     ]},
+        //     pengantar: { title: "Surat Pengantar Umum", fields: [
+        //         { id: 'purpose', label: 'Purpose of Letter', type: 'textarea' },
+        //         { id: 'destination', label: 'Destination Institution', type: 'text' },
+        //     ]},
+        //     sktm: { title: "SKTM (Surat Keterangan Tidak Mampu)", fields: [
+        //         { id: 'income', label: 'Monthly Household Income', type: 'number' },
+        //         { id: 'family-size', label: 'Number of Dependents', type: 'number' },
+        //         { id: 'asset-desc', label: 'Assets Description', type: 'textarea' },
+        //     ]}
+        // };
         
-        function showServiceForm(type) {
-            const formContainer = document.getElementById('service-form-container');
-            const formTitle = document.getElementById('service-form-title');
-            const dynamicForm = document.getElementById('dynamic-service-form');
-            const formInfo = serviceForms[type];
+        // function showServiceForm(type) {
+        //     const formContainer = document.getElementById('service-form-container');
+        //     const formTitle = document.getElementById('service-form-title');
+        //     const dynamicForm = document.getElementById('dynamic-service-form');
+        //     const formInfo = serviceForms[type];
             
-            if (!formInfo) return;
+        //     if (!formInfo) return;
 
-            formContainer.style.display = 'block';
-            formTitle.textContent = formInfo.title;
-            dynamicForm.innerHTML = ''; // Clear previous fields
+        //     formContainer.style.display = 'block';
+        //     formTitle.textContent = formInfo.title;
+        //     dynamicForm.innerHTML = ''; // Clear previous fields
             
-            formInfo.fields.forEach(field => {
-                let inputHtml = '';
-                if (field.type === 'textarea') {
-                    inputHtml = `<textarea id="${field.id}" rows="4" required></textarea>`;
-                } else if (field.type === 'select') {
-                    // Assuming select fields are for future implementation
-                    inputHtml = `<select id="${field.id}" required>
-                                    <option value="">Select an option</option>
-                                    <option value="A">Option A</option>
-                                    <option value="B">Option B</option>
-                                 </select>`;
-                } else {
-                    inputHtml = `<input type="${field.type}" id="${field.id}" required>`;
-                }
+        //     formInfo.fields.forEach(field => {
+        //         let inputHtml = '';
+        //         if (field.type === 'textarea') {
+        //             inputHtml = `<textarea id="${field.id}" rows="4" required></textarea>`;
+        //         } else if (field.type === 'select') {
+        //             // Assuming select fields are for future implementation
+        //             inputHtml = `<select id="${field.id}" required>
+        //                             <option value="">Select an option</option>
+        //                             <option value="A">Option A</option>
+        //                             <option value="B">Option B</option>
+        //                          </select>`;
+        //         } else {
+        //             inputHtml = `<input type="${field.type}" id="${field.id}" required>`;
+        //         }
                 
-                dynamicForm.innerHTML += `
-                    <div class="form-group">
-                        <label for="${field.id}">${field.label}</label>
-                        ${inputHtml}
-                    </div>
-                `;
-            });
+        //         dynamicForm.innerHTML += `
+        //             <div class="form-group">
+        //                 <label for="${field.id}">${field.label}</label>
+        //                 ${inputHtml}
+        //             </div>
+        //         `;
+        //     });
 
-            // Add the submit button back
-            dynamicForm.innerHTML += `<button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 20px;">Submit Request</button>`;
+        //     // Add the submit button back
+        //     dynamicForm.innerHTML += `<button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 20px;">Submit Request</button>`;
 
-            // Scroll to the form
-            formContainer.scrollIntoView({ behavior: 'smooth' });
-        }
+        //     // Scroll to the form
+        //     formContainer.scrollIntoView({ behavior: 'smooth' });
+        // }
 
 
         // --- Event Listeners and Initial Load ---
