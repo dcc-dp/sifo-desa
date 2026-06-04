@@ -17,6 +17,10 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        if (app()->runningInConsole()) {
+            return;
+        }
+
         if (Schema::hasTable('kategoris')) {
             View::share(
                 'menuKategoris',
