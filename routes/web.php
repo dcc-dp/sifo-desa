@@ -102,6 +102,8 @@ Route::get('/statistik-pendidikan', [StatistikController::class, 'statistikPendi
 
 Route::post('/pengaduan/storeLanding', [PengaduanController::class, 'storeLanding'])->name('pengaduan.storeLanding');
 Route::post('/pengaduan/store', [PengaduanController::class, 'store'])->name('pengaduan-store');
+Route::get('/riwayat-pengaduan', [PengaduanController::class, 'riwayat'])
+        ->name('riwayat.pengaduan');
 
 // Pengaduan authentication routes
 Route::get('/pengaduan-login', [PengaduanAuth::class, 'showLoginForm'])->name('pengaduan.login-form');
@@ -172,13 +174,13 @@ Route::middleware('auth')->group(function () {
         Route::put('/berita-update/{id}', [BeritaController::class, 'update'])->name('berita-update');
         Route::get('/berita-destroy/{id}', [BeritaController::class, 'destroy'])->name('berita-destroy');
 
-        Route::get('/pengaduan-index', [PengaduanController::class, 'index'])->name('pengaduan-index');
-        Route::get('/pengaduan-create', [PengaduanController::class, 'create'])->name('pengaduan-create');
-        Route::post('/pengaduan-store', [PengaduanController::class, 'store'])->name('pengaduan-store');
-        Route::get('/pengaduan-edit/{id}', [PengaduanController::class, 'edit'])->name('pengaduan-edit');
-        Route::put('/pengaduan-update/{id}', [PengaduanController::class, 'update'])->name('pengaduan-update');
-        Route::get('/pengaduan-destroy/{id}', [PengaduanController::class, 'destroy'])->name('pengaduan-destroy');
-
+        Route::get('/pengaduan-index', [PengaduanController::class, 'index'])->name('admin.pengaduan-index');
+        Route::get('/pengaduan-create', [PengaduanController::class, 'create'])->name('admin.pengaduan-create');
+        Route::post('/pengaduan-store', [PengaduanController::class, 'store'])->name('admin.pengaduan-store');
+        Route::get('/pengaduan-edit/{id}', [PengaduanController::class, 'edit'])->name('admin.pengaduan-edit');
+        Route::put('/pengaduan-update/{id}', [PengaduanController::class, 'update'])->name('admin.pengaduan-update');
+        Route::get('/pengaduan-destroy/{id}', [PengaduanController::class, 'destroy'])->name('admin.pengaduan-destroy');
+ 
         Route::get('/data.penduduk-index', [DatapendudukController::class, 'index'])->name('data.penduduk-index');
         Route::get('/data.penduduk-create', [DatapendudukController::class, 'create'])->name('data.penduduk-create');
         Route::post('/data.penduduk-store', [DatapendudukController::class, 'store'])->name('data.penduduk-store');

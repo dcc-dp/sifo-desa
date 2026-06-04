@@ -27,9 +27,6 @@
             <form action="{{ route('pengaduan-store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
-
-                <input type="hidden" name="user_id" value="{{ auth()->id() }}">
-
                 <div class="form-group">
                     <label for="judul">Judul</label>
                     <input type="text" class="form-control" id="judul" name="judul" value="{{ old('judul') }}" required>
@@ -74,29 +71,51 @@
 
 
 
-            <h3 style="margin-top: 40px;">Your Previous Complaints</h3>
+            <h3 style="margin-top: 40px;">Keluhan Anda Sebelumnya</h3>
+
             <div class="complaint-history">
-                <div class="card" onclick="showComplaintDetail(1)">
-                    <div>
-                        <h4>Lampu Jalan Mati di Depan Balai Desa</h4>
-                        <span style="font-size: 0.9rem; color: var(--color-text-light);">Submitted: 15 Oct 2025</span>
+
+                @forelse ($pengaduans as $pengaduan)
+
+                        <div class="card">
+
+                            <div>
+                                <h4>{{ $pengaduan->judul }}</h4>
+                                <p style="color: #666; margin: 5px 0;"></p>
+                            </div>
+
+                            @if ($pengaduan->status == 1)
+
+                                <span class="status-badge status-in-process">
+                                    PROSES
+                                </span>
+
+                            @elseif ($pengaduan->status == 2)
+
+                                <span class="status-badge status-rejected">
+                                    TOLAK
+                                </span>
+
+                            @elseif ($pengaduan->status == 3)
+
+                                <span class="status-badge status-completed">
+                                    SELESAI
+                                </span>
+
+                            @endif
+
+                        </div>
+
+                    </a>
+
+                @empty
+
+                    <div class="card">
+                        <h4>Belum ada pengaduan</h4>
                     </div>
-                    <span class="status-badge status-completed">Completed</span>
-                </div>
-                <div class="card" onclick="showComplaintDetail(2)">
-                    <div>
-                        <h4>Respon Lambat Permintaan Surat Pengantar</h4>
-                        <span style="font-size: 0.9rem; color: var(--color-text-light);">Submitted: 20 Oct 2025</span>
-                    </div>
-                    <span class="status-badge status-in-process">In Process</span>
-                </div>
-                <div class="card" onclick="showComplaintDetail(3)">
-                    <div>
-                        <h4>Usulan Penolakan Pembangunan Posyandu</h4>
-                        <span style="font-size: 0.9rem; color: var(--color-text-light);">Submitted: 28 Oct 2025</span>
-                    </div>
-                    <span class="status-badge status-rejected">Rejected</span>
-                </div>
+
+                @endforelse
+
             </div>
         </div>
     </section>

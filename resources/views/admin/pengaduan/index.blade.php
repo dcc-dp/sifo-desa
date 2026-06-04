@@ -23,7 +23,7 @@
                         <div class="card-body px-0 py-0 ">
                             <div class="border-bottom py-3 px-3 d-sm-flex align-items-center">
                                 <div class="ms-auto d-flex">
-                                    <!-- <button type="button"
+                                    {{-- <!-- <button type="button"
                                         class="btn btn-sm btn-dark btn-icon d-flex align-items-center me-2">
                                         <span class="btn-inner--icon">
                                             <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg"
@@ -33,7 +33,7 @@
                                             </svg>
                                         </span>
                                         <a href="{{ route('pengaduan-create') }}" class="btn-primary">Tambah pengaduan</a>
-                                    </button> -->
+                                    </button> --> --}}
                                 </div>
 
                             </div>
@@ -99,7 +99,7 @@
                                                     </span>
                                                 </td>
                                                 <td class="align-middle">
-                                                    <a href="{{ route('pengaduan-edit', $pengaduan->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                                                    <a href="{{ route('admin.pengaduan-edit', $pengaduan->id) }}" class="btn btn-sm btn-warning">Edit</a>
                                                 </td>
                                             </tr>
                                         @endforeach

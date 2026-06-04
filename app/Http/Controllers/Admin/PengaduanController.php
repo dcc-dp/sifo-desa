@@ -4,25 +4,39 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 
-use Illuminate\Support\Facades\Auth;
 use App\Models\Kategori;
-use App\Models\Pengaduan;
-
+use App\Models\Pengaduan; 
 use Illuminate\Http\Request;
 
 class PengaduanController extends Controller
 {
     public function index()
     {
-        $pengaduans = Pengaduan::with('kategori', 'user')->latest()->get();
+        $pengaduans = Pengaduan::with('kategori', 'penduduk')->latest()->get();
+
         return view('admin.pengaduan.index', compact('pengaduans'));
     }
 
 
     public function create()
     {
+        if (!session()->has('pengaduan_penduduk_id')) {
+
+            return redirect()
+                ->route('pengaduan.login-form');
+        }
+
         $kategoris = Kategori::all();
-        return view('pages.layananonline.pengaduan', compact('kategoris'));
+
+        $pengaduans = Pengaduan::where(
+            'user_id',
+            session('pengaduan_penduduk_id')
+        )->latest()->get();
+
+        return view(
+            'pages.layananonline.pengaduan',
+            compact('kategoris', 'pengaduans')
+        );
     }
 
     
@@ -38,9 +52,9 @@ class PengaduanController extends Controller
         ]);
 
         $validated['anonymous'] = $request->anonymous ? 1 : 0;
-        $validated['user_id'] = Auth::id();
+        $validated['user_id'] = session('pengaduan_penduduk_id');
 
-        $validated['status'] = 1;
+        $validated['status'] = 1;  
 
         if ($request->hasFile('gambar')) {
             $fileName = time() . '_img.' . $request->gambar->extension();
@@ -61,7 +75,7 @@ class PengaduanController extends Controller
 
     public function detailpengaduan($id)
     {
-        $pengaduan = Pengaduan::with('kategori', 'user')->findOrFail($id);
+        $pengaduan = Pengaduan::with('kategori', 'penduduk')->findOrFail($id);
         return view('pages.layananonline.detailpengaduan', compact('pengaduan'));
     }
 
@@ -84,7 +98,28 @@ class PengaduanController extends Controller
             'status' => $request->status
         ]);
 
-        return redirect()->route('pengaduan-index')->with('success', 'Status pengaduan berhasil diperbarui.');
+        return redirect()->route('admin.pengaduan-index')->with('success', 'Status pengaduan berhasil diperbarui.');
+    }
+
+    public function riwayat()
+    {
+        if (!session()->has('pengaduan_penduduk_id')) {
+
+            return redirect()
+                ->route('pengaduan.login-form');
+        }
+
+        $pengaduans = Pengaduan::where(
+            'user_id',
+            session('pengaduan_penduduk_id')
+        )->latest()->get();
+
+        $kategoris = Kategori::all();
+
+        return view(
+            'pages.layananonline.pengaduan',
+            compact('pengaduans', 'kategoris')
+        );
     }
 
     

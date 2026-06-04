@@ -5,7 +5,7 @@
         </div>
         <x-app.navbar />
         <div class="px-5 py-4 container-fluid ">
-            <form action="{{ route('pengaduan-update', $pengaduan->id) }}" method="POST">
+            <form action="{{ route('admin.pengaduan-update', $pengaduan->id) }}" method="POST">
                 @csrf
                 @method('PUT')
                 <div class="row">
@@ -41,7 +41,7 @@
 
                                 </div>
                                 <button type="submit" class="mt-4 btn btn-primary float-end">Update Data</button>
-                                <a href="{{ route('pengaduan-index') }}" class="mt-4 btn btn-secondary float-end me-2">Batal</a>
+                                <a href="{{ route('admin.pengaduan-index') }}" class="mt-4 btn btn-secondary float-end me-2">Batal</a>
                             </div>
                         </div>
                     </div>
