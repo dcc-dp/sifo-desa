@@ -19,7 +19,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $pendudukCount = dataPenduduk::count();
+        $pendudukCount = DataPenduduk::count();
         $beritaCount = Berita::count();
         $pengaduanCount = Pengaduan::count();
         $pemerintahanCount = PemerintahDesa::count();
