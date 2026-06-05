@@ -5,7 +5,7 @@
 @section('content')
 
     <section>
-            <div class="container">
+            <div class="container py-3">
                 <h2><i class="fas fa-calendar-alt"></i> Agenda & Kegiatan Desa</h2>
 
                 <ul class="agenda-list">
