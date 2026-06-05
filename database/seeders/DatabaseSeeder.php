@@ -27,5 +27,6 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('admin123'),
             'about' => "Hi, I’m admin, Decisions: If you can’t decide, the answer is no. If two equally difficult paths, choose the one more painful in the short term (pain avoidance is creating an illusion of equality).",
         ]);
+        
     }
 }
