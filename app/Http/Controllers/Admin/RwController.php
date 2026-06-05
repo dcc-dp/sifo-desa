@@ -61,4 +61,27 @@ class RwController extends Controller
         return redirect()->route('rw-index')
             ->with('delete', 'Data RW berhasil dihapus');
     }
+
+    //     public function destroy($id)
+    // {
+    //     $rw = Rw::findOrFail($id);
+
+    //     if ($rw->penduduks()->count() > 0) {
+    //         return redirect()
+    //             ->route('rw-index')
+    //             ->with(
+    //                 'error',
+    //                 'RW tidak dapat dihapus karena masih digunakan oleh data penduduk.'
+    //             );
+    //     }
+
+    //     $rw->delete();
+
+    //     return redirect()
+    //         ->route('rw-index')
+    //         ->with(
+    //             'delete',
+    //             'Data RW berhasil dihapus'
+    //         );
+    // }
 }

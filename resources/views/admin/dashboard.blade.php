@@ -10,7 +10,7 @@
                             <h3 class="font-weight-bold mb-0">Hello, Noah</h3>
                             <p class="mb-0">Apps you might like!</p>
                         </div>
-                        <button type="button"
+                        {{-- <button type="button"
                             class="btn btn-sm btn-white btn-icon d-flex align-items-center mb-0 ms-md-auto mb-sm-0 mb-2 me-2">
                             <span class="btn-inner--icon">
                                 <span class="p-1 bg-success rounded-circle d-flex ms-auto me-2">
@@ -28,12 +28,12 @@
                                 </svg>
                             </span>
                             <span class="btn-inner--text">Sync</span>
-                        </button>
+                        </button> --}}
                     </div>
                 </div>
             </div>
             <hr class="my-0">
-            <div class="row">
+            <div class="row py -3">
                 <div class="col-xl-3 col-sm-6 mb-xl-0">
                     <div class="card border shadow-xs mb-4">
                         <div class="card-body text-start p-3 w-100">
