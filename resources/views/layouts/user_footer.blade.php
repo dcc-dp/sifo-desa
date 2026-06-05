@@ -2,12 +2,24 @@
     <div class="container footer-grid">
 
         <div class="footer-col">
-            <h4><i class="fas fa-leaf"></i> {{ $setting->nama_desa ?? 'DESA DIGITAL' }}</h4>
-            <p style="margin-top: 10px; font-size: 0.9rem;">
+
+            <div class="footer-logo">
+        
+                <img src="{{ asset('uploads/galeri/logo_sifo.png') }}"
+                    alt="Logo Desa">
+        
+                <h4 style="margin:0;">
+                    {{ $setting->nama_desa ?? 'DESA DIGITAL' }}
+                </h4>
+        
+            </div>
+        
+            <p class="footer-desc">
                 {{ $setting->deskripsi ?? '-' }}
             </p>
+        
         </div>
-
+        
         <div class="footer-col">
             <h4>Contact Info</h4>
             <p style="display:flex; align-items:flex-start; gap:8px;">
@@ -24,11 +36,57 @@
             </p>
         </div>
 
+        {{-- <div class="footer-col">
+            <h4>Quick Links</h4>
+        
+            <p>
+                <a href="{{ route('home') }}">
+                    Beranda
+                </a>
+            </p>
+        
+            <p>
+                <a href="{{ route('sejarah') }}">
+                    Sejarah Desa
+                </a>
+            </p>
+        
+            <p>
+                <a href="{{ url('/pemerintah') }}">
+                    Pemerintah Desa
+                </a>
+            </p>
+        
+            <p>
+                <a href="{{ route('agenda') }}">
+                    Agenda Desa
+                </a>
+            </p>
+        
+            <p>
+                <a href="{{ route('pengajuan.login-form') }}">
+                    Pengajuan Surat
+                </a>
+            </p>
+        
+            <p>
+                <a href="{{ route('pengaduan.login-form') }}">
+                    Pengaduan Masyarakat
+                </a>
+            </p>
+        </div> --}}
+
         <div class="footer-col">
             <h4>Quick Links</h4>
-            <p><a href="{{ url('/news') }}">News & Updates</a></p>
-            <p><a href="{{ url('/complaints') }}">Submit a Complaint</a></p>
-            <p><a href="{{ url('/services') }}">Public Services</a></p>
+        
+            <ul class="footer-links">
+                <li><a href="{{ route('home') }}">Beranda</a></li>
+                <li><a href="{{ route('sejarah') }}">Sejarah Desa</a></li>
+                <li><a href="{{ url('/pemerintah') }}">Pemerintah Desa</a></li>
+                <li><a href="{{ route('agenda') }}">Agenda Desa</a></li>
+                <li><a href="{{ route('pengajuan.login-form') }}">Pengajuan Surat</a></li>
+                <li><a href="{{ route('pengaduan.login-form') }}">Pengaduan</a></li>
+            </ul>
         </div>
 
         <div class="footer-col">
