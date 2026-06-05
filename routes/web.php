@@ -174,6 +174,7 @@ Route::middleware('auth')->group(function () {
         Route::put('/berita-update/{id}', [BeritaController::class, 'update'])->name('berita-update');
         Route::get('/berita-destroy/{id}', [BeritaController::class, 'destroy'])->name('berita-destroy');
 
+        
         Route::get('/pengaduan-index', [PengaduanController::class, 'index'])->name('admin.pengaduan-index');
         Route::get('/pengaduan-create', [PengaduanController::class, 'create'])->name('admin.pengaduan-create');
         Route::post('/pengaduan-store', [PengaduanController::class, 'store'])->name('admin.pengaduan-store');
