@@ -87,31 +87,32 @@
 
         .navbar {
             display: flex;
-            justify-content: space-between;
             align-items: center;
             padding: 10px 0;
         }
-
+        
         .logo {
             display: flex;
             align-items: center;
+            min-width: 320px;
+            white-space: nowrap;
             font-size: 1.5rem;
             font-weight: 700;
             color: var(--color-primary-dark);
         }
-
-        .logo i {
-            margin-right: 8px;
-            color: var(--color-primary);
-        }
-
+        
         .nav-links {
             list-style: none;
             display: flex;
+            justify-content: center;
+            align-items: center;
+            flex: 1;
+            margin: 0;
+            padding: 0;
         }
-
+        
         .nav-links li {
-            margin-left: 20px;
+            margin: 0 12px;
         }
 
         .nav-links a {
@@ -657,34 +658,91 @@
         .footer {
             background-color: var(--color-primary-dark);
             color: var(--color-white);
-            padding: 30px 0;
+            padding: 40px 0;
         }
-
+        
         .footer-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
+            grid-template-columns: 2fr 2fr 1.2fr 1fr 1.5fr;
+            gap: 30px;
+            align-items: start;
         }
-
+        
         .footer-col h4 {
             color: var(--color-secondary);
             margin-bottom: 15px;
             font-weight: 600;
         }
-
+        
+        .footer-col p {
+            margin-bottom: 10px;
+            line-height: 1.7;
+        }
+        
+        .footer-col a {
+            color: white;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        
+        .footer-col a:hover {
+            color: var(--color-secondary);
+        }
+        
         .footer-col i {
             margin-right: 10px;
             color: var(--color-secondary);
         }
 
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
         .social-links a {
             color: var(--color-white);
             font-size: 1.5rem;
-            margin-right: 15px;
             transition: color 0.2s;
         }
-
+        
         .social-links a:hover {
+            color: var(--color-secondary);
+        }
+        
+        .footer-logo{
+            display:flex;
+            align-items:center;
+            gap:10px;
+            margin-bottom:15px;
+        }
+        
+        .footer-logo img{
+            width:40px;
+            height:40px;
+        }
+        
+        .footer-desc{
+            line-height:1.7;
+            text-align:justify;
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
             color: var(--color-secondary);
         }
         
@@ -1950,4 +2008,13 @@ PENGAJUAN SURAT */
 
 .user-card{
     margin-bottom:25px;
+}
+
+/* 
+ttd kades */
+.ttd {
+    width: 300px;
+    margin-left: auto;
+    margin-top: 20px;
+    text-align: center;
 }

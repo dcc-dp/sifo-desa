@@ -5,9 +5,9 @@
 @section('content')
 
     <section>
-        <div class="container">
+        <div class="container py-3">
             <div class="section-header">
-                <h2 class="section-title"><i class="fas fa-landmark"></i> Sejarah Desa</h2>
+                <h2 class="section-title"><i class="fas fa-landmark"></i> Kategori Berita</h2>
             </div>
             <div class="row">
                 <div class="position-relative">
@@ -25,7 +25,7 @@
                                                 <div class="row mt-12"> 
                                                     <div class="col-sm-3 mt-auto">
                                                         <a href="{{ route('show-kategori', $kategori->slug) }}">
-                                                            <h2 class="text-dark font-weight-bolder">#{{ $kategori->nama_kategori}}</h2>
+                                                            <h2 class="text-dark font-weight-bolder mt-2">#{{ $kategori->nama_kategori}}</h2>
                                                         </a>
                                                         <a href="{{ route('show-kategori', $kategori->slug) }}">
                                                             <h4 class="text-dark font-weight-bolder">{{ $kategori->beritas_count }} Berita</h4>

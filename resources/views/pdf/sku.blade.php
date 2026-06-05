@@ -51,17 +51,17 @@
         <tr>
 
             <td width="18%" align="center">
-                <img src="{{ public_path('uploads/galeri/desacantik.jpg') }}" width="98%">
+                <img src="{{ public_path('uploads/galeri/logo_sifo.png') }}" width="98%">
             </td>
 
             <td width="82%" align="center">
 
                 <div style="font-size:16px; font-weight:bold;">
-                    PEMERINTAH KABUPATEN MAKASSAR
+                    PEMERINTAH KABUPATEN GOWA
                 </div>
 
                 <div style="font-size:16px; font-weight:bold;">
-                    KECAMATAN MAKASSAR
+                    KECAMATAN PARANGLOE
                 </div>
 
                 <div style="font-size:22px; font-weight:bold;">
@@ -180,23 +180,49 @@
         Demikian surat keterangan ini dibuat agar dapat
         dipergunakan sebagaimana mestinya.
     </p>
-
-    <br>
-
+    
     <div class="ttd">
 
-        {{ $setting->nama_desa }},
-        {{ \Carbon\Carbon::now()->translatedFormat('d F Y') }}
+        <div>
+            {{ $setting->nama_desa }},
+            {{ \Carbon\Carbon::now()->locale('id')->translatedFormat('d F Y') }}
+        </div>
     
-        <br><br>
+        <br>
     
-        Kepala Desa
+        <div>
+            Kepala Desa
+        </div>
     
-        <br><br><br>
+        <div style="position:relative; height:90px; width:250px; margin-left:auto; right:-40px;">
+
+            <img
+                src="{{ public_path('uploads/galeri/stempel.png') }}"
+                width="110"
+                style="
+                    position:absolute;
+                    left:20px;
+                    top:10px;
+                    z-index:1;
+                ">
+        
+            <img
+                src="{{ public_path('uploads/galeri/ttd_kedes.png') }}"
+                width="130"
+                style="
+                    position:absolute;
+                    left:90px;
+                    top:0;
+                    z-index:2;
+                ">
+        
+        </div>     
     
-        <strong>
-            <u>{{ strtoupper($kepalaDesa->nama) }}</u>
-        </strong>
+        <div style="margin-top:10px;">
+            <strong>
+                <u>{{ strtoupper($kepalaDesa->nama) }}</u>
+            </strong>
+        </div>
     
     </div>
 

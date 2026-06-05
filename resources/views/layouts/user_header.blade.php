@@ -1,8 +1,18 @@
 <header class="header" id="main-header">
     <div class="container">
         <nav class="navbar">
-            <div class="logo" onclick="navigate('home')">
-                <i class="fas fa-leaf"></i> DESA DIGITAL
+            @php
+                $setting = \App\Models\Setting::first();
+            @endphp
+
+            <div class="logo" onclick="window.location='{{ route('home') }}'">
+
+                <img src="{{ asset('uploads/galeri/logo_sifo.png') }}" alt="Logo Desa"
+                    style="height:40px; margin-right:10px;">
+                    
+                    <span>
+                        SIFO {{ strtoupper($setting->nama_desa ?? '') }}
+                    </span>
             </div>
             <ul class="nav-links" id="nav-links">
                 <li><a href="{{ route('home') }}"><i class="fas fa-home" style="margin-right:6px;"></i>
@@ -13,9 +23,12 @@
                         <i class="fas fa-landmark" style="margin-right:5px;"></i> Profil Desa
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="{{ route('user.galeri') }}"><i class="fas fa-images" style="margin-right:8px;"></i> Galeri Desa</a></li>
-                        <li><a href=""><i class="fas fa-history" style="margin-right:8px;"></i> Sejarah Desa</a></li>
-                        <li><a href="{{ url('/pemerintah') }}"><i class="fas fa-users" style="margin-right:8px;"></i> Pemerintah Desa</a></li>
+                        <li><a href="{{ route('user.galeri') }}"><i class="fas fa-images" style="margin-right:8px;"></i>
+                                Galeri Desa</a></li>
+                        <li><a href="{{ route('sejarah') }}"><i class="fas fa-history" style="margin-right:8px;"></i> Sejarah Desa</a>
+                        </li>
+                        <li><a href="{{ url('/pemerintah') }}"><i class="fas fa-users" style="margin-right:8px;"></i>
+                                Pemerintah Desa</a></li>
                     </ul>
                 </li>
 
@@ -24,8 +37,10 @@
                         <i class="fas fa-newspaper" style="margin-right:5px;"></i> Berita dan Agenda
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="{{ url('/kategori') }}"><i class="fas fa-list" style="margin-right:8px;"></i> Kategori Berita</a></li>
-                        <li><a href="{{ url('/agenda')}}"><i class="fas fa-calendar-alt" style="margin-right:8px;"></i> Agenda
+                        <li><a href="{{ url('/kategori') }}"><i class="fas fa-list" style="margin-right:8px;"></i>
+                                Kategori Berita</a></li>
+                        <li><a href="{{ url('/agenda') }}"><i class="fas fa-calendar-alt" style="margin-right:8px;"></i>
+                                Agenda
                                 Kegiatan</a></li>
                     </ul>
                 </li>
@@ -35,13 +50,17 @@
                         <i class="fas fa-chart-bar" style="margin-right:5px;"></i> Data Statistik
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="{{ route('user.statistik.penduduk') }}"><i class="fas fa-users" style="margin-right:8px;"></i> Jumlah Penduduk</a>
+                        <li><a href="{{ route('user.statistik.penduduk') }}"><i class="fas fa-users"
+                                    style="margin-right:8px;"></i> Jumlah Penduduk</a>
                         </li>
-                        <li><a href="{{ route('user.statistik.pendidikan') }}"><i class="fas fa-graduation-cap" style="margin-right:8px;"></i> Data Pendidikan</a>
+                        <li><a href="{{ route('user.statistik.pendidikan') }}"><i class="fas fa-graduation-cap"
+                                    style="margin-right:8px;"></i> Data Pendidikan</a>
                         </li>
-                        <li><a href="{{ route('user.statistik.pekerjaan') }}"><i class="fas fa-briefcase" style="margin-right:8px;"></i> Data Pekerjaan</a>
+                        <li><a href="{{ route('user.statistik.pekerjaan') }}"><i class="fas fa-briefcase"
+                                    style="margin-right:8px;"></i> Data Pekerjaan</a>
                         </li>
-                        <li><a href="{{ route('user.statistik.agama') }}"><i class="fas fa-place-of-worship" style="margin-right:8px;"></i> Data Agama</a>
+                        <li><a href="{{ route('user.statistik.agama') }}"><i class="fas fa-place-of-worship"
+                                    style="margin-right:8px;"></i> Data Agama</a>
                         </li>
                     </ul>
                 </li>
@@ -51,17 +70,19 @@
                         <i class="fas fa-laptop" style="margin-right:5px;"></i> Layanan Online
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="{{ route('pengajuan.login-form') }}"><i class="fas fa-envelope-open-text" style="margin-right:8px;"></i> Pengajuan
+                        <li><a href="{{ route('pengajuan.login-form') }}"><i class="fas fa-envelope-open-text"
+                                    style="margin-right:8px;"></i> Pengajuan
                                 Surat</a></li>
-                        <li><a href="{{route('pengaduan.login-form') }}"><i class="fas fa-file-signature" style="margin-right:8px;"></i> Pengaduan</a>
+                        <li><a href="{{ route('pengaduan.login-form') }}"><i class="fas fa-file-signature"
+                                    style="margin-right:8px;"></i> Pengaduan</a>
                         </li>
                     </ul>
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ url('/sign-in') }}" class="btn-login"  style="margin-right:6px;">
+                    <a href="{{ url('/sign-in') }}" class="btn-login" style="margin-right:6px;">
 
-                    Login
+                        Login
                     </a>
                 </li>
             </ul>
