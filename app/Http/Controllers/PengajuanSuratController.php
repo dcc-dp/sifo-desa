@@ -250,7 +250,7 @@ class PengajuanSuratController extends Controller
                 'nomor_surat' => $this->generateNomorSurat('PGT'),
                 'tanggal_dibuat' => Carbon::now()->format('Y-m-d'),
                 'status' => 'menunggu',
-                'keterangan' => $request->keterangan_pengantar ?? 'Surat Pengantar Umum',
+                'keterangan' =>'Surat Pengantar Umum',
             ]);
 
             // Create Surat Pengantar

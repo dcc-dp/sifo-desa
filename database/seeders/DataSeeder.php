@@ -13,7 +13,7 @@ class DataSeeder extends Seeder
     {
        
         $rw02 = Rw::create([
-            'nomor_rw' => '02'
+            'nomor_rw' => ' 02'
         ]);
 
         $rw04 = Rw::create([
