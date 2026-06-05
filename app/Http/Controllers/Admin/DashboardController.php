@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Berita;
-use App\Models\dataPenduduk;
+use App\Models\DataPenduduk;
 use App\Models\PemerintahDesa;
 use App\Models\Pengaduan;
 use App\Models\Surat;
