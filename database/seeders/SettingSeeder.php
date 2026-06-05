@@ -14,6 +14,7 @@ class SettingSeeder extends Seeder
     public function run(): void
     {
         Setting::create([
+
             'nama_desa'  => 'Desa Harapan Hijau',
             'deskripsi'  => 'Desa Harapan Hijau merupakan desa pelayanan publik berbasis teknologi informasi. Melalui Sistem Informasi Desa (SIFO Desa), masyarakat dapat mengakses informasi, layanan administrasi, pengaduan, dan berbagai kegiatan desa secara cepat, transparan, dan mudah.',
             'alamat'     => 'Jl. Poros Parangloe No. 1, Desa Harapan Hijau, Kecamatan Parangloe, Kabupaten Gowa, Sulawesi Selatan 92174',
@@ -23,6 +24,7 @@ class SettingSeeder extends Seeder
             'facebook'   => 'https://facebook.com/desaharapanhijau',
             'instagram'  => 'https://instagram.com/desaharapanhijau',
             'twitter'    => 'https://x.com/desaharapanhijau ',
+
         ]);
     }
 }
