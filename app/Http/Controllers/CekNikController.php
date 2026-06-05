@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\dataPenduduk;
+use App\Models\DataPenduduk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,7 +19,7 @@ class CekNikController extends Controller
             'nik_id' => 'required'
         ]);
 
-        $penduduk = dataPenduduk::where('nik', $request->nik_id)->first();
+        $penduduk = DataPenduduk::where('nik', $request->nik_id)->first();
 
         if (!$penduduk) {
             return back()->with('notfound', 'NIK tidak ditemukan.');

@@ -48,7 +48,7 @@ class User extends Authenticatable
 
     public function penduduk()
     {
-        return $this->belongsTo(dataPenduduk::class, 'nik_id', 'nik');
+        return $this->belongsTo(DataPenduduk::class, 'nik_id', 'nik');
     }
 
 }
