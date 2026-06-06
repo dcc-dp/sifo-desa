@@ -49,7 +49,7 @@
 
                 var options = {
                     series: [kepalaKeluarga, laki, perempuan],
-                    labels: ["Kepala Keluarga", "Laki-Laki", "Perempuan"],
+                    labels: ["Total Penduduk", "Laki-Laki", "Perempuan"],
                     colors: ["#ee1f1fff", "#3918f3ff", "#eeaee4ff"],
                     chart: {
                         type: "donut",
