@@ -109,7 +109,7 @@
                                 <div class="col-md-4">
                                     <div class="border rounded-4 p-3">
                                         <h6 class="mb-2 text-danger">
-                                            Kepala Keluarga
+                                            Total Penduduk
                                         </h6>
             
                                         <h4>{{ $totalPenduduk }}</h4>
