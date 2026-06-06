@@ -9,7 +9,7 @@
         </nav>
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
             <div class="ms-md-auto pe-md-3 d-flex align-items-center">
-                <div class="input-group">
+                <!-- <div class="input-group">
                     <span class="input-group-text text-body bg-white  border-end-0 ">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" fill="none"
                             viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -18,7 +18,7 @@
                         </svg>
                     </span>
                     <input type="text" class="form-control ps-0" placeholder="Search">
-                </div>
+                </div> -->
             </div>
             <div class="mb-0 font-weight-bold breadcrumb-text text-white">
                 <form method="POST" action="{{ route('logout') }}">
@@ -30,7 +30,7 @@
                     </a>
                 </form>
             </div>
-            <ul class="navbar-nav  justify-content-end">
+            <!-- <ul class="navbar-nav  justify-content-end">
                 <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
                     <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
                         <div class="sidenav-toggler-inner">
@@ -141,7 +141,7 @@
                 </li>
                 <li class="nav-item ps-2 d-flex align-items-center">
                 </li>
-            </ul>
+            </ul> -->
         </div>
     </div>
 </nav>

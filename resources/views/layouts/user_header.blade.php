@@ -6,6 +6,7 @@
             @endphp
 
             <div class="logo" onclick="window.location='{{ route('home') }}'">
+              
 
                 <img src="{{ asset('uploads/galeri/logo_sifo.png') }}" alt="Logo Desa"
                     style="height:40px; margin-right:10px;">
