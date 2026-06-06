@@ -15,22 +15,28 @@
             <div class="quick-info-grid">
 
                 <div class="card info-card">
-                    
+
                     <h3><i class="fas fa-newspaper"></i> Latest News</h3>
+
                     <div class="news-list">
                         @foreach ($berita as $b)
-                        <div class="article" onclick="navigate('news-detail', {id: 1})">
-                            <img src="{{ asset($b->gambar) }}" alt="News Image">
-                            <div>
-                                <h4>{{$b->judul}}</h4>
-                                <span><i class="fas fa-calendar-alt"></i> {{ optional($b->created_at)->translatedFormat('d M Y') }}</span>
+                            <div class="article" onclick="navigate('news-detail', {id: 1})">
+                                <img src="{{ asset($b->gambar) }}" alt="News Image">
+                                <div>
+                                    <h4>{{ $b->judul }}</h4>
+                                    <span>
+                                        <i class="fas fa-calendar-alt"></i>
+                                        {{ optional($b->created_at)->translatedFormat('d M Y') }}
+                                    </span>
+                                </div>
                             </div>
-                        </div>
                         @endforeach
-                        <a href="{{ url('/kategori') }}" class="btn btn-secondary" style="margin-top: 15px;">
+                    </div>
+
+                    <a href="{{ url('/kategori') }}" class="btn btn-secondary">
                         View All
                     </a>
-                    </div>
+
                 </div>
 
                 <div class="card info-card">
@@ -53,23 +59,33 @@
 
 
                 @foreach ($pemerintah as $p)
-                <div class="card info-card village-head-card">
-                    <h3><i class="fas fa-user-tie"></i> Village Government</h3>
-                    @if($p->foto)
-                        <img src="{{ asset($p->foto) }}" class="img-fluid w-100" alt="{{ $p->nama }}">
-                    @else
-                        <img src="{{ asset('/upload/pemerintah/default.jpg') }}" class="img-fluid w-100" alt="Default pemerintah" style="height: px; object-fit: cover;">
-                    @endif
-                    <h4>{{ $p->nama }}</h4>
-                    <p class="position">{{ $p->jabatan }}</p>
-                    <p class="duties">
-                                {{ \Illuminate\Support\Str::limit(strip_tags($p->tupoksi), 120, '...') }}
+                    <div class="card info-card village-head-card">
+                        <h3><i class="fas fa-user-tie"></i> Village Government</h3>
+
+                        <div class="village-content">
+
+                            @if($p->foto)
+                                <img src="{{ asset($p->foto) }}" class="rounded-circle mx-auto d-block" alt="{{ $p->nama }}">
+                            @endif
+
+                            <h4>{{ $p->nama }}</h4>
+
+                            <p class="position">{{ $p->jabatan }}</p>
+
+                            <p class="duties">
+                                {{ \Illuminate\Support\Str::limit(strip_tags($p->tupoksi), 80, '...') }}
                             </p>
-                    <p style="font-size: 0.9rem; margin-top: 10px; color: var(--color-text-light);">"Melayani warga dengan sepenuh hati."</p>
-                    <a href="{{ url('/pemerintah') }}" class="btn btn-secondary" style="margin-top: 15px;">
-                        View All
-                    </a>
-                </div>
+
+                            <p class="quote">
+                                "Melayani warga dengan sepenuh hati."
+                            </p>
+
+                        </div>
+
+                        <a href="{{ url('/pemerintah') }}" class="btn btn-secondary">
+                            View All
+                        </a>
+                    </div>
                 @endforeach
             </div>
         </div>
@@ -108,7 +124,8 @@
                     <div class="content">
                         <span class="category">Ekonomi</span>
                         <h4>Pelatihan UMKM Digital Angkatan Ke-3 Dibuka</h4>
-                        <p>Warga antusias mengikuti pelatihan pemasaran digital untuk meningkatkan omzet usaha mikro mereka...</p>
+                        <p>Warga antusias mengikuti pelatihan pemasaran digital untuk meningkatkan omzet usaha mikro
+                            mereka...</p>
                         <span><i class="fas fa-calendar-alt"></i> 18 Okt 2025</span>
                     </div>
                 </div>
@@ -121,22 +138,31 @@
                         <span><i class="fas fa-calendar-alt"></i> 10 Okt 2025</span>
                     </div>
                 </div>
-                </div>
+            </div>
         </div>
     </section>
 
     <section id="news-detail-page" class="page-section">
         <div class="container">
-            <button onclick="navigate('news')" class="btn btn-secondary" style="margin-bottom: 20px;"><i class="fas fa-arrow-left"></i> Back to News</button>
+            <button onclick="navigate('news')" class="btn btn-secondary" style="margin-bottom: 20px;"><i
+                    class="fas fa-arrow-left"></i> Back to News</button>
             <div class="card">
                 <img id="news-detail-image" src="https://picsum.photos/800/400?random=1" alt="News Detail Image">
                 <span id="news-detail-category" class="category" style="margin-bottom: 10px;"></span>
                 <h1 id="news-detail-title">Sample News Title</h1>
-                <p class="meta"><i class="fas fa-calendar-alt"></i> <span id="news-detail-date">Date</span> | <i class="fas fa-user"></i> <span id="news-detail-author">Admin Desa</span></p>
+                <p class="meta"><i class="fas fa-calendar-alt"></i> <span id="news-detail-date">Date</span> | <i
+                        class="fas fa-user"></i> <span id="news-detail-author">Admin Desa</span></p>
                 <div id="news-detail-content">
-                    <p>This is the full content of the news article. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                    <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    <p>This is the full content of the news article. Lorem ipsum dolor sit amet, consectetur adipiscing
+                        elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+                        dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                    <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+                        laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt
+                        ut labore et dolore magna aliqua.</p>
+                    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
+                        anim id est laborum.</p>
                 </div>
             </div>
         </div>
@@ -202,10 +228,11 @@
             </div>
 
             <div id="gallery-detail-container" style="display: none;">
-                <button onclick="navigate('gallery')" class="btn btn-secondary" style="margin-bottom: 20px;"><i class="fas fa-arrow-left"></i> Back to Albums</button>
+                <button onclick="navigate('gallery')" class="btn btn-secondary" style="margin-bottom: 20px;"><i
+                        class="fas fa-arrow-left"></i> Back to Albums</button>
                 <h2 id="gallery-detail-title">Album: Pembangunan Infrastruktur</h2>
                 <div id="photo-gallery-grid" class="photo-gallery">
-                    </div>
+                </div>
             </div>
 
         </div>
@@ -219,19 +246,22 @@
                     <img src="https://picsum.photos/200/200?random=12" alt="Official Photo">
                     <h4>Dr. Ir. Budi Santoso</h4>
                     <p class="position">Kepala Desa</p>
-                    <p class="duties">Bertanggung jawab atas penyelenggaraan pemerintahan, pembangunan, dan pelayanan masyarakat desa.</p>
+                    <p class="duties">Bertanggung jawab atas penyelenggaraan pemerintahan, pembangunan, dan pelayanan
+                        masyarakat desa.</p>
                 </div>
                 <div class="card official-card">
                     <img src="https://picsum.photos/200/200?random=13" alt="Official Photo">
                     <h4>Siti Nurjanah, S.E.</h4>
                     <p class="position">Sekretaris Desa</p>
-                    <p class="duties">Membantu Kepala Desa dalam bidang administrasi dan memberikan pelayanan teknis administrasi.</p>
+                    <p class="duties">Membantu Kepala Desa dalam bidang administrasi dan memberikan pelayanan teknis
+                        administrasi.</p>
                 </div>
                 <div class="card official-card">
                     <img src="https://picsum.photos/200/200?random=14" alt="Official Photo">
                     <h4>Ahmad Zaki</h4>
                     <p class="position">Kepala Urusan Keuangan</p>
-                    <p class="duties">Melaksanakan pengelolaan administrasi keuangan desa, termasuk penerimaan dan pengeluaran.</p>
+                    <p class="duties">Melaksanakan pengelolaan administrasi keuangan desa, termasuk penerimaan dan
+                        pengeluaran.</p>
                 </div>
                 <div class="card official-card">
                     <img src="https://picsum.photos/200/200?random=15" alt="Official Photo">
@@ -280,7 +310,8 @@
                         <input type="checkbox" id="comp-anon">
                         <label for="comp-anon" style="margin-bottom: 0;">Submit as Anonymous</label>
                     </div>
-                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 15px;">Submit Complaint</button>
+                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 15px;">Submit
+                        Complaint</button>
                 </form>
             </div>
 
@@ -300,7 +331,7 @@
                     </div>
                     <span class="status-badge status-in-process">In Process</span>
                 </div>
-                 <div class="card" onclick="showComplaintDetail(3)">
+                <div class="card" onclick="showComplaintDetail(3)">
                     <div>
                         <h4>Usulan Penolakan Pembangunan Posyandu</h4>
                         <span style="font-size: 0.9rem; color: var(--color-text-light);">Submitted: 28 Oct 2025</span>
@@ -313,18 +344,22 @@
 
     <section id="complaint-detail-page" class="page-section">
         <div class="container">
-            <button onclick="navigate('complaints')" class="btn btn-secondary" style="margin-bottom: 20px;"><i class="fas fa-arrow-left"></i> Back to History</button>
+            <button onclick="navigate('complaints')" class="btn btn-secondary" style="margin-bottom: 20px;"><i
+                    class="fas fa-arrow-left"></i> Back to History</button>
             <div class="card" style="padding: 30px;">
                 <span id="comp-detail-status" class="status-badge status-completed" style="float: right;">Status</span>
                 <h2 id="comp-detail-title" style="border-bottom: none; margin-bottom: 5px;">Complaint Title</h2>
-                <p style="color: var(--color-text-light); margin-bottom: 20px;">Category: <strong id="comp-detail-category">Category</strong> | Submitted: <span id="comp-detail-date">Date</span></p>
+                <p style="color: var(--color-text-light); margin-bottom: 20px;">Category: <strong
+                        id="comp-detail-category">Category</strong> | Submitted: <span id="comp-detail-date">Date</span></p>
 
                 <h3>Description:</h3>
-                <p id="comp-detail-desc" style="margin-bottom: 30px; border-left: 3px solid var(--color-primary); padding-left: 15px; font-style: italic;"></p>
+                <p id="comp-detail-desc"
+                    style="margin-bottom: 30px; border-left: 3px solid var(--color-primary); padding-left: 15px; font-style: italic;">
+                </p>
 
                 <h3>Attachments:</h3>
                 <ul id="comp-detail-attachments" style="list-style: none; padding: 0;">
-                    </ul>
+                </ul>
             </div>
         </div>
     </section>
@@ -361,7 +396,8 @@
             <div id="service-form-container" class="card" style="margin-top: 40px; display: none; padding: 30px;">
                 <h3 id="service-form-title"></h3>
                 <form id="dynamic-service-form">
-                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 20px;">Submit Request</button>
+                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 20px;">Submit
+                        Request</button>
                 </form>
             </div>
 
@@ -418,13 +454,16 @@
                     <p><strong>Address:</strong> RT 001/RW 002, Jl. Kenanga No. 10</p>
 
                     <h3 style="margin-top: 20px;">Short Bio</h3>
-                    <p style="border-bottom: none; color: var(--color-text-light); font-style: italic;">Aktif di kegiatan kepemudaan desa dan memiliki usaha mikro di bidang kuliner.</p>
+                    <p style="border-bottom: none; color: var(--color-text-light); font-style: italic;">Aktif di kegiatan
+                        kepemudaan desa dan memiliki usaha mikro di bidang kuliner.</p>
 
                     <div class="profile-buttons">
                         <a href="#" class="btn btn-primary"><i class="fas fa-edit"></i> Edit Profile</a>
                         <a href="#" class="btn btn-secondary"><i class="fas fa-key"></i> Change Password</a>
-                        <a href="#" data-page="complaints" class="btn btn-secondary"><i class="fas fa-history"></i> View Complaint History</a>
-                        <a href="#" data-page="services" class="btn btn-secondary"><i class="fas fa-envelope"></i> View Letter Requests</a>
+                        <a href="#" data-page="complaints" class="btn btn-secondary"><i class="fas fa-history"></i> View
+                            Complaint History</a>
+                        <a href="#" data-page="services" class="btn btn-secondary"><i class="fas fa-envelope"></i> View
+                            Letter Requests</a>
                     </div>
                 </div>
             </div>
@@ -445,7 +484,8 @@
                     <input type="password" id="login-password" placeholder="Enter your password" required>
                 </div>
                 <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;">Login</button>
-                <p style="margin-top: 20px; font-size: 0.9rem;">Don't have an account? <a href="#" onclick="navigate('register')">Register here</a></p>
+                <p style="margin-top: 20px; font-size: 0.9rem;">Don't have an account? <a href="#"
+                        onclick="navigate('register')">Register here</a></p>
             </form>
         </div>
     </section>
@@ -476,7 +516,8 @@
                     <input type="password" id="reg-confirm-password" required>
                 </div>
                 <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;">Register</button>
-                <p style="margin-top: 20px; font-size: 0.9rem;">Already have an account? <a href="#" onclick="navigate('login')">Login here</a></p>
+                <p style="margin-top: 20px; font-size: 0.9rem;">Already have an account? <a href="#"
+                        onclick="navigate('login')">Login here</a></p>
             </form>
         </div>
     </section>

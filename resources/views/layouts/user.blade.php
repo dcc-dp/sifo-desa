@@ -157,7 +157,7 @@
     
 
     <!-- script grafik pekerjaan -->
-    <script>
+    <!-- <script>
         const chartEl = document.querySelector("#pekerjaanChart");
     
         const petani = parseInt(chartEl.dataset.petani);
@@ -195,7 +195,45 @@
     
         var pekerjaanChart = new ApexCharts(chartEl, pekerjaanOptions);
         pekerjaanChart.render();
-    </script>
+    </script> -->
+
+    <script>
+    const chartEl = document.querySelector("#pekerjaanChart");
+
+    const labels = JSON.parse(chartEl.dataset.labels);
+    const values = JSON.parse(chartEl.dataset.values);
+
+    var pekerjaanOptions = {
+        series: [{
+            name: 'Jumlah',
+            data: values
+        }],
+        chart: {
+            type: 'bar',
+            height: 360
+        },
+        colors: ['#3b82f6'],
+        plotOptions: {
+            bar: {
+                borderRadius: 5,
+                horizontal: false,
+                columnWidth: '45%'
+            }
+        },
+        dataLabels: {
+            enabled: false
+        },
+        xaxis: {
+            categories: labels
+        },
+        legend: {
+            show: false
+        }
+    };
+
+    var pekerjaanChart = new ApexCharts(chartEl, pekerjaanOptions);
+    pekerjaanChart.render();
+</script>
     
 
 
@@ -305,8 +343,13 @@
         });
         </script>
         
+<script src="{{ asset('assets/js/user/scripts.js') }}"></script>
 
-    @stack('scripts')
-</body>
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
+<!-- script bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+@stack('scripts')
+</body> 
 </html>

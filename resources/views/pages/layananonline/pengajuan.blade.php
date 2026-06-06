@@ -283,7 +283,7 @@
                                     @if ($surat->status == 'ditolak')
                                         <div class="mt-2">
 
-                                            <strong>   
+                                            <strong>
                                                 Alasan Penolakan:
                                             </strong>
 
@@ -340,138 +340,138 @@
             usaha: {
                 title: 'Surat Keterangan Usaha (SKU)',
                 fields: `
-                        <div class="mb-3">
-                            <label class="form-label fw-semibold">
-                                Nama Usaha
-                            </label>
-          
-                            <input
-                                type="text"
-                                name="nama_usaha"
-                                class="form-control"
-                                placeholder="Masukkan nama usaha"
-                                required>
-                        </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">
+                                    Nama Usaha
+                                </label>
 
-                        <div class="mb-3">
-                            <label class="form-label fw-semibold">
-                                Alamat Usaha
-                            </label>
+                                <input
+                                    type="text"
+                                    name="nama_usaha"
+                                    class="form-control"
+                                    placeholder="Masukkan nama usaha"
+                                    required>
+                            </div>
 
-                            <textarea
-                                name="alamat_usaha"
-                                class="form-control"
-                                rows="3"
-                                placeholder="Masukkan alamat usaha"
-                                required></textarea>
-                        </div>
-                    `
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">
+                                    Alamat Usaha
+                                </label>
+
+                                <textarea
+                                    name="alamat_usaha"
+                                    class="form-control"
+                                    rows="3"
+                                    placeholder="Masukkan alamat usaha"
+                                    required></textarea>
+                            </div>
+                        `
             },
             domisili: {
                 title: 'Surat Keterangan Domisili',
                 fields: `
 
-                        <div class="alert alert-info mb-3">
-                            Data domisili akan diambil dari data kependudukan yang terdaftar.
-                        </div>
+                            <div class="alert alert-info mb-3">
+                                Data domisili akan diambil dari data kependudukan yang terdaftar.
+                            </div>
 
-                        <div class="mb-3">
-                            <label class="form-label fw-semibold">
-                                Keperluan
-                            </label>
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">
+                                    Keperluan
+                                </label>
 
-                            <textarea
-                                name="keperluan"
-                                class="form-control"
-                                rows="3"
-                                placeholder="Contoh: Persyaratan kerja, kuliah, administrasi bank, dll"
-                                required></textarea>
-                        </div>
+                                <textarea
+                                    name="keperluan"
+                                    class="form-control"
+                                    rows="3"
+                                    placeholder="Contoh: Persyaratan kerja, kuliah, administrasi bank, dll"
+                                    required></textarea>
+                            </div>
 
-                    `
+                        `
             },
             izin_acara: {
                 title: 'Surat Izin Acara/Keramaian',
                 fields: `
-                    <div class="form-group">
-                        <label for="hari">Hari</label>
-                        <input type="text" id="hari" name="hari" class="form-control" placeholder="Misal: Jumat" required>
-                    </div>
+                        <div class="form-group">
+                            <label for="hari">Hari</label>
+                            <input type="text" id="hari" name="hari" class="form-control" placeholder="Misal: Jumat" required>
+                        </div>
 
-                    <div class="form-group">
-                        <label for="tanggal">Tanggal Acara</label>
-                        <input type="date" id="tanggal" name="tanggal" class="form-control" required>
-                    </div>
+                        <div class="form-group">
+                            <label for="tanggal">Tanggal Acara</label>
+                            <input type="date" id="tanggal" name="tanggal" class="form-control" required>
+                        </div>
 
-                    <div class="form-group">
-                        <label for="tempat">Tempat Acara</label>
-                        <input type="text" id="tempat" name="tempat" class="form-control" required>
-                    </div>
+                        <div class="form-group">
+                            <label for="tempat">Tempat Acara</label>
+                            <input type="text" id="tempat" name="tempat" class="form-control" required>
+                        </div>
 
-                    <div class="form-group">
-                        <label for="jenis_acara">Jenis Acara</label>
-                        <input type="text" id="jenis_acara" name="jenis_acara" class="form-control"
-                            placeholder="Misal: Pernikahan, Syukuran, dll" required>
-                    </div>
+                        <div class="form-group">
+                            <label for="jenis_acara">Jenis Acara</label>
+                            <input type="text" id="jenis_acara" name="jenis_acara" class="form-control"
+                                placeholder="Misal: Pernikahan, Syukuran, dll" required>
+                        </div>
 
-                    <div class="form-group">
-                        <label for="jumlah_peserta">Jumlah Peserta</label>
-                        <input type="number" id="jumlah_peserta" name="jumlah_peserta"
-                            class="form-control"
-                            placeholder="Masukkan jumlah peserta"
-                            min="1"
-                            required>
-                    </div>
-                `
+                        <div class="form-group">
+                            <label for="jumlah_peserta">Jumlah Peserta</label>
+                            <input type="number" id="jumlah_peserta" name="jumlah_peserta"
+                                class="form-control"
+                                placeholder="Masukkan jumlah peserta"
+                                min="1"
+                                required>
+                        </div>
+                    `
             },
             pengantar: {
                 title: 'Surat Pengantar Umum',
                 fields: `
-                    <div class="form-group">
-                        <label for="keterangan_pengantar">Keterangan / Tujuan</label>
-                        <textarea id="keterangan_pengantar" name="keterangan_pengantar" class="form-control" rows="3" placeholder="Jelaskan tujuan pengajuan surat pengantar"></textarea>
-                    </div>
-                `
+                        <div class="form-group">
+                            <label for="keterangan_pengantar">Keterangan / Tujuan</label>
+                            <textarea id="keterangan_pengantar" name="keterangan_pengantar" class="form-control" rows="3" placeholder="Jelaskan tujuan pengajuan surat pengantar"></textarea>
+                        </div>
+                    `
             },
             sktm: {
                 title: 'SKTM (Surat Keterangan Tidak Mampu)',
                 fields: `  
 
-                    <div class="alert alert-info mb-3">
-                        Permohonan SKTM akan diverifikasi oleh pihak desa.
-                    </div>
+                        <div class="alert alert-info mb-3">
+                            Permohonan SKTM akan diverifikasi oleh pihak desa.
+                        </div>
 
-                    <div class="mb-3">
+                        <div class="mb-3">
 
-                        <label class="form-label fw-semibold">
-                            Pekerjaan
-                        </label>
+                            <label class="form-label fw-semibold">
+                                Pekerjaan
+                            </label>
 
-                        <input
-                            type="text"
-                            name="pekerjaan"
-                            class="form-control"
-                            placeholder="Masukkan pekerjaan"
-                            required>
+                            <input
+                                type="text"
+                                name="pekerjaan"
+                                class="form-control"
+                                placeholder="Masukkan pekerjaan"
+                                required>
 
-                    </div>
+                        </div>
 
-                    <div class="mb-3">
+                        <div class="mb-3">
 
-                        <label class="form-label fw-semibold">
-                            Penghasilan Per Bulan
-                        </label>
+                            <label class="form-label fw-semibold">
+                                Penghasilan Per Bulan
+                            </label>
 
-                        <input
-                            type="number"
-                            name="penghasilan"
-                            class="form-control"
-                            placeholder="Contoh: 1500000"
-                            required>
+                            <input
+                                type="number"
+                                name="penghasilan"
+                                class="form-control"
+                                placeholder="Contoh: 1500000"
+                                required>
 
-                    </div>
+                        </div>
 
-                `
+                    `
             }
         };
 
@@ -541,9 +541,9 @@
                 const csrfToken = csrfTokenElement ? csrfTokenElement.value : '';
                 console.log('CSRF Token present:', !!csrfToken);
 
-                console.log('Sending fetch request to:', '{{ route('pengajuan.store') }}');
+                console.log('Sending fetch request to:', "{{ route('pengajuan.store') }}");
 
-                const response = await fetch('{{ route('pengajuan.store') }}', {
+                const response = await fetch("{{ route('pengajuan.store') }}", {
                     method: 'POST',
                     body: formData,
                     headers: {
@@ -562,16 +562,16 @@
                 } catch (parseError) {
                     console.error('JSON Parse Error:', parseError);
                     messageDiv.innerHTML = `<div style="background-color: #fee; border: 1px solid #fcc; color: #c33;">
-                        <strong>✗ Error!</strong> Respons server tidak valid. Status: ${response.status}
-                    </div>`;
+                            <strong>✗ Error!</strong> Respons server tidak valid. Status: ${response.status}
+                        </div>`;
                     messageDiv.style.display = 'block';
                     throw parseError;
                 }
 
                 if (data.success) {
                     messageDiv.innerHTML = `<div style="background-color: #efe; border: 1px solid #cfc; color: #3c3;">
-                        <strong>✓ Sukses!</strong> ${data.message}
-                    </div>`;
+                            <strong>✓ Sukses!</strong> ${data.message}
+                        </div>`;
                     messageDiv.style.display = 'block';
 
                     form.reset();
@@ -581,19 +581,19 @@
                     }, 2000);
                 } else {
                     messageDiv.innerHTML = `<div style="background-color: #fee; border: 1px solid #fcc; color: #c33;">
-                        <strong>✗ Error!</strong> ${data.message}
-                    </div>`;
+                            <strong>✗ Error!</strong> ${data.message}
+                        </div>`;
                     messageDiv.style.display = 'block';
                 }
             } catch (error) {
                 console.error('Error in handleFormSubmit:', error);
 
                 messageDiv.innerHTML = `
-                        <div class="alert alert-danger">
-                            <strong>✗ Error!</strong>
-                            Terjadi kesalahan: ${error.message}
-                        </div>
-                    `;
+                            <div class="alert alert-danger">
+                                <strong>✗ Error!</strong>
+                                Terjadi kesalahan: ${error.message}
+                            </div>
+                        `;
 
                 messageDiv.style.display = 'block';
 

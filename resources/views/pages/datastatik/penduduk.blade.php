@@ -32,7 +32,7 @@
             
                     <div>
                         <p class="stat-title">
-                            Kepala Keluarga
+                            Total Penduduk
                         </p>
             
                         <p class="stat-value">
