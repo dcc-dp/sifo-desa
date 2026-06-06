@@ -30,7 +30,7 @@
                     </a>
                 </form>
             </div>
-            <!-- <ul class="navbar-nav  justify-content-end">
+            <ul class="navbar-nav  justify-content-end">
                 <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
                     <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
                         <div class="sidenav-toggler-inner">
@@ -40,7 +40,7 @@
                         </div>
                     </a>
                 </li>
-                <li class="nav-item px-3 d-flex align-items-center">
+                <!-- <li class="nav-item px-3 d-flex align-items-center">
                     <a href="javascript:;" class="nav-link text-body p-0">
                         <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg"
                             class="fixed-plugin-button-nav cursor-pointer" viewBox="0 0 24 24" fill="currentColor">
@@ -138,10 +138,10 @@
                             </a>
                         </li>
                     </ul>
-                </li>
+                </li> -->
                 <li class="nav-item ps-2 d-flex align-items-center">
                 </li>
-            </ul> -->
+            </ul>
         </div>
     </div>
 </nav>
