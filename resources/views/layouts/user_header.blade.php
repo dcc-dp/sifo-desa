@@ -9,10 +9,13 @@
 
                 <img src="{{ asset('uploads/galeri/logo_sifo.png') }}" alt="Logo Desa"
                     style="height:40px; margin-right:10px;">
-                    
-                    <span>
+
+                <span>
                         SIFO {{ strtoupper($setting->nama_desa ?? '') }}
                     </span>
+
+                {{-- <img src="{{ asset('uploads/galeri/logo_sistem_informasi_desa.png') }}" alt="Sistem Informasi Desa"
+                    style="height:40px;"> --}}
             </div>
             <ul class="nav-links" id="nav-links">
                 <li><a href="{{ route('home') }}"><i class="fas fa-home" style="margin-right:6px;"></i>
@@ -25,7 +28,8 @@
                     <ul class="dropdown-menu">
                         <li><a href="{{ route('user.galeri') }}"><i class="fas fa-images" style="margin-right:8px;"></i>
                                 Galeri Desa</a></li>
-                        <li><a href="{{ route('sejarah') }}"><i class="fas fa-history" style="margin-right:8px;"></i> Sejarah Desa</a>
+                        <li><a href="{{ route('sejarah') }}"><i class="fas fa-history" style="margin-right:8px;"></i>
+                                Sejarah Desa</a>
                         </li>
                         <li><a href="{{ url('/pemerintah') }}"><i class="fas fa-users" style="margin-right:8px;"></i>
                                 Pemerintah Desa</a></li>

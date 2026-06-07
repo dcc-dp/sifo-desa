@@ -49,7 +49,7 @@ class SuratController extends Controller
                 $view,
                 compact(
                     'surat',
-                    'setting',
+                    'setting', 
                     'kepalaDesa'
                 )
             );
