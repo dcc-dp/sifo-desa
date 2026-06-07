@@ -1,4 +1,4 @@
-<footer class="footer p-5 ">
+<!-- <footer class="footer p-5 ">
     <div class="row align-items-center justify-content-lg-between ">
         <div class="col-lg-6 mb-lg-0 mb-4">
             <div class="copyright text-center text-m text-muted text-lg-start">
@@ -38,4 +38,34 @@
             </ul>
         </div>
     </div>
+</footer> -->
+
+
+<footer class="footer py-4">
+
+    <div class="container-fluid">
+
+        <div class="row align-items-center">
+
+            <div class="col-12 text-center">
+
+                <p class="mb-1 fw-semibold text-dark">
+
+                    Sistem Informasi Desa
+
+                </p>
+
+                <p class="mb-0 text-muted small">
+
+                    © {{ date('Y') }}
+                    Pemerintah {{ \App\Models\Setting::first()->nama_desa ?? '' }}
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
 </footer>

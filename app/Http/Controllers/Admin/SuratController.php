@@ -7,59 +7,63 @@ use App\Models\Surat;
 use App\Models\Setting;
 use App\Models\PemerintahDesa;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Session;
 
 class SuratController extends Controller
 {
-      
+
     public function download($id)
-        {
-            $surat = Surat::with([
-                'penduduk',
-                'usaha',
-                'domisili',
-                'izin',
-                'pengantar',
-                'sktm'
-            ])->findOrFail($id);
+    {
+        if (!Session::has('pengajuan_penduduk_id')) {
+            abort(403, 'Akses ditolak');
+        }
+        $surat = Surat::with([
+            'penduduk',
+            'usaha',
+            'domisili',
+            'izin',
+            'pengantar',
+            'sktm'
+        ])->findOrFail($id);
 
-            $setting = Setting::first();
+        $setting = Setting::first();
 
-            $kepalaDesa = PemerintahDesa::where(
-                'jabatan',
-                'Kepala Desa'
-            )->first();
+        $kepalaDesa = PemerintahDesa::where(
+            'jabatan',
+            'Kepala Desa'
+        )->first();
 
-            if ($surat->usaha) {
-                $view = 'pdf.sku';
-            } elseif ($surat->domisili) {
-                $view = 'pdf.domisili';
-            } elseif ($surat->sktm) {
-                $view = 'pdf.sktm';
-            } elseif ($surat->pengantar) {
-                $view = 'pdf.pengantar';
-            } elseif ($surat->izin) {
-                $view = 'pdf.izin';
-            } else {
-                abort(404);
-            }
+        if ($surat->usaha) {
+            $view = 'pdf.sku';
+        } elseif ($surat->domisili) {
+            $view = 'pdf.domisili';
+        } elseif ($surat->sktm) {
+            $view = 'pdf.sktm';
+        } elseif ($surat->pengantar) {
+            $view = 'pdf.pengantar';
+        } elseif ($surat->izin) {
+            $view = 'pdf.izin';
+        } else {
+            abort(404);
+        }
 
-            \Carbon\Carbon::setLocale('id');
+        \Carbon\Carbon::setLocale('id');
 
             $pdf = Pdf::loadView(
                 $view,
                 compact(
                     'surat',
-                    'setting', 
+                    'setting',
                     'kepalaDesa'
                 )
             );
 
-            $filename = str_replace(
-                '/',
-                '-',
-                $surat->nomor_surat
-            ) . '.pdf';
+        $filename = str_replace(
+            '/',
+            '-',
+            $surat->nomor_surat
+        ) . '.pdf';
 
-            return $pdf->download($filename);
-        }
+        return $pdf->download($filename);
+    }
 }

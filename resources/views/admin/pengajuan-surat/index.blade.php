@@ -16,10 +16,7 @@
                         <i class="fas fa-search"></i>
                     </span>
 
-                    <input
-                        type="text"
-                        id="searchInput"
-                        class="form-control"
+                    <input type="text" id="searchInput" class="form-control"
                         placeholder="Cari nama, NIK atau nomor surat...">
                 </div>
             </div>
@@ -46,43 +43,35 @@
 
                                 <tr>
 
-                                    <th class="text-white"
-                                        style="background-color:#313d52;">
+                                    <th class="text-white" style="background-color:#313d52;">
                                         No
                                     </th>
 
-                                    <th class="text-white"
-                                        style="background-color:#313d52;">
+                                    <th class="text-white" style="background-color:#313d52;">
                                         No Surat
                                     </th>
 
-                                    <th class="text-white"
-                                        style="background-color:#313d52;">
+                                    <th class="text-white" style="background-color:#313d52;">
                                         Nama
                                     </th>
 
-                                    <th class="text-white"
-                                        style="background-color:#313d52;">
+                                    <th class="text-white" style="background-color:#313d52;">
                                         NIK
                                     </th>
 
-                                    <th class="text-white"
-                                        style="background-color:#313d52;">
+                                    <th class="text-white" style="background-color:#313d52;">
                                         Jenis Surat
                                     </th>
 
-                                    <th class="text-white"
-                                        style="background-color:#313d52;">
+                                    <th class="text-white" style="background-color:#313d52;">
                                         Tanggal
                                     </th>
 
-                                    <th class="text-white"
-                                        style="background-color:#313d52;">
+                                    <th class="text-white" style="background-color:#313d52;">
                                         Status
                                     </th>
 
-                                    <th class="text-white"
-                                        style="background-color:#313d52;">
+                                    <th class="text-white" style="background-color:#313d52;">
                                         Aksi
                                     </th>
 
@@ -94,89 +83,89 @@
 
                                 @forelse($surats as $surat)
 
-                                <tr>
+                                    <tr>
 
-                                    <td>
-                                        {{ $loop->iteration }}
-                                    </td>
+                                        <td>
+                                            {{ $loop->iteration }}
+                                        </td>
 
-                                    <td>
-                                        {{ $surat->nomor_surat }}
-                                    </td>
+                                        <td>
+                                            {{ $surat->nomor_surat }}
+                                        </td>
 
-                                    <td>
-                                        {{ $surat->penduduk->nama ?? '-' }}
-                                    </td>
+                                        <td>
+                                            {{ $surat->penduduk->nama ?? '-' }}
+                                        </td>
 
-                                    <td>
-                                        {{ $surat->penduduk->nik ?? '-' }}
-                                    </td>
+                                        <td>
+                                            {{ $surat->penduduk->nik ?? '-' }}
+                                        </td>
 
-                                    <td>
-                                        {{ $surat->keterangan }}
-                                    </td>
+                                        <td>
+                                            {{ $surat->keterangan }}
+                                        </td>
 
-                                    <td>
-                                        {{ \Carbon\Carbon::parse($surat->tanggal_dibuat)->format('d/m/Y') }}
-                                    </td>
+                                        <td>
+                                            {{ \Carbon\Carbon::parse($surat->tanggal_dibuat)->format('d/m/Y') }}
+                                        </td>
 
-                                    <td>
+                                        <td>
 
-                                        @if($surat->status == 'menunggu')
-                                            <span class="badge bg-warning">
-                                                Menunggu
-                                            </span>
+                                            @if($surat->status == 'menunggu')
+                                                <span class="badge rounded-pill px-3 py-2"
+                                                    style="background:#cfe2ff;color:#084298;">
+                                                    Menunggu
+                                                </span>
 
-                                        @elseif($surat->status == 'diterima')
-                                            <span class="badge bg-success">
-                                                Diterima
-                                            </span>
+                                            @elseif($surat->status == 'diterima')
+                                                <span class="badge rounded-pill px-3 py-2"
+                                                    style="background:#d1e7dd;color:#0f5132;">
+                                                    Diterima
+                                                </span>
 
-                                        @elseif($surat->status == 'ditolak')
-                                            <span class="badge bg-danger">
-                                                Ditolak
-                                            </span>
-                                        @endif
+                                            @elseif($surat->status == 'ditolak')
+                                                <span class="badge rounded-pill px-3 py-2"
+                                                    style="background:#f8d7da;color:#842029;">
+                                                    Ditolak
+                                                </span>
+                                            @endif
 
-                                    </td>
+                                        </td>
 
-                                    <td>
+                                        <td>
 
-                                        <a
-                                            href="{{ route('admin.pengajuan-surat.show',$surat->id) }}"
-                                            class="btn btn-info btn-sm">
+                                            <a href="{{ route('admin.pengajuan-surat.show', $surat->id) }}"
+                                                class="btn btn-detail btn-sm">
 
-                                            <i class="fas fa-eye"></i>
-                                            Detail
-
-                                        </a>
-
-                                        @if($surat->status == 'diterima')
-
-                                            <a
-                                                href="{{ route('surat.download',$surat->id) }}"
-                                                class="btn btn-success btn-sm">
-
-                                                <i class="fas fa-download"></i>
-                                                PDF
+                                                <i class="fas fa-eye"></i>
+                                                Detail
 
                                             </a>
 
-                                        @endif
+                                            @if($surat->status == 'diterima')
 
-                                    </td>
+                                                <a href="{{ route('surat.download', $surat->id) }}" class="btn btn-pdf btn-sm">
 
-                                </tr>
+                                                    <i class="fas fa-download"></i>
+                                                    PDF
+
+                                                </a>
+
+                                            @endif
+
+                                        </td>
+
+                                    </tr>
 
                                 @empty
 
-                                <tr>
+                                    <tr>
 
-                                    <td colspan="8">
-                                        Tidak ada data pengajuan surat
-                                    </td>
+                                        <td colspan="8">
+                                            Tidak ada data pengajuan surat
+                                        </td>
 
-                                </tr>
+                                    </tr>
 
                                 @endforelse
 
@@ -199,27 +188,51 @@
     <script>
 
         document.getElementById('searchInput')
-        .addEventListener('keyup', function(){
+            .addEventListener('keyup', function () {
 
-            let keyword = this.value.toLowerCase();
+                let keyword = this.value.toLowerCase();
 
-            let rows =
-                document.querySelectorAll('#tableBody tr');
+                let rows =
+                    document.querySelectorAll('#tableBody tr');
 
-            rows.forEach(row => {
+                rows.forEach(row => {
 
-                let text =
-                    row.textContent.toLowerCase();
+                    let text =
+                        row.textContent.toLowerCase();
 
-                row.style.display =
-                    text.includes(keyword)
-                    ? ''
-                    : 'none';
+                    row.style.display =
+                        text.includes(keyword)
+                            ? ''
+                            : 'none';
+
+                });
 
             });
 
-        });
-
     </script>
+
+    <style>
+.btn-detail {
+    background: #64778b;
+    border: none;
+    color: white;
+}
+
+.btn-detail:hover {
+    background: #c7d5e3;
+    color: white;
+}
+
+.btn-pdf {
+    background: #f4727f;
+    border: none;
+    color: white;
+}
+
+.btn-pdf:hover {
+    background: #f4727f;
+    color: white;
+}
+</style>
 
 </x-app-layout>

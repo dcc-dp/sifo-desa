@@ -70,6 +70,11 @@ class PengaduanController extends Controller
 
         Pengaduan::create($validated);
 
+//         $pengaduan = Pengaduan::create($validated);
+
+// dd($pengaduan->created_at);
+        
+
         return redirect()->back()->with('success', 'Pengaduan berhasil dikirim.');
     }
 

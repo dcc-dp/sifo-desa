@@ -30,11 +30,20 @@ class Pengaduan extends Model
         return $this->belongsTo(Kategori::class, 'kategori_id');
     }
 
-    public function penduduk()
+//     public function penduduk()
+// {
+//     return $this->belongsTo(
+//         DataPenduduk::class,
+//         'penduduk_id'
+//     );
+// }
+
+
+public function penduduk()
 {
     return $this->belongsTo(
-        dataPenduduk::class,
-        'penduduk_id'
+        DataPenduduk::class,
+        'user_id'
     );
 }
 }
