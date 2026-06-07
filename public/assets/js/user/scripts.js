@@ -289,7 +289,7 @@
                     type: 'donut',
                     height: 360
                 },
-                labels: ['Laki-laki', 'Perempuan', 'Kepala Keluarga'],
+                labels: ['Laki-laki', 'Perempuan', ' Total Penduduk'],
                 series: [laki, perempuan, kepala],
                 legend: {
                     position: 'bottom'

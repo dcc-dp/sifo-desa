@@ -15,18 +15,26 @@ class StatistikController extends Controller
         $rt = $request->rt;
 
         $query = DataPenduduk::query();
-        if ($rw) $query->where('rw_id', $rw);
-        if ($rt) $query->where('rt_id', $rt);
+        if ($rw)
+            $query->where('rw_id', $rw);
+        if ($rt)
+            $query->where('rt_id', $rt);
 
         $totalPenduduk = $query->count();
-        $laki      = (clone $query)->where('jenis_kelamin', 'L')->count();
+        $laki = (clone $query)->where('jenis_kelamin', 'L')->count();
         $perempuan = (clone $query)->where('jenis_kelamin', 'P')->count();
 
         $rwList = Rw::all();
         $rtList = $rw ? Rt::where('rw_id', $rw)->get() : collect();
 
         return view('pages.datastatik.penduduk', compact(
-            'totalPenduduk', 'laki', 'perempuan', 'rw', 'rt', 'rwList', 'rtList'
+            'totalPenduduk',
+            'laki',
+            'perempuan',
+            'rw',
+            'rt',
+            'rwList',
+            'rtList'
         ));
     }
 
@@ -36,22 +44,32 @@ class StatistikController extends Controller
         $rt = $request->get('rt');
 
         $query = DataPenduduk::query();
-        if ($rw) $query->where('rw_id', $rw);
-        if ($rt) $query->where('rt_id', $rt);
+        if ($rw)
+            $query->where('rw_id', $rw);
+        if ($rt)
+            $query->where('rt_id', $rt);
 
-        $islam    = (clone $query)->where('agama', 'Islam')->count();
-        $kristen  = (clone $query)->where('agama', 'Kristen')->count();
-        $katolik  = (clone $query)->where('agama', 'Katolik')->count();
-        $hindu    = (clone $query)->where('agama', 'Hindu')->count();
-        $budha    = (clone $query)->where('agama', 'Budha')->count();
+        $islam = (clone $query)->where('agama', 'Islam')->count();
+        $kristen = (clone $query)->where('agama', 'Kristen')->count();
+        $katolik = (clone $query)->where('agama', 'Katolik')->count();
+        $hindu = (clone $query)->where('agama', 'Hindu')->count();
+        $budha = (clone $query)->where('agama', 'Budha')->count();
         $konghucu = (clone $query)->where('agama', 'Konghucu')->count();
 
         $rwList = Rw::all();
         $rtList = $rw ? Rt::where('rw_id', $rw)->get() : collect();
 
         return view('pages.datastatik.agama', compact(
-            'islam', 'kristen', 'katolik', 'hindu', 'budha', 'konghucu',
-            'rw', 'rt', 'rwList', 'rtList'
+            'islam',
+            'kristen',
+            'katolik',
+            'hindu',
+            'budha',
+            'konghucu',
+            'rw',
+            'rt',
+            'rwList',
+            'rtList'
         ));
     }
 
@@ -61,21 +79,28 @@ class StatistikController extends Controller
         $rt = $request->get('rt');
 
         $query = DataPenduduk::query();
-        if ($rw) $query->where('rw_id', $rw);
-        if ($rt) $query->where('rt_id', $rt);
+        if ($rw)
+            $query->where('rw_id', $rw);
+        if ($rt)
+            $query->where('rt_id', $rt);
 
-        $petani     = (clone $query)->where('pekerjaan', 'Petani')->count();
-        $buruh      = (clone $query)->where('pekerjaan', 'Buruh')->count();
-        $wiraswasta = (clone $query)->where('pekerjaan', 'Wiraswasta')->count();
-        $pns        = (clone $query)->where('pekerjaan', 'PNS')->count();
-        $total      = $petani + $buruh + $wiraswasta + $pns;
+        $statistikPekerjaan = (clone $query)
+            ->selectRaw('pekerjaan, COUNT(*) as total')
+            ->groupBy('pekerjaan')
+            ->orderByDesc('total')
+            ->get();
+        $total = $statistikPekerjaan->sum('total');
 
         $rwList = Rw::all();
         $rtList = $rw ? Rt::where('rw_id', $rw)->get() : collect();
 
         return view('pages.datastatik.pekerjaan', compact(
-            'petani', 'buruh', 'wiraswasta', 'pns', 'total',
-            'rw', 'rt', 'rwList', 'rtList'
+            'statistikPekerjaan',
+            'total',
+            'rw',
+            'rt',
+            'rwList',
+            'rtList'
         ));
     }
 
@@ -85,22 +110,32 @@ class StatistikController extends Controller
         $rt = $request->get('rt');
 
         $query = DataPenduduk::query();
-        if ($rw) $query->where('rw_id', $rw);
-        if ($rt) $query->where('rt_id', $rt);
+        if ($rw)
+            $query->where('rw_id', $rw);
+        if ($rt)
+            $query->where('rt_id', $rt);
 
         $tidakSekolah = (clone $query)->where('pendidikan', 'Tidak Sekolah')->count();
-        $sd           = (clone $query)->where('pendidikan', 'SD')->count();
-        $smp          = (clone $query)->where('pendidikan', 'SMP')->count();
-        $sma          = (clone $query)->where('pendidikan', 'SMA')->count();
-        $diploma      = (clone $query)->whereIn('pendidikan', ['D3', 'S1'])->count();
-        $total        = $tidakSekolah + $sd + $smp + $sma + $diploma;
+        $sd = (clone $query)->where('pendidikan', 'SD')->count();
+        $smp = (clone $query)->where('pendidikan', 'SMP')->count();
+        $sma = (clone $query)->where('pendidikan', 'SMA')->count();
+        $diploma = (clone $query)->whereIn('pendidikan', ['D3', 'S1'])->count();
+        $total = $tidakSekolah + $sd + $smp + $sma + $diploma;
 
         $rwList = Rw::all();
         $rtList = $rw ? Rt::where('rw_id', $rw)->get() : collect();
 
         return view('pages.datastatik.pendidikan', compact(
-            'tidakSekolah', 'sd', 'smp', 'sma', 'diploma', 'total',
-            'rw', 'rt', 'rwList', 'rtList'
+            'tidakSekolah',
+            'sd',
+            'smp',
+            'sma',
+            'diploma',
+            'total',
+            'rw',
+            'rt',
+            'rwList',
+            'rtList'
         ));
     }
 }

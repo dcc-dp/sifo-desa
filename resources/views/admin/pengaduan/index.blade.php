@@ -64,42 +64,76 @@
                                     <tbody>
                                         @foreach ($pengaduans as $pengaduan)
                                             <tr>
+
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $pengaduan->kategori->nama_kategori ?? '-' }}</td>
-                                                <td>{{ $pengaduan->user->name ?? 'Anonim' }}</td>
+                                                <td>
+                                                    {{ $pengaduan->anonymous ? 'Anonim' : ($pengaduan->penduduk->nama ?? '-') }}
+                                                </td>
                                                 <td>{{ $pengaduan->judul }}</td>
                                                 <td>{{ Str::limit($pengaduan->deskripsi, 50) }}</td>
                                                 <td>
                                                     @if ($pengaduan->gambar && file_exists(public_path($pengaduan->gambar)))
-                                                        <img src="{{ asset($pengaduan->gambar) }}" alt="gambar" class="rounded" width="100">
+                                                        <img src="{{ asset($pengaduan->gambar) }}" alt="gambar" class="rounded"
+                                                            width="100">
                                                     @else
                                                         <span class="text-muted">Tidak Ada Gambar</span>
                                                     @endif
                                                 </td>
                                                 <td>
                                                     @if ($pengaduan->file && file_exists(public_path($pengaduan->file)))
-                                                        <a href="{{ asset($pengaduan->file) }}" target="_blank" class="btn btn-sm btn-info">
-                                                            Download File
+
+                                                        <a href="{{ asset($pengaduan->file) }}" target="_blank"
+                                                            class="btn btn-pdf btn-sm">
+
+                                                            <i class="fas fa-download"></i>
+                                                            File
+
                                                         </a>
+
                                                     @else
-                                                        <span class="text-muted">Tidak Ada File</span>
+
+                                                        <span class="text-muted">
+                                                            Tidak Ada File
+                                                        </span>
+
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    @php
-                                                        $statusLabel = match ($pengaduan->status) {
-                                                        1 => ['PROSES', 'bg-warning-subtle text-dark'],
-                                                        2 => ['TOLAK', 'bg-success-subtle text-dark'],
-                                                        3 => ['SELESAI', 'bg-danger-subtle text-dark'],
-                                                        default => ['Proses', 'bg-warning-subtle text-dark'],
-                                                                                                    };
-                                                    @endphp
-                                                    <span class="badge {{ $statusLabel[1] }}">
-                                                        {{ $statusLabel[0] }}
-                                                    </span>
+
+                                                    @if ($pengaduan->status == 1)
+
+                                                        <span class="badge rounded-pill px-3 py-2"
+                                                            style="background:#cfe2ff;color:#084298;">
+                                                            Proses
+                                                        </span>
+
+                                                    @elseif ($pengaduan->status == 2)
+
+                                                        <span class="badge rounded-pill px-3 py-2"
+                                                            style="background:#f8d7da;color:#842029;">
+                                                            Ditolak
+                                                        </span>
+
+                                                    @elseif ($pengaduan->status == 3)
+
+                                                        <span class="badge rounded-pill px-3 py-2"
+                                                            style="background:#d1e7dd;color:#0f5132;">
+                                                            Selesai
+                                                        </span>
+
+                                                    @endif
+
                                                 </td>
+
                                                 <td class="align-middle">
-                                                    <a href="{{ route('admin.pengaduan-edit', $pengaduan->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                                                    <a href="{{ route('admin.pengaduan-edit', $pengaduan->id) }}"
+                                                        class="btn btn-detail btn-sm">
+
+                                                        <i class="fas fa-eye"></i>
+                                                        Detail
+
+                                                    </a>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -121,4 +155,29 @@
             <x-app.footer />
         </div>
     </main>
+
+    <style>
+        .btn-detail {
+    background: #64778b;
+    border: none;
+    color: white;
+}
+
+.btn-detail:hover {
+    background: #c7d5e3;
+    color: white;
+}
+
+.btn-pdf {
+    background: #f4727f;
+    border: none;
+    color: white;
+}
+
+.btn-pdf:hover {
+    background: #f4727f;
+    color: white;
+}
+</style>
+ 
 </x-app-layout>

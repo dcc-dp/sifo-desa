@@ -192,15 +192,30 @@
         /* Dashboard Cards */
         .quick-info-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
             margin-bottom: 40px;
+            align-items: stretch;
         }
 
         .info-card h3 {
             border-bottom: 2px solid var(--color-secondary);
             padding-bottom: 10px;
             margin-bottom: 15px;
+        }
+        .info-card {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .news-list,
+        .activity-list,
+        .village-content {
+            flex: 1;
+        }
+
+        .info-card .btn {
+            margin-top: auto;
         }
 
         .news-list .article {
@@ -252,29 +267,52 @@
         }
         
         .village-head-card {
-            text-align: center;
-        }
-        
-        .village-head-card img {
-            width: 120px;
-            height: 120px;
-            object-fit: cover;
-            border-radius: 50%;
-            margin-bottom: 15px;
-            border: 4px solid var(--color-secondary);
-            box-shadow: var(--shadow-soft);
-        }
-        
-        .village-head-card p {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-        
-        .village-head-card span {
-            color: var(--color-primary);
-            font-weight: 500;
-        }
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.village-content {
+    flex: 1;
+}
+
+.village-head-card img {
+    width: 160px;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin: 0 auto 15px;
+    border: 4px solid var(--color-secondary);
+    box-shadow: var(--shadow-soft);
+}
+
+.village-head-card h4 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.village-head-card .position {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    margin-bottom: 15px;
+}
+
+.village-head-card .duties {
+    font-size: 0.95rem;
+    font-weight: 400;
+    line-height: 1.7;
+    color: var(--color-text-light);
+    margin-bottom: 15px;
+}
+
+.village-head-card .quote {
+    font-size: 0.9rem;
+    font-style: italic;
+    color: var(--color-text-light);
+    margin-bottom: 20px;
+}
 
         /* News Grid (Used for News Page) */
         .news-grid {
@@ -1648,59 +1686,57 @@ tampilan card statistik */
     background:#fce7f3;
 }
 
-
 /* ======================
    STATISTIK PEKERJAAN
 ====================== */
 
-.petani-card::after{
-    background:linear-gradient(
-        135deg,
-        #4ade80,
-        #dcfce7
-    );
+.stats-grid .stat-card:nth-child(1)::after{
+    background: linear-gradient(135deg,#4ade80,#dcfce7);
 }
 
-.buruh-card::after{
-    background:linear-gradient(
-        135deg,
-        #facc15,
-        #fef9c3
-    );
+.stats-grid .stat-card:nth-child(2)::after{
+    background: linear-gradient(135deg,#facc15,#fef9c3);
 }
 
-.wiraswasta-card::after{
-    background:linear-gradient(
-        135deg,
-        #60a5fa,
-        #dbeafe
-    );
+.stats-grid .stat-card:nth-child(3)::after{
+    background: linear-gradient(135deg,#60a5fa,#dbeafe);
 }
 
-.pns-card::after{
-    background:linear-gradient(
-        135deg,
-        #f87171,
-        #fee2e2
-    );
+.stats-grid .stat-card:nth-child(4)::after{
+    background: linear-gradient(135deg,#f87171,#fee2e2);
 }
 
-.petani-card .stat-icon{
+.stats-grid .stat-card:nth-child(5)::after{
+    background: linear-gradient(135deg,#a78bfa,#ede9fe);
+}
+
+.stats-grid .stat-card:nth-child(6)::after{
+    background: linear-gradient(135deg,#fb7185,#ffe4e6);
+}
+
+.stats-grid .stat-card:nth-child(1) .stat-icon{
     background:#dcfce7;
 }
 
-.buruh-card .stat-icon{
+.stats-grid .stat-card:nth-child(2) .stat-icon{
     background:#fef9c3;
 }
 
-.wiraswasta-card .stat-icon{
+.stats-grid .stat-card:nth-child(3) .stat-icon{
     background:#dbeafe;
 }
 
-.pns-card .stat-icon{
+.stats-grid .stat-card:nth-child(4) .stat-icon{
     background:#fee2e2;
 }
 
+.stats-grid .stat-card:nth-child(5) .stat-icon{
+    background:#ede9fe;
+}
+
+.stats-grid .stat-card:nth-child(6) .stat-icon{
+    background:#ffe4e6;
+}
 
 /* ======================
    STATISTIK PENDIDIKAN
@@ -2018,3 +2054,28 @@ ttd kades */
     margin-top: 20px;
     text-align: center;
 }
+
+/* status pengaduan */
+.status-badge {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.status-proses {
+    background-color: #cfe2ff;
+    color: #084298;
+}
+
+.status-diterima {
+    background-color: #d1e7dd;
+    color: #0f5132;
+}
+
+.status-tolak {
+    background-color: #f8d7da;
+    color: #842029;
+}
+

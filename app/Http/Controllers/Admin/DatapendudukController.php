@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\dataPenduduk;
+use App\Models\DataPenduduk;
 use App\Models\Rw;
 use App\Models\Rt;
 use App\Models\SKTM;
@@ -16,7 +16,7 @@ class DatapendudukController extends Controller
      */
     public function index()
     {
-        $data = dataPenduduk::with(['rw', 'rt'])->get();
+        $data = DataPenduduk::with(['rw', 'rt'])->get();
         return view('admin.data-penduduk.index', compact('data'));
     }
 
@@ -74,7 +74,7 @@ class DatapendudukController extends Controller
             'pendidikan' => $request->pendidikan,
         ];
 
-        dataPenduduk::create($data);
+        DataPenduduk::create($data);
 
         return redirect()->route('data.penduduk-index')->with('success', 'Data Penduduk berhasil ditambahkan.');
     }
@@ -84,7 +84,7 @@ class DatapendudukController extends Controller
      */
     public function edit(string $id)
     {
-        $data = dataPenduduk::findOrFail($id);
+        $data = DataPenduduk::findOrFail($id);
         $rws = Rw::all();
         $rts = Rt::all();
 
@@ -96,7 +96,7 @@ class DatapendudukController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $penduduk = dataPenduduk::findOrFail($id);
+        $penduduk = DataPenduduk::findOrFail($id);
 
         $request->validate([
             'nik' => 'required|unique:data_penduduks,nik,' . $penduduk->id,
@@ -142,7 +142,7 @@ class DatapendudukController extends Controller
      */
     public function destroy(string $id)
     {
-        $penduduk = dataPenduduk::findOrFail($id);
+        $penduduk = DataPenduduk::findOrFail($id);
         $penduduk->delete();
 
         return redirect()->route('data.penduduk-index')->with('success', 'Data Penduduk berhasil dihapus');
@@ -150,7 +150,7 @@ class DatapendudukController extends Controller
 
     public function show(string $id)
     {
-        $data = dataPenduduk::with(['rw', 'rt'])->findOrFail($id);
+        $data = DataPenduduk::with(['rw', 'rt'])->findOrFail($id);
         return view('admin.data-penduduk.show', compact('data'));
     }
 
@@ -158,7 +158,7 @@ class DatapendudukController extends Controller
     {
         $keyword = $request->keyword;
 
-        $data = dataPenduduk::where('nama', 'LIKE', "%{$keyword}%")
+        $data = DataPenduduk::where('nama', 'LIKE', "%{$keyword}%")
             ->orWhere('nik', 'LIKE', "%{$keyword}%")
             ->orWhere('alamat', 'LIKE', "%{$keyword}%")
             ->get();

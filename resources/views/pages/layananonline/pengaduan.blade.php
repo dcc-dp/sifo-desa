@@ -4,115 +4,290 @@
 
 @section('content')
 
-    <section>
+    <section class="py-4">
         <div class="container">
-            <h2><i class="fas fa-comment-dots"></i> Sistem Pengaduan Masyarakat</h2>
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                <div>
-                    <p style="margin: 0; color: #666;">
-                        <strong>Nama:</strong> {{ session('pengaduan_penduduk_name') }}
-                    </p>
-                    <p style="margin: 5px 0 0 0; color: #666;">
-                        <strong>NIK:</strong> {{ session('pengaduan_nik') }}
-                    </p>
+            <div class="dashboard-header">
+
+                <h2>Layanan Pengaduan</h2>
+
+                <div class="header-right">
+                    <a href="{{ route('home') }}">Dashboard</a>
+                    <span>/</span>
+                    <span>Layanan Pengaduan</span>
                 </div>
-                <form action="{{ route('pengaduan.logout') }}" method="GET" style="display:inline;">
-                    @csrf
-                    <button type="submit" class="btn btn-danger">
-                        <i class="fas fa-sign-out-alt"></i> Logout
-                    </button>
-                </form>
+
+            </div>
+            <div class="user-card">
+
+                <div class="user-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+
+                <div class="user-info">
+                    <h4>{{ session('pengaduan_penduduk_name') }}</h4>
+                    <p>NIK : {{ session('pengaduan_nik') }}</p>
+                </div>
+
+                <div class="ms-auto">
+                    <form action="{{ route('pengaduan.logout') }}" method="GET">
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Logout
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+            <div class="info-alert">
+
+                <i class="fas fa-info-circle"></i>
+
+                Silakan isi formulir pengaduan dengan lengkap dan benar.
+
             </div>
 
-            <form action="{{ route('pengaduan-store') }}" method="POST" enctype="multipart/form-data">
-                @csrf
+            <h3 class="section-title">
 
-                <div class="form-group">
-                    <label for="judul">Judul</label>
-                    <input type="text" class="form-control" id="judul" name="judul" value="{{ old('judul') }}" required>
+                <i class="fas fa-comment-alt"></i>
+
+                Form Pengaduan
+
+            </h3>
+
+            <div class="card shadow-sm border-0 mb-5">
+
+                <div class="card-body">
+
+                    <form action="{{ route('pengaduan-store') }}" method="POST" enctype="multipart/form-data">
+
+                        @csrf
+
+                        <div class="form-group">
+                            <label for="judul">Judul</label>
+                            <input type="text" class="form-control" id="judul" name="judul" value="{{ old('judul') }}"
+                                required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="kategori_id">Kategori</label>
+                            <select id="kategori_id" name="kategori_id" class="form-control" required>
+                                <option value="">Select Kategori</option>
+                                @foreach ($kategoris as $kategori)
+                                    <option value="{{ $kategori->id }}">{{ $kategori->nama_kategori }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="deskripsi">Deskripsi</label>
+                            <textarea class="form-control" id="deskripsi" name="deskripsi" rows="5"
+                                required>{{ old('deskripsi') }}</textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="gambar">Upload Image (Optional)</label>
+                            <input type="file" class="form-control" name="gambar" accept="image/*">
+                        </div>
+
+                        <div class="form-group mt-3">
+                            <label for="file">Upload PDF (Optional)</label>
+                            <input type="file" class="form-control" name="file" accept="application/pdf">
+                        </div>
+
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="anonymous" name="anonymous" value="1">
+                            <label for="anonymous">Submit as Anonymous</label>
+                        </div>
+
+                        <button type="submit" class="btn btn-success mt-3">
+
+                            <i class="fas fa-paper-plane"></i>
+
+                            Kirim Pengaduan
+
+                        </button>
+                    </form>
+
                 </div>
 
-                <div class="form-group">
-                    <label for="kategori_id">Kategori</label>
-                    <select id="kategori_id" name="kategori_id" class="form-control" required>
-                        <option value="">Select Kategori</option>
-                        @foreach ($kategoris as $kategori)
-                            <option value="{{ $kategori->id }}">{{ $kategori->nama_kategori }}</option>
-                        @endforeach
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="deskripsi">Deskripsi</label>
-                    <textarea class="form-control" id="deskripsi" name="deskripsi" rows="5"
-                        required>{{ old('deskripsi') }}</textarea>
-                </div>
-
-                <div class="form-group">
-                    <label for="gambar">Upload Image (Optional)</label>
-                    <input type="file" class="form-control" name="gambar" accept="image/*">
-                </div>
-
-                <div class="form-group mt-3">
-                    <label for="file">Upload PDF (Optional)</label>
-                    <input type="file" class="form-control" name="file" accept="application/pdf">
-                </div>
-
-                <div class="form-group checkbox-group">
-                    <input type="checkbox" id="anonymous" name="anonymous" value="1">
-                    <label for="anonymous">Submit as Anonymous</label>
-                </div>
-
-                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 15px;">
-                    Submit Complaint
-                </button>
-
-            </form>
+            </div>
 
 
+            <h3 class="section-title">
 
-            <h3 style="margin-top: 40px;">Keluhan Anda Sebelumnya</h3>
+                <i class="fas fa-history"></i>
 
-            <div class="complaint-history">
+                Riwayat Pengaduan
+
+            </h3>
+
+            <div class="history-wrapper">
 
                 @forelse ($pengaduans as $pengaduan)
 
-                        <div class="card">
+                    <div class="card mb-3 p-3">
+
+                        <div class="d-flex justify-content-between">
 
                             <div>
-                                <h4>{{ $pengaduan->judul }}</h4>
-                                <p style="color: #666; margin: 5px 0;"></p>
+
+                                <h5>{{ $pengaduan->judul }}</h5>
+
+                                <small>
+                                    Kategori:
+                                    {{ $pengaduan->kategori->nama_kategori ?? '-' }}
+                                </small>
+
+                                <br>
+
+                                <small>
+                                    Tanggal:
+                                    {{ $pengaduan->created_at
+                                        ? \Carbon\Carbon::parse($pengaduan->created_at)->translatedFormat('d F Y')
+                                        : '-' }}
+                                </small>
+
                             </div>
 
-                            @if ($pengaduan->status == 1)
+                            <div class="text-end">
 
-                                <span class="status-badge status-in-process">
-                                    PROSES
-                                </span>
+                                @if ($pengaduan->status == 1)
+                                    <span class="status-badge status-proses">
+                                        Menunggu
+                                    </span>
+                                @elseif ($pengaduan->status == 2)
+                                    <span class="status-badge status-tolak">
+                                        Ditolak
+                                    </span>
+                                @elseif ($pengaduan->status == 3)
+                                    <span class="status-badge status-diterima">
+                                        Selesai
+                                    </span>
+                                @endif
 
-                            @elseif ($pengaduan->status == 2)
+                                <br>
 
-                                <span class="status-badge status-rejected">
-                                    TOLAK
-                                </span>
+                                <button class="btn btn-success btn-sm mt-2" data-bs-toggle="modal"
+                                    data-bs-target="#detailPengaduan{{ $pengaduan->id }}">
+                                    <i class="fas fa-eye"></i>
+                                    Detail
+                                </button>
 
-                            @elseif ($pengaduan->status == 3)
-
-                                <span class="status-badge status-completed">
-                                    SELESAI
-                                </span>
-
-                            @endif
+                            </div>
 
                         </div>
 
-                    </a>
+                    </div>
+
+                    <div class="modal fade" id="detailPengaduan{{ $pengaduan->id }}" tabindex="-1">
+
+
+                        <div class="modal-dialog modal-lg">
+
+                            <div class="modal-content">
+
+                                <div class="modal-header">
+
+                                    <h5 class="modal-title">
+                                        Detail Pengaduan
+                                    </h5>
+
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal">
+                                    </button>
+
+                                </div>
+
+                                <div class="modal-body">
+
+                                    <p>
+                                        <strong>Judul :</strong>
+                                     
+                                    </p>
+                                    <p>
+                                           {{ $pengaduan->judul }}
+                                    </p>
+                                    <hr>
+
+
+                                    <p>
+                                        <strong>Kategori :</strong>
+                                       
+                                    </p>
+
+                                    <p>
+                                         {{ $pengaduan->kategori->nama_kategori ?? '-' }}
+                                    </p>
+                                    <hr>
+
+
+                                    <p>
+                                        <strong>Deskripsi :</strong>
+                                    </p>
+                               
+
+                                    <p>
+                                        {{ $pengaduan->deskripsi }}
+                                    </p>
+
+                                    @if($pengaduan->gambar || $pengaduan->file)
+
+                                        <hr>
+
+                                        @if($pengaduan->gambar)
+
+                                            <div class="mb-4">
+
+                                                <h6 class="fw-bold mb-3">
+                                                    Bukti Gambar
+                                                </h6>
+
+                                                <img src="{{ asset($pengaduan->gambar) }}" class="img-fluid rounded shadow-sm border"
+                                                    style="max-height:400px; object-fit:contain; display:block; margin:auto;">
+
+                                            </div>
+
+                                        @endif
+
+                                        @if($pengaduan->file)
+
+                                            <div class="text-center">
+
+                                                <a href="{{ asset($pengaduan->file) }}" target="_blank" class="btn btn-danger">
+
+                                                    <i class="fas fa-file-pdf"></i>
+                                                    Lihat Lampiran PDF
+
+                                                </a>
+
+                                            </div>
+
+                                        @endif
+
+                                    @endif
+
+                                    <!-- <p>Path Gambar: {{ $pengaduan->gambar }}</p>
+                                            <p>Path File: {{ $pengaduan->file }}</p> -->
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
 
                 @empty
 
-                    <div class="card">
-                        <h4>Belum ada pengaduan</h4>
+                    <div class="empty-history">
+
+                        <i class="fas fa-folder-open"></i>
+
+                        <h5>Belum Ada Pengaduan</h5>
+
+                        <p>Riwayat pengaduan akan muncul di sini.</p>
+
                     </div>
+
 
                 @endforelse
 

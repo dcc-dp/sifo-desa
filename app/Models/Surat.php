@@ -23,7 +23,7 @@ class Surat extends Model
     public function penduduk()
 {
     return $this->belongsTo(
-        dataPenduduk::class,
+        DataPenduduk::class,
         'penduduk_id'
     );
 }

@@ -35,6 +35,7 @@ use App\Http\Controllers\Admin\SuratPengantarController;
 use App\Http\Controllers\CekNikController as ControllersCekNikController;
 use App\Http\Controllers\Admin\SejarahController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\UserLoginController;
 
 /*
@@ -174,6 +175,7 @@ Route::middleware('auth')->group(function () {
         Route::put('/berita-update/{id}', [BeritaController::class, 'update'])->name('berita-update');
         Route::get('/berita-destroy/{id}', [BeritaController::class, 'destroy'])->name('berita-destroy');
 
+        
         Route::get('/pengaduan-index', [PengaduanController::class, 'index'])->name('admin.pengaduan-index');
         Route::get('/pengaduan-create', [PengaduanController::class, 'create'])->name('admin.pengaduan-create');
         Route::post('/pengaduan-store', [PengaduanController::class, 'store'])->name('admin.pengaduan-store');
@@ -226,6 +228,13 @@ Route::middleware('auth')->group(function () {
         Route::get('/rt-edit/{id}', [RtController::class, 'edit'])->name('rt-edit');
         Route::put('/rt-update/{id}', [RtController::class, 'update'])->name('rt-update');
         Route::delete('/rt-destroy/{id}', [RtController::class, 'destroy'])->name('rt-destroy');
+
+        Route::get('/user-index', [AdminUserController::class, 'index'])->name('admin.user-index');
+        Route::get('/user-create', [AdminUserController::class, 'create'])->name('admin.user-create');
+        Route::post('/user-store', [AdminUserController::class, 'store'])->name('admin.user-store');
+        Route::get('/user-edit/{id}', [AdminUserController::class, 'edit'])->name('admin.user-edit');
+        Route::put('/user-update/{id}', [AdminUserController::class, 'update'])->name('admin.user-update');
+        Route::get('/user-destroy/{id}', [AdminUserController::class, 'destroy'])->name('admin.user-destroy');
 
         Route::get(
             '/pengajuan-surat',
