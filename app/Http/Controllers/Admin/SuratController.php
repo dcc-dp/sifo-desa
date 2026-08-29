@@ -49,14 +49,14 @@ class SuratController extends Controller
 
         \Carbon\Carbon::setLocale('id');
 
-        $pdf = Pdf::loadView(
-            $view,
-            compact(
-                'surat',
-                'setting',
-                'kepalaDesa'
-            )
-        );
+            $pdf = Pdf::loadView(
+                $view,
+                compact(
+                    'surat',
+                    'setting',
+                    'kepalaDesa'
+                )
+            );
 
         $filename = str_replace(
             '/',
