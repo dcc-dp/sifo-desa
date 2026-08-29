@@ -510,7 +510,7 @@
 
     
 <style>
-#sidenav-main{
+/* #sidenav-main{
     height: 100vh !important;
     overflow-y: auto !important;
 }
@@ -519,7 +519,7 @@
     height: auto !important;
     max-height: none !important;
     overflow: visible !important;
-}
+} */
 
 
 </style>
