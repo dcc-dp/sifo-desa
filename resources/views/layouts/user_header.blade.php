@@ -1,100 +1,143 @@
 <header class="header" id="main-header">
-    <div class="container">
+    <div class="container header-container">
         <nav class="navbar">
             @php
                 $setting = \App\Models\Setting::first();
             @endphp
 
             <div class="logo" onclick="window.location='{{ route('home') }}'">
-              
-
-                <img src="{{ asset('uploads/galeri/logo_sifo.png') }}" alt="Logo Desa"
-                    style="height:40px; margin-right:10px;">
-
-                <span>
-                        SIFO {{ strtoupper($setting->nama_desa ?? '') }}
-                    </span>
-
-                {{-- <img src="{{ asset('uploads/galeri/logo_sistem_informasi_desa.png') }}" alt="Sistem Informasi Desa"
-                    style="height:40px;"> --}}
+                <img src="{{ asset('uploads/galeri/logo_sifo.png') }}" alt="Logo Desa" class="logo-img">
+                <div class="logo-text-group">
+                    <span class="logo-title">SIFO {{ strtoupper($setting->nama_desa ?? 'RANTE GOLA') }}</span>
+                    <span class="logo-subtitle">Portal Informasi & Layanan Publik</span>
+                </div>
             </div>
+
             <ul class="nav-links" id="nav-links">
-                <li><a href="{{ route('home') }}"><i class="fas fa-home" style="margin-right:6px;"></i>
-                        Home</a></li>
-
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle">
-                        <i class="fas fa-landmark" style="margin-right:5px;"></i> Profil Desa
+                <li>
+                    <a href="{{ route('home') }}" class="nav-item-link">
+                        <i class="fas fa-home"></i>
+                        <span>Home</span>
                     </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="{{ route('user.galeri') }}"><i class="fas fa-images" style="margin-right:8px;"></i>
-                                Galeri Desa</a></li>
-                        <li><a href="{{ route('sejarah') }}"><i class="fas fa-history" style="margin-right:8px;"></i>
-                                Sejarah Desa</a>
-                        </li>
-                        <li><a href="{{ url('/pemerintah') }}"><i class="fas fa-users" style="margin-right:8px;"></i>
-                                Pemerintah Desa</a></li>
-                    </ul>
                 </li>
 
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle">
-                        <i class="fas fa-newspaper" style="margin-right:5px;"></i> Berita dan Agenda
+                    <a href="#" class="dropdown-toggle nav-item-link">
+                        <i class="fas fa-landmark"></i>
+                        <span>Profil Desa</span>
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="{{ url('/kategori') }}"><i class="fas fa-list" style="margin-right:8px;"></i>
-                                Kategori Berita</a></li>
-                        <li><a href="{{ url('/agenda') }}"><i class="fas fa-calendar-alt" style="margin-right:8px;"></i>
-                                Agenda
-                                Kegiatan</a></li>
-                    </ul>
-                </li>
-
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle">
-                        <i class="fas fa-chart-bar" style="margin-right:5px;"></i> Data Statistik
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="{{ route('user.statistik.penduduk') }}"><i class="fas fa-users"
-                                    style="margin-right:8px;"></i> Jumlah Penduduk</a>
+                        <li>
+                            <a href="{{ route('user.galeri') }}">
+                                <i class="fas fa-images"></i>
+                                <span>Galeri Desa</span>
+                            </a>
                         </li>
-                        <li><a href="{{ route('user.statistik.pendidikan') }}"><i class="fas fa-graduation-cap"
-                                    style="margin-right:8px;"></i> Data Pendidikan</a>
+                        <li>
+                            <a href="{{ route('sejarah') }}">
+                                <i class="fas fa-history"></i>
+                                <span>Sejarah Desa</span>
+                            </a>
                         </li>
-                        <li><a href="{{ route('user.statistik.pekerjaan') }}"><i class="fas fa-briefcase"
-                                    style="margin-right:8px;"></i> Data Pekerjaan</a>
-                        </li>
-                        <li><a href="{{ route('user.statistik.agama') }}"><i class="fas fa-place-of-worship"
-                                    style="margin-right:8px;"></i> Data Agama</a>
+                        <li>
+                            <a href="{{ url('/pemerintah') }}">
+                                <i class="fas fa-users"></i>
+                                <span>Pemerintah Desa</span>
+                            </a>
                         </li>
                     </ul>
                 </li>
 
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle">
-                        <i class="fas fa-laptop" style="margin-right:5px;"></i> Layanan Online
+                    <a href="#" class="dropdown-toggle nav-item-link">
+                        <i class="fas fa-newspaper"></i>
+                        <span>Berita & Agenda</span>
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="{{ route('pengajuan.login-form') }}"><i class="fas fa-envelope-open-text"
-                                    style="margin-right:8px;"></i> Pengajuan
-                                Surat</a></li>
-                        <li><a href="{{ route('pengaduan.login-form') }}"><i class="fas fa-file-signature"
-                                    style="margin-right:8px;"></i> Pengaduan</a>
+                        <li>
+                            <a href="{{ url('/kategori') }}">
+                                <i class="fas fa-list"></i>
+                                <span>Kategori Berita</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url('/agenda') }}">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span>Agenda Kegiatan</span>
+                            </a>
                         </li>
                     </ul>
                 </li>
 
-                <li class="nav-item">
-                    <a href="{{ url('/sign-in') }}" class="btn-login" style="margin-right:6px;">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle nav-item-link">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Data Statistik</span>
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="{{ route('user.statistik.penduduk') }}">
+                                <i class="fas fa-users"></i>
+                                <span>Jumlah Penduduk</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('user.statistik.pendidikan') }}">
+                                <i class="fas fa-graduation-cap"></i>
+                                <span>Data Pendidikan</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('user.statistik.pekerjaan') }}">
+                                <i class="fas fa-briefcase"></i>
+                                <span>Data Pekerjaan</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('user.statistik.agama') }}">
+                                <i class="fas fa-place-of-worship"></i>
+                                <span>Data Agama</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
 
-                        Login
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle nav-item-link">
+                        <i class="fas fa-laptop"></i>
+                        <span>Layanan Online</span>
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="{{ route('pengajuan.login-form') }}">
+                                <i class="fas fa-envelope-open-text"></i>
+                                <span>Pengajuan Surat</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('pengaduan.login-form') }}">
+                                <i class="fas fa-file-signature"></i>
+                                <span>Pengaduan Warga</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item-btn">
+                    <a href="{{ url('/sign-in') }}" class="btn-login">
+                        <i class="fas fa-arrow-right-to-bracket"></i>
+                        <span>Login</span>
                     </a>
                 </li>
             </ul>
 
-
-
-            <div class="menu-toggle" id="menu-toggle"><i class="fas fa-bars"></i></div>
+            <div class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </div>
         </nav>
     </div>
 </header>

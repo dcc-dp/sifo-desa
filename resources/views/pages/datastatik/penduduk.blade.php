@@ -4,233 +4,301 @@
 
 @section('content')
 
-    <section>
+    @php
+        $setting = \App\Models\Setting::first();
+        $desaName = (!empty($setting?->nama_desa)) ? $setting->nama_desa : 'Rante Gola';
+        $pctLaki = $totalPenduduk > 0 ? round(($laki / $totalPenduduk) * 100, 1) : 0;
+        $pctPerempuan = $totalPenduduk > 0 ? round(($perempuan / $totalPenduduk) * 100, 1) : 0;
+    @endphp
 
-        <div class="dashboard-container">
-
-            <div class="dashboard-header mb-4">
-
+    {{-- 1. Standard Page Hero Header --}}
+    <section class="page-hero-header">
+        <div class="container">
+            <div class="page-hero-eyebrow">
+                <i class="fas fa-chart-pie"></i>
+                <span>Data & Statistik • Kependudukan</span>
+            </div>
+            <h1 class="page-hero-title">Statistik Demografi & Penduduk</h1>
+            <p class="page-hero-desc">Data komposisi penduduk Desa {{ $desaName }} berdasarkan jenis kelamin dan persebaran wilayah RT / RW secara aktual.</p>
+            <div class="page-hero-divider"></div>
             
-                <h2>Statistik Penduduk</h2>
-              
-            
-                <div class="header-right">
-                    <a href="{{ route('home') }}">Dashboard</a>
-                    <span>/</span>
-                    <span>Statistik Agama</span>
+            <div class="page-breadcrumbs">
+                <a href="{{ route('home') }}"><i class="fas fa-home me-1"></i>Home</a>
+                <span class="sep">/</span>
+                <span>Data Statistik</span>
+                <span class="sep">/</span>
+                <span class="current">Statistik Penduduk</span>
+            </div>
+        </div>
+    </section>
+
+    {{-- 2. Content Section --}}
+    <section class="profile-content-section">
+        <div class="profile-content-container">
+
+            {{-- Metric Stats Cards Grid --}}
+            <div class="stats-metric-grid">
+                <div class="stats-metric-card">
+                    <div class="stats-metric-icon stats-icon-emerald">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stats-metric-info">
+                        <div class="stats-metric-title">Total Penduduk</div>
+                        <div class="stats-metric-value">{{ number_format($totalPenduduk) }} <span class="fs-6 fw-normal text-muted">Jiwa</span></div>
+                    </div>
                 </div>
-           
-            
+
+                <div class="stats-metric-card">
+                    <div class="stats-metric-icon stats-icon-blue">
+                        <i class="fas fa-mars"></i>
+                    </div>
+                    <div class="stats-metric-info">
+                        <div class="stats-metric-title">Laki-Laki</div>
+                        <div class="stats-metric-value">{{ number_format($laki) }} <span class="fs-6 fw-normal text-muted">Jiwa ({{ $pctLaki }}%)</span></div>
+                    </div>
+                </div>
+
+                <div class="stats-metric-card">
+                    <div class="stats-metric-icon stats-icon-pink">
+                        <i class="fas fa-venus"></i>
+                    </div>
+                    <div class="stats-metric-info">
+                        <div class="stats-metric-title">Perempuan</div>
+                        <div class="stats-metric-value">{{ number_format($perempuan) }} <span class="fs-6 fw-normal text-muted">Jiwa ({{ $pctPerempuan }}%)</span></div>
+                    </div>
+                </div>
             </div>
 
-            <div class="stats-grid">
+            {{-- Main Chart & Filter Row --}}
+            <div class="row g-4 align-items-start">
 
-                <div class="stat-card kk-card">
-                    <div class="stat-icon">
-                        👨‍👩‍👧‍👦
-                    </div>
-            
-                    <div>
-                        <p class="stat-title">
-                            Total Penduduk
-                        </p>
-            
-                        <p class="stat-value">
-                            {{ $totalPenduduk }}
-                        </p>
-                    </div>
-                </div>
-            
-                <div class="stat-card male-card">
-                    <div class="stat-icon">
-                        👨
-                    </div>
-            
-                    <div>
-                        <p class="stat-title">
-                            Laki-Laki
-                        </p>
-            
-                        <p class="stat-value">
-                            {{ $laki }}
-                        </p>
-                    </div>
-                </div>
-            
-                <div class="stat-card female-card">
-                    <div class="stat-icon">
-                        👩
-                    </div>
-            
-                    <div>
-                        <p class="stat-title">
-                            Perempuan
-                        </p>
-            
-                        <p class="stat-value">
-                            {{ $perempuan }}
-                        </p>
-                    </div>
-                </div>
-            
-            </div>
-
-
-            <div class="row g-4 align-items-stretch">
-
-                <!-- Chart -->
+                {{-- Left: Chart Box --}}
                 <div class="col-lg-8">
-            
-                    <div class="card shadow-sm border-0 h-100">
-                        <div class="card-body">
-            
-                            <div class="d-flex justify-content-between align-items-center mb-4">
-                                <h5 class="fw-bold mb-0">
-                                    Grafik Jumlah Penduduk
-                                </h5>
-            
-                                <div class="total-penduduk-card">
-                                    <i class="fas fa-users"></i>
-                                    <span>{{ $totalPenduduk }} Orang</span>
-                                </div>
+                    <div class="chart-card-box">
+                        <div class="chart-card-header">
+                            <h2 class="chart-card-title">
+                                <i class="fas fa-chart-donut"></i>
+                                <span>Grafik Komposisi Jenis Kelamin</span>
+                            </h2>
+                            <span class="chart-badge-total">
+                                <i class="fas fa-users"></i>
+                                <span>{{ number_format($totalPenduduk) }} Jiwa Terdata</span>
+                            </span>
+                        </div>
+
+                        {{-- Chart Container --}}
+                        <div id="pendudukChart"
+                             data-laki="{{ $laki }}"
+                             data-perempuan="{{ $perempuan }}"
+                             data-total="{{ $totalPenduduk }}"
+                             style="min-height: 380px;">
+                        </div>
+
+                        {{-- Breakdown Info Cards Below Chart --}}
+                        <div class="chart-breakdown-grid">
+                            <div class="chart-breakdown-item">
+                                <div class="chart-breakdown-label text-success">Total Penduduk</div>
+                                <div class="chart-breakdown-val">{{ number_format($totalPenduduk) }}</div>
                             </div>
-            
-                            <div
-                                id="pendudukChart"
-                                data-laki="{{ $laki }}"
-                                data-perempuan="{{ $perempuan }}"
-                                data-kepala="{{ $totalPenduduk }}"
-                                style="height: 420px;">
+                            <div class="chart-breakdown-item">
+                                <div class="chart-breakdown-label text-primary">Laki-Laki</div>
+                                <div class="chart-breakdown-val">{{ number_format($laki) }} <span class="fs-7 text-muted">({{ $pctLaki }}%)</span></div>
                             </div>
-            
-                            <!-- Ringkasan Statistik -->
-                            <div class="row mt-4">
-            
-                                <div class="col-md-4">
-                                    <div class="border rounded-4 p-3">
-                                        <h6 class="mb-2 text-danger">
-                                            Total Penduduk
-                                        </h6>
-            
-                                        <h4>{{ $totalPenduduk }}</h4>
-                                    </div>
-                                </div>
-            
-                                <div class="col-md-4">
-                                    <div class="border rounded-4 p-3">
-                                        <h6 class="mb-2 text-primary">
-                                            Laki-Laki
-                                        </h6>
-            
-                                        <h4>{{ $laki }}</h4>
-                                    </div>
-                                </div>
-            
-                                <div class="col-md-4">
-                                    <div class="border rounded-4 p-3">
-                                        <h6 class="mb-2 text-pink">
-                                            Perempuan
-                                        </h6>
-            
-                                        <h4>{{ $perempuan }}</h4>
-                                    </div>
-                                </div>
-            
+                            <div class="chart-breakdown-item">
+                                <div class="chart-breakdown-label text-danger">Perempuan</div>
+                                <div class="chart-breakdown-val">{{ number_format($perempuan) }} <span class="fs-7 text-muted">({{ $pctPerempuan }}%)</span></div>
                             </div>
-            
                         </div>
                     </div>
-            
                 </div>
-            
-                <!-- Filter -->
+
+                {{-- Right: Filter Box --}}
                 <div class="col-lg-4">
-            
-                    <div class="card shadow-sm border-0 h-100">
-            
-                        <div class="card-body">
-            
-                            <h5 class="fw-bold mb-4">
-                                Filter Wilayah
-                            </h5>
-            
-                            <form method="GET">
-            
-                                <div class="mb-4">
-                                    <label class="form-label">
-                                        RW
-                                    </label>
-            
-                                    <select
-                                        name="rw"
-                                        class="form-select"
-                                        onchange="this.form.submit()">
-            
-                                        <option value="">
-                                            -- Pilih RW --
-                                        </option>
-            
-                                        @foreach($rwList as $item)
-                                            <option value="{{ $item->id }}"
-                                                {{ request('rw') == $item->id ? 'selected' : '' }}>
-                                                RW {{ $item->nomor_rw }}
-                                            </option>
-                                        @endforeach
-            
-                                    </select>
-                                </div>
-            
-                                <div class="mb-4">
-            
-                                    <label class="form-label">
-                                        RT
-                                    </label>
-            
-                                    <select
-                                        name="rt"
-                                        class="form-select">
-            
-                                        <option value="">
-                                            -- Semua RT --
-                                        </option>
-            
-                                        @foreach($rtList as $item)
-                                            <option value="{{ $item->id }}"
-                                                {{ request('rt') == $item->id ? 'selected' : '' }}>
-                                                RT {{ $item->nomor_rt }}
-                                            </option>
-                                        @endforeach
-            
-                                    </select>
-            
-                                </div>
-            
-                                <button
-                                    class="btn btn-success w-100">
-            
-                                    Terapkan Filter
-            
-                                </button>
-            
-                            </form>
-            
-                            <div class="alert alert-success mt-4 mb-0">
-                                Pilih RW dan RT untuk melihat data sesuai wilayah.
+                    <div class="filter-card-box">
+                        <h3 class="filter-header-title">
+                            <div class="filter-header-icon">
+                                <i class="fas fa-filter"></i>
                             </div>
-            
+                            <span>Filter Wilayah</span>
+                        </h3>
+
+                        <form method="GET" action="{{ route('user.statistik.penduduk') }}">
+                            <div class="filter-form-group">
+                                <label class="filter-form-label">
+                                    <i class="fas fa-map-marker-alt text-success"></i>
+                                    <span>Pilih RW</span>
+                                </label>
+                                <select name="rw" class="filter-select-modern" onchange="this.form.submit()">
+                                    <option value="">-- Semua RW --</option>
+                                    @foreach($rwList as $item)
+                                        <option value="{{ $item->id }}" {{ request('rw') == $item->id ? 'selected' : '' }}>
+                                            RW {{ $item->nomor_rw }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="filter-form-group">
+                                <label class="filter-form-label">
+                                    <i class="fas fa-map-pin text-success"></i>
+                                    <span>Pilih RT</span>
+                                </label>
+                                <select name="rt" class="filter-select-modern">
+                                    <option value="">-- Semua RT --</option>
+                                    @foreach($rtList as $item)
+                                        <option value="{{ $item->id }}" {{ request('rt') == $item->id ? 'selected' : '' }}>
+                                            RT {{ $item->nomor_rt }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <button type="submit" class="filter-btn-submit">
+                                <i class="fas fa-check"></i>
+                                <span>Terapkan Filter</span>
+                            </button>
+
+                            @if(request('rw') || request('rt'))
+                                <a href="{{ route('user.statistik.penduduk') }}" class="filter-reset-link">
+                                    <i class="fas fa-times-circle me-1"></i>Reset Filter Wilayah
+                                </a>
+                            @endif
+                        </form>
+
+                        <div class="filter-info-box">
+                            <i class="fas fa-info-circle fs-5 mt-1"></i>
+                            <div>
+                                Pilih RW untuk memfilter daftar RT di bawahnya dan memperbarui visualisasi grafik secara spesifik per wilayah.
+                            </div>
                         </div>
-            
                     </div>
-            
                 </div>
-            
+
             </div>
 
         </div>
-
-
-
-
     </section>
 
 @endsection
+
+@push('scripts')
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const chartEl = document.querySelector("#pendudukChart");
+        if (!chartEl) return;
+
+        const laki = parseInt(chartEl.dataset.laki) || 0;
+        const perempuan = parseInt(chartEl.dataset.perempuan) || 0;
+        const total = laki + perempuan;
+
+        if (total === 0) {
+            chartEl.innerHTML = `
+                <div class="d-flex flex-column align-items-center justify-content-center h-100 py-5 text-center text-muted">
+                    <i class="fas fa-users-slash mb-3" style="font-size: 3rem; opacity: 0.35;"></i>
+                    <h5 class="fw-bold">Belum Ada Data Penduduk</h5>
+                    <p class="small mb-0">Tidak ada data kependudukan yang sesuai dengan filter wilayah yang dipilih.</p>
+                </div>
+            `;
+            return;
+        }
+
+        const options = {
+            series: [laki, perempuan],
+            labels: ['Laki-Laki', 'Perempuan'],
+            colors: ['#0284c7', '#ec4899'],
+            chart: {
+                type: 'donut',
+                height: 380,
+                fontFamily: 'inherit'
+            },
+            stroke: {
+                width: 3,
+                colors: ['#ffffff']
+            },
+            legend: {
+                position: 'bottom',
+                fontSize: '14px',
+                markers: {
+                    width: 12,
+                    height: 12,
+                    radius: 4
+                },
+                itemMargin: {
+                    horizontal: 14,
+                    vertical: 8
+                }
+            },
+            dataLabels: {
+                enabled: true,
+                formatter: function (val) {
+                    return val.toFixed(1) + '%';
+                },
+                style: {
+                    fontSize: '13px',
+                    fontWeight: 700
+                },
+                dropShadow: {
+                    enabled: false
+                }
+            },
+            plotOptions: {
+                pie: {
+                    donut: {
+                        size: '68%',
+                        labels: {
+                            show: true,
+                            name: {
+                                show: true,
+                                fontSize: '15px',
+                                fontWeight: 600,
+                                color: '#64748b'
+                            },
+                            value: {
+                                show: true,
+                                fontSize: '24px',
+                                fontWeight: 800,
+                                color: '#1e293b',
+                                formatter: function (val) {
+                                    return parseInt(val).toLocaleString('id-ID') + ' Jiwa';
+                                }
+                            },
+                            total: {
+                                show: true,
+                                label: 'Total Penduduk',
+                                fontSize: '14px',
+                                fontWeight: 600,
+                                color: '#64748b',
+                                formatter: function () {
+                                    return total.toLocaleString('id-ID') + ' Jiwa';
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            tooltip: {
+                y: {
+                    formatter: function (val) {
+                        const pct = ((val / total) * 100).toFixed(1);
+                        return val.toLocaleString('id-ID') + ' Jiwa (' + pct + '%)';
+                    }
+                }
+            },
+            responsive: [{
+                breakpoint: 480,
+                options: {
+                    chart: {
+                        height: 320
+                    },
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }]
+        };
+
+        const chart = new ApexCharts(chartEl, options);
+        chart.render();
+    });
+</script>
+@endpush

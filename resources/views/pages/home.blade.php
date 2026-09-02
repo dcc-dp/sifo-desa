@@ -5,88 +5,229 @@
 @section('content')
 
     <section id="home-page" class="page-section active">
-        <div class="hero">
-            <h1>Selamat Datang di Portal Desa Kami</h1>
-            <p>Mewujudkan pelayanan publik yang transparan dan akuntabel.</p>
-            <!-- <a href="{{ url('/signin') }}" data-page="complaints" class="btn btn-primary" style="background-color: var(--color-primary-dark);">Sampaikan Pengaduan <i class="fas fa-arrow-right"></i></a> -->
+        @php
+            $setting = \App\Models\Setting::first();
+            $kades = $pemerintah->first();
+            $desaName = (!empty($setting?->nama_desa)) ? $setting->nama_desa : 'Rante Gola';
+            $kadesName = $kades->nama ?? 'Said Sudirman';
+            $kadesRole = $kades->jabatan ?? 'Kepala Desa';
+            $kadesFoto = ($kades && $kades->foto && file_exists(public_path($kades->foto))) ? asset($kades->foto) : asset('assets/img/kades_transparent.png');
+        @endphp
+
+        <div class="hero-galesong">
+            <div class="hero-galesong-overlay"></div>
+            <div class="container hero-galesong-container">
+                <div class="hero-galesong-left">
+                    <div class="hero-galesong-kicker">
+                        <span class="kicker-profil">PROFIL DIGITAL</span>
+                        <span class="kicker-dot">•</span>
+                        <span class="kicker-desa">DESA {{ strtoupper($desaName) }}</span>
+                    </div>
+
+                    <h1 class="hero-galesong-title">
+                        Selamat datang di <br>
+                        <span class="hero-galesong-highlight">{{ $desaName }}</span>
+                    </h1>
+
+                    <p class="hero-galesong-quote">
+                        "Selamat datang di website resmi Desa {{ $desaName }}. Website ini menjadi sarana informasi dan pelayanan publik guna mendukung pemerintahan desa yang transparan dan akuntabel. {{ $kadesName }} {{ $kadesRole }}."
+                    </p>
+
+                    <div class="hero-galesong-author">
+                        <span class="galesong-author-bar">|</span>
+                        <span class="galesong-author-name">— {{ $kadesName }}</span>
+                    </div>
+
+                    <div class="hero-galesong-actions">
+                        <a href="{{ route('pengajuan.login-form') }}" class="btn-galesong-action btn-galesong-primary">
+                            <i class="fas fa-envelope-open-text"></i>
+                            <span>Pengajuan Surat</span>
+                        </a>
+                        <a href="{{ route('pengaduan.login-form') }}" class="btn-galesong-action btn-galesong-outline">
+                            <i class="fas fa-comment-dots"></i>
+                            <span>Pengaduan Warga</span>
+                        </a>
+                        <a href="{{ url('/kategori') }}" class="btn-galesong-action btn-galesong-ghost">
+                            <i class="fas fa-newspaper"></i>
+                            <span>Kabar Desa</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="hero-galesong-right">
+                    <div class="kades-showcase">
+                        <div class="kades-aura-glow"></div>
+                        <img src="{{ $kadesFoto }}" alt="{{ $kadesName }}" class="kades-showcase-img">
+                        <div class="kades-signature-tag">
+                            <div class="kades-tag-name">{{ $kadesName }}</div>
+                            <div class="kades-tag-role">{{ $kadesRole }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="container">
+        <div class="container main-content-container">
+            <div class="section-intro">
+                <div class="section-badge-tag">Pusat Layanan & Kabar Desa</div>
+                <h2 class="section-title-modern">Informasi Terkini & Aparatur Desa</h2>
+                <p class="section-desc-modern">Akses cepat berita terhangat, agenda program desa, dan kepemimpinan pemerintah desa.</p>
+            </div>
+
             <div class="quick-info-grid">
 
-                <div class="card info-card">
-
-                    <h3><i class="fas fa-newspaper"></i> Latest News</h3>
+                {{-- Card 1: Latest News --}}
+                <div class="card info-card card-news">
+                    <div class="card-header-clean">
+                        <div class="card-icon-badge bg-icon-emerald">
+                            <i class="fas fa-newspaper"></i>
+                        </div>
+                        <div class="card-header-text">
+                            <h3>Berita Terkini</h3>
+                            <span>Publikasi kabar pembangunan</span>
+                        </div>
+                    </div>
 
                     <div class="news-list">
-                        @foreach ($berita as $b)
+                        @forelse ($berita as $b)
                             <div class="article" onclick="navigate('news-detail', {id: 1})">
-                                <img src="{{ asset($b->gambar) }}" alt="News Image">
-                                <div>
+                                <div class="article-thumb-wrapper">
+                                    <img src="{{ asset($b->gambar) }}" alt="{{ $b->judul }}" class="article-thumb">
+                                </div>
+                                <div class="article-info-wrapper">
                                     <h4>{{ $b->judul }}</h4>
-                                    <span>
-                                        <i class="fas fa-calendar-alt"></i>
+                                    <span class="article-date">
+                                        <i class="far fa-calendar-alt"></i>
                                         {{ optional($b->created_at)->translatedFormat('d M Y') }}
                                     </span>
                                 </div>
                             </div>
-                        @endforeach
+                        @empty
+                            <div class="empty-state-card">
+                                <i class="far fa-newspaper"></i>
+                                <p>Belum ada berita terbaru dipublikasikan.</p>
+                            </div>
+                        @endforelse
                     </div>
 
-                    <a href="{{ url('/kategori') }}" class="btn btn-secondary">
-                        View All
+                    <a href="{{ url('/kategori') }}" class="btn-card-action">
+                        <span>Lihat Semua Berita</span>
+                        <i class="fas fa-arrow-right"></i>
                     </a>
-
                 </div>
 
-                <div class="card info-card">
-                    <h3><i class="fas fa-calendar-check"></i> Upcoming Activities</h3>
+                {{-- Card 2: Upcoming Activities --}}
+                <div class="card info-card card-agenda">
+                    <div class="card-header-clean">
+                        <div class="card-icon-badge bg-icon-teal">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <div class="card-header-text">
+                            <h3>Agenda Kegiatan</h3>
+                            <span>Jadwal program & musyawarah</span>
+                        </div>
+                    </div>
 
                     <ul class="activity-list">
-                        @foreach ($agenda as $g)
-                            <li>
-                                <i class="fas fa-clock"></i>
-                                <strong>{{ \Carbon\Carbon::parse($g->waktu_pelaksanaan)->format('d M Y') }}:</strong>
-                                {{ $g->nama_kegiatan }}
+                        @forelse ($agenda as $g)
+                            @php
+                                $eventDate = \Carbon\Carbon::parse($g->waktu_pelaksanaan);
+                            @endphp
+                            <li class="activity-item">
+                                <div class="activity-date-chip">
+                                    <span class="chip-day">{{ $eventDate->format('d') }}</span>
+                                    <span class="chip-month">{{ $eventDate->format('M') }}</span>
+                                </div>
+                                <div class="activity-details">
+                                    <h4 class="activity-title">{{ $g->nama_kegiatan }}</h4>
+                                    <span class="activity-time">
+                                        <i class="far fa-clock"></i>
+                                        {{ $eventDate->format('d M Y') }}
+                                    </span>
+                                </div>
                             </li>
-                        @endforeach
+                        @empty
+                            <li class="empty-state-card">
+                                <i class="far fa-calendar-times"></i>
+                                <p>Belum ada jadwal agenda dalam waktu dekat.</p>
+                            </li>
+                        @endforelse
                     </ul>
 
-                    <a href="{{ url('/agenda') }}" class="btn btn-secondary" style="margin-top: 15px;">
-                        View All
+                    <a href="{{ url('/agenda') }}" class="btn-card-action">
+                        <span>Lihat Semua Agenda</span>
+                        <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
 
-
-                @foreach ($pemerintah as $p)
+                {{-- Card 3: Village Government --}}
+                @forelse ($pemerintah as $p)
                     <div class="card info-card village-head-card">
-                        <h3><i class="fas fa-user-tie"></i> Village Government</h3>
-
-                        <div class="village-content">
-
-                            @if($p->foto)
-                                <img src="{{ asset($p->foto) }}" class="rounded-circle mx-auto d-block" alt="{{ $p->nama }}">
-                            @endif
-
-                            <h4>{{ $p->nama }}</h4>
-
-                            <p class="position">{{ $p->jabatan }}</p>
-
-                            <p class="duties">
-                                {{ \Illuminate\Support\Str::limit(strip_tags($p->tupoksi), 80, '...') }}
-                            </p>
-
-                            <p class="quote">
-                                "Melayani warga dengan sepenuh hati."
-                            </p>
-
+                        <div class="card-header-clean">
+                            <div class="card-icon-badge bg-icon-forest">
+                                <i class="fas fa-user-tie"></i>
+                            </div>
+                            <div class="card-header-text">
+                                <h3>Pemerintah Desa</h3>
+                                <span>Pimpinan & aparatur desa</span>
+                            </div>
                         </div>
 
-                        <a href="{{ url('/pemerintah') }}" class="btn btn-secondary">
-                            View All
+                        <div class="village-content">
+                            <div class="village-avatar-container">
+                                @if($p->foto)
+                                    <img src="{{ asset($p->foto) }}" class="village-avatar" alt="{{ $p->nama }}">
+                                @else
+                                    <img src="{{ asset('assets/img/default-avatar.png') }}" class="village-avatar" alt="{{ $p->nama }}">
+                                @endif
+                                <span class="village-verified" title="Aparatur Desa Terverifikasi"><i class="fas fa-check"></i></span>
+                            </div>
+
+                            <h4 class="village-name">{{ $p->nama }}</h4>
+
+                            <div class="village-position-tag">
+                                <i class="fas fa-id-badge"></i>
+                                <span>{{ $p->jabatan }}</span>
+                            </div>
+
+                            <p class="duties">
+                                {{ \Illuminate\Support\Str::limit(strip_tags($p->tupoksi), 85, '...') }}
+                            </p>
+
+                            <div class="quote-card">
+                                <i class="fas fa-quote-left quote-mark"></i>
+                                <p class="quote-text">"Melayani warga masyarakat dengan sepenuh hati, integritas, dan keterbukaan."</p>
+                            </div>
+                        </div>
+
+                        <a href="{{ url('/pemerintah') }}" class="btn-card-action">
+                            <span>Lihat Aparatur Desa</span>
+                            <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
-                @endforeach
+                @empty
+                    <div class="card info-card village-head-card">
+                        <div class="card-header-clean">
+                            <div class="card-icon-badge bg-icon-forest">
+                                <i class="fas fa-user-tie"></i>
+                            </div>
+                            <div class="card-header-text">
+                                <h3>Pemerintah Desa</h3>
+                                <span>Pimpinan & aparatur desa</span>
+                            </div>
+                        </div>
+                        <div class="village-content">
+                            <div class="empty-state-card">
+                                <i class="fas fa-user-friends"></i>
+                                <p>Data pimpinan desa belum diperbarui.</p>
+                            </div>
+                        </div>
+                        <a href="{{ url('/pemerintah') }}" class="btn-card-action">
+                            <span>Lihat Aparatur Desa</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                @endforelse
             </div>
         </div>
     </section>

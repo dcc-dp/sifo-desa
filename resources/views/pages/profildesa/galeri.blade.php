@@ -1,54 +1,37 @@
 @extends('layouts.user')
 
-@section('title', 'Galeri | Sistem Informasi Desa')
+@section('title', 'Galeri Desa | Sistem Informasi Desa')
 
 @push('styles')
     <style>
-        .gallery-section {
-            padding: 40px 0 80px;
-            background: var(--color-bg-light);
-            min-height: auto;
-        }
-
         .gallery-swiper {
             position: relative;
-            width: min(600px, 82vw);
+            width: min(600px, 86vw);
             margin: 0 auto;
             overflow: visible;
             z-index: 1;
             display: block;
             list-style: none;
-            padding: 0;
+            padding: 20px 0;
         }
 
         .gallery-swiper.swiper-3d {
             perspective: 1200px;
         }
 
-        .gallery-swiper .swiper-wrapper {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            display: flex;
-            box-sizing: content-box;
-            transition-property: transform;
-            transform-style: preserve-3d;
-        }
-
         .gallery-swiper .swiper-slide {
             position: relative;
             flex-shrink: 0;
             width: 100%;
-            height: 390px;
+            height: 400px;
             display: block;
             overflow: hidden;
-            color: inherit;
-            border-radius: 8px;
+            border-radius: 18px;
             text-decoration: none;
             backface-visibility: hidden;
             transform-origin: center bottom;
             transition-property: transform;
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.18);
         }
 
         .gallery-swiper .swiper-slide-shadow {
@@ -60,9 +43,8 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            border-radius: 8px;
-            background: #1f2937;
-            box-shadow: 0 18px 45px rgba(15, 23, 42, 0.18);
+            border-radius: 18px;
+            background: #0f172a;
         }
 
         .gallery-card__image {
@@ -70,123 +52,107 @@
             inset: 0;
             background-position: center;
             background-size: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-card:hover .gallery-card__image {
+            transform: scale(1.05);
         }
 
         .gallery-card::after {
             content: "";
             position: absolute;
             inset: 0;
-
-            background: linear-gradient(to top,
-                    rgba(0, 0, 0, .80),
-                    rgba(0, 0, 0, .20),
-                    transparent);
+            background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(6, 40, 24, 0.75) 60%, rgba(5, 30, 18, 0.95) 100%);
         }
 
         .gallery-card__content {
             position: relative;
-            z-index: 1;
+            z-index: 2;
             height: 100%;
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
-            padding: 24px;
-            color: #fff;
-        }
-
-        .gallery-card__content {
-            position: relative;
-            z-index: 1;
-
-            height: 100%;
-
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-
-            padding: 24px;
-
+            padding: 28px;
             color: #fff;
         }
 
         .gallery-card__title {
-            margin: 0;
-
-            font-size: 1.75rem;
+            margin: 0 0 10px;
+            font-size: 1.6rem;
             font-weight: 700;
-
-            color: #fff;
-
-            line-height: 1.2;
+            color: #ffffff;
+            line-height: 1.25;
         }
 
         .gallery-card__meta {
-            margin-top: 10px;
-            margin-bottom: 0;
-
-            display: flex;
+            margin: 0;
+            display: inline-flex;
             align-items: center;
-            gap: 8px;
-
-            font-size: 1rem;
-            font-weight: 500;
-
-            color: rgba(255, 255, 255, .9);
+            gap: 7px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: #facc15;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(8px);
+            padding: 5px 14px;
+            border-radius: 9999px;
+            width: fit-content;
+            border: 1px solid rgba(255, 255, 255, 0.25);
         }
 
-        .gallery-swiper .swiper-button-next,
-        .gallery-swiper .swiper-button-prev {
+        .gallery-swiper .swiper-button-prev,
+        .gallery-swiper .swiper-button-next {
             position: absolute;
             top: 50%;
             z-index: 10;
-            width: 36px;
-            height: 36px;
-            margin-top: -18px;
-            color: #1f2937;
+            width: 46px;
+            height: 46px;
+            margin-top: -23px;
+            background: #ffffff;
+            color: var(--color-primary-dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.14);
             cursor: pointer;
+            border: 1px solid #e2e8f0;
+            transition: all 0.25s ease;
+        }
+
+        .gallery-swiper .swiper-button-prev:hover,
+        .gallery-swiper .swiper-button-next:hover {
+            background: var(--color-primary);
+            color: #ffffff;
+            transform: scale(1.1);
+        }
+
+        .gallery-swiper .swiper-button-prev::after,
+        .gallery-swiper .swiper-button-next::after {
+            display: none !important;
         }
 
         .gallery-swiper .swiper-button-prev {
-            left: -54px;
+            left: -60px;
         }
 
         .gallery-swiper .swiper-button-next {
-            right: -54px;
+            right: -60px;
         }
 
-        .gallery-swiper .swiper-button-next::after,
-        .gallery-swiper .swiper-button-prev::after {
-            font-size: 2rem;
-            line-height: 1;
-        }
-
-        .gallery-swiper .swiper-button-prev::after {
-            content: "<";
-        }
-
-        .gallery-swiper .swiper-button-next::after {
-            content: ">";
-        }
-
-        @media (max-width: 767px) {
-            .gallery-section {
-                padding: 64px 0;
-            }
-
+        @media (max-width: 768px) {
             .gallery-swiper {
-                width: min(300px, 78vw);
+                width: min(320px, 82vw);
             }
-
             .gallery-swiper .swiper-slide {
-                height: 300px;
+                height: 320px;
             }
-
             .gallery-swiper .swiper-button-prev {
-                left: -34px;
+                left: -20px;
             }
-
             .gallery-swiper .swiper-button-next {
-                right: -34px;
+                right: -20px;
             }
         }
     </style>
@@ -194,103 +160,126 @@
 
 @section('content')
 
-    <section class="gallery-section">
-        <div class="container">
-            <div class="dashboard-header mb-4">
+    @php
+        $setting = \App\Models\Setting::first();
+        $desaName = (!empty($setting?->nama_desa)) ? $setting->nama_desa : 'Rante Gola';
+    @endphp
 
-                <div>
-                    <h2>Galeri Desa</h2>
-                </div>
-            
+    <section class="page-hero-header">
+        <div class="container">
+            <div class="page-hero-eyebrow">
+                <i class="fas fa-images"></i>
+                <span>Profil Desa • Galeri</span>
             </div>
+            <h1 class="page-hero-title">Galeri Dokumentasi & Kegiatan Desa</h1>
+            <p class="page-hero-desc">Kumpulan arsip visual kegiatan pembangunan, potensi desa, perayaan kebudayaan, dan momen bersejarah Desa {{ $desaName }}.</p>
+            <div class="page-hero-divider"></div>
             
-            <div class="header-right mb-4">
-                <a href="{{ route('home') }}">Dashboard</a>
-                <span>/</span>
-                <span>Galeri</span>
+            <div class="page-breadcrumbs">
+                <a href="{{ route('home') }}"><i class="fas fa-home me-1"></i>Home</a>
+                <span class="sep">/</span>
+                <span>Profil Desa</span>
+                <span class="sep">/</span>
+                <span class="current">Galeri Desa</span>
             </div>
-            
-            <div class="gallery-wrapper">
-            
+        </div>
+    </section>
+
+    <section class="profile-content-section">
+        <div class="profile-content-container">
+
+            <div class="gallery-wrapper mb-5">
                 <div class="gallery-wrapper-header">
-            
-                    <h3>
-                        <i class="fa-regular fa-images"></i>
-                        Galeri Kegiatan Desa
-                    </h3>
-            
+                    <div>
+                        <h3 class="mb-1" style="font-size: 1.45rem; font-weight: 700; color: #0f172a;">
+                            <i class="fas fa-layer-group text-success me-2"></i>Koleksi Album Unggulan
+                        </h3>
+                        <p class="text-muted small mb-0">Geser untuk melihat album dokumentasi desa</p>
+                    </div>
+
                     <span class="gallery-badge">
-                        <i class="fa-regular fa-folder-open"></i>
+                        <i class="fas fa-folder-open me-1"></i>
                         {{ $batches->count() }} Album
                     </span>
-            
                 </div>
-            
+
                 <div class="swiper gallery-swiper">
-            
                     <div class="swiper-wrapper">
-            
                         @forelse ($batches as $batch)
-            
-                            <a class="swiper-slide"
-                                href="{{ route('user.galeri.show', $batch) }}">
-            
+                            <a class="swiper-slide" href="{{ route('user.galeri.show', $batch) }}">
                                 <div class="gallery-card">
-            
                                     <div class="gallery-card__image"
                                         style="background-image:url('{{ asset(optional($batch->galeris->first())->gambar ?? 'assets/img/default.jpg') }}')">
                                     </div>
-            
+
                                     <div class="gallery-card__content">
-            
                                         <h2 class="gallery-card__title">
                                             {{ $batch->nama }}
                                         </h2>
-            
-                                        <p class="gallery-card__meta">
-                                            <i class="fa-regular fa-image"></i>
-                                            {{ $batch->galeris->count() }} Foto
-                                        </p>
-            
+
+                                        <span class="gallery-card__meta">
+                                            <i class="fas fa-camera"></i>
+                                            {{ $batch->galeris->count() }} Foto Dokumentasi
+                                        </span>
                                     </div>
-            
                                 </div>
-            
                             </a>
-            
                         @empty
-            
                             <div class="swiper-slide">
-            
                                 <div class="gallery-card">
-            
                                     <div class="gallery-card__content">
-            
-                                        <h2 class="gallery-card__title">
-                                            Belum Ada Galeri
-                                        </h2>
-            
+                                        <h2 class="gallery-card__title">Belum Ada Galeri</h2>
                                         <p class="gallery-card__meta">
-                                            <i class="fa-regular fa-image"></i>
-                                            0 Foto
+                                            <i class="fas fa-image"></i> 0 Foto
                                         </p>
-            
                                     </div>
-            
                                 </div>
-            
                             </div>
-            
                         @endforelse
-            
                     </div>
-            
-                    <div class="swiper-button-prev"></div>
-                    <div class="swiper-button-next"></div>
-            
+
+                    <div class="swiper-button-prev">
+                        <i class="fas fa-chevron-left"></i>
+                    </div>
+                    <div class="swiper-button-next">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
                 </div>
-            
             </div>
+
+            <div class="mt-5 pt-3">
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <h3 style="font-size: 1.35rem; font-weight: 700; color: #0f172a; margin: 0;">
+                        <i class="fas fa-th-large text-success me-2"></i>Semua Album Foto
+                    </h3>
+                    <span class="text-muted small">{{ $batches->count() }} Album Tersedia</span>
+                </div>
+
+                <div class="galeri-batches-grid">
+                    @forelse ($batches as $batch)
+                        <a href="{{ route('user.galeri.show', $batch) }}" class="galeri-batch-card">
+                            <div class="galeri-batch-bg" 
+                                 style="background-image:url('{{ asset(optional($batch->galeris->first())->gambar ?? 'assets/img/default.jpg') }}');">
+                            </div>
+                            <div class="galeri-batch-overlay"></div>
+                            <div class="galeri-batch-content">
+                                <h4 class="galeri-batch-title">{{ $batch->nama }}</h4>
+                                <span class="galeri-batch-pill">
+                                    <i class="fas fa-images"></i>
+                                    {{ $batch->galeris->count() }} Foto
+                                </span>
+                            </div>
+                        </a>
+                    @empty
+                        <div class="card p-5 text-center shadow-sm border-0 rounded-4 w-100">
+                            <i class="fas fa-images text-muted mb-3" style="font-size: 3rem; opacity: 0.35;"></i>
+                            <h4 class="text-muted fw-bold">Album Dokumentasi Belum Tersedia</h4>
+                            <p class="text-secondary small mb-0">Dokumentasi foto kegiatan masyarakat desa akan segera diunggah.</p>
+                        </div>
+                    @endforelse
+                </div>
+            </div>
+
         </div>
     </section>
 

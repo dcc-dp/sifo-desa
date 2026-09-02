@@ -510,18 +510,110 @@
 
     
 <style>
-/* #sidenav-main{
+/* ===================================================
+   ADMIN SIDEBAR & LAYOUT FIX
+   =================================================== */
+
+/* 1. Sidebar Container: Full viewport height, fixed at left, flex layout */
+#sidenav-main {
+    position: fixed !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    left: 0 !important;
     height: 100vh !important;
-    overflow-y: auto !important;
+    max-height: 100vh !important;
+    width: 15.625rem !important;
+    max-width: 15.625rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important; /* Prevents outer scrollbar so logo never scrolls away */
+    z-index: 1050 !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
 }
 
-#sidenav-collapse-main{
-    height: auto !important;
-    max-height: none !important;
-    overflow: visible !important;
-} */
+/* 2. Sidenav Header: Fixed top section with logo, never moves */
+#sidenav-main .sidenav-header {
+    flex: 0 0 4.875rem !important;
+    height: 4.875rem !important;
+    min-height: 4.875rem !important;
+    display: flex !important;
+    align-items: center !important;
+    padding: 0 1.5rem !important;
+    background-color: inherit !important;
+    z-index: 2 !important;
+}
 
+/* 3. Sidenav Collapse: Dedicated vertical scroll container for all menu items */
+#sidenav-collapse-main {
+    flex: 1 1 auto !important;
+    display: block !important;
+    height: calc(100vh - 4.875rem) !important;
+    max-height: calc(100vh - 4.875rem) !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    overscroll-behavior: contain !important; /* Prevents scroll chaining into page */
+    padding-bottom: 5rem !important; /* Generous bottom padding keeps last menus clearly accessible */
+    -webkit-overflow-scrolling: touch;
+}
 
+/* 4. Elegant custom scrollbar for the sidebar */
+#sidenav-collapse-main::-webkit-scrollbar {
+    width: 5px;
+}
+#sidenav-collapse-main::-webkit-scrollbar-track {
+    background: transparent;
+}
+#sidenav-collapse-main::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.22);
+    border-radius: 10px;
+}
+#sidenav-collapse-main::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.45);
+}
+#sidenav-collapse-main {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.22) transparent;
+}
+
+/* 5. Desktop Layout: Independent scrolling between Sidebar and Main Content */
+@media (min-width: 1200px) {
+    html, body.g-sidenav-show {
+        height: 100vh;
+        overflow: hidden; /* Page body does not scroll; only main-content and sidebar scroll */
+    }
+
+    .g-sidenav-show .sidenav.fixed-start ~ .main-content,
+    .g-sidenav-show .main-content {
+        margin-left: 15.625rem !important;
+        height: 100vh !important;
+        max-height: 100vh !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        overscroll-behavior: contain !important;
+        -webkit-overflow-scrolling: touch;
+        position: relative !important;
+    }
+}
+
+/* 6. Responsive Mobile Drawer (< 1200px) */
+@media (max-width: 1199.98px) {
+    #sidenav-main {
+        transform: translateX(-17.125rem);
+        transition: transform 0.2s ease-in-out;
+    }
+
+    .g-sidenav-show.g-sidenav-pinned #sidenav-main {
+        transform: translateX(0) !important;
+    }
+
+    .main-content {
+        margin-left: 0 !important;
+        height: auto !important;
+        max-height: none !important;
+        overflow: visible !important;
+    }
+}
 </style>
 
 </aside>

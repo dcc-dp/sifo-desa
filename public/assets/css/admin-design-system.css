@@ -1,0 +1,678 @@
+/**
+ * ==============================================================================
+ * SISTEM INFORMASI DESA - ADMIN DESIGN SYSTEM
+ * ==============================================================================
+ * Centralized, modern, clean, and professional design system for all admin pages.
+ * Ensures strict visual consistency across tables, cards, buttons, badges & forms.
+ */
+
+:root {
+    --admin-primary: #15803d;
+    --admin-primary-hover: #166534;
+    --admin-primary-subtle: rgba(21, 128, 61, 0.08);
+    --admin-primary-border: rgba(21, 128, 61, 0.2);
+
+    --admin-dark: #0f172a;
+    --admin-slate: #1e293b;
+    --admin-muted: #64748b;
+    --admin-light-bg: #f8fafc;
+    --admin-card-bg: #ffffff;
+    --admin-border: #cbd5e1;
+    --admin-border-light: #e2e8f0;
+
+    --admin-th-bg: #f1f5f9;
+    --admin-th-color: #1e293b;
+    --admin-row-hover: #f8fafc;
+
+    --admin-radius-sm: 6px;
+    --admin-radius-md: 10px;
+    --admin-radius-lg: 14px;
+    --admin-radius-pill: 50px;
+
+    --admin-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --admin-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    --admin-shadow-md: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+/* ==============================================================================
+ * GLOBAL TYPOGRAPHY ENFORCEMENT (Avoid Times New Roman / Serif)
+ * ============================================================================== */
+html, body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6,
+table, thead, tbody, th, td, tr, p, span, a, input, select, textarea, button,
+.admin-page-title, .admin-card-title, .table-admin {
+    font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+}
+
+/* ==============================================================================
+ * 1. PAGE HEADER & TOOLBAR
+ * ============================================================================== */
+.admin-page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.admin-page-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--admin-dark);
+    margin-bottom: 0.25rem;
+    letter-spacing: -0.02em;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.admin-page-title i {
+    color: var(--admin-primary);
+}
+
+.admin-page-subtitle {
+    font-size: 0.875rem;
+    color: var(--admin-muted);
+    margin-bottom: 0;
+}
+
+.admin-page-divider {
+    height: 1px;
+    background: #e2e8f0;
+    border: none;
+    margin: 1.25rem 0 1.5rem 0;
+}
+
+/* Old <hr style="height:2px; color:black;"> override */
+.container-fluid > hr[style*="color:black"],
+.container-fluid > hr[style*="color: black"],
+.container-fluid > .row hr[style*="color:black"] {
+    height: 1px !important;
+    background-color: var(--admin-border-light) !important;
+    border: none !important;
+    opacity: 0.8 !important;
+    margin-top: 1rem !important;
+    margin-bottom: 1.5rem !important;
+}
+
+/* ==============================================================================
+ * 2. CARD CONTAINER
+ * ============================================================================== */
+.admin-card,
+.card.border.shadow-xs {
+    background-color: var(--admin-card-bg) !important;
+    border: 1px solid var(--admin-border) !important;
+    border-radius: var(--admin-radius-lg) !important;
+    box-shadow: var(--admin-shadow) !important;
+    overflow: hidden;
+    margin-bottom: 1.75rem;
+}
+
+.admin-card-header,
+.card.border.shadow-xs .border-bottom {
+    background-color: #ffffff !important;
+    border-bottom: 1px solid var(--admin-border-light) !important;
+    padding: 1rem 1.25rem !important;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.admin-card-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--admin-dark);
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* ==============================================================================
+ * 3. TABLE DESIGN SYSTEM (.table-admin & global table polish)
+ * ============================================================================== */
+.table-responsive {
+    border-radius: 0 0 var(--admin-radius-lg) var(--admin-radius-lg);
+    -webkit-overflow-scrolling: touch;
+    overflow-x: auto;
+}
+
+.table-admin,
+.table-responsive > .table {
+    width: 100% !important;
+    margin-bottom: 0 !important;
+    color: var(--admin-dark);
+    border-collapse: collapse !important;
+    border-spacing: 0 !important;
+    border: none !important;
+    table-layout: auto;
+}
+
+/* Table Header */
+.table-admin thead th,
+.table-responsive > .table thead th {
+    background-color: var(--admin-th-bg) !important;
+    color: var(--admin-th-color) !important;
+    font-size: 0.78rem !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+    padding: 0.9rem 1rem !important;
+    border-top: none !important;
+    border-bottom: 2px solid var(--admin-border) !important;
+    border-left: none !important;
+    border-right: none !important;
+    white-space: nowrap !important;
+}
+
+/* Table Body Rows: Overrule corporate-ui's forced 'white-space: nowrap' */
+.table-admin tbody td,
+.table-responsive > .table tbody td {
+    padding: 0.9rem 1rem !important;
+    vertical-align: middle !important;
+    font-size: 0.875rem !important;
+    border-top: none !important;
+    border-bottom: 1px solid var(--admin-border-light) !important;
+    border-left: none !important;
+    border-right: none !important;
+    color: #334155 !important;
+    white-space: normal !important; /* ALLOW NORMAL TEXT WRAPPING - PREVENTS OVERLAP */
+    word-break: normal !important;
+    overflow-wrap: break-word !important;
+    line-height: 1.5 !important;
+}
+
+/* Subtle Row Hover */
+.table-admin tbody tr:hover td,
+.table-responsive > .table tbody tr:hover td {
+    background-color: var(--admin-row-hover) !important;
+    transition: background-color 0.15s ease-in-out;
+}
+
+/* Clean Column Alignments */
+.table-admin th.text-start,
+.table-admin td.text-start,
+.table-responsive > .table th.text-start,
+.table-responsive > .table td.text-start {
+    text-align: left !important;
+}
+
+.table-admin th.text-center,
+.table-admin td.text-center,
+.table-responsive > .table th.text-center,
+.table-responsive > .table td.text-center {
+    text-align: center !important;
+}
+
+/* Dedicated Action Column: Strict Isolation & No-Wrap */
+.table-admin th.cell-action,
+.table-admin td.cell-action,
+.table-admin th.col-aksi,
+.table-admin td.col-aksi,
+.table-admin th:last-child,
+.table-admin td:last-child {
+    white-space: nowrap !important;
+    width: 1% !important;
+    min-width: 160px !important;
+    text-align: center !important;
+}
+
+/* Image thumbnail in tables */
+.table-thumb {
+    width: 54px;
+    height: 54px;
+    object-fit: cover;
+    border-radius: var(--admin-radius-md);
+    border: 1px solid var(--admin-border);
+    box-shadow: var(--admin-shadow-sm);
+    display: inline-block;
+}
+
+.table-avatar {
+    width: 44px;
+    height: 44px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+    box-shadow: var(--admin-shadow-sm);
+}
+
+/* ==============================================================================
+ * 4. STANDARDIZED ACTION BUTTONS (Pill Buttons with Clear Text & Contrast)
+ * ============================================================================== */
+.action-buttons-group {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.4rem !important;
+    flex-wrap: nowrap !important;
+    white-space: nowrap !important;
+}
+
+/* 4A. Pill Action Buttons with Text (Clear, Accessible, Never Empty) */
+.btn-action-pill {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.35rem !important;
+    padding: 0.35rem 0.75rem !important;
+    font-size: 0.75rem !important;
+    font-weight: 600 !important;
+    border-radius: var(--admin-radius-sm) !important;
+    text-decoration: none !important;
+    transition: all 0.2s ease-in-out !important;
+    line-height: 1.2 !important;
+    cursor: pointer !important;
+    white-space: nowrap !important;
+}
+
+/* 4B. Squircle Action Button (Icon or Tooltip) */
+.btn-action {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 34px !important;
+    height: 34px !important;
+    padding: 0 !important;
+    border-radius: var(--admin-radius-sm) !important;
+    border: 1px solid transparent !important;
+    font-size: 0.85rem !important;
+    transition: all 0.2s ease-in-out !important;
+    text-decoration: none !important;
+    cursor: pointer;
+}
+
+/* Detail / View */
+.btn-action-view,
+.btn-action-pill.btn-action-view {
+    background-color: #e0f2fe !important;
+    color: #0369a1 !important;
+    border: 1px solid #bae6fd !important;
+}
+.btn-action-view:hover,
+.btn-action-pill.btn-action-view:hover {
+    background-color: #0284c7 !important;
+    color: #ffffff !important;
+    border-color: #0284c7 !important;
+    box-shadow: 0 2px 4px rgba(2, 132, 199, 0.3) !important;
+}
+
+/* Edit */
+.btn-action-edit,
+.btn-action-pill.btn-action-edit {
+    background-color: #fef3c7 !important;
+    color: #92400e !important;
+    border: 1px solid #fde68a !important;
+}
+.btn-action-edit:hover,
+.btn-action-pill.btn-action-edit:hover {
+    background-color: #f59e0b !important;
+    color: #ffffff !important;
+    border-color: #f59e0b !important;
+    box-shadow: 0 2px 4px rgba(245, 158, 11, 0.3) !important;
+}
+
+/* Delete */
+.btn-action-delete,
+.btn-action-pill.btn-action-delete {
+    background-color: #fee2e2 !important;
+    color: #991b1b !important;
+    border: 1px solid #fecaca !important;
+}
+.btn-action-delete:hover,
+.btn-action-pill.btn-action-delete:hover {
+    background-color: #ef4444 !important;
+    color: #ffffff !important;
+    border-color: #ef4444 !important;
+    box-shadow: 0 2px 4px rgba(239, 68, 68, 0.3) !important;
+}
+
+/* Download / PDF */
+.btn-action-pdf,
+.btn-pdf {
+    background-color: #dcfce7 !important;
+    color: #15803d !important;
+    border: 1px solid #bbf7d0 !important;
+    border-radius: var(--admin-radius-sm) !important;
+    font-size: 0.75rem !important;
+    font-weight: 600 !important;
+    padding: 0.35rem 0.65rem !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.35rem !important;
+    transition: all 0.2s ease !important;
+    text-decoration: none !important;
+}
+.btn-action-pdf:hover,
+.btn-pdf:hover {
+    background-color: #15803d !important;
+    color: #ffffff !important;
+    border-color: #15803d !important;
+    box-shadow: 0 2px 4px rgba(21, 128, 61, 0.3) !important;
+}
+
+/* ==============================================================================
+ * 5. BADGES & STATUS PILLS
+ * ============================================================================== */
+.badge-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.35rem 0.75rem !important;
+    border-radius: var(--admin-radius-pill) !important;
+    font-size: 0.75rem !important;
+    font-weight: 600 !important;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+}
+
+.badge-status-pending {
+    background-color: #fef3c7 !important;
+    color: #b45309 !important;
+    border: 1px solid #fde68a !important;
+}
+
+.badge-status-success {
+    background-color: #dcfce7 !important;
+    color: #15803d !important;
+    border: 1px solid #bbf7d0 !important;
+}
+
+.badge-status-danger {
+    background-color: #fee2e2 !important;
+    color: #b91c1c !important;
+    border: 1px solid #fecaca !important;
+}
+
+.badge-status-info {
+    background-color: #e0f2fe !important;
+    color: #0369a1 !important;
+    border: 1px solid #bae6fd !important;
+}
+
+/* Category Badge */
+.badge-kategori {
+    background-color: #f8fafc !important;
+    color: #475569 !important;
+    border: 1px solid #cbd5e1 !important;
+    padding: 0.25rem 0.65rem !important;
+    border-radius: var(--admin-radius-pill) !important;
+    font-size: 0.75rem !important;
+    font-weight: 600 !important;
+    display: inline-block;
+}
+
+/* ==============================================================================
+ * 6. BUTTON DESIGN SYSTEM
+ * ============================================================================== */
+.btn-admin-primary {
+    background: linear-gradient(180deg, #15803d 0%, #166534 100%) !important;
+    color: #ffffff !important;
+    border: none !important;
+    border-radius: var(--admin-radius-md) !important;
+    padding: 0.5rem 1rem !important;
+    font-size: 0.875rem !important;
+    font-weight: 600 !important;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+    transition: all 0.2s ease-in-out !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.4rem !important;
+    text-decoration: none !important;
+}
+.btn-admin-primary:hover {
+    background: linear-gradient(180deg, #166534 0%, #14532d 100%) !important;
+    color: #ffffff !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px -1px rgba(21, 128, 61, 0.25) !important;
+}
+
+.btn-admin-secondary {
+    background-color: #ffffff !important;
+    color: #334155 !important;
+    border: 1px solid var(--admin-border) !important;
+    border-radius: var(--admin-radius-md) !important;
+    padding: 0.5rem 1rem !important;
+    font-size: 0.875rem !important;
+    font-weight: 600 !important;
+    transition: all 0.2s ease !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.4rem !important;
+    text-decoration: none !important;
+}
+.btn-admin-secondary:hover {
+    background-color: var(--admin-light-bg) !important;
+    color: var(--admin-dark) !important;
+    border-color: #94a3b8 !important;
+}
+
+/* ==============================================================================
+ * 7. SEARCH & FILTER TOOLBAR
+ * ============================================================================== */
+.admin-search-wrapper {
+    position: relative;
+    max-width: 280px;
+    width: 100%;
+}
+
+.admin-search-wrapper i {
+    position: absolute;
+    left: 0.85rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--admin-muted);
+    font-size: 0.875rem;
+    pointer-events: none;
+}
+
+.admin-search-input {
+    width: 100%;
+    height: 38px;
+    padding-left: 2.25rem !important;
+    padding-right: 0.85rem !important;
+    font-size: 0.875rem !important;
+    border: 1px solid var(--admin-border) !important;
+    border-radius: var(--admin-radius-md) !important;
+    background-color: #ffffff !important;
+    transition: all 0.2s ease-in-out !important;
+}
+.admin-search-input:focus {
+    border-color: var(--admin-primary) !important;
+    box-shadow: 0 0 0 3px rgba(21, 128, 61, 0.15) !important;
+    outline: none !important;
+}
+
+/* ==============================================================================
+ * 8. FORM CONTROLS
+ * ============================================================================== */
+.admin-form-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #334155;
+    margin-bottom: 0.4rem;
+    display: inline-block;
+}
+
+.admin-form-label .required {
+    color: #ef4444;
+    margin-left: 2px;
+}
+
+.admin-form-control,
+.form-control {
+    border: 1px solid #cbd5e1 !important;
+    border-radius: var(--admin-radius-md) !important;
+    padding: 0.55rem 0.85rem !important;
+    font-size: 0.875rem !important;
+    color: #1e293b !important;
+    transition: all 0.15s ease-in-out !important;
+}
+
+.admin-form-control:focus,
+.form-control:focus {
+    border-color: var(--admin-primary) !important;
+    box-shadow: 0 0 0 3px rgba(21, 128, 61, 0.15) !important;
+    outline: none !important;
+}
+
+.form-select {
+    border: 1px solid #cbd5e1 !important;
+    border-radius: var(--admin-radius-md) !important;
+    padding: 0.55rem 2.25rem 0.55rem 0.85rem !important;
+    font-size: 0.875rem !important;
+    color: #1e293b !important;
+}
+
+.form-select:focus {
+    border-color: var(--admin-primary) !important;
+    box-shadow: 0 0 0 3px rgba(21, 128, 61, 0.15) !important;
+}
+
+/* ==============================================================================
+ * 9. EMPTY STATE
+ * ============================================================================== */
+.admin-table-empty {
+    padding: 3rem 1.5rem !important;
+    text-align: center;
+    color: var(--admin-muted);
+}
+
+.admin-table-empty i {
+    font-size: 2.5rem;
+    color: #94a3b8;
+    margin-bottom: 0.75rem;
+    display: inline-block;
+}
+
+.admin-table-empty h6 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #475569;
+    margin-bottom: 0.25rem;
+}
+
+.admin-table-empty p {
+    font-size: 0.875rem;
+    margin-bottom: 0;
+}
+
+/* ==============================================================================
+ * 10. PAGINATION FOOTER
+ * ============================================================================== */
+.admin-pagination-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.25rem;
+    border-top: 1px solid var(--admin-border-light);
+    background-color: #ffffff;
+    font-size: 0.875rem;
+    color: var(--admin-muted);
+}
+
+/* ==============================================================================
+ * 11. HELPER & UTILITY CLASSES
+ * ============================================================================== */
+.fs-7 {
+    font-size: 0.8125rem !important;
+}
+
+.fs-8 {
+    font-size: 0.75rem !important;
+}
+
+.text-2xs {
+    font-size: 0.6875rem !important;
+}
+
+.transition-all {
+    transition: all 0.2s ease-in-out !important;
+}
+
+.hover-shadow:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+    transform: translateY(-2px);
+}
+
+/* ==============================================================================
+ * 12. PROFILE & DETAIL VIEWS (Citizen Card & Key-Value Grid)
+ * ============================================================================== */
+.citizen-avatar {
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #15803d 0%, #166534 100%);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.85rem;
+    font-weight: 800;
+    box-shadow: 0 4px 14px rgba(21, 128, 61, 0.25);
+    border: 4px solid #ffffff;
+}
+
+.profile-detail-card {
+    background: #ffffff !important;
+    border: 1px solid var(--admin-border) !important;
+    border-radius: var(--admin-radius-lg) !important;
+    box-shadow: var(--admin-shadow) !important;
+    margin-bottom: 1.5rem !important;
+    overflow: hidden;
+}
+
+.profile-detail-header {
+    background: #f8fafc !important;
+    border-bottom: 1px solid var(--admin-border-light) !important;
+    padding: 0.9rem 1.25rem !important;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.95rem !important;
+    font-weight: 700 !important;
+    color: var(--admin-dark) !important;
+}
+
+.profile-detail-header i {
+    color: var(--admin-primary);
+}
+
+.profile-detail-body {
+    padding: 1.25rem !important;
+}
+
+.detail-item {
+    padding: 0.75rem 0.5rem;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.detail-item:last-child {
+    border-bottom: none;
+}
+
+.detail-label {
+    font-size: 0.75rem !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.04em !important;
+    color: #64748b !important;
+    margin-bottom: 0.25rem !important;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.detail-label i {
+    color: #94a3b8;
+    font-size: 0.8rem;
+}
+
+.detail-value {
+    font-size: 0.95rem !important;
+    font-weight: 600 !important;
+    color: #0f172a !important;
+    line-height: 1.4 !important;
+}

@@ -4,274 +4,230 @@
 
 @section('content')
 
+@php
+    $setting = \App\Models\Setting::first();
+    $desaName = (!empty($setting?->nama_desa)) ? $setting->nama_desa : 'Rante Gola';
+@endphp
+
 <style>
-    .login-container {
+    .auth-page-wrapper {
         display: flex;
         justify-content: center;
         align-items: center;
-        min-height: calc(100vh - 150px);
-        padding: 20px;
-        background: linear-gradient(135deg, rgba(52, 152, 219, 0.05) 0%, rgba(52, 152, 219, 0.1) 100%);
+        min-height: calc(100vh - 200px);
+        padding: 50px 20px;
+        background: radial-gradient(circle at 50% 25%, rgba(21, 128, 61, 0.07) 0%, rgba(248, 250, 252, 0.95) 60%, #f1f5f9 100%);
     }
 
-    .login-card {
+    .auth-card-modern {
         width: 100%;
-        max-width: 420px;
-        padding: 0;
-        border-radius: 20px;
-        box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
-        background-color: white;
+        max-width: 440px;
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 24px;
+        box-shadow: 0 20px 45px -15px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.02);
         overflow: hidden;
         transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
-    .login-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 25px 40px rgba(0, 0, 0, 0.15);
+    .auth-card-modern:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 26px 50px -12px rgba(0, 0, 0, 0.12);
     }
 
-    .login-header {
+    .auth-card-header {
         background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
-        padding: 30px 20px;
+        padding: 36px 28px 30px;
         text-align: center;
-        color: white;
-    }
-
-    .login-header h2 {
-        margin-bottom: 8px;
-        font-size: 26px;
-        font-weight: 600;
-        color: white;
-    }
-
-    .login-header h2 i {
-        margin-right: 10px;
-    }
-
-    .login-header p {
-        color: rgba(255, 255, 255, 0.9);
-        margin-bottom: 0;
-        font-size: 14px;
-    }
-
-    .login-body {
-        padding: 35px 40px 40px 40px;
-    }
-
-    .form-group {
-        margin-bottom: 25px;
+        color: #ffffff;
         position: relative;
     }
 
-    .form-group label {
-        display: block;
-        margin-bottom: 8px;
-        font-weight: 600;
-        color: var(--color-text);
-        font-size: 14px;
-    }
-
-    .form-group label i {
-        margin-right: 8px;
-        color: var(--color-primary);
-        width: 18px;
-    }
-
-    .input-group {
-        position: relative;
-        display: flex;
-        align-items: center;
-    }
-
-    .form-group input {
-        width: 100%;
-        padding: 14px 15px;
-        border: 2px solid #e9ecef;
-        border-radius: 12px;
-        font-size: 15px;
-        transition: all 0.3s ease;
-        background-color: #f8f9fa;
-    }
-
-    .form-group input:focus {
-        outline: none;
-        border-color: var(--color-primary);
-        background-color: white;
-        box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.1);
-    }
-
-    .form-group input:hover {
-        border-color: #cbd5e0;
-    }
-
-    .form-group small {
-        display: block;
-        margin-top: 8px;
-        color: #6c757d;
-        font-size: 11px;
-    }
-
-    .form-group small i {
-        margin-right: 5px;
-        font-size: 10px;
-    }
-
-    .btn-login {
-        width: 100%;
-        padding: 14px;
-        background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
-        color: white;
-        border: none;
-        border-radius: 12px;
-        font-size: 16px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        margin-top: 10px;
-        box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
-    }
-
-    .btn-login:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
-    }
-
-    .btn-login:active {
-        transform: translateY(0);
-    }
-
-    .btn-login i {
-        margin-right: 8px;
-    }
-
-    .alert {
-        padding: 14px 16px;
-        border-radius: 12px;
-        margin-bottom: 25px;
-        font-size: 13px;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        animation: slideIn 0.3s ease;
-    }
-
-    .alert i {
-        font-size: 18px;
-    }
-
-    .alert-danger {
-        background-color: #fff5f5;
-        color: #c33;
-        border: 1px solid #fcd5d5;
-    }
-
-    .alert-success {
-        background-color: #f0fff4;
-        color: #2e7d32;
-        border: 1px solid #c6f6d5;
-    }
-
-    .error-message {
-        color: #e53e3e;
-        font-size: 12px;
-        margin-top: 6px;
-        display: flex;
-        align-items: center;
-        gap: 5px;
-    }
-
-    .error-message i {
-        font-size: 11px;
-    }
-
-    .back-link {
-        text-align: center;
-        margin-top: 25px;
-        padding-top: 20px;
-        border-top: 1px solid #e9ecef;
-    }
-
-    .back-link a {
-        color: var(--color-primary);
-        text-decoration: none;
-        font-size: 14px;
-        font-weight: 500;
-        transition: all 0.2s ease;
+    .auth-badge-icon {
+        width: 60px;
+        height: 60px;
+        background: rgba(255, 255, 255, 0.16);
+        border: 1.5px solid rgba(255, 255, 255, 0.3);
+        border-radius: 18px;
         display: inline-flex;
         align-items: center;
+        justify-content: center;
+        font-size: 1.6rem;
+        color: #ffffff;
+        margin-bottom: 16px;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    }
+
+    .auth-card-header h2 {
+        font-size: 1.45rem;
+        font-weight: 700;
+        color: #ffffff;
+        margin: 0 0 6px;
+        line-height: 1.3;
+    }
+
+    .auth-card-header p {
+        font-size: 0.86rem;
+        color: rgba(255, 255, 255, 0.9);
+        margin: 0;
+        line-height: 1.5;
+    }
+
+    .auth-card-body {
+        padding: 32px 30px 36px;
+    }
+
+    .auth-form-group {
+        margin-bottom: 22px;
+    }
+
+    .auth-form-label {
+        display: flex;
+        align-items: center;
         gap: 8px;
+        font-size: 0.82rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: #334155;
+        margin-bottom: 9px;
     }
 
-    .back-link a:hover {
-        gap: 12px;
-        color: var(--color-primary-dark);
+    .auth-form-label i {
+        color: var(--color-primary);
+        font-size: 0.95rem;
     }
 
-    @keyframes slideIn {
-        from {
-            opacity: 0;
-            transform: translateY(-10px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    .auth-input-wrapper {
+        position: relative;
     }
 
-    /* Animasi untuk form */
-    .form-group {
-        animation: fadeInUp 0.4s ease backwards;
+    .auth-input-field {
+        width: 100%;
+        padding: 13px 16px;
+        border: 1.5px solid #cbd5e1;
+        border-radius: 12px;
+        background-color: #f8fafc;
+        font-size: 1.05rem;
+        font-weight: 600;
+        color: #1e293b;
+        letter-spacing: 1.5px;
+        transition: all 0.2s ease;
     }
 
-    .form-group:nth-child(1) { animation-delay: 0.1s; }
-    .form-group:nth-child(2) { animation-delay: 0.2s; }
-
-    @keyframes fadeInUp {
-        from {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    .auth-input-field:focus {
+        outline: none;
+        border-color: var(--color-primary);
+        background-color: #ffffff;
+        box-shadow: 0 0 0 3px rgba(21, 128, 61, 0.14);
     }
 
-    /* Responsive */
-    @media (max-width: 480px) {
-        .login-body {
-            padding: 25px 25px 30px 25px;
-        }
-        
-        .login-header {
-            padding: 25px 20px;
-        }
-        
-        .login-header h2 {
-            font-size: 22px;
-        }
-        
-        .btn-login {
-            padding: 12px;
-        }
+    .auth-helper-text {
+        display: flex;
+        align-items: flex-start;
+        gap: 6px;
+        font-size: 0.78rem;
+        color: #64748b;
+        margin-top: 8px;
+        line-height: 1.4;
+    }
+
+    .auth-helper-text i {
+        color: var(--color-primary);
+        margin-top: 2px;
+        flex-shrink: 0;
+    }
+
+    .auth-error-alert {
+        padding: 12px 16px;
+        border-radius: 12px;
+        background-color: #fef2f2;
+        border: 1px solid #fecaca;
+        color: #b91c1c;
+        font-size: 0.84rem;
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        margin-bottom: 20px;
+    }
+
+    .auth-success-alert {
+        padding: 12px 16px;
+        border-radius: 12px;
+        background-color: #f0fdf4;
+        border: 1px solid #bbf7d0;
+        color: #166534;
+        font-size: 0.84rem;
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        margin-bottom: 20px;
+    }
+
+    .auth-btn-submit {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        width: 100%;
+        padding: 13px 20px;
+        background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+        color: #ffffff;
+        font-size: 0.95rem;
+        font-weight: 700;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        box-shadow: 0 4px 14px rgba(21, 128, 61, 0.28);
+        transition: all 0.25s ease;
+        margin-top: 6px;
+    }
+
+    .auth-btn-submit:hover {
+        background: linear-gradient(135deg, var(--color-primary-hover) 0%, #0f3d1b 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 18px rgba(21, 128, 61, 0.38);
+    }
+
+    .auth-back-link {
+        text-align: center;
+        margin-top: 24px;
+        padding-top: 18px;
+        border-top: 1px solid #f1f5f9;
+    }
+
+    .auth-back-link a {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        color: #64748b;
+        font-size: 0.85rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.2s ease;
+    }
+
+    .auth-back-link a:hover {
+        color: var(--color-primary);
+        gap: 10px;
     }
 </style>
 
 <section>
-    <div class="login-container">
-        <div class="login-card">
-            <div class="login-header">
-                <h2>
-                    <i class="fas fa-file-signature"></i> 
-                    Login Pengaduan
-                </h2>
-                <p>Layanan pengaduan masyarakat online</p>
+    <div class="auth-page-wrapper">
+        <div class="auth-card-modern">
+            <div class="auth-card-header">
+                <div class="auth-badge-icon">
+                    <i class="fas fa-file-signature"></i>
+                </div>
+                <h2>Login Pengaduan Warga</h2>
+                <p>Sampaikan aspirasi, aduan, dan masukan untuk kemajuan Desa {{ $desaName }}</p>
             </div>
             
-            <div class="login-body">
+            <div class="auth-card-body">
                 @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <i class="fas fa-exclamation-circle"></i>
+                    <div class="auth-error-alert">
+                        <i class="fas fa-exclamation-circle fs-5 mt-1"></i>
                         <div>
                             @foreach ($errors->all() as $error)
                                 <div>{{ $error }}</div>
@@ -281,8 +237,8 @@
                 @endif
 
                 @if (session('success'))
-                    <div class="alert alert-success">
-                        <i class="fas fa-check-circle"></i>
+                    <div class="auth-success-alert">
+                        <i class="fas fa-check-circle fs-5 mt-1"></i>
                         <div>{{ session('success') }}</div>
                     </div>
                 @endif
@@ -290,17 +246,18 @@
                 <form action="{{ route('pengaduan.login') }}" method="POST">
                     @csrf
 
-                    <div class="form-group">
-                        <label for="nik">
+                    <div class="auth-form-group">
+                        <label for="nik" class="auth-form-label">
                             <i class="fas fa-id-card"></i> 
-                            NIK (Nomor Identitas Kependudukan)
+                            <span>Nomor Induk Kependudukan (NIK)</span>
                         </label>
-                        <div class="input-group">
+                        <div class="auth-input-wrapper">
                             <input 
                                 type="text" 
                                 id="nik" 
                                 name="nik" 
-                                placeholder="Masukkan 16 digit NIK Anda"
+                                class="auth-input-field"
+                                placeholder="Masukkan 16 digit NIK"
                                 inputmode="numeric"
                                 pattern="\d*"
                                 value="{{ old('nik') }}"
@@ -308,30 +265,25 @@
                                 minlength="16"
                                 title="NIK harus terdiri dari 16 digit angka"
                                 required
+                                autofocus
                             >
                         </div>
-                        <small>
+                        <div class="auth-helper-text">
                             <i class="fas fa-info-circle"></i> 
-                            Masukkan 16 digit NIK tanpa spasi (contoh: 1234567890123456)
-                        </small>
-                        @error('nik')
-                            <div class="error-message">
-                                <i class="fas fa-exclamation-triangle"></i>
-                                {{ $message }}
-                            </div>
-                        @enderror
+                            <span>Gunakan 16 digit NIK yang terdaftar pada data kependudukan desa.</span>
+                        </div>
                     </div>
 
-                    <button type="submit" class="btn-login">
+                    <button type="submit" class="auth-btn-submit">
                         <i class="fas fa-sign-in-alt"></i> 
-                        Login & Lanjutkan
+                        <span>Masuk & Lanjutkan</span>
                     </button>
                 </form>
 
-                <div class="back-link">
+                <div class="auth-back-link">
                     <a href="{{ route('home') }}">
                         <i class="fas fa-arrow-left"></i> 
-                        Kembali ke Beranda
+                        <span>Kembali ke Beranda</span>
                     </a>
                 </div>
             </div>

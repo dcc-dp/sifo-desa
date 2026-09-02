@@ -113,7 +113,7 @@ class PengajuanSuratController extends Controller
             // Create Surat
             $surat = Surat::create([
                 'penduduk_id' => $penduduk_id,
-                'nomor_surat' => $this->generateNomorSurat('SKU'),
+                'nomor_surat' => null,
                 'tanggal_dibuat' => Carbon::now()->format('Y-m-d'),
                 'status' => 'menunggu',
                 'keterangan' => 'Surat Keterangan Usaha',
@@ -130,11 +130,11 @@ class PengajuanSuratController extends Controller
             if ($request->wantsJson() || $request->header('X-Requested-With') === 'XMLHttpRequest') {
                 return response()->json([
                     'success' => true,
-                    'message' => 'Pengajuan surat berhasil dikirim! Nomor surat: ' . $surat->nomor_surat
+                    'message' => 'Pengajuan surat berhasil dikirim dan sedang menunggu verifikasi oleh pihak desa.'
                 ]);
             }
 
-            return redirect()->route('pengajuan')->with('success', 'Pengajuan surat berhasil dikirim! Nomor surat: ' . $surat->nomor_surat);
+            return redirect()->route('pengajuan')->with('success', 'Pengajuan surat berhasil dikirim dan sedang menunggu verifikasi oleh pihak desa.');
         } catch (\Exception $e) {
              Log::error('Error storing surat usaha: ' . $e->getMessage());
             if ($request->wantsJson() || $request->header('X-Requested-With') === 'XMLHttpRequest') {
@@ -159,7 +159,7 @@ class PengajuanSuratController extends Controller
             // Create Surat
             $surat = Surat::create([
                 'penduduk_id' => $penduduk_id,
-                'nomor_surat' => $this->generateNomorSurat('DOM'),
+                'nomor_surat' => null,
                 'tanggal_dibuat' => Carbon::now()->format('Y-m-d'),
                 'status' => 'menunggu',
                 'keterangan' => 'Surat Keterangan Domisili',
@@ -174,12 +174,12 @@ class PengajuanSuratController extends Controller
             if ($request->wantsJson() || $request->ajax()) {
                 return response()->json([
                     'success' => true,
-                    'message' => 'Pengajuan surat berhasil dikirim! Nomor surat: ' . $surat->nomor_surat
+                    'message' => 'Pengajuan surat berhasil dikirim dan sedang menunggu verifikasi oleh pihak desa.'
                 ]);
             }
             
             return redirect()->route('pengajuan')
-                ->with('success', 'Pengajuan surat berhasil dikirim! Nomor surat: ' . $surat->nomor_surat);
+                ->with('success', 'Pengajuan surat berhasil dikirim dan sedang menunggu verifikasi oleh pihak desa.');
         } catch (\Exception $e) {
             Log::error('Error storing surat domisili: ' . $e->getMessage());
             throw $e;
@@ -203,7 +203,7 @@ class PengajuanSuratController extends Controller
             // Create Surat
             $surat = Surat::create([
                 'penduduk_id' => $penduduk_id,
-                'nomor_surat' => $this->generateNomorSurat('IZN'),
+                'nomor_surat' => null,
                 'tanggal_dibuat' => Carbon::now()->format('Y-m-d'),
                 'status' => 'menunggu',
                 'keterangan' => 'Surat Izin Acara/Keramaian',
@@ -222,12 +222,12 @@ class PengajuanSuratController extends Controller
             if ($request->wantsJson() || $request->ajax()) {
                 return response()->json([
                     'success' => true,
-                    'message' => 'Pengajuan surat berhasil dikirim! Nomor surat: ' . $surat->nomor_surat
+                    'message' => 'Pengajuan surat berhasil dikirim dan sedang menunggu verifikasi oleh pihak desa.'
                 ]);
             }
             
             return redirect()->route('pengajuan')
-                ->with('success', 'Pengajuan surat berhasil dikirim! Nomor surat: ' . $surat->nomor_surat);
+                ->with('success', 'Pengajuan surat berhasil dikirim dan sedang menunggu verifikasi oleh pihak desa.');
         } catch (\Exception $e) {
             Log::error('Error storing surat izin: ' . $e->getMessage());
             throw $e;
@@ -247,7 +247,7 @@ class PengajuanSuratController extends Controller
             // Create Surat
             $surat = Surat::create([
                 'penduduk_id' => $penduduk_id,
-                'nomor_surat' => $this->generateNomorSurat('PGT'),
+                'nomor_surat' => null,
                 'tanggal_dibuat' => Carbon::now()->format('Y-m-d'),
                 'status' => 'menunggu',
                 'keterangan' =>'Surat Pengantar Umum',
@@ -262,12 +262,12 @@ class PengajuanSuratController extends Controller
             if ($request->wantsJson() || $request->ajax()) {
                 return response()->json([
                     'success' => true,
-                    'message' => 'Pengajuan surat berhasil dikirim! Nomor surat: ' . $surat->nomor_surat
+                    'message' => 'Pengajuan surat berhasil dikirim dan sedang menunggu verifikasi oleh pihak desa.'
                 ]);
             }
             
             return redirect()->route('pengajuan')
-                ->with('success', 'Pengajuan surat berhasil dikirim! Nomor surat: ' . $surat->nomor_surat); 
+                ->with('success', 'Pengajuan surat berhasil dikirim dan sedang menunggu verifikasi oleh pihak desa.'); 
         } catch (\Exception $e) {
             Log::error('Error storing surat pengantar: ' . $e->getMessage());
             throw $e;
@@ -289,7 +289,7 @@ class PengajuanSuratController extends Controller
 
         $surat = Surat::create([
             'penduduk_id' => $penduduk_id,
-            'nomor_surat' => $this->generateNomorSurat('SKTM'),
+            'nomor_surat' => null,
             'tanggal_dibuat' => Carbon::now()->format('Y-m-d'),
             'status' => 'menunggu',
             'keterangan' => 'SKTM (Surat Keterangan Tidak Mampu)',
@@ -304,12 +304,12 @@ class PengajuanSuratController extends Controller
         if ($request->wantsJson() || $request->ajax()) {
             return response()->json([
                 'success' => true,
-                'message' => 'Pengajuan surat berhasil dikirim! Nomor surat: ' . $surat->nomor_surat
+                'message' => 'Pengajuan surat berhasil dikirim dan sedang menunggu verifikasi oleh pihak desa.'
             ]);
         }
         
         return redirect()->route('pengajuan')
-            ->with('success', 'Pengajuan surat berhasil dikirim! Nomor surat: ' . $surat->nomor_surat);    
+            ->with('success', 'Pengajuan surat berhasil dikirim dan sedang menunggu verifikasi oleh pihak desa.');    
 
     } catch (\Exception $e) {
         Log::error('Error storing SKTM: ' . $e->getMessage());

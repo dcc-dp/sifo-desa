@@ -3,336 +3,193 @@
 @section('title', 'Layanan Pengajuan | Sistem Informasi Desa')
 
 @section('content')
-    <style>
-        .status-badge {
-            display: inline-block;
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
-        }
 
-        .status-menunggu {
-            background-color: #fff3cd;
-            color: #856404;
-        }
-
-        .status-proses {
-            background-color: #cfe2ff;
-            color: #084298;
-        }
-
-        .status-diterima {
-            background-color: #d1e7dd;
-            color: #0f5132;
-        }
-
-        .status-tolak {
-            background-color: #f8d7da;
-            color: #842029;
-        }
-    </style>
-
-
-    <section class="py-4">
-
+    <section class="py-4 py-lg-5" style="background-color: #f8fafc; min-height: 80vh;">
         <div class="container">
 
             <!-- HEADER -->
-
             <div class="dashboard-header">
-
-
-                <h2>Layanan Surat</h2>
-
-
+                <h2>
+                    <i class="fas fa-envelope-open-text"></i>
+                    <span>Layanan Surat Online</span>
+                </h2>
                 <div class="header-right">
-                    <a href="{{ route('home') }}">Dashboard</a>
+                    <a href="{{ route('home') }}"><i class="fas fa-home me-1"></i> Beranda</a>
                     <span>/</span>
                     <span>Layanan Surat</span>
                 </div>
-
-
             </div>
 
             <!-- USER CARD -->
-
             <div class="user-card">
-
                 <div class="user-avatar">
                     <i class="fas fa-user"></i>
                 </div>
-
                 <div class="user-info">
-
-                    <h4>
-                        {{ session('pengajuan_penduduk_name') }}
-                    </h4>
-
+                    <h4>{{ session('pengajuan_penduduk_name') }}</h4>
                     <p>
-                        NIK :
-                        {{ session('pengajuan_nik') }}
+                        <i class="fas fa-id-card text-muted"></i>
+                        <span>NIK : <strong>{{ session('pengajuan_nik') }}</strong></span>
                     </p>
-
                 </div>
-
                 <div class="ms-auto">
-
                     <form action="{{ route('pengajuan.logout') }}" method="GET">
-
-                        <button type="submit" class="btn btn-danger">
-
+                        <button type="submit" class="btn-logout-modern">
                             <i class="fas fa-sign-out-alt"></i>
-
-                            Logout
-
+                            <span>Keluar</span>
                         </button>
-
                     </form>
-
                 </div>
-
             </div>
 
             <!-- ALERT -->
-
             <div class="info-alert">
-
                 <i class="fas fa-info-circle"></i>
-
-                Pilih jenis surat yang ingin Anda ajukan.
-
+                <span>Pilih salah satu jenis surat di bawah ini yang ingin Anda ajukan untuk membuka formulir permohonan administrasi.</span>
             </div>
 
             <!-- JENIS SURAT -->
-
             <h3 class="section-title">
-
                 <i class="fas fa-file-alt"></i>
-
-                Pilih Jenis Surat
-
+                <span>Pilih Jenis Surat</span>
             </h3>
 
             <div class="row g-4 mb-5">
-
                 <div class="col-lg-4 col-md-6">
-
                     <div class="service-card" onclick="showServiceForm('usaha')">
-
                         <i class="fas fa-store"></i>
-
                         <h5>Surat Keterangan Usaha</h5>
-
-                        <p>
-                            Untuk keterangan kepemilikan usaha
-                        </p>
-
+                        <p>Untuk permohonan legalitas dan keterangan kepemilikan usaha</p>
                     </div>
-
                 </div>
 
                 <div class="col-lg-4 col-md-6">
-
                     <div class="service-card" onclick="showServiceForm('domisili')">
-
                         <i class="fas fa-map-marker-alt"></i>
-
                         <h5>Surat Domisili</h5>
-
-                        <p>
-                            Untuk keterangan alamat domisili
-                        </p>
-
+                        <p>Untuk keterangan alamat tempat tinggal / domisili warga</p>
                     </div>
-
                 </div>
 
                 <div class="col-lg-4 col-md-6">
-
                     <div class="service-card" onclick="showServiceForm('izin_acara')">
-
                         <i class="fas fa-calendar-alt"></i>
-
                         <h5>Surat Izin Acara</h5>
-
-                        <p>
-                            Untuk kegiatan masyarakat
-                        </p>
-
+                        <p>Untuk perizinan penyelenggaraan kegiatan atau acara masyarakat</p>
                     </div>
-
                 </div>
 
                 <div class="col-lg-4 col-md-6">
-
                     <div class="service-card" onclick="showServiceForm('pengantar')">
-
                         <i class="fas fa-envelope-open-text"></i>
-
                         <h5>Surat Pengantar</h5>
-
-                        <p>
-                            Surat pengantar administrasi
-                        </p>
-
+                        <p>Surat pengantar administrasi kependudukan dan instansi</p>
                     </div>
-
                 </div>
 
                 <div class="col-lg-4 col-md-6">
-
                     <div class="service-card" onclick="showServiceForm('sktm')">
-
                         <i class="fas fa-hand-holding-heart"></i>
-
                         <h5>SKTM</h5>
-
-                        <p>
-                            Surat Keterangan Tidak Mampu
-                        </p>
-
+                        <p>Surat Keterangan Tidak Mampu untuk beasiswa / bantuan sosial</p>
                     </div>
-
                 </div>
-
             </div>
 
+            <!-- SERVICE FORM CONTAINER -->
             <div id="service-form-container" style="display:none;" class="mb-5">
-
-                <div class="card shadow-sm border-0">
-
-                    <div class="card-body">
-
-                        <h4 id="service-form-title"></h4>
-
-                        <div id="form-message" style="display:none;"></div>
-
-                        <form id="dynamic-service-form" onsubmit="handleFormSubmit(event)">
-
-                            @csrf
-
-                            <input type="hidden" id="tipe_surat" name="tipe_surat">
-
-                            <div id="form-fields"></div>
-
-                            <button type="submit" id="submitBtn" class="btn btn-success mt-3">
-
-                                <i class="fas fa-paper-plane"></i>
-                                Kirim Pengajuan
-
-                            </button>
-
-                        </form>
-
+                <div class="card border-0 shadow-sm rounded-4 overflow-hidden" style="border: 1px solid #e2e8f0 !important;">
+                    <div class="card-header bg-white border-bottom py-3 px-4 d-flex justify-content-between align-items-center">
+                        <h4 id="service-form-title" class="fw-bold mb-0 text-dark fs-5"></h4>
+                        <button type="button" class="btn btn-sm btn-light rounded-pill px-3 border" onclick="hideServiceForm()">
+                            <i class="fas fa-times me-1"></i> Tutup Formulir
+                        </button>
                     </div>
-
+                    <div class="card-body p-4">
+                        <div id="form-message" style="display:none;"></div>
+                        <form id="dynamic-service-form" onsubmit="handleFormSubmit(event)">
+                            @csrf
+                            <input type="hidden" id="tipe_surat" name="tipe_surat">
+                            <div id="form-fields"></div>
+                            <button type="submit" id="submitBtn" class="btn btn-success rounded-3 px-4 py-2 mt-3 fw-bold">
+                                <i class="fas fa-paper-plane me-1"></i>
+                                Kirim Pengajuan
+                            </button>
+                        </form>
+                    </div>
                 </div>
-
             </div>
 
             <!-- RIWAYAT -->
+            <h3 class="section-title">
+                <i class="fas fa-history"></i>
+                <span>Riwayat Pengajuan Surat</span>
+            </h3>
 
             <div class="history-wrapper">
-
                 @if ($surats->count() > 0)
-
                     @foreach ($surats as $surat)
-                        <div class="card mb-3 p-3">
-
-                            <div class="d-flex justify-content-between">
-
+                        <div class="history-card-item">
+                            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
                                 <div>
-
-                                    <h5>{{ $surat->keterangan }}</h5>
-
-                                    <small>
-                                        Nomor Surat:
-                                        {{ $surat->nomor_surat }}
-                                    </small>
-
-                                    <br>
-
-                                    <small>
-                                        Tanggal:
-                                        {{ $surat->tanggal_dibuat }}
-                                    </small>
-
+                                    <h5 class="fw-bold mb-1 text-dark">{{ $surat->keterangan }}</h5>
+                                    <div class="d-flex align-items-center gap-3 text-muted fs-7 flex-wrap">
+                                        <span>
+                                            <i class="fas fa-hashtag text-success me-1"></i>
+                                            Nomor: <strong>{{ $surat->nomor_surat ?? 'Menunggu Persetujuan' }}</strong>
+                                        </span>
+                                        <span>•</span>
+                                        <span>
+                                            <i class="fas fa-calendar-alt text-success me-1"></i>
+                                            {{ $surat->tanggal_dibuat ?? '-' }}
+                                        </span>
+                                    </div>
+                                    @if ($surat->status == 'ditolak' && $surat->alasan_tolak)
+                                        <div class="mt-2 text-danger fs-7">
+                                            <strong>Alasan Penolakan:</strong> {{ $surat->alasan_tolak }}
+                                        </div>
+                                    @endif
                                 </div>
 
-                                <div>
-
+                                <div class="text-end d-flex align-items-center gap-2 flex-wrap">
                                     @if ($surat->status == 'menunggu')
                                         <span class="status-badge status-menunggu">
-                                            Menunggu
+                                            <i class="fas fa-clock"></i> Menunggu
                                         </span>
                                     @elseif($surat->status == 'proses')
                                         <span class="status-badge status-proses">
-                                            Diproses
+                                            <i class="fas fa-spinner fa-spin"></i> Diproses
                                         </span>
                                     @elseif($surat->status == 'diterima')
                                         <span class="status-badge status-diterima">
-                                            Diterima
+                                            <i class="fas fa-check-circle"></i> Diterima
                                         </span>
                                     @elseif($surat->status == 'ditolak')
                                         <span class="status-badge status-tolak">
-                                            Ditolak
+                                            <i class="fas fa-times-circle"></i> Ditolak
                                         </span>
                                     @endif
 
-                                    @if ($surat->status == 'ditolak')
-                                        <div class="mt-2">
-
-                                            <strong>
-                                                Alasan Penolakan:
-                                            </strong>
-
-                                            <br>
-
-                                            {{ $surat->alasan_tolak }}
-
-                                        </div>
-                                    @endif
-
-                                    <br>
-
-                                    @if ($surat->file_pdf)
-                                        <a href="{{ asset('storage/' . $surat->file_pdf) }}" target="_blank"
-                                            class="btn btn-success btn-sm mt-2">
-
-                                            <i class="fas fa-download"></i>
-                                            Download PDF
-
+                                    @if ($surat->status == 'diterima')
+                                        <a href="{{ route('surat.download', $surat->id) }}"
+                                            class="btn btn-sm btn-success rounded-pill px-3">
+                                            <i class="fas fa-download me-1"></i> Unduh PDF
                                         </a>
                                     @endif
-
                                 </div>
-
                             </div>
-
                         </div>
                     @endforeach
                 @else
                     <div class="empty-history">
-
                         <i class="fas fa-folder-open"></i>
-
-                        <h5>
-                            Belum Ada Pengajuan Surat
-                        </h5>
-
-                        <p>
-                            Riwayat pengajuan surat akan muncul di sini.
-                        </p>
-
+                        <h5>Belum Ada Pengajuan Surat</h5>
+                        <p>Riwayat permohonan surat yang Anda ajukan akan ditampilkan di sini.</p>
                     </div>
-
                 @endif
-
             </div>
 
         </div>
-
     </section>
 
     <script>

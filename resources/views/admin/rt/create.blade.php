@@ -1,72 +1,89 @@
 <x-app-layout>
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
-        <div class="top-0 bg-cover z-index-n1 min-height-100 max-height-200 h-25 position-absolute w-100 start-0 end-0"
-            style="background-image: url('../../../assets/img/header-blue-purple.jpg'); background-position: bottom;">
-        </div>
         <x-app.navbar />
-        <div class="px-5 py-4 container-fluid">
-            <form action="{{ route('rt-store') }}" method="POST">
-                @csrf
-                <div class="row">
-                    <div class="col-12">
-                        @if (session('error'))
-                            <div class="alert alert-danger" role="alert" id="alert">
-                                {{ session('error') }}
-                            </div>
-                        @endif
-                        @if (session('success'))
-                            <div class="alert alert-success" role="alert" id="alert">
-                                {{ session('success') }}
-                            </div>
-                        @endif
+        <div class="container-fluid py-4 px-5">
+
+            <!-- PAGE HEADER -->
+            <div class="admin-page-header">
+                <div>
+                    <div class="d-flex align-items-center gap-2 mb-1">
+                        <a href="{{ route('rt-index') }}" class="btn-admin-secondary py-1 px-2 fs-7">
+                            <i class="fas fa-arrow-left"></i> Kembali
+                        </a>
+                        <span class="text-muted">/</span>
+                        <span class="badge bg-light text-dark border px-2 py-1 fs-7">Rukun Tetangga</span>
                     </div>
+                    <h2 class="admin-page-title">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Tambah Data RT</span>
+                    </h2>
+                    <p class="admin-page-subtitle">Daftarkan nomor Rukun Tetangga baru di bawah pembagian RW desa</p>
                 </div>
+            </div>
 
-                <div class="mb-5 row">
-                    <div class="col-12 px-4">
-                        <div class="card" id="basic-info">
-                            <div class="card-header">
-                                <h3>Tambah Data RT</h3>
-                            </div>
-                            <div class="pt-0 card-body">
+            <!-- ALERT -->
+            @if (session('error'))
+                <div class="alert alert-danger mb-4" role="alert" id="alert">{{ session('error') }}</div>
+            @endif
+            @if (session('success'))
+                <div class="alert alert-success mb-4 text-white border-0" style="background: #15803d;" role="alert" id="alert">{{ session('success') }}</div>
+            @endif
 
-                                <div class="mb-3">
-                                    <label for="rw_id">RW</label>
-                                    <select name="rw_id" id="rw_id" class="form-control">
-                                        <option value="">-- Pilih RW --</option>
-                                        @foreach ($rw_list as $rw)
-                                            <option value="{{ $rw->id }}" 
-                                                {{ old('rw_id') == $rw->id ? 'selected' : '' }}>
-                                                RW {{ $rw->nomor_rw }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    @error('rw_id') 
-                                        <span class="text-danger text-sm">{{ $message }}</span> 
-                                    @enderror
-                                </div>
+            <!-- FORM CARD -->
+            <div class="admin-card">
+                <div class="admin-card-header">
+                    <h5 class="admin-card-title">
+                        <i class="fas fa-edit text-muted"></i>
+                        <span>Formulir Rukun Tetangga</span>
+                    </h5>
+                </div>
+                <div class="card-body p-4">
+                    <form action="{{ route('rt-store') }}" method="POST">
+                        @csrf
 
-                                <div class="mb-3">
-                                    <label for="nomor_rt">Nomor RT</label>
-                                    <input type="text" name="nomor_rt" id="nomor_rt" 
-                                           value="{{ old('nomor_rt') }}" 
-                                           class="form-control" 
-                                           placeholder="masukkan rt">
-                                    @error('nomor_rt') 
-                                        <span class="text-danger text-sm">{{ $message }}</span> 
-                                    @enderror
-                                </div>
-
-                                <div class="d-flex justify-content-between">
-                                    <a href="{{ route('rt-index') }}" class="btn btn-secondary">Kembali</a>
-                                    <button type="submit" class="btn btn-primary">Simpan Data</button>
-                                </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="rw_id" class="admin-form-label">Pilih Wilayah RW Induk <span class="required">*</span></label>
+                                <select name="rw_id" id="rw_id" class="form-select @error('rw_id') is-invalid @enderror" required>
+                                    <option value="">-- Pilih RW --</option>
+                                    @foreach ($rw_list as $rw)
+                                        <option value="{{ $rw->id }}" {{ old('rw_id') == $rw->id ? 'selected' : '' }}>
+                                            RW {{ $rw->nomor_rw }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('rw_id') 
+                                    <span class="text-danger text-xs mt-1 d-block">{{ $message }}</span> 
+                                @enderror
                             </div>
                         </div>
-                    </div>
+
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label for="nomor_rt" class="admin-form-label">Nomor RT <span class="required">*</span></label>
+                                <input type="text" name="nomor_rt" id="nomor_rt" 
+                                       value="{{ old('nomor_rt') }}" 
+                                       class="form-control @error('nomor_rt') is-invalid @enderror" 
+                                       placeholder="Contoh: 001, 002..." required>
+                                @error('nomor_rt') 
+                                    <span class="text-danger text-xs mt-1 d-block">{{ $message }}</span> 
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-center justify-content-end gap-2 pt-3 border-top">
+                            <a href="{{ route('rt-index') }}" class="btn-admin-secondary">
+                                <i class="fas fa-times"></i> Batal
+                            </a>
+                            <button type="submit" class="btn-admin-primary">
+                                <i class="fas fa-save"></i> Simpan Data RT
+                            </button>
+                        </div>
+                    </form>
                 </div>
-            </form>
+            </div>
+
+            <x-app.footer />
         </div>
-        <x-app.footer />
     </main>
 </x-app-layout>

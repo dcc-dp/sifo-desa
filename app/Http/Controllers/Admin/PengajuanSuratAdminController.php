@@ -8,6 +8,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Setting;
 use App\Models\PemerintahDesa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PengajuanSuratAdminController extends Controller
 {
@@ -34,85 +35,118 @@ class PengajuanSuratAdminController extends Controller
             'sktm'
         ])->findOrFail($id);
 
+        $setting = Setting::first();
+        $nextNumber = $setting ? (int) ($setting->nomor_surat_berikutnya ?? 1) : 1;
+        if ($nextNumber < 1) $nextNumber = 1;
+        $nextNomorSurat = sprintf('%03d', $nextNumber);
+
         return view(
             'admin.pengajuan-surat.show',
-            compact('surat')
+            compact('surat', 'setting', 'nextNomorSurat')
         );
     }
 
-    public function terima($id)
-{
-    $surat = Surat::with([
-        'penduduk',
-        'usaha',
-        'domisili',
-        'izin',
-        'pengantar',
-        'sktm'
-    ])->findOrFail($id);
+    public function terima(Request $request, $id)
+    {
+        return DB::transaction(function () use ($request, $id) {
+            $surat = Surat::with([
+                'penduduk',
+                'usaha',
+                'domisili',
+                'izin',
+                'pengantar',
+                'sktm'
+            ])->lockForUpdate()->findOrFail($id);
 
-    $setting = Setting::first();
+            // Ambil setting dengan lockForUpdate untuk mencegah nomor duplikat saat disetujui bersamaan
+            $setting = Setting::lockForUpdate()->first();
+            if (!$setting) {
+                $setting = Setting::create([
+                    'nama_desa' => 'Desa Rante Gola',
+                    'alamat' => '-',
+                    'email' => 'desa@example.com',
+                    'telepon' => '-',
+                    'nomor_surat_berikutnya' => 1,
+                ]);
+                $setting = Setting::lockForUpdate()->find($setting->id);
+            }
 
-    $kepalaDesa = PemerintahDesa::where(
-        'jabatan',
-        'Kepala Desa'
-    )->first();
+            // Hanya generate nomor baru jika surat belum memiliki nomor resmi
+            if (empty($surat->nomor_surat)) {
+                $inputNomor = trim($request->input('nomor_surat', ''));
 
-    if ($surat->usaha) {
+                if (!empty($inputNomor)) {
+                    // Jika admin input nomor tertentu di modal (misal: 006)
+                    preg_match('/\d+/', $inputNomor, $matches);
+                    if (!empty($matches[0])) {
+                        $numVal = (int) $matches[0];
+                        $padLen = max(strlen($matches[0]), 3);
+                        $formattedNomor = sprintf("%0{$padLen}d", $numVal);
+                        $setting->nomor_surat_berikutnya = $numVal + 1;
+                    } else {
+                        $formattedNomor = $inputNomor;
+                        $setting->nomor_surat_berikutnya = (int) ($setting->nomor_surat_berikutnya ?? 1) + 1;
+                    }
+                } else {
+                    $currentNumber = (int) ($setting->nomor_surat_berikutnya ?? 1);
+                    if ($currentNumber < 1) $currentNumber = 1;
+                    $formattedNomor = sprintf('%03d', $currentNumber);
+                    $setting->nomor_surat_berikutnya = $currentNumber + 1;
+                }
 
-        $view = 'pdf.sku';
+                $surat->nomor_surat = $formattedNomor;
+                $surat->save();
+                $setting->save();
+            }
 
-    } elseif ($surat->domisili) {
+            $kepalaDesa = PemerintahDesa::where(
+                'jabatan',
+                'Kepala Desa'
+            )->first();
 
-        $view = 'pdf.domisili';
+            if ($surat->usaha) {
+                $view = 'pdf.sku';
+            } elseif ($surat->domisili) {
+                $view = 'pdf.domisili';
+            } elseif ($surat->sktm) {
+                $view = 'pdf.sktm';
+            } elseif ($surat->pengantar) {
+                $view = 'pdf.pengantar';
+            } elseif ($surat->izin) {
+                $view = 'pdf.izin';
+            } else {
+                abort(404);
+            }
 
-    } elseif ($surat->sktm) {
+            $pdf = Pdf::loadView(
+                $view,
+                compact(
+                    'surat',
+                    'setting',
+                    'kepalaDesa'
+                )
+            );
 
-        $view = 'pdf.sktm';
+            $filename = str_replace('/', '-', $surat->nomor_surat) . '.pdf';
 
-    } elseif ($surat->pengantar) {
+            $storageDir = storage_path('app/public/surat');
+            if (!file_exists($storageDir)) {
+                mkdir($storageDir, 0755, true);
+            }
 
-        $view = 'pdf.pengantar';
+            $pdf->save($storageDir . '/' . $filename);
 
-    } elseif ($surat->izin) {
+            $surat->update([
+                'status' => 'diterima',
+                'file_pdf' => 'surat/' . $filename
+            ]);
 
-        $view = 'pdf.izin';
-
-    } else {
-
-        abort(404);
-
+            return back()->with(
+                'success',
+                'Surat berhasil disetujui & diterbitkan dengan Nomor: ' . $surat->nomor_surat
+            );
+        });
     }
-
-    $pdf = Pdf::loadView(
-        $view,
-        compact(
-            'surat',
-            'setting',
-            'kepalaDesa'
-        )
-    );
-
-    $filename =
-        str_replace('/', '-', $surat->nomor_surat)
-        . '.pdf';
-
-    $pdf->save(
-        storage_path(
-            'app/public/surat/' . $filename
-        )
-    );
-
-    $surat->update([
-        'status' => 'diterima',
-        'file_pdf' => 'surat/' . $filename
-    ]);
-
-    return back()->with(
-        'success',
-        'Surat berhasil diterima'
-    );
-}
 
 public function tolak(Request $request, $id)
 {

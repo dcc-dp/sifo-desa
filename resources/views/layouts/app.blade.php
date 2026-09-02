@@ -54,14 +54,21 @@
     <title>
         Corporate UI by Creative Tim & UPDIVISION
     </title>
-    <!-- Font Awesome Icons -->
+    <!-- Google Fonts: Inter & Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome Icons 6.5.1 CDN (Reliable fallback) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://kit.fontawesome.com/349ee9c857.js" crossorigin="anonymous"></script>
+
     <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('assets/img/apple-icon.png') }}">
     <link rel="icon" type="image/png" href="{{ asset('assets/img/favicon.png') }}">
     <link href="{{ asset('assets/css/nucleo-icons.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/css/nucleo-svg.css') }}" rel="stylesheet" />
     <link id="pagestyle" href="{{ asset('assets/css/corporate-ui-dashboard.css?v=1.0.0') }}" rel="stylesheet" />
-
+    <link href="{{ asset('assets/css/admin-design-system.css') }}" rel="stylesheet" />
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">
@@ -70,13 +77,13 @@
         $topSidenavTransparent = ['signin', 'signup'];
         $topSidenavRTL = ['RTL'];
     @endphp
-    @if (in_array(request()->route()->getName(),
+    @if (in_array(request()->route()?->getName(),
             $topSidenavArray))
         <x-sidenav-top />
-    @elseif(in_array(request()->route()->getName(),
+    @elseif(in_array(request()->route()?->getName(),
             $topSidenavTransparent))
 
-    @elseif(in_array(request()->route()->getName(),
+    @elseif(in_array(request()->route()?->getName(),
             $topSidenavRTL))
     @else
         <x-app.sidebar />
@@ -434,6 +441,24 @@
             }
             Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
         }
+
+        // Synchronize navbar blur with .main-content scrolling
+        document.addEventListener('DOMContentLoaded', function () {
+            var mainContentEl = document.querySelector('.main-content');
+            var navbarEl = document.getElementById('navbarBlur');
+            if (mainContentEl && navbarEl && navbarEl.getAttribute('navbar-scroll') === 'true') {
+                mainContentEl.addEventListener('scroll', function () {
+                    var blurClasses = ['position-sticky', 'blur', 'shadow-blur', 'mt-4', 'left-auto', 'top-1', 'z-index-sticky'];
+                    if (mainContentEl.scrollTop > 5) {
+                        navbarEl.classList.add(...blurClasses);
+                        navbarEl.classList.remove('shadow-none');
+                    } else {
+                        navbarEl.classList.remove(...blurClasses);
+                        navbarEl.classList.add('shadow-none');
+                    }
+                });
+            }
+        });
     </script>
     <!-- Github buttons -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>

@@ -47,7 +47,11 @@
         <tr>
 
             <td width="18%" align="center">
-                <img src="{{ public_path('uploads/galeri/logo_sifo.png') }}" width="98%">
+                @if (!empty($setting->logo_surat) && file_exists(public_path($setting->logo_surat)))
+                    <img src="{{ public_path($setting->logo_surat) }}" width="98%">
+                @elseif (file_exists(public_path('uploads/galeri/logo_sifo.png')))
+                    <img src="{{ public_path('uploads/galeri/logo_sifo.png') }}" width="98%">
+                @endif
             </td>
 
             <td width="82%" align="center">
@@ -195,27 +199,49 @@
         </div>
     
         <div style="position:relative; height:90px; width:250px; margin-left:auto; right:-40px;">
-
-            <img
-                src="{{ public_path('uploads/galeri/stempel.png') }}"
-                width="110"
-                style="
-                    position:absolute;
-                    left:20px;
-                    top:10px;
-                    z-index:1;
-                ">
+            @if (!empty($setting->stempel_surat) && file_exists(public_path($setting->stempel_surat)))
+                <img
+                    src="{{ public_path($setting->stempel_surat) }}"
+                    width="110"
+                    style="
+                        position:absolute;
+                        left:20px;
+                        top:10px;
+                        z-index:1;
+                    ">
+            @elseif (file_exists(public_path('uploads/galeri/stempel.png')))
+                <img
+                    src="{{ public_path('uploads/galeri/stempel.png') }}"
+                    width="110"
+                    style="
+                        position:absolute;
+                        left:20px;
+                        top:10px;
+                        z-index:1;
+                    ">
+            @endif
         
-            <img
-                src="{{ public_path('uploads/galeri/ttd_kedes.png') }}"
-                width="130"
-                style="
-                    position:absolute;
-                    left:90px;
-                    top:0;
-                    z-index:2;
-                ">
-        
+            @if (!empty($setting->ttd_kepala_desa) && file_exists(public_path($setting->ttd_kepala_desa)))
+                <img
+                    src="{{ public_path($setting->ttd_kepala_desa) }}"
+                    width="130"
+                    style="
+                        position:absolute;
+                        left:90px;
+                        top:0;
+                        z-index:2;
+                    ">
+            @elseif (file_exists(public_path('uploads/galeri/ttd_kedes.png')))
+                <img
+                    src="{{ public_path('uploads/galeri/ttd_kedes.png') }}"
+                    width="130"
+                    style="
+                        position:absolute;
+                        left:90px;
+                        top:0;
+                        z-index:2;
+                    ">
+            @endif
         </div>     
     
         <div style="margin-top:10px;">

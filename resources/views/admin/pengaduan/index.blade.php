@@ -1,183 +1,151 @@
 <x-app-layout>
-    <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+    <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
         <x-app.navbar />
         <div class="container-fluid py-4 px-5">
-            <div class="row">
-                <div class="col-12">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <h2 class="mb-4">Pengaduan</h2>
-                        <div class="input-group w-sm-25 ms-auto">
-                            <span class="input-group-text text-body">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" fill="none"
-                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z">
-                                    </path>
-                                </svg>
-                            </span>
-                            <input type="text" class="form-control" placeholder="Search">
-                        </div>
-                    </div>
-                    <hr style="height: 2px; color:black;">
-                    <div class="card border shadow-xs mb-4">
-                        <div class="card-body px-0 py-0 ">
-                            <div class="border-bottom py-3 px-3 d-sm-flex align-items-center">
-                                <div class="ms-auto d-flex">
-                                    {{-- <!-- <button type="button"
-                                        class="btn btn-sm btn-dark btn-icon d-flex align-items-center me-2">
-                                        <span class="btn-inner--icon">
-                                            <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg"
-                                                viewBox="0 0 24 24" fill="currentColor" class="d-block me-2">
-                                                <path
-                                                    d="M6.25 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM3.25 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM19.75 7.5a.75.75 0 00-1.5 0v2.25H16a.75.75 0 000 1.5h2.25v2.25a.75.75 0 001.5 0v-2.25H22a.75.75 0 000-1.5h-2.25V7.5z" />
-                                            </svg>
-                                        </span>
-                                        <a href="{{ route('pengaduan-create') }}" class="btn-primary">Tambah pengaduan</a>
-                                    </button> --> --}}
-                                </div>
 
-                            </div>
-                            <div class="table-responsive px-3">
-                                <table class="table table-bordered text-center align-middle mt-2">
-                                    <thead class="table-light">
-                                        <tr>
-                                            <th class=" small fw-semibold opacity-75 text-white"
-                                                style="background-color: #313d52ff;">No</th>
-                                            <th class=" small fw-semibold opacity-75 text-white"
-                                                style="background-color: #313d52ff;">Kategori Pengaduan</th>
-                                            <th class=" small fw-semibold opacity-75 text-white"
-                                                style="background-color: #313d52ff;">Nama</th>
-                                            <th class=" small fw-semibold opacity-75 text-white"
-                                                style="background-color: #313d52ff;">Judul</th>
-                                            <th class=" small fw-semibold opacity-75 text-white"
-                                                style="background-color: #313d52ff;">Deskripsi</th>
-                                            <th class=" small fw-semibold opacity-75 text-white"
-                                                style="background-color: #313d52ff;">Gambar</th>
-                                            <th class=" small fw-semibold opacity-75 text-white"
-                                                style="background-color: #313d52ff;">File</th>
-                                            <th class=" small fw-semibold opacity-75 text-white"
-                                                style="background-color: #313d52ff;">Status</th>
-                                            <th class=" small fw-semibold opacity-75 text-white"
-                                                style="background-color: #313d52ff;">Aksi</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($pengaduans as $pengaduan)
-                                            <tr>
-
-                                                <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $pengaduan->kategori->nama_kategori ?? '-' }}</td>
-                                                <td>
-                                                    {{ $pengaduan->anonymous ? 'Anonim' : ($pengaduan->penduduk->nama ?? '-') }}
-                                                </td>
-                                                <td>{{ $pengaduan->judul }}</td>
-                                                <td>{{ Str::limit($pengaduan->deskripsi, 50) }}</td>
-                                                <td>
-                                                    @if ($pengaduan->gambar && file_exists(public_path($pengaduan->gambar)))
-                                                        <img src="{{ asset($pengaduan->gambar) }}" alt="gambar" class="rounded"
-                                                            width="100">
-                                                    @else
-                                                        <span class="text-muted">Tidak Ada Gambar</span>
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    @if ($pengaduan->file && file_exists(public_path($pengaduan->file)))
-
-                                                        <a href="{{ asset($pengaduan->file) }}" target="_blank"
-                                                            class="btn btn-pdf btn-sm">
-
-                                                            <i class="fas fa-download"></i>
-                                                            File
-
-                                                        </a>
-
-                                                    @else
-
-                                                        <span class="text-muted">
-                                                            Tidak Ada File
-                                                        </span>
-
-                                                    @endif
-                                                </td>
-                                                <td>
-
-                                                    @if ($pengaduan->status == 1)
-
-                                                        <span class="badge rounded-pill px-3 py-2"
-                                                            style="background:#cfe2ff;color:#084298;">
-                                                            Proses
-                                                        </span>
-
-                                                    @elseif ($pengaduan->status == 2)
-
-                                                        <span class="badge rounded-pill px-3 py-2"
-                                                            style="background:#f8d7da;color:#842029;">
-                                                            Ditolak
-                                                        </span>
-
-                                                    @elseif ($pengaduan->status == 3)
-
-                                                        <span class="badge rounded-pill px-3 py-2"
-                                                            style="background:#d1e7dd;color:#0f5132;">
-                                                            Selesai
-                                                        </span>
-
-                                                    @endif
-
-                                                </td>
-
-                                                <td class="align-middle">
-                                                    <a href="{{ route('admin.pengaduan-edit', $pengaduan->id) }}"
-                                                        class="btn btn-detail btn-sm">
-
-                                                        <i class="fas fa-eye"></i>
-                                                        Detail
-
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-
-                                </table>
-                            </div>
-                            <div class="border-top py-3 px-3 d-flex align-items-center">
-                                <p class="font-weight-semibold mb-0 text-dark text-sm">Page 1 of 10</p>
-                                <div class="ms-auto">
-                                    <button class="btn btn-sm btn-white mb-0">Previous</button>
-                                    <button class="btn btn-sm btn-white mb-0">Next</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <!-- PAGE HEADER -->
+            <div class="admin-page-header">
+                <div>
+                    <h2 class="admin-page-title">
+                        <i class="fas fa-bullhorn"></i>
+                        <span>Pengaduan Masyarakat</span>
+                    </h2>
+                    <p class="admin-page-subtitle">Kelola dan tindak lanjuti laporan, keluhan, dan aspirasi warga desa</p>
                 </div>
             </div>
+
+            <!-- ALERT -->
+            @if(session('success'))
+                <div class="alert alert-success alert-dismissible fade show mb-4 text-white border-0" style="background: #15803d;" role="alert">
+                    <i class="fas fa-check-circle me-2"></i>{{ session('success') }}
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+
+            <!-- TABLE CARD -->
+            <div class="admin-card">
+                <div class="admin-card-header">
+                    <h5 class="admin-card-title">
+                        <i class="fas fa-list text-muted"></i>
+                        <span>Daftar Laporan Pengaduan</span>
+                    </h5>
+                    <div class="admin-search-wrapper">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchInput" class="admin-search-input" placeholder="Cari pelapor atau judul aduan...">
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-admin">
+                        <thead>
+                            <tr>
+                                <th class="text-center" style="width: 60px;">No</th>
+                                <th>Pelapor</th>
+                                <th>Kategori</th>
+                                <th>Judul Laporan</th>
+                                <th>Uraian Masalah</th>
+                                <th class="text-center" style="width: 80px;">Foto</th>
+                                <th class="text-center" style="width: 100px;">Lampiran</th>
+                                <th class="text-center" style="width: 130px;">Status</th>
+                                <th class="text-center col-aksi" style="width: 150px;">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                            @forelse ($pengaduans as $pengaduan)
+                                <tr>
+                                    <td class="text-center fw-semibold text-muted">{{ $loop->iteration }}</td>
+                                    <td>
+                                        @if ($pengaduan->anonymous)
+                                            <span class="badge bg-light text-muted border px-2 py-1 fs-8">
+                                                <i class="fas fa-user-secret me-1"></i> Anonim
+                                            </span>
+                                        @else
+                                            <span class="fw-bold text-dark">{{ $pengaduan->penduduk->nama ?? '-' }}</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <span class="badge-kategori">
+                                            {{ $pengaduan->kategori->nama_kategori ?? '-' }}
+                                        </span>
+                                    </td>
+                                    <td class="fw-semibold text-dark">{{ $pengaduan->judul }}</td>
+                                    <td class="text-muted">
+                                        {{ \Illuminate\Support\Str::limit(strip_tags($pengaduan->deskripsi), 80, '...') }}
+                                    </td>
+                                    <td class="text-center">
+                                        @if ($pengaduan->gambar && file_exists(public_path($pengaduan->gambar)))
+                                            <a href="{{ asset($pengaduan->gambar) }}" target="_blank">
+                                                <img src="{{ asset($pengaduan->gambar) }}" alt="Gambar Aduan" class="table-thumb" style="width: 42px; height: 42px;">
+                                            </a>
+                                        @else
+                                            <span class="text-muted fs-8">-</span>
+                                        @endif
+                                    </td>
+                                    <td class="text-center">
+                                        @if ($pengaduan->file && file_exists(public_path($pengaduan->file)))
+                                            <a href="{{ asset($pengaduan->file) }}" target="_blank" class="btn-action-pill btn-action-pdf"
+                                                title="Unduh Berkas Lampiran">
+                                                <i class="fas fa-paperclip"></i> <span>File</span>
+                                            </a>
+                                        @else
+                                            <span class="text-muted fs-8">-</span>
+                                        @endif
+                                    </td>
+                                    <td class="text-center">
+                                        @if ($pengaduan->status == 1)
+                                            <span class="badge-status badge-status-pending">
+                                                <i class="fas fa-clock"></i> Proses
+                                            </span>
+                                        @elseif ($pengaduan->status == 2)
+                                            <span class="badge-status badge-status-danger">
+                                                <i class="fas fa-times-circle"></i> Ditolak
+                                            </span>
+                                        @elseif ($pengaduan->status == 3)
+                                            <span class="badge-status badge-status-success">
+                                                <i class="fas fa-check-circle"></i> Selesai
+                                            </span>
+                                        @else
+                                            <span class="badge-status badge-status-info">
+                                                Pending
+                                            </span>
+                                        @endif
+                                    </td>
+                                    <td class="text-center col-aksi">
+                                        <div class="action-buttons-group">
+                                            <a href="{{ route('admin.pengaduan-edit', $pengaduan->id) }}" class="btn-action-pill btn-action-view"
+                                                title="Tindak Lanjuti Pengaduan">
+                                                <i class="fas fa-tasks"></i> <span>Tindak Lanjut</span>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="9">
+                                        <div class="admin-table-empty">
+                                            <i class="fas fa-clipboard-check"></i>
+                                            <h6>Belum Ada Laporan Pengaduan</h6>
+                                            <p>Saat ini belum ada keluhan atau aspirasi yang masuk dari masyarakat.</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
             <x-app.footer />
         </div>
     </main>
 
-    <style>
-        .btn-detail {
-    background: #64778b;
-    border: none;
-    color: white;
-}
-
-.btn-detail:hover {
-    background: #c7d5e3;
-    color: white;
-}
-
-.btn-pdf {
-    background: #f4727f;
-    border: none;
-    color: white;
-}
-
-.btn-pdf:hover {
-    background: #f4727f;
-    color: white;
-}
-</style>
- 
+    <script>
+        document.getElementById('searchInput')?.addEventListener('keyup', function () {
+            let keyword = this.value.toLowerCase();
+            let rows = document.querySelectorAll('#tableBody tr');
+            rows.forEach(row => {
+                row.style.display = row.textContent.toLowerCase().includes(keyword) ? '' : 'none';
+            });
+        });
+    </script>
 </x-app-layout>

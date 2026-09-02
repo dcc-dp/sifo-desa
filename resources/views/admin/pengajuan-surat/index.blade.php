@@ -1,238 +1,132 @@
 <x-app-layout>
-
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
-
         <x-app.navbar />
-
         <div class="container-fluid py-4 px-5">
 
-            <div class="d-flex justify-content-between align-items-center">
-                <h2 class="mb-4">
-                    Pengajuan Surat
-                </h2>
-
-                <div class="input-group w-sm-25 ms-auto">
-                    <span class="input-group-text text-body">
-                        <i class="fas fa-search"></i>
-                    </span>
-
-                    <input type="text" id="searchInput" class="form-control"
-                        placeholder="Cari nama, NIK atau nomor surat...">
+            <!-- PAGE HEADER -->
+            <div class="admin-page-header">
+                <div>
+                    <h2 class="admin-page-title">
+                        <i class="fas fa-envelope-open-text"></i>
+                        <span>Pelayanan Permohonan Surat</span>
+                    </h2>
+                    <p class="admin-page-subtitle">Verifikasi berkas, persetujuan penerbitan, dan arsip surat keterangan warga</p>
                 </div>
             </div>
 
-            <hr style="height:2px; color:black;">
+            <!-- ALERT -->
+            @if(session('success'))
+                <div class="alert alert-success alert-dismissible fade show mb-4 text-white border-0" style="background: #15803d;" role="alert">
+                    <i class="fas fa-check-circle me-2"></i>{{ session('success') }}
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
 
-            <div class="card border shadow-xs mb-4">
-
-                <div class="card-body px-0 py-0">
-
-                    <div class="border-bottom py-3 px-3">
-
-                        <h5 class="mb-0">
-                            Daftar Pengajuan Surat
-                        </h5>
-
+            <!-- TABLE CARD -->
+            <div class="admin-card">
+                <div class="admin-card-header">
+                    <h5 class="admin-card-title">
+                        <i class="fas fa-list text-muted"></i>
+                        <span>Daftar Permohonan Surat Masuk</span>
+                    </h5>
+                    <div class="admin-search-wrapper">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchInput" class="admin-search-input" placeholder="Cari pemohon atau nomor surat...">
                     </div>
-
-                    <div class="table-responsive px-3">
-
-                        <table class="table table-bordered text-center align-middle mt-2">
-
-                            <thead>
-
-                                <tr>
-
-                                    <th class="text-white" style="background-color:#313d52;">
-                                        No
-                                    </th>
-
-                                    <th class="text-white" style="background-color:#313d52;">
-                                        No Surat
-                                    </th>
-
-                                    <th class="text-white" style="background-color:#313d52;">
-                                        Nama
-                                    </th>
-
-                                    <th class="text-white" style="background-color:#313d52;">
-                                        NIK
-                                    </th>
-
-                                    <th class="text-white" style="background-color:#313d52;">
-                                        Jenis Surat
-                                    </th>
-
-                                    <th class="text-white" style="background-color:#313d52;">
-                                        Tanggal
-                                    </th>
-
-                                    <th class="text-white" style="background-color:#313d52;">
-                                        Status
-                                    </th>
-
-                                    <th class="text-white" style="background-color:#313d52;">
-                                        Aksi
-                                    </th>
-
-                                </tr>
-
-                            </thead>
-
-                            <tbody id="tableBody">
-
-                                @forelse($surats as $surat)
-
-                                    <tr>
-
-                                        <td>
-                                            {{ $loop->iteration }}
-                                        </td>
-
-                                        <td>
-                                            {{ $surat->nomor_surat }}
-                                        </td>
-
-                                        <td>
-                                            {{ $surat->penduduk->nama ?? '-' }}
-                                        </td>
-
-                                        <td>
-                                            {{ $surat->penduduk->nik ?? '-' }}
-                                        </td>
-
-                                        <td>
-                                            {{ $surat->keterangan }}
-                                        </td>
-
-                                        <td>
-                                            {{ \Carbon\Carbon::parse($surat->tanggal_dibuat)->format('d/m/Y') }}
-                                        </td>
-
-                                        <td>
-
-                                            @if($surat->status == 'menunggu')
-                                                <span class="badge rounded-pill px-3 py-2"
-                                                    style="background:#cfe2ff;color:#084298;">
-                                                    Menunggu
-                                                </span>
-
-                                            @elseif($surat->status == 'diterima')
-                                                <span class="badge rounded-pill px-3 py-2"
-                                                    style="background:#d1e7dd;color:#0f5132;">
-                                                    Diterima
-                                                </span>
-
-                                            @elseif($surat->status == 'ditolak')
-                                                <span class="badge rounded-pill px-3 py-2"
-                                                    style="background:#f8d7da;color:#842029;">
-                                                    Ditolak
-                                                </span>
-                                            @endif
-
-                                        </td>
-
-                                        <td>
-
-                                            <a href="{{ route('admin.pengajuan-surat.show', $surat->id) }}"
-                                                class="btn btn-detail btn-sm">
-
-                                                <i class="fas fa-eye"></i>
-                                                Detail
-
-                                            </a>
-
-                                            @if($surat->status == 'diterima')
-
-                                                <a href="{{ route('surat.download', $surat->id) }}" class="btn btn-pdf btn-sm">
-
-                                                    <i class="fas fa-download"></i>
-                                                    PDF
-
-                                                </a>
-
-                                            @endif
-
-                                        </td>
-
-                                    </tr>
-
-                                @empty
-
-                                    <tr>
-
-                                        <td colspan="8">
-                                            Tidak ada data pengajuan surat
-                                        </td>
-
-                                    </tr>
-
-                                @endforelse
-
-                            </tbody>
-
-                        </table>
-
-                    </div>
-
                 </div>
 
+                <div class="table-responsive">
+                    <table class="table table-admin">
+                        <thead>
+                            <tr>
+                                <th class="text-center" style="width: 60px;">No</th>
+                                <th>Nomor Surat</th>
+                                <th>Nama Pemohon</th>
+                                <th>NIK</th>
+                                <th>Jenis Surat</th>
+                                <th>Tanggal Dibuat</th>
+                                <th class="text-center" style="width: 120px;">Status</th>
+                                <th class="text-center col-aksi" style="width: 180px;">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                            @forelse ($surats as $surat)
+                                <tr>
+                                    <td class="text-center fw-semibold text-muted">{{ $loop->iteration }}</td>
+                                    <td>
+                                        @if ($surat->nomor_surat)
+                                            <span class="font-monospace fw-bold text-dark fs-7">{{ $surat->nomor_surat }}</span>
+                                        @else
+                                            <span class="badge bg-light text-muted border fs-8">Belum Terbit</span>
+                                        @endif
+                                    </td>
+                                    <td class="fw-bold text-dark">{{ $surat->penduduk->nama ?? '-' }}</td>
+                                    <td class="font-monospace text-muted">{{ $surat->penduduk->nik ?? '-' }}</td>
+                                    <td>
+                                        <span class="badge-kategori">
+                                            {{ $surat->keterangan }}
+                                        </span>
+                                    </td>
+                                    <td>{{ \Carbon\Carbon::parse($surat->tanggal_dibuat)->translatedFormat('d M Y') }}</td>
+                                    <td class="text-center">
+                                        @if($surat->status == 'menunggu')
+                                            <span class="badge-status badge-status-pending">
+                                                <i class="fas fa-clock"></i> Menunggu
+                                            </span>
+                                        @elseif($surat->status == 'diterima')
+                                            <span class="badge-status badge-status-success">
+                                                <i class="fas fa-check-circle"></i> Diterima
+                                            </span>
+                                        @elseif($surat->status == 'ditolak')
+                                            <span class="badge-status badge-status-danger">
+                                                <i class="fas fa-times-circle"></i> Ditolak
+                                            </span>
+                                        @endif
+                                    </td>
+                                    <td class="text-center col-aksi">
+                                        <div class="action-buttons-group">
+                                            <a href="{{ route('admin.pengajuan-surat.show', $surat->id) }}"
+                                                class="btn-action-pill btn-action-view"
+                                                title="Periksa Permohonan">
+                                                <i class="fas fa-eye"></i> <span>Periksa</span>
+                                            </a>
+                                            @if($surat->status == 'diterima')
+                                                <a href="{{ route('surat.download', $surat->id) }}"
+                                                    class="btn-action-pill btn-action-pdf"
+                                                    title="Unduh PDF Surat">
+                                                    <i class="fas fa-file-pdf"></i> <span>PDF</span>
+                                                </a>
+                                            @endif
+                                        </div>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="8">
+                                        <div class="admin-table-empty">
+                                            <i class="fas fa-folder-open"></i>
+                                            <h6>Belum Ada Pengajuan Surat</h6>
+                                            <p>Semua permohonan surat dari warga desa akan tercatat di sini.</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
             <x-app.footer />
-
         </div>
-
     </main>
 
     <script>
-
-        document.getElementById('searchInput')
-            .addEventListener('keyup', function () {
-
-                let keyword = this.value.toLowerCase();
-
-                let rows =
-                    document.querySelectorAll('#tableBody tr');
-
-                rows.forEach(row => {
-
-                    let text =
-                        row.textContent.toLowerCase();
-
-                    row.style.display =
-                        text.includes(keyword)
-                            ? ''
-                            : 'none';
-
-                });
-
+        document.getElementById('searchInput')?.addEventListener('keyup', function () {
+            let keyword = this.value.toLowerCase();
+            let rows = document.querySelectorAll('#tableBody tr');
+            rows.forEach(row => {
+                row.style.display = row.textContent.toLowerCase().includes(keyword) ? '' : 'none';
             });
-
+        });
     </script>
-
-    <style>
-.btn-detail {
-    background: #64778b;
-    border: none;
-    color: white;
-}
-
-.btn-detail:hover {
-    background: #c7d5e3;
-    color: white;
-}
-
-.btn-pdf {
-    background: #f4727f;
-    border: none;
-    color: white;
-}
-
-.btn-pdf:hover {
-    background: #f4727f;
-    color: white;
-}
-</style>
-
 </x-app-layout>

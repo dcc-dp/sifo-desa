@@ -15,6 +15,10 @@ class Setting extends Model
         'maps_embed',
         'facebook',
         'instagram',
-        'twitter'
+        'twitter',
+        'nomor_surat_berikutnya',
+        'logo_surat',
+        'stempel_surat',
+        'ttd_kepala_desa'
     ];
 }

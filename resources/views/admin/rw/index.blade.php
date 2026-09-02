@@ -1,126 +1,107 @@
 <x-app-layout>
-    <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+    <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
         <x-app.navbar />
-
         <div class="container-fluid py-4 px-5">
-            <div class="row">
-                <div class="col-12">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <h2 class="mb-4">Data RW</h2>
 
-                        <a href="{{ route('rw-create') }}"
-                           class="btn btn-dark btn-sm d-flex align-items-center">
-                            <i class="fas fa-plus me-2"></i> Tambah RW
-                        </a>
+            <!-- PAGE HEADER -->
+            <div class="admin-page-header">
+                <div>
+                    <h2 class="admin-page-title">
+                        <i class="fas fa-map-signs"></i>
+                        <span>Data Rukun Warga (RW)</span>
+                    </h2>
+                    <p class="admin-page-subtitle">Kelola pembagian wilayah administrasi Rukun Warga di Desa</p>
+                </div>
+                <div>
+                    <a href="{{ route('rw-create') }}" class="btn-admin-primary">
+                        <i class="fas fa-plus"></i>
+                        <span>Tambah RW</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- ALERT -->
+            @if(session('success'))
+                <div class="alert alert-success alert-dismissible fade show mb-4 text-white border-0" style="background: #15803d;" role="alert">
+                    <i class="fas fa-check-circle me-2"></i>{{ session('success') }}
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+
+            <!-- TABLE CARD -->
+            <div class="admin-card">
+                <div class="admin-card-header">
+                    <h5 class="admin-card-title">
+                        <i class="fas fa-list text-muted"></i>
+                        <span>Daftar Wilayah RW</span>
+                    </h5>
+                    <div class="admin-search-wrapper">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchInput" class="admin-search-input" placeholder="Cari nomor RW...">
                     </div>
                 </div>
-            </div>
 
-            <hr style="height: 2px; color:black;">
-
-            {{-- ALERT --}}
-            <div class="row">
-                <div class="col-12">
-                    @if (session('error'))
-                        <div class="alert alert-danger" id="alert">{{ session('error') }}</div>
-                    @endif
-                    @if (session('success'))
-                        <div class="alert alert-success" id="alert">{{ session('success') }}</div>
-                    @endif
-                    @if (session('delete'))
-                        <div class="alert alert-warning" id="alert">{{ session('delete') }}</div>
-                    @endif
-                </div>
-            </div>
-
-            <div class="card border shadow-xs mb-4">
-                <div class="card-body px-0 py-0">
-
-                    <div class="table-responsive px-3">
-                        <table class="table table-bordered text-center align-middle mt-2">
-                            <thead>
+                <div class="table-responsive">
+                    <table class="table table-admin">
+                        <thead>
+                            <tr>
+                                <th class="text-center" style="width: 70px;">No</th>
+                                <th>Nomor RW</th>
+                                <th class="text-center col-aksi" style="width: 170px;">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                            @forelse ($data as $index => $rw)
                                 <tr>
-                                    <th style="background-color:#313d52ff;" class="text-white">No</th>
-                                    <th style="background-color:#313d52ff;" class="text-white">Nomor RW</th>
-                                    <th style="background-color:#313d52ff;" class="text-white">Aksi</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                @foreach ($data as $index => $rw)
-                                    <tr>
-                                        <td>{{ $index + 1 }}</td>
-                                        <td>RW {{ $rw->nomor_rw }}</td>
-
-                                        <td class="align-middle">
-                                             <a href="{{ route('rw-edit', $rw->id) }}"
-                                                class="me-1 text-secondary font-weight-bold text-xs"
-                                                data-bs-toggle="tooltip" data-bs-title="Edit user">
-                                                <svg width="14" height="14" viewBox="0 0 15 16"
-                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path
-                                                        d="M11.2201 2.02495C10.8292 1.63482 10.196 1.63545 9.80585 2.02636C9.41572 2.41727 9.41635 3.05044 9.80726 3.44057L11.2201 2.02495ZM12.5572 6.18502C12.9481 6.57516 13.5813 6.57453 13.9714 6.18362C14.3615 5.79271 14.3609 5.15954 13.97 4.7694L12.5572 6.18502ZM11.6803 1.56839L12.3867 2.2762L12.3867 2.27619L11.6803 1.56839ZM14.4302 4.31284L15.1367 5.02065L15.1367 5.02064L14.4302 4.31284ZM3.72198 15V16C3.98686 16 4.24091 15.8949 4.42839 15.7078L3.72198 15ZM0.999756 15H-0.000244141C-0.000244141 15.5523 0.447471 16 0.999756 16L0.999756 15ZM0.999756 12.2279L0.293346 11.5201C0.105383 11.7077 -0.000244141 11.9624 -0.000244141 12.2279H0.999756ZM9.80726 3.44057L12.5572 6.18502L13.97 4.7694L11.2201 2.02495L9.80726 3.44057ZM12.3867 2.27619C12.7557 1.90794 13.3549 1.90794 13.7238 2.27619L15.1367 0.860593C13.9869 -0.286864 12.1236 -0.286864 10.9739 0.860593L12.3867 2.27619ZM13.7238 2.27619C14.0917 2.64337 14.0917 3.23787 13.7238 3.60504L15.1367 5.02064C16.2875 3.8721 16.2875 2.00913 15.1367 0.860593L13.7238 2.27619ZM13.7238 3.60504L3.01557 14.2922L4.42839 15.7078L15.1367 5.02065L13.7238 3.60504ZM3.72198 14H0.999756V16H3.72198V14ZM1.99976 15V12.2279H-0.000244141V15H1.99976ZM1.70617 12.9357L12.3867 2.2762L10.9739 0.86059L0.293346 11.5201L1.70617 12.9357Z"
-                                                        fill="#64748B" />
-                                                </svg>
+                                    <td class="text-center fw-semibold text-muted">{{ $index + 1 }}</td>
+                                    <td class="fw-bold text-dark">
+                                        <span class="badge bg-light text-dark border px-3 py-2 fs-6">
+                                            RW {{ $rw->nomor_rw }}
+                                        </span>
+                                    </td>
+                                    <td class="text-center col-aksi">
+                                        <div class="action-buttons-group">
+                                            <a href="{{ route('rw-edit', $rw->id) }}" class="btn-action-pill btn-action-edit" title="Edit RW">
+                                                <i class="fas fa-edit"></i> <span>Edit</span>
                                             </a>
-
-                                            {{-- <a href="{{ route('rw-destroy', $rw->id) }}"
-                                                class="text-secondary font-weight-bold text-xs"
-                                                data-bs-toggle="tooltip" data-bs-title="Edit user">
-                                                <form action="" method="POST" class="d-inline">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit"
-                                                        class="btn btn-link text-danger font-weight-bold text-xs p-0 m-0"
-                                                        data-bs-toggle="tooltip" data-bs-title="Hapus"
-                                                        onclick="return confirm('Yakin ingin menghapus data ini?')">
-                                                        <i class="fas fa-trash-alt"></i>
-                                                    </button>
-                                                </form>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                                                    height="16" fill="currentColor" class="bi bi-trash3"
-                                                    viewBox="0 0 16 16">
-                                                    <path
-                                                        d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5" />
-                                                </svg>
-                                            </a> --}}
-
-                                            <form action="{{ route('rw-destroy', $rw->id) }}"
-                                                method="POST" class="d-inline">
+                                            <form action="{{ route('rw-destroy', $rw->id) }}" method="POST" class="d-inline">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit"
-                                                    class="text-secondary font-weight-bold text-xs border-0 bg-transparent p-0 m-0"
-                                                    data-bs-toggle="tooltip" data-bs-title="Hapus"
-                                                    onclick="return confirm('Yakin ingin menghapus data ini?')">
-
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                                                        height="16" fill="currentColor" class="bi bi-trash3"
-                                                        viewBox="0 0 16 16">
-                                                        <path
-                                                            d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5" />
-                                                    </svg>
-
+                                                <button type="submit" class="btn-action-pill btn-action-delete" title="Hapus RW"
+                                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data RW ini?')">
+                                                    <i class="fas fa-trash-alt"></i> <span>Hapus</span>
                                                 </button>
                                             </form>
-
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-
+                                        </div>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="3">
+                                        <div class="admin-table-empty">
+                                            <i class="fas fa-map-signs"></i>
+                                            <h6>Belum Ada Data RW</h6>
+                                            <p>Silakan klik tombol "Tambah RW" untuk memasukkan data RW baru.</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
                 </div>
             </div>
-        </div>
 
-        <x-app.footer />
+            <x-app.footer />
+        </div>
     </main>
 
     <script>
-        setTimeout(() => {
-            const alert = document.getElementById('alert');
-            if (alert) alert.style.display = 'none';
-        }, 5000);
+        document.getElementById('searchInput')?.addEventListener('keyup', function () {
+            let keyword = this.value.toLowerCase();
+            let rows = document.querySelectorAll('#tableBody tr');
+            rows.forEach(row => {
+                row.style.display = row.textContent.toLowerCase().includes(keyword) ? '' : 'none';
+            });
+        });
     </script>
 </x-app-layout>

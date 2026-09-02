@@ -1,64 +1,86 @@
 @extends('layouts.user')
 
-@section('title', $batch->nama . ' | Galeri Desa')
+@section('title', $batch->nama . ' - Galeri Desa | Sistem Informasi Desa')
 
 @section('content')
-    <section>
+
+    {{-- 1. Standard Page Hero Header --}}
+    <section class="page-hero-header">
         <div class="container">
-            <nav aria-label="breadcrumb" class="mb-4">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item">
-                        <a href="{{ route('user.galeri') }}">
-                            <i class="fas fa-images me-1"></i>Galeri
-                        </a>
-                    </li>
-                    <li class="breadcrumb-item active" aria-current="page">{{ $batch->nama }}</li>
-                </ol>
-            </nav>
+            <div class="page-hero-eyebrow">
+                <i class="fas fa-camera"></i>
+                <span>Dokumentasi Desa • Album</span>
+            </div>
+            <h1 class="page-hero-title">{{ $batch->nama }}</h1>
+            <p class="page-hero-desc">Koleksi {{ $batch->galeris->count() }} arsip foto dokumentasi resmi kegiatan dan pembangunan desa.</p>
+            <div class="page-hero-divider"></div>
 
-            {{-- <div class="row mb-4"> --}}
+            <div class="page-breadcrumbs">
+                <a href="{{ route('home') }}"><i class="fas fa-home me-1"></i>Home</a>
+                <span class="sep">/</span>
+                <a href="{{ route('user.galeri') }}">Galeri Desa</a>
+                <span class="sep">/</span>
+                <span class="current">{{ $batch->nama }}</span>
+            </div>
+        </div>
+    </section>
 
-            <div class="gallery-header">
-                <h2>{{ $batch->nama }}</h2>
-                <p>
-                    <i class="fas fa-images"></i>
-                    {{ $batch->galeris->count() }} Foto
-                </p>
+    {{-- 2. Album Photos Section --}}
+    <section class="profile-content-section">
+        <div class="profile-content-container">
+
+            <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-4 pb-2 border-bottom">
+                <div class="d-flex align-items-center gap-2">
+                    <span class="badge bg-success-subtle text-success-emphasis px-3 py-2 rounded-pill fw-semibold border border-success-subtle">
+                        <i class="fas fa-images me-1"></i> {{ $batch->galeris->count() }} Foto Dokumentasi
+                    </span>
+                </div>
+
+                <a href="{{ route('user.galeri') }}" class="btn btn-outline-secondary btn-sm px-3 py-2 rounded-pill fw-semibold">
+                    <i class="fas fa-arrow-left me-2"></i>Kembali ke Semua Album
+                </a>
             </div>
 
-
-            {{-- <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
-                    <a href="{{ route('user.galeri') }}" class="btn btn-outline-primary btn-sm">
-                        <i class="fas fa-arrow-left me-2"></i>Kembali
-                    </a>
-                </div>
-            </div> --}}
-
-            <div class="gallery-grid">
+            <div class="galeri-photos-grid">
                 @forelse ($batch->galeris as $index => $galeri)
-                    <div>
-                        <div class="gallery-item shadow-sm" onclick="openLightbox({{ $index }})">
-                            <img src="{{ asset($galeri->gambar) }}" alt="{{ $galeri->judul ?? 'Foto ' . ($index + 1) }}"
-                                loading="lazy">
+                    <div class="galeri-photo-card" onclick="openLightbox({{ $index }})" role="button" tabindex="0">
+                        <div class="galeri-photo-thumb-wrap">
+                            <img src="{{ asset($galeri->gambar) }}" 
+                                 alt="{{ $galeri->judul ?? 'Foto ' . ($index + 1) }}" 
+                                 class="galeri-photo-thumb"
+                                 loading="lazy">
+                            <div class="galeri-photo-hover-overlay">
+                                <i class="fas fa-magnifying-glass-plus"></i>
+                            </div>
                         </div>
 
-                        @if ($galeri->judul)
-                            <span class="gallery-title">{{ $galeri->judul }}</span>
-                        @endif
+                        <p class="galeri-photo-title" title="{{ $galeri->judul ?? 'Dokumentasi ' . ($index + 1) }}">
+                            <i class="far fa-image text-success me-1"></i>
+                            {{ $galeri->judul ?? 'Dokumentasi ' . ($index + 1) }}
+                        </p>
                     </div>
                 @empty
-                    <p>Belum ada foto</p>
+                    <div class="card p-5 text-center shadow-sm border-0 rounded-4 w-100">
+                        <i class="fas fa-image text-muted mb-3" style="font-size: 3rem; opacity: 0.35;"></i>
+                        <h4 class="text-muted fw-bold">Belum Ada Foto dalam Album Ini</h4>
+                        <p class="text-secondary small mb-0">Foto kegiatan untuk album ini belum diunggah.</p>
+                    </div>
                 @endforelse
             </div>
 
         </div>
     </section>
 
+    {{-- Lightbox Modal --}}
     <div id="lightbox" class="lightbox" onclick="closeLightbox(event)">
-        <span class="lightbox-close" onclick="closeLightbox(event)">&times;</span>
-        <span class="lightbox-prev" onclick="changeImage(-1); event.stopPropagation()">&#10094;</span>
-        <img id="lightbox-img" class="lightbox-content" src="" alt="">
-        <span class="lightbox-next" onclick="changeImage(1); event.stopPropagation()">&#10095;</span>
+        <span class="lightbox-close" onclick="closeLightbox(event)" title="Tutup">&times;</span>
+        <span class="lightbox-prev" onclick="changeImage(-1); event.stopPropagation()" title="Sebelumnya">
+            <i class="fas fa-chevron-left"></i>
+        </span>
+        <img id="lightbox-img" class="lightbox-content" src="" alt="Detail Foto">
+        <span class="lightbox-next" onclick="changeImage(1); event.stopPropagation()" title="Selanjutnya">
+            <i class="fas fa-chevron-right"></i>
+        </span>
         <div class="lightbox-counter">
             <span id="current-image">1</span> / <span id="total-images">{{ $batch->galeris->count() }}</span>
         </div>

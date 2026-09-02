@@ -4,45 +4,65 @@
 
 @section('content')
 
-    <section>
-        <div class="container py-3">
-            <div class="section-header">
-                <h2 class="section-title"><i class="fas fa-landmark"></i> Kategori Berita</h2>
-            </div>
-            <div class="row">
-                <div class="position-relative">
+    @php
+        $setting = \App\Models\Setting::first();
+        $desaName = (!empty($setting?->nama_desa)) ? $setting->nama_desa : 'Rante Gola';
+    @endphp
 
-                    <div class="swiper mySwiper mt-4 mb-2">
-                        <div class="swiper-wrapper">
-                            @foreach ($kategoris as $kategori)
-                                <div class="swiper-slide">
-                                    <div>
-                                        <div
-                                            class="card card-background shadow-none border-radius-xl card-background-after-none align-items-start mb-0">
-                                            <div class="full-background bg-cover"
-                                                style="background-image: url('../assets/img/img-2.jpg')"></div>
-                                            <div class="card-body text-start px-3 py-0 w-100">
-                                                <div class="row mt-12"> 
-                                                    <div class="col-sm-3 mt-auto">
-                                                        <a href="{{ route('show-kategori', $kategori->slug) }}">
-                                                            <h2 class="text-dark font-weight-bolder mt-2">#{{ $kategori->nama_kategori}}</h2>
-                                                        </a>
-                                                        <a href="{{ route('show-kategori', $kategori->slug) }}">
-                                                            <h4 class="text-dark font-weight-bolder">{{ $kategori->beritas_count }} Berita</h4>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach 
-                        </div>
-                    </div>
-                </div>
+    {{-- 1. Standard Page Hero Header --}}
+    <section class="page-hero-header">
+        <div class="container">
+            <div class="page-hero-eyebrow">
+                <i class="fas fa-newspaper"></i>
+                <span>Warta & Publikasi Desa</span>
+            </div>
+            <h1 class="page-hero-title">Kategori Berita & Informasi</h1>
+            <p class="page-hero-desc">Pilih topik kategori warta untuk menemukan informasi resmi, liputan kegiatan, dan pengumuman penting di Desa {{ $desaName }}.</p>
+            <div class="page-hero-divider"></div>
+            
+            <div class="page-breadcrumbs">
+                <a href="{{ route('home') }}"><i class="fas fa-home me-1"></i>Home</a>
+                <span class="sep">/</span>
+                <span>Berita & Agenda</span>
+                <span class="sep">/</span>
+                <span class="current">Kategori Berita</span>
             </div>
         </div>
+    </section>
 
+    {{-- 2. Modern Category Cards Grid --}}
+    <section class="profile-content-section">
+        <div class="profile-content-container">
+
+            <div class="kategori-grid-modern">
+                @forelse ($kategoris as $kategori)
+                    <a href="{{ route('show-kategori', $kategori->slug) }}" class="kategori-card-modern">
+                        <div class="kategori-icon-wrap">
+                            <i class="fas fa-folder"></i>
+                        </div>
+
+                        <h3 class="kategori-title">#{{ $kategori->nama_kategori }}</h3>
+
+                        <div class="kategori-count-badge">
+                            <i class="fas fa-file-alt text-success"></i>
+                            <span>{{ $kategori->beritas_count }} Publikasi Berita</span>
+                        </div>
+
+                        <div class="kategori-btn-view">
+                            <span>Jelajahi Berita</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </a>
+                @empty
+                    <div class="card p-5 text-center shadow-sm border-0 rounded-4 w-100">
+                        <i class="fas fa-newspaper text-muted mb-3" style="font-size: 3rem; opacity: 0.35;"></i>
+                        <h4 class="text-muted fw-bold">Kategori Belum Tersedia</h4>
+                        <p class="text-secondary small mb-0">Belum ada kategori warta yang ditambahkan oleh admin.</p>
+                    </div>
+                @endforelse
+            </div>
+
+        </div>
     </section>
 
 @endsection
