@@ -49,10 +49,9 @@ class SuratController extends Controller
 
         // 2. Jika file fisik belum ada atau hilang, generate secara dinamis via DomPDF
         $setting = Setting::first();
-        $kepalaDesa = PemerintahDesa::where(
-            'jabatan',
-            'Kepala Desa'
-        )->first();
+        $kepalaDesa = PemerintahDesa::where('jabatan', 'Kepala Desa')
+            ->orWhere('jabatan', 'like', '%Kepala Desa%')
+            ->first();
 
         if ($surat->usaha) {
             $view = 'pdf.sku';

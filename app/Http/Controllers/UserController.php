@@ -21,9 +21,14 @@ class UserController extends Controller
     public function home()
     {
         $berita = Berita::orderBy('created_at', 'desc')->whereNotNull('gambar')->take(3)->get();
-        $pemerintah =  PemerintahDesa::take(1)->get(); 
+        // Cari Kepala Desa secara spesifik
+        $kades = PemerintahDesa::where('jabatan', 'Kepala Desa')
+            ->orWhere('jabatan', 'like', '%Kepala Desa%')
+            ->first();
+        // Untuk card aparatur di beranda: tampilkan Kades jika ada, atau aparatur pertama
+        $pemerintah = $kades ? collect([$kades]) : PemerintahDesa::take(1)->get();
         $agenda = Agenda::take(6)->get();
-        return view('pages.home', compact('berita','pemerintah', 'agenda'));
+        return view('pages.home', compact('berita', 'pemerintah', 'agenda', 'kades'));
     }
 
     public function pemerintah()

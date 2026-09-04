@@ -62,8 +62,33 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="jabatan" class="admin-form-label">Jabatan Struktural <span class="required">*</span></label>
-                                <input type="text" name="jabatan" id="jabatan" value="{{ old('jabatan', $pemerintahs->jabatan) }}"
-                                    class="form-control @error('jabatan') is-invalid @enderror" required>
+                                @php
+                                    $standardJabatans = [
+                                        'Kepala Desa',
+                                        'Sekretaris Desa',
+                                        'Kaur Keuangan',
+                                        'Kaur Umum & Perencanaan',
+                                        'Kaur Tata Usaha & Umum',
+                                        'Kasi Pemerintahan',
+                                        'Kasi Kesejahteraan',
+                                        'Kasi Pelayanan',
+                                        'Kepala Dusun',
+                                    ];
+                                    $currentJabatan = old('jabatan', $pemerintahs->jabatan);
+                                @endphp
+                                <select name="jabatan" id="jabatan" class="form-select @error('jabatan') is-invalid @enderror" required>
+                                    <option value="" disabled {{ empty($currentJabatan) ? 'selected' : '' }}>-- Pilih Jabatan Struktural --</option>
+                                    @foreach ($standardJabatans as $item)
+                                        <option value="{{ $item }}" {{ $currentJabatan === $item ? 'selected' : '' }}>{{ $item }}</option>
+                                    @endforeach
+                                    @if(!empty($currentJabatan) && !in_array($currentJabatan, $standardJabatans))
+                                        <option value="{{ $currentJabatan }}" selected>{{ $currentJabatan }}</option>
+                                    @endif
+                                </select>
+                                <small class="text-muted fs-8 mt-1 d-block">
+                                    <i class="fas fa-info-circle text-primary me-1"></i>
+                                    Pilih <strong>Kepala Desa</strong> agar foto dan nama aparatur otomatis menjadi pimpinan di Beranda & penandatangan surat PDF.
+                                </small>
                                 @error('jabatan') <span class="text-danger text-xs mt-1 d-block">{{ $message }}</span> @enderror
                             </div>
                         </div>

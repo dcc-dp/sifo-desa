@@ -321,12 +321,21 @@
                                 <span class="input-group-text bg-light text-dark fw-bold border">No.</span>
                                 <input type="text" name="nomor_surat" id="nomor_surat"
                                     class="form-control font-monospace fw-bold fs-5 text-success @error('nomor_surat') is-invalid @enderror"
-                                    value="{{ old('nomor_surat', $nextNomorSurat) }}" required
-                                    placeholder="Contoh: 006">
+                                    value="{{ old('nomor_surat', $nextNomorUrut) }}" required
+                                    placeholder="Contoh: {{ $nextNomorUrut }}">
+                                <span class="input-group-text bg-light text-dark font-monospace fw-bold border">
+                                    /{{ $kodeSurat }}/{{ $romawiBulan }}/{{ $tahun }}
+                                </span>
+                            </div>
+                            <div class="mt-2 p-2 px-3 rounded-2 bg-light border d-flex align-items-center justify-content-between">
+                                <span class="text-muted fs-8">Format Dokumen PDF:</span>
+                                <span class="font-monospace fw-bold text-primary fs-7" id="preview_format_surat">
+                                    {{ old('nomor_surat', $nextNomorUrut) }}/{{ $kodeSurat }}/{{ $romawiBulan }}/{{ $tahun }}
+                                </span>
                             </div>
                             <small class="text-muted fs-8 mt-2 d-block" style="line-height: 1.5;">
                                 <i class="fas fa-info-circle text-primary me-1"></i>
-                                <strong>Panduan:</strong> Masukkan nomor awal untuk pertama kali (misal: <code>006</code> untuk melanjutkan buku register fisik desa). Untuk surat-surat berikutnya, sistem akan <strong>otomatis melanjutkan nomor urut berikutnya</strong> secara berurutan tanpa perlu diinput lagi.
+                                <strong>Panduan:</strong> Masukkan nomor urut surat (misal: <code>{{ $nextNomorUrut }}</code>). Kode surat (<code>{{ $kodeSurat }}</code>), bulan romawi (<code>{{ $romawiBulan }}</code>), dan tahun berjalan (<code>{{ $tahun }}</code>) akan digabungkan secara otomatis.
                             </small>
                         </div>
                     </div>
@@ -378,4 +387,35 @@
             </div>
         </div>
     </div>
+
+    @push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const nomorInput = document.getElementById('nomor_surat');
+            const previewEl = document.getElementById('preview_format_surat');
+            if (nomorInput && previewEl) {
+                const kode = @json($kodeSurat);
+                const romawi = @json($romawiBulan);
+                const tahun = @json($tahun);
+                const defaultUrut = @json($nextNomorUrut);
+
+                nomorInput.addEventListener('input', function() {
+                    let val = this.value.trim();
+                    if (!val) val = defaultUrut;
+
+                    if (val.includes('/')) {
+                        previewEl.textContent = val;
+                    } else {
+                        const num = parseInt(val, 10);
+                        let padded = val;
+                        if (!isNaN(num) && /^\d+$/.test(val)) {
+                            padded = String(num).padStart(Math.max(val.length, 3), '0');
+                        }
+                        previewEl.textContent = `${padded}/${kode}/${romawi}/${tahun}`;
+                    }
+                });
+            }
+        });
+    </script>
+    @endpush
 </x-app-layout>

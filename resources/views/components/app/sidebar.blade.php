@@ -10,14 +10,15 @@
 
         <a class="navbar-brand d-flex align-items-center m-0">
 
-            <img src="{{ asset('uploads/galeri/logo_sifo.png') }}" alt="Logo Desa"
-                style="height:40px; margin-right:10px;">
+            <!-- <img src="{{ asset('uploads/galeri/logo_sifo.png') }}" alt="Logo Desa"
+                style="height:40px; margin-right:10px;"> -->
 
             <span class="font-weight-bold text-lg">
 
-                <!-- SIFO {{ strtoupper($setting->nama_desa ?? '') }} -->
+                <!-- DESA {{ strtoupper($setting->nama_desa ?? '') }} -->
 
                 SIFO DESA
+
 
             </span>
 

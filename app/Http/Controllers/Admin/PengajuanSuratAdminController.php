@@ -7,6 +7,7 @@ use App\Models\Surat;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Setting;
 use App\Models\PemerintahDesa;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -38,11 +39,17 @@ class PengajuanSuratAdminController extends Controller
         $setting = Setting::first();
         $nextNumber = $setting ? (int) ($setting->nomor_surat_berikutnya ?? 1) : 1;
         if ($nextNumber < 1) $nextNumber = 1;
-        $nextNomorSurat = sprintf('%03d', $nextNumber);
+        $nextNomorUrut = sprintf('%03d', $nextNumber);
+        $nextNomorSurat = $nextNomorUrut;
+
+        $kodeSurat = $surat->kode_surat;
+        $romawiBulan = Surat::getRomawiBulan(Carbon::now()->month);
+        $tahun = Carbon::now()->year;
+        $nextNomorSuratFull = "{$nextNomorUrut}/{$kodeSurat}/{$romawiBulan}/{$tahun}";
 
         return view(
             'admin.pengajuan-surat.show',
-            compact('surat', 'setting', 'nextNomorSurat')
+            compact('surat', 'setting', 'nextNomorSurat', 'nextNomorUrut', 'kodeSurat', 'romawiBulan', 'tahun', 'nextNomorSuratFull')
         );
     }
 
@@ -74,24 +81,40 @@ class PengajuanSuratAdminController extends Controller
             // Hanya generate nomor baru jika surat belum memiliki nomor resmi
             if (empty($surat->nomor_surat)) {
                 $inputNomor = trim($request->input('nomor_surat', ''));
+                $kodeSurat = $surat->kode_surat;
+                $romawiBulan = Surat::getRomawiBulan(Carbon::now()->month);
+                $tahun = Carbon::now()->year;
 
                 if (!empty($inputNomor)) {
-                    // Jika admin input nomor tertentu di modal (misal: 006)
-                    preg_match('/\d+/', $inputNomor, $matches);
-                    if (!empty($matches[0])) {
-                        $numVal = (int) $matches[0];
-                        $padLen = max(strlen($matches[0]), 3);
-                        $formattedNomor = sprintf("%0{$padLen}d", $numVal);
-                        $setting->nomor_surat_berikutnya = $numVal + 1;
-                    } else {
+                    // Jika admin input nomor dengan format lengkap (misal: 006/SKU/IX/2026)
+                    if (str_contains($inputNomor, '/')) {
                         $formattedNomor = $inputNomor;
-                        $setting->nomor_surat_berikutnya = (int) ($setting->nomor_surat_berikutnya ?? 1) + 1;
+                        preg_match('/\d+/', $inputNomor, $matches);
+                        if (!empty($matches[0])) {
+                            $setting->nomor_surat_berikutnya = (int) $matches[0] + 1;
+                        } else {
+                            $setting->nomor_surat_berikutnya = (int) ($setting->nomor_surat_berikutnya ?? 1) + 1;
+                        }
+                    } else {
+                        // Jika admin input nomor urut tertentu di modal (misal: 006)
+                        preg_match('/\d+/', $inputNomor, $matches);
+                        if (!empty($matches[0])) {
+                            $numVal = (int) $matches[0];
+                            $padLen = max(strlen($matches[0]), 3);
+                            $nomorUrut = sprintf("%0{$padLen}d", $numVal);
+                            $setting->nomor_surat_berikutnya = $numVal + 1;
+                        } else {
+                            $nomorUrut = $inputNomor;
+                            $setting->nomor_surat_berikutnya = (int) ($setting->nomor_surat_berikutnya ?? 1) + 1;
+                        }
+                        $formattedNomor = "{$nomorUrut}/{$kodeSurat}/{$romawiBulan}/{$tahun}";
                     }
                 } else {
                     $currentNumber = (int) ($setting->nomor_surat_berikutnya ?? 1);
                     if ($currentNumber < 1) $currentNumber = 1;
-                    $formattedNomor = sprintf('%03d', $currentNumber);
+                    $nomorUrut = sprintf('%03d', $currentNumber);
                     $setting->nomor_surat_berikutnya = $currentNumber + 1;
+                    $formattedNomor = "{$nomorUrut}/{$kodeSurat}/{$romawiBulan}/{$tahun}";
                 }
 
                 $surat->nomor_surat = $formattedNomor;
@@ -99,10 +122,9 @@ class PengajuanSuratAdminController extends Controller
                 $setting->save();
             }
 
-            $kepalaDesa = PemerintahDesa::where(
-                'jabatan',
-                'Kepala Desa'
-            )->first();
+            $kepalaDesa = PemerintahDesa::where('jabatan', 'Kepala Desa')
+                ->orWhere('jabatan', 'like', '%Kepala Desa%')
+                ->first();
 
             if ($surat->usaha) {
                 $view = 'pdf.sku';

@@ -217,8 +217,9 @@
                                             </div>
                                             <ul class="text-muted fs-8 mb-0 ps-3" style="line-height: 1.6;">
                                                 <li>Surat berstatus <em>Draft / Menunggu</em> <strong>tidak mengambil nomor</strong>.</li>
-                                                <li>Ketika disetujui, surat pertama akan mendapat nomor <strong>{{ sprintf('%03d', $setting->nomor_surat_berikutnya ?? 1) }}</strong>.</li>
-                                                <li>Surat berikutnya (meskipun beda jenis surat) akan berlanjut menjadi <strong>{{ sprintf('%03d', ($setting->nomor_surat_berikutnya ?? 1) + 1) }}</strong>, <strong>{{ sprintf('%03d', ($setting->nomor_surat_berikutnya ?? 1) + 2) }}</strong>, dst.</li>
+                                                <li>Format nomor surat resmi: <strong>(NOMOR URUT)/KODE/(ROMAWI)/TAHUN</strong> (contoh: <code>{{ sprintf('%03d', $setting->nomor_surat_berikutnya ?? 1) }}/SKU/{{ \App\Models\Surat::getRomawiBulan() }}/{{ date('Y') }}</code>).</li>
+                                                <li>Ketika disetujui, surat pertama akan mendapat nomor urut <strong>{{ sprintf('%03d', $setting->nomor_surat_berikutnya ?? 1) }}</strong>.</li>
+                                                <li>Surat berikutnya (meskipun beda jenis surat) akan otomatis berlanjut menjadi <strong>{{ sprintf('%03d', ($setting->nomor_surat_berikutnya ?? 1) + 1) }}</strong>, <strong>{{ sprintf('%03d', ($setting->nomor_surat_berikutnya ?? 1) + 2) }}</strong>, dst.</li>
                                             </ul>
                                         </div>
                                     </div>

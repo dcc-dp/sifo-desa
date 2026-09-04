@@ -60,9 +60,16 @@
                                     </td>
                                     <td class="fw-bold text-dark">{{ $pemerintah->nama }}</td>
                                     <td>
-                                        <span class="badge-kategori">
-                                            {{ $pemerintah->jabatan }}
-                                        </span>
+                                        @if(stripos($pemerintah->jabatan, 'Kepala Desa') !== false)
+                                            <span class="badge bg-success text-white px-2 py-1 fs-8 fw-semibold">
+                                                <i class="fas fa-crown me-1 text-warning"></i> {{ $pemerintah->jabatan }}
+                                            </span>
+                                            <small class="text-muted d-block mt-1 fs-8"><i class="fas fa-star text-warning"></i> Pimpinan Beranda & Surat</small>
+                                        @else
+                                            <span class="badge-kategori">
+                                                {{ $pemerintah->jabatan }}
+                                            </span>
+                                        @endif
                                     </td>
                                     <td class="text-muted">
                                         {{ \Illuminate\Support\Str::limit(strip_tags($pemerintah->tupoksi), 120, '...') }}

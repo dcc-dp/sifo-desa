@@ -7,11 +7,16 @@
     <section id="home-page" class="page-section active">
         @php
             $setting = \App\Models\Setting::first();
-            $kades = $pemerintah->first();
+            $kades = $kades ?? \App\Models\PemerintahDesa::where('jabatan', 'Kepala Desa')
+                ->orWhere('jabatan', 'like', '%Kepala Desa%')
+                ->first();
             $desaName = (!empty($setting?->nama_desa)) ? $setting->nama_desa : 'Rante Gola';
-            $kadesName = $kades->nama ?? 'Said Sudirman';
-            $kadesRole = $kades->jabatan ?? 'Kepala Desa';
-            $kadesFoto = ($kades && $kades->foto && file_exists(public_path($kades->foto))) ? asset($kades->foto) : asset('assets/img/kades_transparent.png');
+            $hasKades = !empty($kades);
+            $kadesName = $hasKades ? $kades->nama : 'Pemerintah Desa';
+            $kadesRole = $hasKades ? $kades->jabatan : ('Pimpinan Desa ' . $desaName);
+            $kadesFoto = ($hasKades && $kades->foto && file_exists(public_path($kades->foto))) 
+                ? asset($kades->foto) 
+                : asset('assets/img/kades_transparent.png');
         @endphp
 
         <div class="hero-galesong">
@@ -30,12 +35,12 @@
                     </h1>
 
                     <p class="hero-galesong-quote">
-                        "Selamat datang di website resmi Desa {{ $desaName }}. Website ini menjadi sarana informasi dan pelayanan publik guna mendukung pemerintahan desa yang transparan dan akuntabel. {{ $kadesName }} {{ $kadesRole }}."
+                        "Komitmen kami menghadirkan keterbukaan informasi dan pelayanan publik yang cepat, mudah, serta terpercaya demi kemajuan dan kesejahteraan seluruh masyarakat Desa {{ $desaName }}."
                     </p>
 
                     <div class="hero-galesong-author">
                         <span class="galesong-author-bar">|</span>
-                        <span class="galesong-author-name">— {{ $kadesName }}</span>
+                        <span class="galesong-author-name">— {{ $hasKades ? $kadesName : ('Pemerintah Desa ' . $desaName) }}</span>
                     </div>
 
                     <div class="hero-galesong-actions">

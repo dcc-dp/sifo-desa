@@ -8,7 +8,7 @@
             <div class="logo" onclick="window.location='{{ route('home') }}'">
                 <img src="{{ asset('uploads/galeri/logo_sifo.png') }}" alt="Logo Desa" class="logo-img">
                 <div class="logo-text-group">
-                    <span class="logo-title">SIFO {{ strtoupper($setting->nama_desa ?? 'RANTE GOLA') }}</span>
+                    <span class="logo-title">DESA {{ strtoupper($setting->nama_desa ?? 'RANTE GOLA') }}</span>
                     <span class="logo-subtitle">Portal Informasi & Layanan Publik</span>
                 </div>
             </div>

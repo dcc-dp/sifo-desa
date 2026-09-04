@@ -61,11 +61,11 @@
             <td width="82%" align="center">
 
                 <div style="font-size:16px; font-weight:bold;">
-                    PEMERINTAH KABUPATEN GOWA
+                    PEMERINTAH KABUPATEN BUTON UTARA
                 </div>
 
                 <div style="font-size:16px; font-weight:bold;">
-                    KECAMATAN PARANGLOE
+                    KECAMATAN BONE GUNU
                 </div>
 
                 <div style="font-size:22px; font-weight:bold;">
@@ -246,7 +246,7 @@
     
         <div style="margin-top:10px;">
             <strong>
-                <u>{{ strtoupper($kepalaDesa->nama) }}</u>
+                <u>{{ strtoupper($kepalaDesa->nama ?? $setting->nama_kepala_desa ?? 'KEPALA DESA') }}</u>
             </strong>
         </div>
     
