@@ -505,7 +505,7 @@ table, thead, tbody, th, td, tr, p, span, a, input, select, textarea, button,
 .form-control {
     border: 1px solid #cbd5e1 !important;
     border-radius: var(--admin-radius-md) !important;
-    padding: 0.55rem 0.85rem !important;
+    padding: 0.6rem 1rem !important;
     font-size: 0.875rem !important;
     color: #1e293b !important;
     transition: all 0.15s ease-in-out !important;
@@ -521,7 +521,7 @@ table, thead, tbody, th, td, tr, p, span, a, input, select, textarea, button,
 .form-select {
     border: 1px solid #cbd5e1 !important;
     border-radius: var(--admin-radius-md) !important;
-    padding: 0.55rem 2.25rem 0.55rem 0.85rem !important;
+    padding: 0.6rem 2.25rem 0.6rem 1rem !important;
     font-size: 0.875rem !important;
     color: #1e293b !important;
 }

@@ -73,6 +73,21 @@
                             </div>
                         </div>
 
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-12">
+                                <label for="role" class="admin-form-label">Peran (Role) <span class="required">*</span></label>
+                                <select name="role" id="role" class="form-select @error('role') is-invalid @enderror" required>
+                                    <option value="" disabled>Pilih Role Pengguna...</option>
+                                    @foreach($roles as $role)
+                                        <option value="{{ $role->name }}" {{ (old('role') ?? $userRole) == $role->name ? 'selected' : '' }}>{{ $role->name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('role')
+                                    <span class="text-danger text-xs mt-1 d-block">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+
                         <div class="d-flex align-items-center justify-content-end gap-2 pt-3 border-top">
                             <a href="{{ route('admin.user-index') }}" class="btn-admin-secondary">
                                 <i class="fas fa-times"></i> Batal

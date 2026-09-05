@@ -68,7 +68,7 @@
     <link href="{{ asset('assets/css/nucleo-icons.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/css/nucleo-svg.css') }}" rel="stylesheet" />
     <link id="pagestyle" href="{{ asset('assets/css/corporate-ui-dashboard.css?v=1.0.0') }}" rel="stylesheet" />
-    <link href="{{ asset('assets/css/admin-design-system.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/css/admin-design-system.css') }}?v={{ time() }}" rel="stylesheet" />
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">

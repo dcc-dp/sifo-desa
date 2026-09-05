@@ -54,5 +54,48 @@ class AppServiceProvider extends ServiceProvider
 
             $view->with('setting', $setting);
         });
+
+        // 5. Inject Dynamic Menus for Admin Sidebar
+        View::composer('components.app.sidebar', function ($view) {
+            $user = auth()->user();
+            $dynamicMenus = collect();
+
+            if ($user && Schema::hasTable('menus')) {
+                // If user is super admin, get all active menus
+                // Otherwise, get menus that are assigned to user's roles
+                if ($user->hasRole('Super Admin')) {
+                    $allMenus = \App\Models\Menu::where('is_active', true)
+                        ->orderBy('order_num')
+                        ->get();
+                } else {
+                    $allMenus = \App\Models\Menu::where('is_active', true)
+                        ->whereHas('roles', function($q) use ($user) {
+                            $q->whereIn('roles.id', $user->roles->pluck('id'));
+                        })
+                        ->orderBy('order_num')
+                        ->get();
+                }
+
+                // Organize menus hierarchically
+                $headers = $allMenus->where('is_header', true);
+                
+                foreach ($headers as $header) {
+                    $children = $allMenus->where('parent_id', $header->id);
+                    $header->children = $children;
+                    $dynamicMenus->push($header);
+                }
+
+                // Add parentless top-level items that are not headers
+                $parentless = $allMenus->where('is_header', false)->whereNull('parent_id');
+                foreach ($parentless as $item) {
+                    $dynamicMenus->push($item);
+                }
+                
+                // Re-sort by order_num
+                $dynamicMenus = $dynamicMenus->sortBy('order_num')->values();
+            }
+
+            $view->with('dynamicMenus', $dynamicMenus);
+        });
     }
 }

@@ -112,10 +112,12 @@
                                     </td>
                                     <td class="text-center col-aksi">
                                         <div class="action-buttons-group">
+                                            @can('edit_pengaduan')
                                             <a href="{{ route('admin.pengaduan-edit', $pengaduan->id) }}" class="btn-action-pill btn-action-view"
                                                 title="Tindak Lanjuti Pengaduan">
                                                 <i class="fas fa-tasks"></i> <span>Tindak Lanjut</span>
                                             </a>
+                                            @endcan
                                         </div>
                                     </td>
                                 </tr>
