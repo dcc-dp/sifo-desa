@@ -1,3 +1,17 @@
+<style>
+    @media (max-width: 992px) {
+        #nav-links .dropdown-menu {
+            position: static !important;
+            top: auto !important;
+            left: 0 !important;
+            right: auto !important;
+            transform: none !important;
+            float: none !important;
+            width: 100% !important;
+            box-shadow: none !important;
+        }
+    }
+</style>
 <header class="header" id="main-header">
     <div class="container header-container">
         <nav class="navbar">

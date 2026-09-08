@@ -12,7 +12,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
     {{-- File CSS kamu --}}
-    <link rel="stylesheet" href="{{ asset('assets/css/user/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/user/style.css') }}?v={{ filemtime(public_path('assets/css/user/style.css')) }}">
 
     @stack('styles')
 </head>
@@ -33,7 +33,7 @@
     {{-- Scripts --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-    <script src="{{ asset('assets/js/user/scripts.js') }}"></script>
+    <script src="{{ asset('assets/js/user/scripts.js') }}?v={{ filemtime(public_path('assets/js/user/scripts.js')) }}"></script>
 
     @stack('scripts')
 </body> 
