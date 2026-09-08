@@ -29,13 +29,6 @@ class AppServiceProvider extends ServiceProvider
             URL::forceScheme('https');
         }
 
-        // 2. Sesuaikan public_path jika berjalan di cPanel / Shared Hosting dengan folder public_html
-        if (file_exists(base_path('public_html')) && !file_exists(base_path('public'))) {
-            $this->app->bind('path.public', function() {
-                return base_path('public_html');
-            });
-        }
-
         // 2. Mencegah query database berjalan jika Laravel sedang berjalan via terminal/CLI (misal saat php artisan migrate)
         if (app()->runningInConsole()) {
             return;
