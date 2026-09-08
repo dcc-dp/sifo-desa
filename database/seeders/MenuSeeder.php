@@ -124,7 +124,7 @@ class MenuSeeder extends Seeder
         ]);
         $assignRole($h5);
 
-        $m13 = Menu::create(['title' => 'Profile', 'route_name' => 'admin.user-index', 'parent_id' => $h5->id, 'order_num' => 18, 'icon' => '']);
+        $m13 = Menu::create(['title' => 'Users', 'route_name' => 'admin.user-index', 'parent_id' => $h5->id, 'order_num' => 18, 'icon' => '']);
         $assignRole($m13);
 
         $m14 = Menu::create(['title' => 'Role Management', 'route_name' => 'admin.roles.index', 'parent_id' => $h5->id, 'order_num' => 19, 'icon' => '']);

@@ -148,29 +148,29 @@ Route::middleware('auth')->group(function () {
         Route::put('/pemerintah-update/{id}', [PemerintahController::class, 'update'])->name('pemerintah-update')->middleware('permission:edit_pemerintah');
         Route::get('/pemerintah-destroy/{id}', [PemerintahController::class, 'destroy'])->name('pemerintah-destroy')->middleware('permission:delete_pemerintah');
 
-        Route::get('setting', [SettingController ::class, 'edit'])->name('admin.setting.edit');
-        Route::put('setting', [SettingController::class, 'update'])->name('admin.setting.update');
+        Route::get('setting', [SettingController ::class, 'edit'])->name('admin.setting.edit')->middleware('permission:view_setting');
+        Route::put('setting', [SettingController::class, 'update'])->name('admin.setting.update')->middleware('permission:edit_setting');
 
-        Route::get('/sejarah-index', [SejarahController::class, 'index'])->name('sejarah-index');
-        Route::get('/sejarah-create', [SejarahController::class, 'create'])->name('sejarah-create');
-        Route::post('/sejarah-store', [SejarahController::class, 'store'])->name('sejarah-store');
-        Route::get('/sejarah-edit/{id}', [SejarahController::class, 'edit'])->name('sejarah-edit');
-        Route::put('/sejarah-update/{id}', [SejarahController::class, 'update'])->name('sejarah-update');
-        Route::get('/sejarah-destroy/{id}', [SejarahController::class, 'destroy'])->name('sejarah-destroy');
+        Route::get('/sejarah-index', [SejarahController::class, 'index'])->name('sejarah-index')->middleware('permission:view_sejarah');
+        Route::get('/sejarah-create', [SejarahController::class, 'create'])->name('sejarah-create')->middleware('permission:create_sejarah');
+        Route::post('/sejarah-store', [SejarahController::class, 'store'])->name('sejarah-store')->middleware('permission:create_sejarah');
+        Route::get('/sejarah-edit/{id}', [SejarahController::class, 'edit'])->name('sejarah-edit')->middleware('permission:edit_sejarah');
+        Route::put('/sejarah-update/{id}', [SejarahController::class, 'update'])->name('sejarah-update')->middleware('permission:edit_sejarah');
+        Route::get('/sejarah-destroy/{id}', [SejarahController::class, 'destroy'])->name('sejarah-destroy')->middleware('permission:delete_sejarah');
 
-        Route::get('/agenda-index', [AgendaController::class, 'index'])->name('agenda-index');
-        Route::get('/agenda-create', [AgendaController::class, 'create'])->name('agenda-create');
-        Route::post('/agenda-store', [AgendaController::class, 'store'])->name('agenda-store');
-        Route::get('/agenda-edit/{id}', [AgendaController::class, 'edit'])->name('agenda-edit');
-        Route::put('/agenda-update/{id}', [AgendaController::class, 'update'])->name('agenda-update');
-        Route::get('/agenda-destroy/{id}', [AgendaController::class, 'destroy'])->name('agenda-destroy');
+        Route::get('/agenda-index', [AgendaController::class, 'index'])->name('agenda-index')->middleware('permission:view_agenda');
+        Route::get('/agenda-create', [AgendaController::class, 'create'])->name('agenda-create')->middleware('permission:create_agenda');
+        Route::post('/agenda-store', [AgendaController::class, 'store'])->name('agenda-store')->middleware('permission:create_agenda');
+        Route::get('/agenda-edit/{id}', [AgendaController::class, 'edit'])->name('agenda-edit')->middleware('permission:edit_agenda');
+        Route::put('/agenda-update/{id}', [AgendaController::class, 'update'])->name('agenda-update')->middleware('permission:edit_agenda');
+        Route::get('/agenda-destroy/{id}', [AgendaController::class, 'destroy'])->name('agenda-destroy')->middleware('permission:delete_agenda');
 
-        Route::get('/kategori-index', [KategoriController::class, 'index'])->name('kategori-index');
-        Route::get('/kategori-create', [KategoriController::class, 'create'])->name('kategori-create');
-        Route::post('/kategori-store', [KategoriController::class, 'store'])->name('kategori-store');
-        Route::get('/kategori-edit/{id}', [KategoriController::class, 'edit'])->name('kategori-edit');
-        Route::put('/kategori-update/{id}', [KategoriController::class, 'update'])->name('kategori-update');
-        Route::get('/kategori-destroy/{id}', [KategoriController::class, 'destroy'])->name('kategori-destroy');
+        Route::get('/kategori-index', [KategoriController::class, 'index'])->name('kategori-index')->middleware('permission:view_kategori');
+        Route::get('/kategori-create', [KategoriController::class, 'create'])->name('kategori-create')->middleware('permission:create_kategori');
+        Route::post('/kategori-store', [KategoriController::class, 'store'])->name('kategori-store')->middleware('permission:create_kategori');
+        Route::get('/kategori-edit/{id}', [KategoriController::class, 'edit'])->name('kategori-edit')->middleware('permission:edit_kategori');
+        Route::put('/kategori-update/{id}', [KategoriController::class, 'update'])->name('kategori-update')->middleware('permission:edit_kategori');
+        Route::get('/kategori-destroy/{id}', [KategoriController::class, 'destroy'])->name('kategori-destroy')->middleware('permission:delete_kategori');
 
         Route::get('/berita-index', [BeritaController::class, 'index'])->name('berita-index')->middleware('permission:view_berita');
         Route::get('/berita-create', [BeritaController::class, 'create'])->name('berita-create')->middleware('permission:create_berita');
@@ -187,14 +187,14 @@ Route::middleware('auth')->group(function () {
         Route::put('/pengaduan-update/{id}', [PengaduanController::class, 'update'])->name('admin.pengaduan-update')->middleware('permission:edit_pengaduan');
         Route::get('/pengaduan-destroy/{id}', [PengaduanController::class, 'destroy'])->name('admin.pengaduan-destroy')->middleware('permission:delete_pengaduan');
  
-        Route::get('/data.penduduk-index', [DatapendudukController::class, 'index'])->name('data.penduduk-index');
-        Route::get('/data.penduduk-create', [DatapendudukController::class, 'create'])->name('data.penduduk-create');
-        Route::post('/data.penduduk-store', [DatapendudukController::class, 'store'])->name('data.penduduk-store');
-        Route::get('/data.penduduk-show/{id}', [DatapendudukController::class, 'show'])->name('data.penduduk-show');
-        Route::get('/data.penduduk-edit/{id}', [DatapendudukController::class, 'edit'])->name('data.penduduk-edit');
-        Route::put('/data.penduduk-update/{id}', [DatapendudukController::class, 'update'])->name('data.penduduk-update');
-        Route::get('/data.penduduk-destroy/{id}', [DatapendudukController::class, 'destroy'])->name('data.penduduk-destroy');
-        Route::get('/data.penduduk-search', [DatapendudukController::class, 'search'])->name('data.penduduk-search');
+        Route::get('/data.penduduk-index', [DatapendudukController::class, 'index'])->name('data.penduduk-index')->middleware('permission:view_penduduk');
+        Route::get('/data.penduduk-create', [DatapendudukController::class, 'create'])->name('data.penduduk-create')->middleware('permission:create_penduduk');
+        Route::post('/data.penduduk-store', [DatapendudukController::class, 'store'])->name('data.penduduk-store')->middleware('permission:create_penduduk');
+        Route::get('/data.penduduk-show/{id}', [DatapendudukController::class, 'show'])->name('data.penduduk-show')->middleware('permission:view_penduduk');
+        Route::get('/data.penduduk-edit/{id}', [DatapendudukController::class, 'edit'])->name('data.penduduk-edit')->middleware('permission:edit_penduduk');
+        Route::put('/data.penduduk-update/{id}', [DatapendudukController::class, 'update'])->name('data.penduduk-update')->middleware('permission:edit_penduduk');
+        Route::get('/data.penduduk-destroy/{id}', [DatapendudukController::class, 'destroy'])->name('data.penduduk-destroy')->middleware('permission:delete_penduduk');
+        Route::get('/data.penduduk-search', [DatapendudukController::class, 'search'])->name('data.penduduk-search')->middleware('permission:view_penduduk');
 
         Route::get('/surat-index', [SuratController::class, 'index'])->name('surat.index')->middleware('permission:view_surat');
         Route::get('/surat-create', [SuratController::class, 'create'])->name('surat.create')->middleware('permission:create_surat');
@@ -206,32 +206,32 @@ Route::middleware('auth')->group(function () {
         Route::get('/search', [SuratController::class, 'search'])->name('surat.search')->middleware('permission:view_surat');
 
 
-        Route::get('/galeri/{id}/create', [GaleriController::class, 'create'])->name('galeri.create');
-        Route::post('/galeri/{id}/store',  [GaleriController::class, 'store'])->name('galeri.store');
-        Route::delete('/galeri/{id}',      [GaleriController::class, 'destroy'])->name('galeri.destroy');
+        Route::get('/galeri/{id}/create', [GaleriController::class, 'create'])->name('galeri.create')->middleware('permission:create_galeri');
+        Route::post('/galeri/{id}/store',  [GaleriController::class, 'store'])->name('galeri.store')->middleware('permission:create_galeri');
+        Route::delete('/galeri/{id}',      [GaleriController::class, 'destroy'])->name('galeri.destroy')->middleware('permission:delete_galeri');
 
-        Route::get('/batchgaleri', [BatchGaleriController::class, 'index'])->name('batchgaleri.index');
-        Route::get('/batchgaleri/create', [BatchGaleriController::class, 'create'])->name('batchgaleri.create');
-        Route::post('/batchgaleri/store', [BatchGaleriController::class, 'store'])->name('batchgaleri.store');
+        Route::get('/batchgaleri', [BatchGaleriController::class, 'index'])->name('batchgaleri.index')->middleware('permission:view_galeri');
+        Route::get('/batchgaleri/create', [BatchGaleriController::class, 'create'])->name('batchgaleri.create')->middleware('permission:create_galeri');
+        Route::post('/batchgaleri/store', [BatchGaleriController::class, 'store'])->name('batchgaleri.store')->middleware('permission:create_galeri');
 
-        Route::get('/batchgaleri/{id}/edit', [BatchGaleriController::class, 'edit'])->name('batchgaleri.edit');
-        Route::put('/batchgaleri/{id}', [BatchGaleriController::class, 'update'])->name('batchgaleri.update');
-        Route::get('/batchgaleri/{id}', [BatchGaleriController::class, 'show'])->name('batchgaleri.show');
-        Route::delete('/batchgaleri/{id}', [BatchGaleriController::class, 'destroy'])->name('batchgaleri.destroy');
+        Route::get('/batchgaleri/{id}/edit', [BatchGaleriController::class, 'edit'])->name('batchgaleri.edit')->middleware('permission:edit_galeri');
+        Route::put('/batchgaleri/{id}', [BatchGaleriController::class, 'update'])->name('batchgaleri.update')->middleware('permission:edit_galeri');
+        Route::get('/batchgaleri/{id}', [BatchGaleriController::class, 'show'])->name('batchgaleri.show')->middleware('permission:view_galeri');
+        Route::delete('/batchgaleri/{id}', [BatchGaleriController::class, 'destroy'])->name('batchgaleri.destroy')->middleware('permission:delete_galeri');
   
-        Route::get('/rw-index', [RwController::class, 'index'])->name('rw-index');
-        Route::get('/rw-create', [RwController::class, 'create'])->name('rw-create');
-        Route::post('/rw-store', [RwController::class, 'store'])->name('rw-store');
-        Route::get('/rw-edit/{id}', [RwController::class, 'edit'])->name('rw-edit');
-        Route::put('/rw-update/{id}', [RwController::class, 'update'])->name('rw-update');
-        Route::delete('/rw-destroy/{id}', [RwController::class, 'destroy'])->name('rw-destroy');
+        Route::get('/rw-index', [RwController::class, 'index'])->name('rw-index')->middleware('permission:view_rw');
+        Route::get('/rw-create', [RwController::class, 'create'])->name('rw-create')->middleware('permission:create_rw');
+        Route::post('/rw-store', [RwController::class, 'store'])->name('rw-store')->middleware('permission:create_rw');
+        Route::get('/rw-edit/{id}', [RwController::class, 'edit'])->name('rw-edit')->middleware('permission:edit_rw');
+        Route::put('/rw-update/{id}', [RwController::class, 'update'])->name('rw-update')->middleware('permission:edit_rw');
+        Route::delete('/rw-destroy/{id}', [RwController::class, 'destroy'])->name('rw-destroy')->middleware('permission:delete_rw');
 
-        Route::get('/rt-index', [RtController::class, 'index'])->name('rt-index');
-        Route::get('/rt-create', [RtController::class, 'create'])->name('rt-create');
-        Route::post('/rt-store', [RtController::class, 'store'])->name('rt-store');
-        Route::get('/rt-edit/{id}', [RtController::class, 'edit'])->name('rt-edit');
-        Route::put('/rt-update/{id}', [RtController::class, 'update'])->name('rt-update');
-        Route::delete('/rt-destroy/{id}', [RtController::class, 'destroy'])->name('rt-destroy');
+        Route::get('/rt-index', [RtController::class, 'index'])->name('rt-index')->middleware('permission:view_rt');
+        Route::get('/rt-create', [RtController::class, 'create'])->name('rt-create')->middleware('permission:create_rt');
+        Route::post('/rt-store', [RtController::class, 'store'])->name('rt-store')->middleware('permission:create_rt');
+        Route::get('/rt-edit/{id}', [RtController::class, 'edit'])->name('rt-edit')->middleware('permission:edit_rt');
+        Route::put('/rt-update/{id}', [RtController::class, 'update'])->name('rt-update')->middleware('permission:edit_rt');
+        Route::delete('/rt-destroy/{id}', [RtController::class, 'destroy'])->name('rt-destroy')->middleware('permission:delete_rt');
 
         Route::get('/user-index', [AdminUserController::class, 'index'])->name('admin.user-index')->middleware('permission:view_users');
         Route::get('/user-create', [AdminUserController::class, 'create'])->name('admin.user-create')->middleware('permission:create_users');
@@ -243,22 +243,22 @@ Route::middleware('auth')->group(function () {
         Route::get(
             '/pengajuan-surat',
             [PengajuanSuratAdminController::class, 'index']
-        )->name('admin.pengajuan-surat.index');
+        )->name('admin.pengajuan-surat.index')->middleware('permission:view_surat');
     
         Route::get(
             '/pengajuan-surat/{id}',
             [PengajuanSuratAdminController::class, 'show']
-        )->name('admin.pengajuan-surat.show');
+        )->name('admin.pengajuan-surat.show')->middleware('permission:view_surat');
     
         Route::patch(
             '/pengajuan-surat/{id}/terima',
             [PengajuanSuratAdminController::class, 'terima']
-        )->name('admin.pengajuan-surat.terima');
+        )->name('admin.pengajuan-surat.terima')->middleware('permission:edit_surat');
     
         Route::patch(
             '/pengajuan-surat/{id}/tolak',
             [PengajuanSuratAdminController::class, 'tolak']
-        )->name('admin.pengajuan-surat.tolak');
+        )->name('admin.pengajuan-surat.tolak')->middleware('permission:edit_surat');
     });
 });
 

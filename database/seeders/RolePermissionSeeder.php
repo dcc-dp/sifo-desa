@@ -19,24 +19,47 @@ class RolePermissionSeeder extends Seeder
         // Reset cached roles and permissions
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
-        // Buat permissions
-        $modules = [
+        // Modul dasar aplikasi (sesuai middleware routes & controller)
+        $baseModules = [
             'roles',
             'users',
             'surat',
             'berita',
             'pengaduan',
             'pemerintah',
-            'menus'
+            'menus',
+            'penduduk',
+            'rt',
+            'rw',
+            'galeri',
+            'sejarah',
+            'kategori',
+            'agenda',
+            'setting'
         ];
 
+        // Ambil juga modul dari menu dinamis jika ada
+        $dynamicMenus = \App\Models\Menu::where('is_header', false)->get();
+        $menuModules = [];
+        foreach ($dynamicMenus as $m) {
+            $menuModules[] = \Illuminate\Support\Str::slug($m->title, '_');
+        }
+
+        $modules = array_unique(array_merge($baseModules, $menuModules));
+
         $actions = ['view', 'create', 'edit', 'delete'];
+        $validPermissionNames = [];
 
         foreach ($modules as $module) {
             foreach ($actions as $action) {
-                Permission::firstOrCreate(['name' => "{$action}_{$module}"]);
+                $permName = "{$action}_{$module}";
+                Permission::firstOrCreate(['name' => $permName]);
+                $validPermissionNames[] = $permName;
             }
         }
+
+        // Hapus permission lama yang tidak terpakai lagi (stale permissions)
+        Permission::whereNotIn('name', $validPermissionNames)->delete();
 
         // Buat role Super Admin dan beri semua permissions
         $roleSuperAdmin = Role::firstOrCreate(['name' => 'Super Admin']);

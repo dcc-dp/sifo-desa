@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Menu;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class MenuController extends Controller
 {
@@ -68,7 +70,27 @@ class MenuController extends Controller
             $menu->roles()->sync($request->roles);
         }
 
-        return redirect()->route('admin.menus.index')->with('success', 'Menu berhasil ditambahkan.');
+        // Otomatis buat 4 permissions CRUD (view, create, edit, delete) jika bukan header menu
+        if (!$menu->is_header) {
+            $moduleKey = Str::slug($menu->title, '_');
+            $actions = ['view', 'create', 'edit', 'delete'];
+            $createdPermissions = [];
+            
+            foreach ($actions as $action) {
+                $perm = Permission::firstOrCreate(['name' => "{$action}_{$moduleKey}"]);
+                $createdPermissions[] = $perm;
+            }
+
+            // Otomatis assign ke role Super Admin
+            $superAdmin = Role::where('name', 'Super Admin')->first();
+            if ($superAdmin && !empty($createdPermissions)) {
+                $superAdmin->givePermissionTo($createdPermissions);
+            }
+
+            app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
+        }
+
+        return redirect()->route('admin.menus.index')->with('success', 'Menu dan Permission berhasil ditambahkan.');
     }
 
     public function edit(Menu $menu)

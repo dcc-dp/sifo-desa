@@ -61,19 +61,34 @@ class AppServiceProvider extends ServiceProvider
             $dynamicMenus = collect();
 
             if ($user && Schema::hasTable('menus')) {
-                // If user is super admin, get all active menus
-                // Otherwise, get menus that are assigned to user's roles
-                if ($user->hasRole('Super Admin')) {
-                    $allMenus = \App\Models\Menu::where('is_active', true)
-                        ->orderBy('order_num')
-                        ->get();
-                } else {
-                    $allMenus = \App\Models\Menu::where('is_active', true)
-                        ->whereHas('roles', function($q) use ($user) {
-                            $q->whereIn('roles.id', $user->roles->pluck('id'));
-                        })
-                        ->orderBy('order_num')
-                        ->get();
+                $allMenus = \App\Models\Menu::where('is_active', true)
+                    ->orderBy('order_num')
+                    ->get();
+
+                if (!$user->hasRole('Super Admin')) {
+                    $allowedMenuIds = [];
+                    foreach ($allMenus as $m) {
+                        if ($m->is_header) continue;
+                        $slugKey = \Illuminate\Support\Str::slug($m->title, '_');
+                        
+                        // Check if user has view permission for this menu OR if menu roles match user's roles
+                        $hasPerm = $user->can('view_' . $slugKey) 
+                                || $user->can('view_' . str_replace('-', '_', $m->route_name));
+                        $hasRole = $m->roles->pluck('id')->intersect($user->roles->pluck('id'))->count() > 0;
+
+                        if ($hasPerm || $hasRole) {
+                            $allowedMenuIds[] = $m->id;
+                        }
+                    }
+
+                    // Keep item menus that are allowed, and headers that have at least 1 allowed child item
+                    $allMenus = $allMenus->filter(function($menu) use ($allowedMenuIds, $allMenus) {
+                        if ($menu->is_header) {
+                            $childIds = $allMenus->where('parent_id', $menu->id)->pluck('id')->toArray();
+                            return count(array_intersect($childIds, $allowedMenuIds)) > 0;
+                        }
+                        return in_array($menu->id, $allowedMenuIds);
+                    });
                 }
 
                 // Organize menus hierarchically
