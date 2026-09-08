@@ -24,9 +24,16 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // 1. Memaksa Laravel menggunakan HTTPS jika berjalan di server Railway (Production)
-        if (config('app.env') === 'production' || env('APP_ENV') === 'production') {
+        // 1. Memaksa Laravel menggunakan HTTPS jika berjalan di HTTPS / Production
+        if (config('app.env') === 'production' || request()->isSecure() || request()->header('x-forwarded-proto') === 'https') {
             URL::forceScheme('https');
+        }
+
+        // 2. Sesuaikan public_path jika berjalan di cPanel / Shared Hosting dengan folder public_html
+        if (file_exists(base_path('public_html')) && !file_exists(base_path('public'))) {
+            $this->app->bind('path.public', function() {
+                return base_path('public_html');
+            });
         }
 
         // 2. Mencegah query database berjalan jika Laravel sedang berjalan via terminal/CLI (misal saat php artisan migrate)
