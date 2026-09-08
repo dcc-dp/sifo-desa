@@ -49,7 +49,7 @@
                                 <tr>
                                     <td class="text-center fw-semibold text-muted">{{ $loop->iteration }}</td>
                                     <td>
-                                        @if ($sejarah->gambar && file_exists(public_path($sejarah->gambar)))
+                                        @if (!empty($sejarah->gambar))
                                             <img src="{{ asset($sejarah->gambar) }}" alt="Foto Sejarah" class="table-thumb">
                                         @else
                                             <div class="table-thumb d-flex align-items-center justify-content-center bg-light text-muted">

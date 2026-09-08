@@ -113,7 +113,7 @@
                                             <p class="text-muted fs-8 mb-3">Tampil di bagian kiri atas kop surat resmi desa.</p>
                                             
                                             <div class="d-flex align-items-center justify-content-center p-3 bg-white border rounded-3 mb-3" style="min-height: 130px;">
-                                                @if (!empty($setting->logo_surat) && file_exists(public_path($setting->logo_surat)))
+                                                @if (!empty($setting->logo_surat))
                                                     <img id="preview-logo" src="{{ asset($setting->logo_surat) }}" alt="Logo Surat" class="img-fluid" style="max-height: 100px; object-fit: contain;">
                                                 @else
                                                     <img id="preview-logo" src="{{ asset('uploads/galeri/logo_sifo.png') }}" alt="Logo Surat Default" class="img-fluid" style="max-height: 100px; object-fit: contain;">
@@ -142,7 +142,7 @@
                                             <p class="text-muted fs-8 mb-3">Stempel cap resmi desa di samping tanda tangan.</p>
                                             
                                             <div class="d-flex align-items-center justify-content-center p-3 bg-white border rounded-3 mb-3" style="min-height: 130px;">
-                                                @if (!empty($setting->stempel_surat) && file_exists(public_path($setting->stempel_surat)))
+                                                @if (!empty($setting->stempel_surat))
                                                     <img id="preview-stempel" src="{{ asset($setting->stempel_surat) }}" alt="Stempel Surat" class="img-fluid" style="max-height: 100px; object-fit: contain;">
                                                 @else
                                                     <img id="preview-stempel" src="{{ asset('uploads/galeri/stempel.png') }}" alt="Stempel Default" class="img-fluid" style="max-height: 100px; object-fit: contain;">
@@ -171,7 +171,7 @@
                                             <p class="text-muted fs-8 mb-3">Tanda tangan resmi kepala desa pada bagian pengesahan.</p>
                                             
                                             <div class="d-flex align-items-center justify-content-center p-3 bg-white border rounded-3 mb-3" style="min-height: 130px;">
-                                                @if (!empty($setting->ttd_kepala_desa) && file_exists(public_path($setting->ttd_kepala_desa)))
+                                                @if (!empty($setting->ttd_kepala_desa))
                                                     <img id="preview-ttd" src="{{ asset($setting->ttd_kepala_desa) }}" alt="TTD Kades" class="img-fluid" style="max-height: 100px; object-fit: contain;">
                                                 @else
                                                     <img id="preview-ttd" src="{{ asset('uploads/galeri/ttd_kedes.png') }}" alt="TTD Default" class="img-fluid" style="max-height: 100px; object-fit: contain;">

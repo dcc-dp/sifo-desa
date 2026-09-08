@@ -100,7 +100,7 @@
 
                             <div class="mt-2">
                                 <span class="text-xs text-muted d-block mb-1">Foto saat ini:</span>
-                                @if($pemerintahs->foto && file_exists(public_path($pemerintahs->foto)))
+                                @if(!empty($pemerintahs->foto))
                                     <img src="{{ asset($pemerintahs->foto) }}" alt="{{ $pemerintahs->nama }}" class="table-avatar" style="width: 54px; height: 54px;">
                                 @else
                                     <span class="badge bg-light text-muted border px-2 py-1 fs-8">Belum ada foto</span>

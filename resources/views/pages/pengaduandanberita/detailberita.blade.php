@@ -9,9 +9,9 @@
         $kategoriName = $berita->kategori?->nama_kategori ?? 'Umum';
         $setting = \App\Models\Setting::first();
         $desaName = (!empty($setting?->nama_desa)) ? $setting->nama_desa : 'Rante Gola';
-        $gambarBerita = ($berita->gambar && file_exists(public_path($berita->gambar))) 
+        $gambarBerita = !empty($berita->gambar)
             ? asset($berita->gambar) 
-            : asset('upload/berita/default.jpg');
+            : asset('assets/img/village_hero_bg.jpg');
     @endphp
 
     {{-- 1. Standard Page Hero Header --}}

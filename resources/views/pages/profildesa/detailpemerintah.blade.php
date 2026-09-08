@@ -7,7 +7,7 @@
     @php
         $setting = \App\Models\Setting::first();
         $desaName = (!empty($setting?->nama_desa)) ? $setting->nama_desa : 'Rante Gola';
-        $fotoAparatur = ($pemerintah->foto && file_exists(public_path($pemerintah->foto))) 
+        $fotoAparatur = !empty($pemerintah->foto) 
             ? asset($pemerintah->foto) 
             : asset('assets/img/default-avatar.png');
     @endphp

@@ -60,7 +60,7 @@
 
                             <div class="mt-2">
                                 <span class="text-xs text-muted d-block mb-1">Foto saat ini:</span>
-                                @if($data->gambar && file_exists(public_path($data->gambar)))
+                                @if(!empty($data->gambar))
                                     <img src="{{ asset($data->gambar) }}" alt="{{ $data->judul }}" class="table-thumb" style="width: 80px; height: 80px;">
                                 @else
                                     <span class="badge bg-light text-muted border px-2 py-1 fs-8">Belum ada gambar</span>

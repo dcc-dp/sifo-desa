@@ -14,7 +14,7 @@
             $hasKades = !empty($kades);
             $kadesName = $hasKades ? $kades->nama : 'Pemerintah Desa';
             $kadesRole = $hasKades ? $kades->jabatan : ('Pimpinan Desa ' . $desaName);
-            $kadesFoto = ($hasKades && $kades->foto && file_exists(public_path($kades->foto)))
+            $kadesFoto = ($hasKades && !empty($kades->foto))
                 ? asset($kades->foto)
                 : asset('assets/img/kades_transparent.png');
         @endphp

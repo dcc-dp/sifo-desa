@@ -73,7 +73,7 @@
                                         {{ \Illuminate\Support\Str::limit(strip_tags($pengaduan->deskripsi), 80, '...') }}
                                     </td>
                                     <td class="text-center">
-                                        @if ($pengaduan->gambar && file_exists(public_path($pengaduan->gambar)))
+                                        @if (!empty($pengaduan->gambar))
                                             <a href="{{ asset($pengaduan->gambar) }}" target="_blank">
                                                 <img src="{{ asset($pengaduan->gambar) }}" alt="Gambar Aduan" class="table-thumb" style="width: 42px; height: 42px;">
                                             </a>
@@ -82,7 +82,7 @@
                                         @endif
                                     </td>
                                     <td class="text-center">
-                                        @if ($pengaduan->file && file_exists(public_path($pengaduan->file)))
+                                        @if (!empty($pengaduan->file))
                                             <a href="{{ asset($pengaduan->file) }}" target="_blank" class="btn-action-pill btn-action-pdf"
                                                 title="Unduh Berkas Lampiran">
                                                 <i class="fas fa-paperclip"></i> <span>File</span>

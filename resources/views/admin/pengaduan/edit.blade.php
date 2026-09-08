@@ -133,7 +133,7 @@
                                 </div>
                             </div>
 
-                            @if ($pengaduan->gambar && file_exists(public_path($pengaduan->gambar)))
+                            @if (!empty($pengaduan->gambar))
                                 <div class="mb-4">
                                     <span class="detail-label"><i class="fas fa-image"></i> Foto Bukti / Dokumentasi Lokasi</span>
                                     <div class="p-2 border rounded-3 bg-light d-inline-block">
@@ -147,7 +147,7 @@
                                 </div>
                             @endif
 
-                            @if ($pengaduan->file && file_exists(public_path($pengaduan->file)))
+                            @if (!empty($pengaduan->file))
                                 <div>
                                     <span class="detail-label"><i class="fas fa-paperclip"></i> Dokumen / Berkas Lampiran Pendukung</span>
                                     <a href="{{ asset($pengaduan->file) }}" target="_blank" class="btn-action-pill btn-action-pdf py-2 px-3 fs-7">

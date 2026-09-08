@@ -53,13 +53,13 @@
                 @forelse ($beritas as $berita)
                     <a href="{{ route('detail-berita', $berita->slug) }}" class="news-card-modern">
                         <div class="news-card-thumb-wrap">
-                            @if($berita->gambar && file_exists(public_path($berita->gambar)))
+                            @if(!empty($berita->gambar))
                                 <img src="{{ asset($berita->gambar) }}" 
                                      alt="{{ $berita->judul }}" 
                                      class="news-card-thumb"
                                      loading="lazy">
                             @else
-                                <img src="{{ asset('upload/berita/default.jpg') }}" 
+                                <img src="{{ asset('assets/img/village_hero_bg.jpg') }}" 
                                      alt="{{ $berita->judul }}" 
                                      class="news-card-thumb"
                                      loading="lazy">
