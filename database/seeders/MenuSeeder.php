@@ -5,11 +5,19 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\Menu;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class MenuSeeder extends Seeder
 {
     public function run(): void
     {
+        // Bersihkan data menu & pivot role lama agar seeder bersifat idempotent (bersih dari menu lama seperti Profile)
+        Schema::disableForeignKeyConstraints();
+        DB::table('menu_role')->truncate();
+        Menu::truncate();
+        Schema::enableForeignKeyConstraints();
+
         $superAdmin = Role::where('name', 'Super Admin')->first();
         $admin = Role::where('name', 'Admin')->first();
 

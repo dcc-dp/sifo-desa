@@ -33,8 +33,8 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        // Seed Roles & Permissions serta Menu Management
-        $this->call(RolePermissionSeeder::class);
+        // Seed Menu Management terlebih dahulu, kemudian Roles & Permissions
         $this->call(MenuSeeder::class);
+        $this->call(RolePermissionSeeder::class);
     }
 }
