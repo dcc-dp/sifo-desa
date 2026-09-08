@@ -11,7 +11,6 @@ class DatabaseSeeder extends Seeder
 {
     public function run()
     {
-
         $this->call(PemerintahSeeder::class);
         $this->call(AgendaSeeder::class);
         $this->call(KategoriSeeder::class);
@@ -19,14 +18,23 @@ class DatabaseSeeder extends Seeder
         $this->call(PengaduanSeeder::class);
         $this->call(DataSeeder::class);
         $this->call(SejarahSeeder::class);
-        User::factory()->create([
-            'nik_id' => '1234567890',
-            'email_verified_at' => now(),
-            'name' => 'admin',
-            'email' => 'admin@gmail.com',
-            'password' => Hash::make('admin123'),
-            'about' => "Hi, I’m admin, Decisions: If you can’t decide, the answer is no. If two equally difficult paths, choose the one more painful in the short term (pain avoidance is creating an illusion of equality).",
-        ]);
-        
+        $this->call(SettingSeeder::class);
+
+        // Buat Akun Super Admin
+        $user = User::where('email', 'admin@gmail.com')->first();
+        if (!$user) {
+            $user = User::create([
+                'nik_id' => '1234567890123456',
+                'email_verified_at' => now(),
+                'name' => 'Super Admin',
+                'email' => 'admin@gmail.com',
+                'password' => Hash::make('admin123'),
+                'about' => "Hi, I’m admin",
+            ]);
+        }
+
+        // Seed Roles & Permissions serta Menu Management
+        $this->call(RolePermissionSeeder::class);
+        $this->call(MenuSeeder::class);
     }
 }
