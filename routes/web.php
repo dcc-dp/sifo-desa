@@ -141,12 +141,12 @@ Route::middleware('auth')->group(function () {
         Route::resource('roles', \App\Http\Controllers\Admin\RoleController::class)->names('admin.roles');
         Route::resource('menus', \App\Http\Controllers\Admin\MenuController::class)->names('admin.menus');
 
-        Route::get('/pemerintah-index', [PemerintahController::class, 'index'])->name('pemerintah-index')->middleware('permission:view_pemerintah');
-        Route::get('/pemerintah-create', [PemerintahController::class, 'create'])->name('pemerintah-create')->middleware('permission:create_pemerintah');
-        Route::post('/pemerintah-store', [PemerintahController::class, 'store'])->name('pemerintah-store')->middleware('permission:create_pemerintah');
-        Route::get('/pemerintah-edit/{id}', [PemerintahController::class, 'edit'])->name('pemerintah-edit')->middleware('permission:edit_pemerintah');
-        Route::put('/pemerintah-update/{id}', [PemerintahController::class, 'update'])->name('pemerintah-update')->middleware('permission:edit_pemerintah');
-        Route::get('/pemerintah-destroy/{id}', [PemerintahController::class, 'destroy'])->name('pemerintah-destroy')->middleware('permission:delete_pemerintah');
+        Route::get('/pemerintah-index', [PemerintahController::class, 'index'])->name('pemerintah-index')->middleware('permission:view_pemerintah|view_pemerintah_desa');
+        Route::get('/pemerintah-create', [PemerintahController::class, 'create'])->name('pemerintah-create')->middleware('permission:create_pemerintah|create_pemerintah_desa');
+        Route::post('/pemerintah-store', [PemerintahController::class, 'store'])->name('pemerintah-store')->middleware('permission:create_pemerintah|create_pemerintah_desa');
+        Route::get('/pemerintah-edit/{id}', [PemerintahController::class, 'edit'])->name('pemerintah-edit')->middleware('permission:edit_pemerintah|edit_pemerintah_desa');
+        Route::put('/pemerintah-update/{id}', [PemerintahController::class, 'update'])->name('pemerintah-update')->middleware('permission:edit_pemerintah|edit_pemerintah_desa');
+        Route::get('/pemerintah-destroy/{id}', [PemerintahController::class, 'destroy'])->name('pemerintah-destroy')->middleware('permission:delete_pemerintah|delete_pemerintah_desa');
 
         Route::get('setting', [SettingController::class, 'edit'])->name('admin.setting.edit')->middleware('permission:view_setting');
         Route::put('setting', [SettingController::class, 'update'])->name('admin.setting.update')->middleware('permission:edit_setting');

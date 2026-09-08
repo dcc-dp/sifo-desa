@@ -231,33 +231,35 @@
                                                 <tbody>
                                                     @foreach($menuItems as $item)
                                                         @php
-                                                            $moduleSlug = \Illuminate\Support\Str::slug($item->title, '_');
-                                                            $mappedSlug = match($item->route_name) {
-                                                                'admin.user-index' => 'users',
-                                                                'admin.roles.index' => 'roles',
-                                                                'admin.menus.index' => 'menus',
-                                                                'admin.setting.edit' => 'setting',
-                                                                'admin.setting-desa.edit' => 'setting_desa',
-                                                                'admin.setting-surat.edit' => 'setting_surat',
-                                                                'data.penduduk-index' => 'penduduk',
-                                                                'rt-index' => 'rt',
-                                                                'rw-index' => 'rw',
-                                                                'batchgaleri.index' => 'galeri',
-                                                                'sejarah-index' => 'sejarah',
-                                                                'berita-index' => 'berita',
-                                                                'kategori-index' => 'kategori',
-                                                                'agenda-index' => 'agenda',
-                                                                'admin.pengaduan-index' => 'pengaduan',
-                                                                'admin.pengajuan-surat.index' => 'surat',
-                                                                default => $moduleSlug
-                                                            };
+                                                             $moduleSlug = \Illuminate\Support\Str::slug($item->title, '_');
+                                                             $mappedSlug = match($item->route_name) {
+                                                                 'admin.user-index' => 'users',
+                                                                 'admin.roles.index' => 'roles',
+                                                                 'admin.menus.index' => 'menus',
+                                                                 'admin.setting.edit' => 'setting',
+                                                                 'admin.setting-desa.edit' => 'setting_desa',
+                                                                 'admin.setting-surat.edit' => 'setting_surat',
+                                                                 'data.penduduk-index' => 'penduduk',
+                                                                 'rt-index' => 'rt',
+                                                                 'rw-index' => 'rw',
+                                                                 'batchgaleri.index' => 'galeri',
+                                                                 'sejarah-index' => 'sejarah',
+                                                                 'berita-index' => 'berita',
+                                                                 'kategori-index' => 'kategori',
+                                                                 'agenda-index' => 'agenda',
+                                                                 'admin.pengaduan-index' => 'pengaduan',
+                                                                 'admin.pengajuan-surat.index' => 'surat',
+                                                                 'pemerintah-index' => 'pemerintah',
+                                                                 default => ($moduleSlug === 'pemerintah_desa' || str_contains($item->url ?? '', 'pemerintah') ? 'pemerintah' : $moduleSlug)
+                                                             };
 
-                                                            $itemPerms = $permissionsByModule->get($mappedSlug, $permissionsByModule->get($moduleSlug, collect()));
-                                                            
-                                                            $viewPerm = $itemPerms->firstWhere('name', 'view_' . $mappedSlug) ?? $itemPerms->firstWhere('name', 'view_' . $moduleSlug);
-                                                            $createPerm = $itemPerms->firstWhere('name', 'create_' . $mappedSlug) ?? $itemPerms->firstWhere('name', 'create_' . $moduleSlug);
-                                                            $editPerm = $itemPerms->firstWhere('name', 'edit_' . $mappedSlug) ?? $itemPerms->firstWhere('name', 'edit_' . $moduleSlug);
-                                                            $deletePerm = $itemPerms->firstWhere('name', 'delete_' . $mappedSlug) ?? $itemPerms->firstWhere('name', 'delete_' . $moduleSlug);
+                                                             $allPermsColl = collect($permissions);
+                                                             $itemPerms = $permissionsByModule->get($mappedSlug, $permissionsByModule->get($moduleSlug, collect()));
+                                                             
+                                                             $viewPerm = $itemPerms->firstWhere('name', 'view_' . $mappedSlug) ?? $itemPerms->firstWhere('name', 'view_' . $moduleSlug) ?? $allPermsColl->firstWhere('name', 'view_' . $mappedSlug);
+                                                             $createPerm = $itemPerms->firstWhere('name', 'create_' . $mappedSlug) ?? $itemPerms->firstWhere('name', 'create_' . $moduleSlug) ?? $allPermsColl->firstWhere('name', 'create_' . $mappedSlug);
+                                                             $editPerm = $itemPerms->firstWhere('name', 'edit_' . $mappedSlug) ?? $itemPerms->firstWhere('name', 'edit_' . $moduleSlug) ?? $allPermsColl->firstWhere('name', 'edit_' . $mappedSlug);
+                                                             $deletePerm = $itemPerms->firstWhere('name', 'delete_' . $mappedSlug) ?? $itemPerms->firstWhere('name', 'delete_' . $moduleSlug) ?? $allPermsColl->firstWhere('name', 'delete_' . $mappedSlug);
                                                         @endphp
                                                         <tr class="menu-row" data-title="{{ strtolower($item->title) }}" data-cat="{{ $catSlug }}">
                                                             <td class="ps-4">
