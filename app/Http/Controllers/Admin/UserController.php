@@ -19,19 +19,40 @@ class UserController extends Controller
 
     public function index()
     {
-        $users = User::latest()->get();
+        $query = User::latest();
+
+        // Sembunyikan akun ber-role Super Admin jika pengguna yang login bukan Super Admin
+        if (!auth()->user()->hasRole('Super Admin')) {
+            $query->whereDoesntHave('roles', function ($q) {
+                $q->where('name', 'Super Admin');
+            });
+        }
+
+        $users = $query->get();
 
         return view('admin.user.index', compact('users'));
     }
 
     public function create()
     {
-        $roles = Role::all();
+        $rolesQuery = Role::query();
+        
+        // Sembunyikan role Super Admin dari pilihan opsi role jika pengguna yang login bukan Super Admin
+        if (!auth()->user()->hasRole('Super Admin')) {
+            $rolesQuery->where('name', '!=', 'Super Admin');
+        }
+
+        $roles = $rolesQuery->get();
         return view('admin.user.create', compact('roles'));
     }
 
     public function store(Request $request)
     {
+        // Proteksi: Mencegah pengguna non-Super Admin menetapkan role Super Admin
+        if ($request->role === 'Super Admin' && !auth()->user()->hasRole('Super Admin')) {
+            abort(403, 'Anda tidak diizinkan membuat akun dengan role Super Admin.');
+        }
+
         $request->validate([
             'nik_id' => 'required',
             'name' => 'required',
@@ -57,7 +78,18 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        $roles = Role::all();
+
+        // Proteksi: Mencegah pengguna non-Super Admin mengedit akun Super Admin
+        if ($user->hasRole('Super Admin') && !auth()->user()->hasRole('Super Admin')) {
+            abort(403, 'Anda tidak memiliki akses untuk mengedit akun Super Admin.');
+        }
+
+        $rolesQuery = Role::query();
+        if (!auth()->user()->hasRole('Super Admin')) {
+            $rolesQuery->where('name', '!=', 'Super Admin');
+        }
+        $roles = $rolesQuery->get();
+
         $userRole = $user->roles->pluck('name')->first();
 
         return view('admin.user.edit', compact('user', 'roles', 'userRole'));
@@ -66,6 +98,15 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $user = User::findOrFail($id);
+
+        // Proteksi: Mencegah pengguna non-Super Admin mengupdate akun Super Admin
+        if ($user->hasRole('Super Admin') && !auth()->user()->hasRole('Super Admin')) {
+            abort(403, 'Anda tidak memiliki akses untuk mengubah akun Super Admin.');
+        }
+
+        if ($request->role === 'Super Admin' && !auth()->user()->hasRole('Super Admin')) {
+            abort(403, 'Anda tidak diizinkan menetapkan role Super Admin.');
+        }
 
         $request->validate([
             'nik_id' => 'required',
@@ -95,6 +136,11 @@ class UserController extends Controller
     public function destroy($id)
     {
         $user = User::findOrFail($id);
+
+        // Proteksi: Mencegah pengguna non-Super Admin menghapus akun Super Admin
+        if ($user->hasRole('Super Admin') && !auth()->user()->hasRole('Super Admin')) {
+            abort(403, 'Anda tidak diizinkan menghapus akun Super Admin.');
+        }
 
         $user->delete();
 

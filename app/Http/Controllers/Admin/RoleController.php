@@ -59,6 +59,11 @@ class RoleController extends Controller
             'permissions' => 'array'
         ]);
 
+        if ($role->name === 'Super Admin') {
+            $role->syncPermissions(Permission::all());
+            return redirect()->route('admin.roles.index')->with('success', 'Role Super Admin berhasil diperbarui');
+        }
+
         $role->update(['name' => $request->name]);
         if($request->has('permissions')) {
             $role->syncPermissions($request->permissions);
