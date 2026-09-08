@@ -38,3 +38,6 @@ jobs:
             ISSUE_TEMPLATE.md
             structura.txt
             asoapsjadkjks
+            public/upload/**
+            public/uploads/**
+            storage/app/public/**
