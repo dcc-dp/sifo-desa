@@ -23,6 +23,7 @@
                 </div>
                 <div class="d-flex align-items-center gap-2 flex-wrap">
                     @if ($surat->status == 'menunggu')
+                        @can('edit_surat')
                         <button type="button" class="btn-admin-primary" data-bs-toggle="modal" data-bs-target="#modalTerima">
                             <i class="fas fa-check-circle"></i> Setujui & Terbitkan
                         </button>
@@ -30,6 +31,7 @@
                             data-bs-toggle="modal" data-bs-target="#modalTolak">
                             <i class="fas fa-times-circle"></i> Tolak Surat
                         </button>
+                        @endcan
                     @elseif ($surat->status == 'diterima')
                         <a href="{{ route('surat.download', $surat->id) }}" class="btn-action-pill btn-action-pdf px-3 py-2 fw-bold fs-7">
                             <i class="fas fa-file-pdf"></i> Unduh Salinan PDF

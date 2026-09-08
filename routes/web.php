@@ -137,12 +137,16 @@ Route::get(
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::prefix('admin')->group(function () {
-        Route::get('/pemerintah-index', [PemerintahController::class, 'index'])->name('pemerintah-index');
-        Route::get('/pemerintah-create', [PemerintahController::class, 'create'])->name('pemerintah-create');
-        Route::post('/pemerintah-store', [PemerintahController::class, 'store'])->name('pemerintah-store');
-        Route::get('/pemerintah-edit/{id}', [PemerintahController::class, 'edit'])->name('pemerintah-edit');
-        Route::put('/pemerintah-update/{id}', [PemerintahController::class, 'update'])->name('pemerintah-update');
-        Route::get('/pemerintah-destroy/{id}', [PemerintahController::class, 'destroy'])->name('pemerintah-destroy');
+        // Role Management & Menus
+        Route::resource('roles', \App\Http\Controllers\Admin\RoleController::class)->names('admin.roles');
+        Route::resource('menus', \App\Http\Controllers\Admin\MenuController::class)->names('admin.menus');
+
+        Route::get('/pemerintah-index', [PemerintahController::class, 'index'])->name('pemerintah-index')->middleware('permission:view_pemerintah');
+        Route::get('/pemerintah-create', [PemerintahController::class, 'create'])->name('pemerintah-create')->middleware('permission:create_pemerintah');
+        Route::post('/pemerintah-store', [PemerintahController::class, 'store'])->name('pemerintah-store')->middleware('permission:create_pemerintah');
+        Route::get('/pemerintah-edit/{id}', [PemerintahController::class, 'edit'])->name('pemerintah-edit')->middleware('permission:edit_pemerintah');
+        Route::put('/pemerintah-update/{id}', [PemerintahController::class, 'update'])->name('pemerintah-update')->middleware('permission:edit_pemerintah');
+        Route::get('/pemerintah-destroy/{id}', [PemerintahController::class, 'destroy'])->name('pemerintah-destroy')->middleware('permission:delete_pemerintah');
 
         Route::get('setting', [SettingController ::class, 'edit'])->name('admin.setting.edit');
         Route::put('setting', [SettingController::class, 'update'])->name('admin.setting.update');
@@ -168,20 +172,20 @@ Route::middleware('auth')->group(function () {
         Route::put('/kategori-update/{id}', [KategoriController::class, 'update'])->name('kategori-update');
         Route::get('/kategori-destroy/{id}', [KategoriController::class, 'destroy'])->name('kategori-destroy');
 
-        Route::get('/berita-index', [BeritaController::class, 'index'])->name('berita-index');
-        Route::get('/berita-create', [BeritaController::class, 'create'])->name('berita-create');
-        Route::post('/berita-store', [BeritaController::class, 'store'])->name('berita-store');
-        Route::get('/berita-edit/{id}', [BeritaController::class, 'edit'])->name('berita-edit');
-        Route::put('/berita-update/{id}', [BeritaController::class, 'update'])->name('berita-update');
-        Route::get('/berita-destroy/{id}', [BeritaController::class, 'destroy'])->name('berita-destroy');
+        Route::get('/berita-index', [BeritaController::class, 'index'])->name('berita-index')->middleware('permission:view_berita');
+        Route::get('/berita-create', [BeritaController::class, 'create'])->name('berita-create')->middleware('permission:create_berita');
+        Route::post('/berita-store', [BeritaController::class, 'store'])->name('berita-store')->middleware('permission:create_berita');
+        Route::get('/berita-edit/{id}', [BeritaController::class, 'edit'])->name('berita-edit')->middleware('permission:edit_berita');
+        Route::put('/berita-update/{id}', [BeritaController::class, 'update'])->name('berita-update')->middleware('permission:edit_berita');
+        Route::get('/berita-destroy/{id}', [BeritaController::class, 'destroy'])->name('berita-destroy')->middleware('permission:delete_berita');
 
         
-        Route::get('/pengaduan-index', [PengaduanController::class, 'index'])->name('admin.pengaduan-index');
-        Route::get('/pengaduan-create', [PengaduanController::class, 'create'])->name('admin.pengaduan-create');
-        Route::post('/pengaduan-store', [PengaduanController::class, 'store'])->name('admin.pengaduan-store');
-        Route::get('/pengaduan-edit/{id}', [PengaduanController::class, 'edit'])->name('admin.pengaduan-edit');
-        Route::put('/pengaduan-update/{id}', [PengaduanController::class, 'update'])->name('admin.pengaduan-update');
-        Route::get('/pengaduan-destroy/{id}', [PengaduanController::class, 'destroy'])->name('admin.pengaduan-destroy');
+        Route::get('/pengaduan-index', [PengaduanController::class, 'index'])->name('admin.pengaduan-index')->middleware('permission:view_pengaduan');
+        Route::get('/pengaduan-create', [PengaduanController::class, 'create'])->name('admin.pengaduan-create')->middleware('permission:create_pengaduan');
+        Route::post('/pengaduan-store', [PengaduanController::class, 'store'])->name('admin.pengaduan-store')->middleware('permission:create_pengaduan');
+        Route::get('/pengaduan-edit/{id}', [PengaduanController::class, 'edit'])->name('admin.pengaduan-edit')->middleware('permission:edit_pengaduan');
+        Route::put('/pengaduan-update/{id}', [PengaduanController::class, 'update'])->name('admin.pengaduan-update')->middleware('permission:edit_pengaduan');
+        Route::get('/pengaduan-destroy/{id}', [PengaduanController::class, 'destroy'])->name('admin.pengaduan-destroy')->middleware('permission:delete_pengaduan');
  
         Route::get('/data.penduduk-index', [DatapendudukController::class, 'index'])->name('data.penduduk-index');
         Route::get('/data.penduduk-create', [DatapendudukController::class, 'create'])->name('data.penduduk-create');
@@ -192,14 +196,14 @@ Route::middleware('auth')->group(function () {
         Route::get('/data.penduduk-destroy/{id}', [DatapendudukController::class, 'destroy'])->name('data.penduduk-destroy');
         Route::get('/data.penduduk-search', [DatapendudukController::class, 'search'])->name('data.penduduk-search');
 
-        Route::get('/surat-index', [SuratController::class, 'index'])->name('surat.index');
-        Route::get('/surat-create', [SuratController::class, 'create'])->name('surat.create');
-        Route::post('/surat-store', [SuratController::class, 'store'])->name('surat.store');
-        Route::get('/surat-show/{id}', [SuratController::class, 'show'])->name('surat.show');
-        Route::get('/surat-edit/{id}', [SuratController::class, 'edit'])->name('surat.edit');
-        Route::put('/surat-update/{id}', [SuratController::class, 'update'])->name('surat.update');
-        Route::get('/surat-destroy/{id}', [SuratController::class, 'destroy'])->name('surat.destroy');
-        Route::get('/search', [SuratController::class, 'search'])->name('surat.search');
+        Route::get('/surat-index', [SuratController::class, 'index'])->name('surat.index')->middleware('permission:view_surat');
+        Route::get('/surat-create', [SuratController::class, 'create'])->name('surat.create')->middleware('permission:create_surat');
+        Route::post('/surat-store', [SuratController::class, 'store'])->name('surat.store')->middleware('permission:create_surat');
+        Route::get('/surat-show/{id}', [SuratController::class, 'show'])->name('surat.show')->middleware('permission:view_surat');
+        Route::get('/surat-edit/{id}', [SuratController::class, 'edit'])->name('surat.edit')->middleware('permission:edit_surat');
+        Route::put('/surat-update/{id}', [SuratController::class, 'update'])->name('surat.update')->middleware('permission:edit_surat');
+        Route::get('/surat-destroy/{id}', [SuratController::class, 'destroy'])->name('surat.destroy')->middleware('permission:delete_surat');
+        Route::get('/search', [SuratController::class, 'search'])->name('surat.search')->middleware('permission:view_surat');
 
 
         Route::get('/galeri/{id}/create', [GaleriController::class, 'create'])->name('galeri.create');
@@ -229,12 +233,12 @@ Route::middleware('auth')->group(function () {
         Route::put('/rt-update/{id}', [RtController::class, 'update'])->name('rt-update');
         Route::delete('/rt-destroy/{id}', [RtController::class, 'destroy'])->name('rt-destroy');
 
-        Route::get('/user-index', [AdminUserController::class, 'index'])->name('admin.user-index');
-        Route::get('/user-create', [AdminUserController::class, 'create'])->name('admin.user-create');
-        Route::post('/user-store', [AdminUserController::class, 'store'])->name('admin.user-store');
-        Route::get('/user-edit/{id}', [AdminUserController::class, 'edit'])->name('admin.user-edit');
-        Route::put('/user-update/{id}', [AdminUserController::class, 'update'])->name('admin.user-update');
-        Route::get('/user-destroy/{id}', [AdminUserController::class, 'destroy'])->name('admin.user-destroy');
+        Route::get('/user-index', [AdminUserController::class, 'index'])->name('admin.user-index')->middleware('permission:view_users');
+        Route::get('/user-create', [AdminUserController::class, 'create'])->name('admin.user-create')->middleware('permission:create_users');
+        Route::post('/user-store', [AdminUserController::class, 'store'])->name('admin.user-store')->middleware('permission:create_users');
+        Route::get('/user-edit/{id}', [AdminUserController::class, 'edit'])->name('admin.user-edit')->middleware('permission:edit_users');
+        Route::put('/user-update/{id}', [AdminUserController::class, 'update'])->name('admin.user-update')->middleware('permission:edit_users');
+        Route::get('/user-destroy/{id}', [AdminUserController::class, 'destroy'])->name('admin.user-destroy')->middleware('permission:delete_users');
 
         Route::get(
             '/pengajuan-surat',
