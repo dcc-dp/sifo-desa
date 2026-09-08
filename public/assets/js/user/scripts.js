@@ -232,9 +232,56 @@
             });
         });
 
-        // 3. Mobile Menu Toggle
-        document.getElementById('menu-toggle').addEventListener('click', () => {
-            document.getElementById('nav-links').classList.toggle('active');
+        // 3. Mobile Menu Toggle & Dropdown Accordion Logic
+        const menuToggle = document.getElementById('menu-toggle');
+        const navLinks = document.getElementById('nav-links');
+
+        if (menuToggle && navLinks) {
+            menuToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                navLinks.classList.toggle('active');
+                const icon = menuToggle.querySelector('i');
+                if (icon) {
+                    if (navLinks.classList.contains('active')) {
+                        icon.className = 'fas fa-xmark';
+                    } else {
+                        icon.className = 'fas fa-bars';
+                    }
+                }
+            });
+        }
+
+        // Mobile Dropdown Accordion Toggle
+        const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+        dropdownToggles.forEach(toggle => {
+            toggle.addEventListener('click', (e) => {
+                // If on mobile / tablet width (<= 992px)
+                if (window.innerWidth <= 992) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const dropdown = toggle.closest('.dropdown');
+                    if (dropdown) {
+                        // Close other open dropdowns for clean accordion effect
+                        document.querySelectorAll('.dropdown.open').forEach(other => {
+                            if (other !== dropdown) {
+                                other.classList.remove('open');
+                            }
+                        });
+                        dropdown.classList.toggle('open');
+                    }
+                }
+            });
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (navLinks && navLinks.classList.contains('active')) {
+                if (!navLinks.contains(e.target) && !menuToggle.contains(e.target)) {
+                    navLinks.classList.remove('active');
+                    const icon = menuToggle?.querySelector('i');
+                    if (icon) icon.className = 'fas fa-bars';
+                }
+            }
         });
 
         // 4. Form Submission Mock
