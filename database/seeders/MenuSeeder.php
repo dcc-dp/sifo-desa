@@ -23,8 +23,10 @@ class MenuSeeder extends Seeder
 
         // Helper untuk assign role
         $assignRole = function ($menu) use ($superAdmin, $admin) {
-            if ($superAdmin) $menu->roles()->attach($superAdmin->id);
-            if ($admin) $menu->roles()->attach($admin->id);
+            if ($superAdmin)
+                $menu->roles()->attach($superAdmin->id);
+            if ($admin)
+                $menu->roles()->attach($admin->id);
         };
 
         // 1. Dashboard
@@ -84,6 +86,9 @@ class MenuSeeder extends Seeder
         $m8 = Menu::create(['title' => 'Pemerintah Desa', 'url' => '/admin/pemerintah-index', 'parent_id' => $h1->id, 'order_num' => 9, 'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-bank" viewBox="0 0 16 16"><path d="m8 0 6.61 3h.89a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5H15v7a.5.5 0 0 1 .485.38l.5 2a.498.498 0 0 1-.485.62H.5a.498.498 0 0 1-.485-.62l.5-2A.5.5 0 0 1 1 13V6H.5a.5.5 0 0 1-.5-.5v-2A.5.5 0 0 1 .5 3h.89zM3.777 3h8.447L8 1zM2 6v7h1V6zm2 0v7h2.5V6zm3.5 0v7h1V6zm2 0v7H12V6zM13 6v7h1V6zm2-1V4H1v1zm-.39 9H1.39l-.25 1h13.72z" /></svg>']);
         $assignRole($m8);
 
+        $m8_desa = Menu::create(['title' => 'Profil Desa', 'route_name' => 'admin.setting-desa.edit', 'parent_id' => $h1->id, 'order_num' => 10, 'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-gear" viewBox="0 0 16 16"><path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492M5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0"/></svg>']);
+        $assignRole($m8_desa);
+
         // --- MANAJEMEN AGENDA ---
         $h2 = Menu::create([
             'title' => 'Manajemen Agenda',
@@ -110,6 +115,9 @@ class MenuSeeder extends Seeder
 
         $m11 = Menu::create(['title' => 'Surat', 'route_name' => 'admin.pengajuan-surat.index', 'parent_id' => $h3->id, 'order_num' => 14, 'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-envelope-arrow-up" viewBox="0 0 16 16"><path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4.5a.5.5 0 0 1-1 0V5.383l-7 4.2-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h5.5a.5.5 0 0 1 0 1H2a2 2 0 0 1-2-1.99zm1 7.105 4.708-2.897L1 5.383zM1 4v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1" /><path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.354-5.354 1.25 1.25a.5.5 0 0 1-.708.708L13 12.207V14a.5.5 0 0 1-1 0v-1.717l-.28.305a.5.5 0 0 1-.737-.676l1.149-1.25a.5.5 0 0 1 .722-.016" /></svg>']);
         $assignRole($m11);
+
+        $m11_setting = Menu::create(['title' => 'Pengaturan Surat', 'route_name' => 'admin.setting-surat.edit', 'parent_id' => $h3->id, 'order_num' => 15, 'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-gear-fill" viewBox="0 0 16 16"><path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/></svg>']);
+        $assignRole($m11_setting);
 
         // --- MANAJEMEN PENGADUAN ---
         $h4 = Menu::create([

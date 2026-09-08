@@ -8,6 +8,9 @@ use Illuminate\Http\Request;
 
 class SettingController extends Controller
 {
+    /**
+     * Menu Setting: Identitas Umum Desa (Nama Desa & Uraian/Selayang Pandang)
+     */
     public function edit()
     {
         $setting = Setting::first();
@@ -19,11 +22,49 @@ class SettingController extends Controller
         return view('admin.setting.edit', compact('setting'));
     }
 
+    /**
+     * Update Menu Setting: Identitas Umum Desa
+     */
     public function update(Request $request)
     {
         $request->validate([
-            'nama_desa'  => 'required|string|max:255',
-            'deskripsi'  => 'nullable|string',
+            'nama_desa' => 'required|string|max:255',
+            'deskripsi' => 'nullable|string',
+        ]);
+
+        $setting = Setting::first();
+        $data = $request->only(['nama_desa', 'deskripsi']);
+
+        if (!$setting) {
+            $setting = Setting::create($data);
+        } else {
+            $setting->update($data);
+        }
+
+        return redirect()->route('admin.setting.edit')
+            ->with('success', 'Identitas Umum Desa berhasil disimpan!');
+    }
+
+    /**
+     * Menu Profil Desa: Kontak, Alamat, Sosmed, dan Peta Maps
+     */
+    public function editDesa()
+    {
+        $setting = Setting::first();
+
+        if (!$setting) {
+            $setting = new Setting();
+        }
+
+        return view('admin.setting-desa.edit', compact('setting'));
+    }
+
+    /**
+     * Update Menu Profil Desa: Kontak, Alamat, Sosmed, dan Peta Maps
+     */
+    public function updateDesa(Request $request)
+    {
+        $request->validate([
             'alamat'     => 'required|string',
             'email'      => 'required|email',
             'telepon'    => 'required|string|max:20',
@@ -31,6 +72,44 @@ class SettingController extends Controller
             'facebook'   => 'nullable|url',
             'instagram'  => 'nullable|url',
             'twitter'    => 'nullable|url',
+        ]);
+
+        $setting = Setting::first();
+        $data = $request->only([
+            'alamat', 'email', 'telepon', 'maps_embed',
+            'facebook', 'instagram', 'twitter'
+        ]);
+
+        if (!$setting) {
+            $setting = Setting::create($data);
+        } else {
+            $setting->update($data);
+        }
+
+        return redirect()->route('admin.setting-desa.edit')
+            ->with('success', 'Profil Desa (Kontak, Sosmed & Peta) berhasil disimpan!');
+    }
+
+    /**
+     * Menu Pengaturan Surat: Nomor Urut Surat, Logo Kop, Stempel, TTD Kades
+     */
+    public function editSurat()
+    {
+        $setting = Setting::first();
+
+        if (!$setting) {
+            $setting = new Setting();
+        }
+
+        return view('admin.setting-surat.edit', compact('setting'));
+    }
+
+    /**
+     * Update Menu Pengaturan Surat
+     */
+    public function updateSurat(Request $request)
+    {
+        $request->validate([
             'nomor_surat_berikutnya' => 'nullable|integer|min:1',
             'logo_surat'      => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'stempel_surat'   => 'nullable|image|mimes:png,jpeg,jpg|max:2048',
@@ -38,14 +117,14 @@ class SettingController extends Controller
         ]);
 
         $setting = Setting::first();
-        $data = $request->except(['logo_surat', 'stempel_surat', 'ttd_kepala_desa']);
+        $data = $request->only(['nomor_surat_berikutnya']);
 
         $uploadDir = public_path('upload/persuratan');
         if (!file_exists($uploadDir)) {
             mkdir($uploadDir, 0755, true);
         }
 
-        // 1. Upload Logo Surat
+        // 1. Upload Logo Kop Surat
         if ($request->hasFile('logo_surat')) {
             if ($setting && $setting->logo_surat && file_exists(public_path($setting->logo_surat)) && str_contains($setting->logo_surat, 'upload/persuratan/')) {
                 @unlink(public_path($setting->logo_surat));
@@ -84,7 +163,7 @@ class SettingController extends Controller
             $setting->update($data);
         }
 
-        return redirect()->route('admin.setting.edit')
-            ->with('success', 'Seluruh pengaturan dan aset persuratan berhasil disimpan!');
+        return redirect()->route('admin.setting-surat.edit')
+            ->with('success', 'Pengaturan Penomoran & Aset Persuratan berhasil disimpan!');
     }
 }

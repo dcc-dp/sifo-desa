@@ -35,7 +35,9 @@ class RolePermissionSeeder extends Seeder
             'sejarah',
             'kategori',
             'agenda',
-            'setting'
+            'setting',
+            'setting_surat',
+            'setting_desa'
         ];
 
         // Ambil juga modul dari menu dinamis jika ada
@@ -72,6 +74,9 @@ class RolePermissionSeeder extends Seeder
             'view_berita', 'create_berita', 'edit_berita', 'delete_berita',
             'view_pengaduan', 'create_pengaduan', 'edit_pengaduan', 'delete_pengaduan',
             'view_pemerintah', 'create_pemerintah', 'edit_pemerintah', 'delete_pemerintah',
+            'view_setting', 'edit_setting',
+            'view_setting_surat', 'edit_setting_surat',
+            'view_setting_desa', 'edit_setting_desa',
         ];
         $roleAdmin->syncPermissions($adminPermissions);
 
@@ -89,7 +94,7 @@ class RolePermissionSeeder extends Seeder
                 'password' => Hash::make('password'),
             ]);
         }
-        
+
         // Tetapkan role Super Admin ke user pertama
         $user->assignRole($roleSuperAdmin);
     }

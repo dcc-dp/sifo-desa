@@ -238,6 +238,8 @@
                                                                 'admin.roles.index' => 'roles',
                                                                 'admin.menus.index' => 'menus',
                                                                 'admin.setting.edit' => 'setting',
+                                                                'admin.setting-desa.edit' => 'setting_desa',
+                                                                'admin.setting-surat.edit' => 'setting_surat',
                                                                 'data.penduduk-index' => 'penduduk',
                                                                 'rt-index' => 'rt',
                                                                 'rw-index' => 'rw',

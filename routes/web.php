@@ -148,8 +148,14 @@ Route::middleware('auth')->group(function () {
         Route::put('/pemerintah-update/{id}', [PemerintahController::class, 'update'])->name('pemerintah-update')->middleware('permission:edit_pemerintah');
         Route::get('/pemerintah-destroy/{id}', [PemerintahController::class, 'destroy'])->name('pemerintah-destroy')->middleware('permission:delete_pemerintah');
 
-        Route::get('setting', [SettingController ::class, 'edit'])->name('admin.setting.edit')->middleware('permission:view_setting');
+        Route::get('setting', [SettingController::class, 'edit'])->name('admin.setting.edit')->middleware('permission:view_setting');
         Route::put('setting', [SettingController::class, 'update'])->name('admin.setting.update')->middleware('permission:edit_setting');
+
+        Route::get('setting-desa', [SettingController::class, 'editDesa'])->name('admin.setting-desa.edit')->middleware('permission:view_setting_desa');
+        Route::put('setting-desa', [SettingController::class, 'updateDesa'])->name('admin.setting-desa.update')->middleware('permission:edit_setting_desa');
+
+        Route::get('setting-surat', [SettingController::class, 'editSurat'])->name('admin.setting-surat.edit')->middleware('permission:view_setting_surat');
+        Route::put('setting-surat', [SettingController::class, 'updateSurat'])->name('admin.setting-surat.update')->middleware('permission:edit_setting_surat');
 
         Route::get('/sejarah-index', [SejarahController::class, 'index'])->name('sejarah-index')->middleware('permission:view_sejarah');
         Route::get('/sejarah-create', [SejarahController::class, 'create'])->name('sejarah-create')->middleware('permission:create_sejarah');
