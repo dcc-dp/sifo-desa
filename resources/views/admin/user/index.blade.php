@@ -13,10 +13,12 @@
                     <p class="admin-page-subtitle">Kelola akun dan hak akses administrator portal desa</p>
                 </div>
                 <div>
+                    @can('create_users')
                     <a href="{{ route('admin.user-create') }}" class="btn-admin-primary">
-                        <i class="fas fa-user-plus"></i>
+                        <i class="fas fa-plus"></i>
                         <span>Tambah User</span>
                     </a>
+                    @endcan
                 </div>
             </div>
 
@@ -68,14 +70,18 @@
                                     <td class="text-muted">{{ $user->email }}</td>
                                     <td class="text-center col-aksi">
                                         <div class="action-buttons-group">
+                                            @can('edit_users')
                                             <a href="{{ route('admin.user-edit', $user->id) }}" class="btn-action-pill btn-action-edit" title="Edit User">
                                                 <i class="fas fa-edit"></i> <span>Edit</span>
                                             </a>
+                                            @endcan
+                                            @can('delete_users')
                                             <a href="{{ route('admin.user-destroy', $user->id) }}" class="btn-action-pill btn-action-delete"
                                                 title="Hapus User"
                                                 onclick="return confirm('Apakah Anda yakin ingin menghapus user administrator ini?')">
                                                 <i class="fas fa-trash-alt"></i> <span>Hapus</span>
                                             </a>
+                                            @endcan
                                         </div>
                                     </td>
                                 </tr>

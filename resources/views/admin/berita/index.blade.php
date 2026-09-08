@@ -13,10 +13,12 @@
                     <p class="admin-page-subtitle">Kelola dan publikasikan informasi serta berita kegiatan Desa</p>
                 </div>
                 <div>
+                    @can('create_berita')
                     <a href="{{ route('berita-create') }}" class="btn-admin-primary">
                         <i class="fas fa-plus"></i>
                         <span>Tambah Berita</span>
                     </a>
+                    @endcan
                 </div>
             </div>
 
@@ -69,14 +71,19 @@
                                     </td>
                                     <td class="text-center col-aksi">
                                         <div class="action-buttons-group">
+                                            @can('edit_berita')
                                             <a href="{{ route('berita-edit', $berita->id) }}" class="btn-action-pill btn-action-edit" title="Edit Berita">
                                                 <i class="fas fa-edit"></i> <span>Edit</span>
                                             </a>
+                                            @endcan
+                                            
+                                            @can('delete_berita')
                                             <a href="{{ route('berita-destroy', $berita->id) }}" class="btn-action-pill btn-action-delete"
                                                 title="Hapus Berita"
                                                 onclick="return confirm('Apakah Anda yakin ingin menghapus berita ini?')">
                                                 <i class="fas fa-trash-alt"></i> <span>Hapus</span>
                                             </a>
+                                            @endcan
                                         </div>
                                     </td>
                                 </tr>

@@ -249,7 +249,8 @@
             transition: transform 0.25s ease, opacity 0.25s ease;
         }
 
-        .dropdown:hover .dropdown-arrow {
+        .dropdown:hover .dropdown-arrow,
+        .dropdown.open .dropdown-arrow {
             transform: rotate(180deg);
             opacity: 1;
             color: var(--color-primary);
@@ -301,8 +302,11 @@
             }
         }
 
-        .dropdown:hover .dropdown-menu {
-            display: flex;
+        @media (min-width: 993px) {
+            .dropdown:hover .dropdown-menu,
+            .dropdown.open .dropdown-menu {
+                display: flex;
+            }
         }
 
         .dropdown-menu li {
@@ -1790,7 +1794,7 @@
             }
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 992px) {
             .header-container {
                 position: relative;
             }
@@ -1809,18 +1813,23 @@
                 position: absolute;
                 top: 100%;
                 left: 0;
+                right: 0;
                 width: 100%;
                 background-color: #ffffff;
-                border-bottom: 3px solid var(--color-primary);
-                box-shadow: var(--shadow-lg);
-                padding: 16px 20px 24px;
+                border-radius: 0 0 16px 16px;
+                box-shadow: 0 16px 36px rgba(15, 23, 42, 0.15);
+                border: 1px solid var(--color-border);
+                border-top: none;
+                padding: 16px;
                 gap: 6px;
                 z-index: 1050;
+                max-height: calc(85vh - 70px);
+                overflow-y: auto;
             }
 
             .nav-links.active {
-                display: flex;
-                animation: navSlideDown 0.25s ease;
+                display: flex !important;
+                animation: navSlideDown 0.25s ease forwards;
             }
 
             @keyframes navSlideDown {
@@ -1837,14 +1846,16 @@
             .nav-links > li {
                 width: 100%;
                 margin: 0;
+                display: block;
             }
 
             .nav-item-link,
             .nav-links > li > a {
                 width: 100%;
-                padding: 11px 16px;
+                padding: 12px 16px;
                 border-radius: var(--border-radius-md);
                 justify-content: flex-start;
+                font-size: 0.95rem;
             }
 
             .dropdown {
@@ -1852,25 +1863,60 @@
             }
 
             .dropdown-toggle {
+                display: flex;
                 justify-content: space-between;
+                align-items: center;
                 width: 100%;
             }
 
+            /* Submenu inside mobile drawer (Inline Accordion Style) */
             .dropdown-menu {
-                position: static;
+                position: static !important;
+                top: auto !important;
+                left: 0 !important;
                 transform: none !important;
-                box-shadow: none;
-                border: 1px solid var(--color-border);
-                border-radius: var(--border-radius-md);
-                margin: 6px 0 10px 14px;
-                width: calc(100% - 14px);
-                min-width: unset;
-                display: flex;
+                box-shadow: none !important;
+                border: 1px solid var(--color-primary-border) !important;
+                background-color: var(--color-primary-subtle) !important;
+                border-radius: var(--border-radius-md) !important;
+                margin: 6px 0 8px 0 !important;
+                width: 100% !important;
+                min-width: unset !important;
+                padding: 6px !important;
+                display: none !important; /* Collapsed by default on mobile */
+                flex-direction: column !important;
+                gap: 3px !important;
+                animation: none !important;
+            }
+
+            /* Displayed inline when dropdown is toggled open */
+            .dropdown.open .dropdown-menu {
+                display: flex !important;
+            }
+
+            .dropdown.open .dropdown-arrow {
+                transform: rotate(180deg);
+                color: var(--color-primary);
+                opacity: 1;
+            }
+
+            .dropdown-menu a {
+                padding: 10px 14px;
+                font-size: 0.9rem;
+                border-radius: var(--border-radius-sm);
+                color: var(--color-text-body);
+                white-space: normal;
+            }
+
+            .dropdown-menu a:hover {
+                background-color: #ffffff;
+                color: var(--color-primary-dark);
+                transform: translateX(4px);
             }
 
             .nav-item-btn {
                 width: 100%;
-                margin-top: 8px;
+                margin-top: 10px;
             }
 
             .btn-login {
@@ -1878,6 +1924,7 @@
                 justify-content: center;
                 margin-left: 0;
                 padding: 12px;
+                border-radius: var(--border-radius-md);
             }
 
             /* Hero Galesong Responsive */
