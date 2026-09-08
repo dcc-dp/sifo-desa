@@ -14,8 +14,8 @@
             $hasKades = !empty($kades);
             $kadesName = $hasKades ? $kades->nama : 'Pemerintah Desa';
             $kadesRole = $hasKades ? $kades->jabatan : ('Pimpinan Desa ' . $desaName);
-            $kadesFoto = ($hasKades && $kades->foto && file_exists(public_path($kades->foto))) 
-                ? asset($kades->foto) 
+            $kadesFoto = ($hasKades && $kades->foto && file_exists(public_path($kades->foto)))
+                ? asset($kades->foto)
                 : asset('assets/img/kades_transparent.png');
         @endphp
 
@@ -35,12 +35,14 @@
                     </h1>
 
                     <p class="hero-galesong-quote">
-                        "Komitmen kami menghadirkan keterbukaan informasi dan pelayanan publik yang cepat, mudah, serta terpercaya demi kemajuan dan kesejahteraan seluruh masyarakat Desa {{ $desaName }}."
+                        "Komitmen kami menghadirkan keterbukaan informasi dan pelayanan publik yang cepat, mudah, serta
+                        terpercaya demi kemajuan dan kesejahteraan seluruh masyarakat Desa {{ $desaName }}."
                     </p>
 
                     <div class="hero-galesong-author">
                         <span class="galesong-author-bar">|</span>
-                        <span class="galesong-author-name">— {{ $hasKades ? $kadesName : ('Pemerintah Desa ' . $desaName) }}</span>
+                        <span class="galesong-author-name">—
+                            {{ $hasKades ? $kadesName : ('Pemerintah Desa ' . $desaName) }}</span>
                     </div>
 
                     <div class="hero-galesong-actions">
@@ -76,7 +78,8 @@
             <div class="section-intro">
                 <div class="section-badge-tag">Pusat Layanan & Kabar Desa</div>
                 <h2 class="section-title-modern">Informasi Terkini & Aparatur Desa</h2>
-                <p class="section-desc-modern">Akses cepat berita terhangat, agenda program desa, dan kepemimpinan pemerintah desa.</p>
+                <p class="section-desc-modern">Akses cepat berita terhangat, agenda program desa, dan kepemimpinan
+                    pemerintah desa.</p>
             </div>
 
             <div class="quick-info-grid">
@@ -183,9 +186,11 @@
                                 @if($p->foto)
                                     <img src="{{ asset($p->foto) }}" class="village-avatar" alt="{{ $p->nama }}">
                                 @else
-                                    <img src="{{ asset('assets/img/default-avatar.png') }}" class="village-avatar" alt="{{ $p->nama }}">
+                                    <img src="{{ asset('assets/img/default-avatar.png') }}" class="village-avatar"
+                                        alt="{{ $p->nama }}">
                                 @endif
-                                <span class="village-verified" title="Aparatur Desa Terverifikasi"><i class="fas fa-check"></i></span>
+                                <span class="village-verified" title="Aparatur Desa Terverifikasi"><i
+                                        class="fas fa-check"></i></span>
                             </div>
 
                             <h4 class="village-name">{{ $p->nama }}</h4>
@@ -201,7 +206,8 @@
 
                             <div class="quote-card">
                                 <i class="fas fa-quote-left quote-mark"></i>
-                                <p class="quote-text">"Melayani warga masyarakat dengan sepenuh hati, integritas, dan keterbukaan."</p>
+                                <p class="quote-text">"Melayani warga masyarakat dengan sepenuh hati, integritas, dan
+                                    keterbukaan."</p>
                             </div>
                         </div>
 
