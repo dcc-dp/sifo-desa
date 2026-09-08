@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\Facades\URL;
 use App\Models\Kategori;
 use App\Models\Setting;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -24,6 +25,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Gate Super Admin (Grant all permissions automatically to Super Admin)
+        Gate::before(function ($user, $ability) {
+            return $user->hasRole('Super Admin') ? true : null;
+        });
+
         // 1. Memaksa Laravel menggunakan HTTPS jika berjalan di HTTPS / Production
         if (config('app.env') === 'production' || request()->isSecure() || request()->header('x-forwarded-proto') === 'https') {
             URL::forceScheme('https');
@@ -70,10 +76,15 @@ class AppServiceProvider extends ServiceProvider
                     foreach ($allMenus as $m) {
                         if ($m->is_header) continue;
                         $slugKey = \Illuminate\Support\Str::slug($m->title, '_');
+                        $firstWordSlug = explode('_', $slugKey)[0];
+                        $urlSlugClean = str_replace(['-index', '-create', '-edit'], '', trim(str_replace('/admin/', '', $m->url ?? ''), '/'));
+                        $urlSlugClean = str_replace('-', '_', $urlSlugClean);
                         
                         // Check if user has view permission for this menu OR if menu roles match user's roles
                         $hasPerm = $user->can('view_' . $slugKey) 
-                                || $user->can('view_' . str_replace('-', '_', $m->route_name));
+                                || $user->can('view_' . $firstWordSlug)
+                                || ($urlSlugClean && $user->can('view_' . $urlSlugClean))
+                                || ($m->route_name && $user->can('view_' . str_replace('-', '_', $m->route_name)));
                         $hasRole = $m->roles->pluck('id')->intersect($user->roles->pluck('id'))->count() > 0;
 
                         if ($hasPerm || $hasRole) {

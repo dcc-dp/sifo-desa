@@ -74,6 +74,7 @@ class RolePermissionSeeder extends Seeder
             'view_berita', 'create_berita', 'edit_berita', 'delete_berita',
             'view_pengaduan', 'create_pengaduan', 'edit_pengaduan', 'delete_pengaduan',
             'view_pemerintah', 'create_pemerintah', 'edit_pemerintah', 'delete_pemerintah',
+            'view_pemerintah_desa', 'create_pemerintah_desa', 'edit_pemerintah_desa', 'delete_pemerintah_desa',
             'view_setting', 'edit_setting',
             'view_setting_surat', 'edit_setting_surat',
             'view_setting_desa', 'edit_setting_desa',
