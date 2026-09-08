@@ -134,5 +134,10 @@ class MenuSeeder extends Seeder
 
         $m15 = Menu::create(['title' => 'Setting', 'route_name' => 'admin.setting.edit', 'parent_id' => $h5->id, 'order_num' => 20, 'icon' => '']);
         $assignRole($m15);
+
+        $m16 = Menu::create(['title' => 'Menu Management', 'route_name' => 'admin.menus.index', 'parent_id' => $h5->id, 'order_num' => 21, 'icon' => '']);
+        if ($superAdmin) {
+            $m16->roles()->attach($superAdmin->id);
+        }
     }
 }
