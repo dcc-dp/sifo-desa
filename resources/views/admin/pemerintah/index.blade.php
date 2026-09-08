@@ -13,12 +13,12 @@
                     <p class="admin-page-subtitle">Kelola struktur kepengurusan dan aparatur Pemerintah Desa</p>
                 </div>
                 <div>
-                    @can('create_pemerintah')
+                    @canany(['create_pemerintah', 'create_pemerintah_desa'])
                     <a href="{{ route('pemerintah-create') }}" class="btn-admin-primary">
                         <i class="fas fa-plus"></i>
                         <span>Tambah Aparatur</span>
                     </a>
-                    @endcan
+                    @endcanany
                 </div>
             </div>
 
@@ -78,18 +78,18 @@
                                     </td>
                                     <td class="text-center col-aksi">
                                         <div class="action-buttons-group">
-                                            @can('edit_pemerintah')
+                                            @canany(['edit_pemerintah', 'edit_pemerintah_desa'])
                                             <a href="{{ route('pemerintah-edit', $pemerintah->id) }}" class="btn-action-pill btn-action-edit" title="Edit Aparatur">
                                                 <i class="fas fa-edit"></i> <span>Edit</span>
                                             </a>
-                                            @endcan
-                                            @can('delete_pemerintah')
+                                            @endcanany
+                                            @canany(['delete_pemerintah', 'delete_pemerintah_desa'])
                                             <a href="{{ route('pemerintah-destroy', $pemerintah->id) }}" class="btn-action-pill btn-action-delete"
                                                 title="Hapus Aparatur"
                                                 onclick="return confirm('Apakah Anda yakin ingin menghapus data aparatur ini?')">
                                                 <i class="fas fa-trash-alt"></i> <span>Hapus</span>
                                             </a>
-                                            @endcan
+                                            @endcanany
                                         </div>
                                     </td>
                                 </tr>

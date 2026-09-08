@@ -52,7 +52,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="../assets/img/favicon.png">
     <title>
-        Corporate UI by Creative Tim & UPDIVISION
+        {{ $title ?? (View::hasSection('title') ? View::getSection('title') : 'SIFO DESA - Sistem Informasi Desa') }}
     </title>
     <!-- Google Fonts: Inter & Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
