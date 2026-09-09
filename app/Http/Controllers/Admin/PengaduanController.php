@@ -127,5 +127,20 @@ class PengaduanController extends Controller
         );
     }
 
-    
+    public function destroy($id)
+    {
+        $pengaduan = Pengaduan::findOrFail($id);
+
+        if ($pengaduan->gambar && file_exists(public_path($pengaduan->gambar))) {
+            @unlink(public_path($pengaduan->gambar));
+        }
+
+        if ($pengaduan->file && file_exists(public_path($pengaduan->file))) {
+            @unlink(public_path($pengaduan->file));
+        }
+
+        $pengaduan->delete();
+
+        return redirect()->route('admin.pengaduan-index')->with('success', 'Data pengaduan berhasil dihapus.');
+    }
 }

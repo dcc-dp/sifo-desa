@@ -188,4 +188,17 @@ public function tolak(Request $request, $id)
         'Surat berhasil ditolak'
     );
 }
+
+    public function destroy($id)
+    {
+        $surat = Surat::findOrFail($id);
+
+        if ($surat->file_pdf && file_exists(storage_path('app/public/' . $surat->file_pdf))) {
+            @unlink(storage_path('app/public/' . $surat->file_pdf));
+        }
+
+        $surat->delete();
+
+        return redirect()->route('admin.pengajuan-surat.index')->with('success', 'Permohonan surat berhasil dihapus.');
+    }
 }
