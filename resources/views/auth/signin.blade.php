@@ -14,11 +14,11 @@
                         <div class="col-xl-4 col-md-6 d-flex flex-column mx-auto">
                             <div class="card-header pb-0 text-center bg-white border-0">
 
-                                <img src="{{ asset('uploads/galeri/logo_sifo.png') }}" alt="Logo SIFO"
-                                    style="height:70px;">
+                                <!-- <img src="{{ asset('uploads/galeri/logo_sifo.png') }}" alt="Logo SIFO" -->
+                                    <!-- style="height:70px;"> -->
 
                                 <h2 class="mt-3 fw-bold text-dark">
-                                    SIFO DESA
+                                    SIFO DESA RANTE GOLA
                                 </h2>
 
                                 <p class="text-secondary mb-0">
