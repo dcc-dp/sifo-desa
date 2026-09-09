@@ -4,7 +4,7 @@
 
             <div class="footer-col footer-col-brand">
                 <div class="footer-logo">
-                    <img src="{{ asset('uploads/galeri/logo_sifo.png') }}" alt="Logo Desa" class="footer-logo-img">
+                    <!-- <img src="{{ asset('uploads/galeri/logo_sifo.png') }}" alt="Logo Desa" class="footer-logo-img"> -->
                     <div class="footer-logo-text">
                         <h4>DESA {{ strtoupper($setting->nama_desa ?? 'RANTE GOLA') }}</h4>
                         <span>Sistem Informasi & Layanan Terpadu</span>
