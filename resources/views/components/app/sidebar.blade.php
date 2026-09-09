@@ -30,9 +30,15 @@
             @if(isset($dynamicMenus) && $dynamicMenus->count() > 0)
                 @foreach($dynamicMenus as $menu)
                     @if($menu->is_header)
+                        @php
+                            $headerIcon = $menu->icon;
+                            if ($menu->title === 'Manajemen Profil Desa' && (empty($headerIcon) || !str_contains($headerIcon, 'bi-bank2'))) {
+                                $headerIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bank2" viewBox="0 0 16 16"><path d="M8.277.084a.5.5 0 0 0-.554 0l-7.5 5A.5.5 0 0 0 .5 6h1.875v7H1.5a.5.5 0 0 0 0 1h13a.5.5 0 0 0 0-1h-.875V6H15.5a.5.5 0 0 0 .277-.916zM12.375 6v7h-1.25V6zm-2.5 0v7h-1.25V6zm-2.5 0v7h-1.25V6zm-2.5 0v7h-1.25V6zM8 1.411 14.115 5.5H1.885z"/></svg>';
+                            }
+                        @endphp
                         <li class="nav-item mt-2">
                             <div class="d-flex align-items-center nav-link">
-                                {!! $menu->icon !!}
+                                {!! $headerIcon !!}
                                 <span class="font-weight-normal text-md ms-2">{{ $menu->title }}</span>
                             </div>
                         </li>
@@ -56,12 +62,17 @@
                                             $isActive = true;
                                         }
                                     }
+
+                                    $childIcon = $child->icon;
+                                    if (($child->title === 'Profil Desa' || $child->route_name === 'admin.setting-desa.edit') && (empty($childIcon) || str_contains($childIcon, 'M8 4.754') || str_contains($childIcon, 'bi-gear'))) {
+                                        $childIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-building" viewBox="0 0 16 16"><path d="M4 2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zM4 5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zM7.5 5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zM4.5 8a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5z"/><path d="M2 1a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1zm11 0H3v14h3v-2.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5V15h3z"/></svg>';
+                                    }
                                 @endphp
                                 <li class="nav-item border-start my-0 pt-2">
-                                    <a class="nav-link {{ empty($child->icon) ? 'position-relative ms-0 ps-2 py-2' : '' }} {{ $isActive ? 'active' : '' }}" href="{{ $link }}">
-                                        @if(!empty($child->icon))
+                                    <a class="nav-link {{ empty($childIcon) ? 'position-relative ms-0 ps-2 py-2' : '' }} {{ $isActive ? 'active' : '' }}" href="{{ $link }}">
+                                        @if(!empty($childIcon))
                                         <div class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
-                                            {!! $child->icon !!}
+                                            {!! $childIcon !!}
                                         </div>
                                         @endif
                                         <span class="nav-link-text ms-1">{{ $child->title }}</span>
