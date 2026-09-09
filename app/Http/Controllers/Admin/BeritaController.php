@@ -104,7 +104,7 @@ class BeritaController extends Controller
 
             $gambar = $request->file('gambar');
             $filename = date('Ymd_His') . '_' . uniqid() . '.' . $gambar->getClientOriginalExtension();
-            $gambar->move(public_path('upwebload/berita'), $filename);
+            $gambar->move(public_path('upload/berita'), $filename);
             $data['gambar'] = 'upload/berita/' . $filename;
         }
 

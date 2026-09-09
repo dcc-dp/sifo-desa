@@ -161,13 +161,13 @@
                     </td>
                     <td class="text-center col-aksi">
                         <div class="action-buttons-group">
-                            <a href="/data-penduduk-show/${item.id}" class="btn-action-pill btn-action-view" title="Detail Penduduk">
+                            <a href="/data.penduduk-show/${item.id}" class="btn-action-pill btn-action-view" title="Detail Penduduk">
                                 <i class="fas fa-eye"></i> <span>Detail</span>
                             </a>
-                            <a href="/data-penduduk-edit/${item.id}" class="btn-action-pill btn-action-edit" title="Edit Penduduk">
+                            <a href="/data.penduduk-edit/${item.id}" class="btn-action-pill btn-action-edit" title="Edit Penduduk">
                                 <i class="fas fa-edit"></i> <span>Edit</span>
                             </a>
-                            <form action="/data-penduduk-destroy/${item.id}" method="POST" class="d-inline">
+                            <form action="/data.penduduk-destroy/${item.id}" method="POST" class="d-inline">
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                 <input type="hidden" name="_method" value="DELETE">
                                 <button type="submit" class="btn-action-pill btn-action-delete" title="Hapus Penduduk"

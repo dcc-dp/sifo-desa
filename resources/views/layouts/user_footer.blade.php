@@ -27,7 +27,6 @@
                         @if($setting?->twitter)
                             <a href="{{ $setting->twitter }}" target="_blank" aria-label="Twitter" class="social-btn"><i class="fab fa-x-twitter"></i></a>
                         @endif
-                        <a href="#" class="social-btn" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
             </div>
